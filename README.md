@@ -4,6 +4,6 @@ Study of photoionization of magnetized globules with application to observations
 
 ## Contents of repository
 
-- README.md: this file
+- README.md: this file, which contains a brief description of the project
 
 
