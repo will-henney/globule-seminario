@@ -1,0 +1,15 @@
+ 
+* Circumstellar nebula M1-67 around the Wolf Rayet star WR124
+
+** HST images
+- [[file:MAST_wr124.json]] has a list  of the files that I have downloaded
+  - These are the Level 3 products from the HLA of the WFPC2 observations, plus the Level 2 products from the FOC in the UV
+  - On my laptop I have put the data files 
+
+** Papers
+- [[https://ui.adsabs.harvard.edu/abs/1998Ap&SS.260..181G][Grosdidier et al (1998)]] First epoch HST images. Has some prescient comments:
+  : We see many bright resolved knots of emission in the inner nebula, often surrounded by spherical, diffuse material (Fig. 2).
+  So they seem to have notice the knots and the shocked shells.
+- [[https://ui.adsabs.harvard.edu/abs/2001ApJ...562..753G][Grosdidier et al (2001)]] Analysis of same HST images, together with 
+  CFHT spectra. They do lots of statistical analysis of structure functions and PDFs and try to relate it to turbulence. However, when they try and remove the stars from the HST image, they also remove the knots, which is not ideal.
+- 
