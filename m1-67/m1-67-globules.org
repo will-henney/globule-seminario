@@ -1,11 +1,31 @@
  
 * Circumstellar nebula M1-67 around the Wolf Rayet star WR124
 
+
+
+** Measuring the knots
+- Region file
+  - [[file:../../../Work/WR124-HST/m1-67-globules.reg]]
+- Number of globules: 169
+- Number of isolated globules where we can hope to measure the shell: 49
 ** HST images
 - [[file:MAST_wr124.json]] has a list  of the files that I have downloaded
   - These are the Level 3 products from the HLA of the WFPC2 observations, plus the Level 2 products from the FOC in the UV
-  - On my laptop I have put the data files 
+  - On my laptop I have put the data files in file:/Users/will/Work/WR124-HST/
 
+*** Available datasets
+- I have got some images from HLA in the following filters
+  - F656N
+    - Two epochs
+  - F555W
+  - F675W
+- They are badly contaminated by CRs, and I am not sure if these are the best observations or not
+- It seems like the second F656N image I have is much better
+  - Yes, this is the second epoch 2008-06
+  - [2023-05-05 Fri] I am now using this image to mark the globules ass DS9 regions
+- I also have some FOC images in the NUV, which appear to show nothing but the star
+- Now I am downloading the original HST datasets (not the HLA ones)
+  - They have the c1f extension, which means they may not have been drizzled
 ** Papers
 - [[https://ui.adsabs.harvard.edu/abs/1998Ap&SS.260..181G][Grosdidier et al (1998)]] First epoch HST images. Has some prescient comments:
   : We see many bright resolved knots of emission in the inner nebula, often surrounded by spherical, diffuse material (Fig. 2).
