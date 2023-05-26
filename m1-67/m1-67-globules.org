@@ -1,7 +1,8 @@
  
 * Circumstellar nebula M1-67 around the Wolf Rayet star WR124
 
-
+** Plan for poster
+This is in a [[file:m1-67-bowshocks-poster.md][separate markdown file]] for greater accessibility
 
 ** Measuring the knots
 - Region file
