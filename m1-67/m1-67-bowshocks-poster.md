@@ -1,6 +1,6 @@
 # Plan for poster to present at Wolf Rayet conference June 2023 Morelia
 
-## Title ##
+## Title of poster ##
 
 Pending suggestion from Roberto
 
@@ -8,7 +8,7 @@ We could try a modification of what I put for the proposed paper:
 
 > Shielded from the wind: evaporating neutral globules around a Wolf-Rayet star
 
-## Abstract ##
+## Abstract for poster ##
 
 ### Roberto's first version ###
 
@@ -40,4 +40,25 @@ We could maybe borrow some phrases from this:
 > We show that \textit{something, something, something, \dots}.
 > We compare the globule-wind interaction around WR~124 with similar interactions
 > seen elsewhere, such as photoevaporating disks (proplyds) in the Orion Nebula.
+
+### Final merged version
+
+> The circumstellar nebula M1-67 around the Wolf-Rayet star WR~124
+> contains hundreds of small neutral globules, as revealed by recent
+> JWST images.  However, despite the powerful stellar wind from the
+> star, the globules do not interact directly with the wind.  Instead,
+> they are hydrodynamically shielded by a transonic warm ionized flow
+> away from their surfaces that is induced by the Lyman continuum
+> radiation of the star.  This inwardly directed photoevaporation flow
+> shocks against the outflowing stellar wind to form dense
+> hemispherical ionized shells that are a few times larger than the
+> globules and which contribute a significant fraction of the
+> recombination line luminosity of the nebula.  We analyze archival
+> HST H$\alpha$ images of the nebula 
+> in order to study the balance between the ram pressure of the stellar wind and the 
+> internal pressure due to the photoevaporative flows.  By considering a steady state
+> hydrodynamic model for these interactions, we obtain physical parameters of the 
+> collision shells and de-project the spatial distribution of globules, 
+> finding that the majority are concentrated in a 
+> narrow range of radii: 0.5 +/- 0.1 pc from the star.  
 
