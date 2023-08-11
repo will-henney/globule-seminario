@@ -1,0 +1,78 @@
+* Hydrodynamic simulations for Robberto globule project
+
+- In the medium term, we would like to do some simulations of the wind-globule interactions in M1-67
+- It would also be good to do some three-wind simulations
+
+
+** Trying out PION on ghibli
+
+*** Visualizing the output using pypion
+
+- can be installed via pip
+- but we still need to install Silo python bindings somehow
+
+*** Test runs
+
+**** Standard Wind2D test with released version
+- [2023-08-10 Thu 21:05] This is running at the moment
+- First file written at 20:57
+- 20480 written at 21:00, which is 3 minutes
+- In contrast, on my laptop it was 23:42 - 23:32, which is 10 minutes
+- So ghibli with 16 cores is about 3 to 4 times faster than my laptop with 8 cores
+- Finishes entire run in 25 min, as opposed to 2 hours that was adverised
+
+*** Install "released" version of PION
+- This is probably not worth it since it is incompatible with sundials 6
+- Would need to downgrade to sundials 5
+**** Issues encountered
+
+***** Compiling extra libraries
+- had to add extra lines to ~extra_libraries/install_all_libs.sh~
+  #+begin_src sh
+    HDF5_LIBS="/usr/local/Cellar/hdf5/1.12.2_2/include,/usr/local/Cellar/hdf5/1.12.2_2/lib"
+  #+end_src
+- and also
+  #+begin_src sh
+       PYTHON_CPPFLAGS="-I/Users/will/miniconda3/envs/py39/include/python3.9"\
+  #+end_src
+
+***** Weird problem with case insensitivity
+- We have to do
+  #+begin_src sh
+    mv VERSION VERSION.txt
+  #+end_src
+  in ~extra_libraries/install_all_libs.sh~
+
+***** Making sure compiler finds the homebrew libraries and includes
+- The homebrew default location has changed on apple silicon macs
+- In ~bin_parallel/Makefile~
+  #+begin_src makefile
+      INC += -I/opt/homebrew/include
+  #+end_src
+- and
+  #+begin_src makefile
+    LDFLAGS += -L/opt/homebrew/lib
+  #+end_src
+***** Incompatibility with sundials 6
+- There were major API changes from version 5 to 6
+  - See https://github.com/LLNL/sundials/releases/tag/v6.0.0
+- As a result, I needed to downgrade in homebrew to version 5
+- These are the commands I ran to do this
+  #+begin_src sh
+     brew uninstall sundials
+     brew tap-new $USER/local-sundials
+     brew tap homebrew/core
+     brew extract --version=5.8 sundials $USER/local-sundials
+     brew install sundials@5.8
+  #+end_src
+  - This based on instructions found at https://cmichel.io/how-to-install-an-old-package-version-with-brew/
+
+***** Make sure compiler uses C++ 14 extensions
+In ~bin_parallel/Makefile~
+#+begin_src makefile
+  CXXFLAGS += -std=c++14
+
+#+end_src
+
+*** Install development version of PION
+- Need to check which version of sundials we need
