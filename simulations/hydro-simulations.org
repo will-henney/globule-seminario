@@ -11,6 +11,19 @@
 - can be installed via pip
 - but we still need to install Silo python bindings somehow
 
+**** Installing python bindings of Silo
+- This has turned out to be rather tricky
+  - I managed to install the python bindings for silo as a static library, both on my laptop and on ghibli
+  - But it need to be a dynamic module in order to load it in python
+  - And trying to compile it as dynamic gives lots of errors
+- [X] Now trying to follow method in pypion dev repo, which seems more recent
+  - https://www.pion.ie/docs/dev/python.html
+  - [2023-08-11 Fri 08:03] Without editing ~install_silo.sh~ it fails to find the C++ compiler, but that should be easily fixable
+  - Yes, that works!
+  - Small number of fixes:
+    - Reverted to common names for compilers (gcc and g++), which are the clang versions on MacOS
+    - move the VERSION file out of the way
+
 *** Test runs
 
 **** Standard Wind2D test with released version
@@ -19,7 +32,16 @@
 - 20480 written at 21:00, which is 3 minutes
 - In contrast, on my laptop it was 23:42 - 23:32, which is 10 minutes
 - So ghibli with 16 cores is about 3 to 4 times faster than my laptop with 8 cores
-- Finishes entire run in 25 min, as opposed to 2 hours that was adverised
+- Finishes entire run in 25 min, as opposed to 2 hours that was advertised
+
+**** Cosmological globule evaporation
+- Case 7 from Iliev:2009a
+- This ran extremely quickly
+- But it looks a bit weird, as if the globule was immediately flash-ionized
+  - And then it just expands spherically
+- But in theory, the column density of the clump should be high enough to have a d-type transition
+- The density of the clump looks like it is correct, so it must be the ionizing flux that is too high
+- Looking through the source code, I still have not found what units the source strength should be in
 
 *** Install "released" version of PION
 - This is probably not worth it since it is incompatible with sundials 6
