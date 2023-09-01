@@ -81,11 +81,11 @@
 - As a result, I needed to downgrade in homebrew to version 5
 - These are the commands I ran to do this
   #+begin_src sh
-     brew uninstall sundials
-     brew tap-new $USER/local-sundials
-     brew tap homebrew/core
-     brew extract --version=5.8 sundials $USER/local-sundials
-     brew install sundials@5.8
+    brew uninstall sundials
+    brew tap-new $USER/local-sundials
+    brew tap homebrew/core
+    brew extract --version=5.8 sundials $USER/local-sundials
+    brew install sundials@5.8
   #+end_src
   - This based on instructions found at https://cmichel.io/how-to-install-an-old-package-version-with-brew/
 
