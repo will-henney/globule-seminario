@@ -1,79 +1,59 @@
 # Region file format: DS9 version 4.1
 global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
 fk5
-line(19:11:31.4265,+16:51:37.613,19:11:29.9868,+16:51:39.113) # line=0 0
+line(19:11:31.4265,+16:51:37.614,19:11:29.9868,+16:51:39.113) # line=0 0
 line(19:11:30.8453,+16:51:32.725,19:11:30.9205,+16:51:46.705) # line=0 0
 point(19:11:30.8747,+16:51:38.188) # point=box
 point(19:11:30.7014,+16:51:31.947) # point=circle width=3
 point(19:11:30.4378,+16:51:37.392) # point=circle width=3
-point(19:11:30.7815,+16:51:31.780) # point=circle width=3
+point(19:11:30.7816,+16:51:31.780) # point=circle width=3
 point(19:11:30.8317,+16:51:31.177) # point=circle width=3
 point(19:11:30.9052,+16:51:30.759) # point=circle width=3
+point(19:11:30.8842,+16:51:29.704) # point=circle
 point(19:11:30.5506,+16:51:29.143) # point=circle width=3
-point(19:11:30.6007,+16:51:28.775) # point=circle width=3
-point(19:11:30.4725,+16:51:31.079) # point=circle width=3
+point(19:11:30.6007,+16:51:28.774) # point=circle width=3
+point(19:11:30.4725,+16:51:31.080) # point=circle width=3
+point(19:11:30.3193,+16:51:30.732) # point=circle
+point(19:11:30.4645,+16:51:27.607) # point=circle
+point(19:11:30.5753,+16:51:28.099) # point=circle
 point(19:11:30.4282,+16:51:35.957) # point=circle width=3
 point(19:11:30.2253,+16:51:35.297) # point=circle width=3
 point(19:11:30.6531,+16:51:27.531) # point=circle width=3
-point(19:11:30.7141,+16:51:27.947) # point=circle width=3
+point(19:11:30.7141,+16:51:27.948) # point=circle width=3
+point(19:11:30.7663,+16:51:26.906) # point=circle
 point(19:11:31.0188,+16:51:27.114) # point=circle width=3
+point(19:11:31.0624,+16:51:26.364) # point=circle
+point(19:11:31.0885,+16:51:25.489) # point=circle
+point(19:11:30.9811,+16:51:24.989) # point=circle
+point(19:11:30.4068,+16:51:25.835) # point=circle
 point(19:11:30.5916,+16:51:24.171) # point=circle width=3
+point(19:11:30.5311,+16:51:27.378) # point=circle
 point(19:11:30.8382,+16:51:26.349) # point=circle width=3
+point(19:11:30.8819,+16:51:25.175) # point=circle
 point(19:11:30.9991,+16:51:22.112) # point=circle width=3
 point(19:11:30.8761,+16:51:20.810) # point=circle width=3
 point(19:11:31.0837,+16:51:21.128) # point=circle width=3
 point(19:11:30.6918,+16:51:20.788) # point=circle width=3
 point(19:11:30.5322,+16:51:18.454) # point=circle width=3
+point(19:11:30.8689,+16:51:19.371) # point=circle
+point(19:11:31.2375,+16:51:21.955) # point=circle
+point(19:11:31.3014,+16:51:24.663) # point=circle
 point(19:11:30.9495,+16:51:16.050) # point=circle width=3
 point(19:11:30.9696,+16:51:15.062) # point=circle width=3
 point(19:11:31.2921,+16:51:13.181) # point=circle width=3
-point(19:11:31.4670,+16:51:12.084) # point=circle width=3
-point(19:11:30.3136,+16:51:22.388) # point=circle width=3
-point(19:11:30.1785,+16:51:21.144) # point=circle width=3
-point(19:11:30.0314,+16:51:23.735) # point=circle width=3
-point(19:11:29.8803,+16:51:23.521) # point=circle width=3
-point(19:11:29.2434,+16:51:25.095) # point=circle width=3
-point(19:11:29.2434,+16:51:29.025) # point=circle width=3
-point(19:11:29.3474,+16:51:38.562) # point=circle width=3
-point(19:11:29.5285,+16:51:42.312) # point=circle width=3
-point(19:11:30.1973,+16:51:41.763) # point=circle width=3
-point(19:11:30.6083,+16:51:44.863) # point=circle width=3
-point(19:11:30.7581,+16:51:42.413) # point=circle width=3
-point(19:11:31.2310,+16:51:43.951) # point=circle width=3
-point(19:11:31.6503,+16:51:39.466) # point=circle width=3
-point(19:11:31.5817,+16:51:37.180) # point=circle width=3
-point(19:11:31.8458,+16:51:42.272) # point=circle width=3
-point(19:11:31.3822,+16:51:46.092) # point=circle width=3
-point(19:11:32.2771,+16:51:40.044) # point=circle width=3
-point(19:11:31.3633,+16:51:48.661) # point=circle width=3
-point(19:11:30.9379,+16:51:48.300) # point=circle width=3
-point(19:11:30.8291,+16:51:47.982) # point=circle width=3
-point(19:11:30.7525,+16:51:52.582) # point=circle width=3
-point(19:11:30.8250,+16:51:52.958) # point=circle width=3
-point(19:11:30.6319,+16:51:53.711) # point=circle width=3
-point(19:11:30.5160,+16:52:03.545) # point=circle width=3
-point(19:11:30.3215,+16:52:03.795) # point=circle width=3
-point(19:11:30.7663,+16:51:26.906) # point=circle
-point(19:11:31.0624,+16:51:26.364) # point=circle
-point(19:11:31.0885,+16:51:25.489) # point=circle
-point(19:11:30.9811,+16:51:24.989) # point=circle
-point(19:11:30.4068,+16:51:25.835) # point=circle
-point(19:11:30.5311,+16:51:27.378) # point=circle
-point(19:11:30.8819,+16:51:25.175) # point=circle
-point(19:11:30.8689,+16:51:19.371) # point=circle
-point(19:11:30.4625,+16:51:32.579) # point=circle
-point(19:11:31.2375,+16:51:21.954) # point=circle
-point(19:11:31.3014,+16:51:24.663) # point=circle
 point(19:11:30.7462,+16:51:15.833) # point=circle
+point(19:11:31.4670,+16:51:12.084) # point=circle width=3
 point(19:11:31.8369,+16:51:07.573) # point=circle
 point(19:11:31.5419,+16:51:05.941) # point=circle
 point(19:11:31.7907,+16:51:08.108) # point=circle
-point(19:11:31.7756,+16:51:07.747) # point=circle
+point(19:11:31.7756,+16:51:07.746) # point=circle
 point(19:11:31.7907,+16:51:05.673) # point=circle
 point(19:11:30.3216,+16:51:22.041) # point=circle
-point(19:11:30.2591,+16:51:22.446) # point=circle
-point(19:11:30.2733,+16:51:20.218) # point=circle
-point(19:11:30.3377,+16:51:20.797) # point=circle
+point(19:11:30.3136,+16:51:22.388) # point=circle width=3
+point(19:11:30.2592,+16:51:22.446) # point=circle
+point(19:11:30.1785,+16:51:21.144) # point=circle width=3
+point(19:11:30.2732,+16:51:20.218) # point=circle
+point(19:11:30.3378,+16:51:20.797) # point=circle
 point(19:11:30.3337,+16:51:19.813) # point=circle
 point(19:11:30.3357,+16:51:19.176) # point=circle
 point(19:11:30.2410,+16:51:18.771) # point=circle
@@ -81,57 +61,72 @@ point(19:11:30.2269,+16:51:17.730) # point=circle
 point(19:11:30.2027,+16:51:16.890) # point=circle
 point(19:11:30.0818,+16:51:19.958) # point=circle
 point(19:11:30.1120,+16:51:21.896) # point=circle
+point(19:11:30.0314,+16:51:23.735) # point=circle width=3
 point(19:11:29.8455,+16:51:19.963) # point=circle
 point(19:11:29.7724,+16:51:19.013) # point=circle
 point(19:11:29.6644,+16:51:18.113) # point=circle
-point(19:11:29.6157,+16:51:16.313) # point=circle
-point(19:11:29.6226,+16:51:23.263) # point=circle
+point(19:11:29.6156,+16:51:16.313) # point=circle
+point(19:11:29.6226,+16:51:23.262) # point=circle
+point(19:11:29.8803,+16:51:23.521) # point=circle width=3
 point(19:11:29.4868,+16:51:25.912) # point=circle
-point(19:11:29.6017,+16:51:26.612) # point=circle
-point(19:11:29.1628,+16:51:26.004) # point=circle
+point(19:11:29.6017,+16:51:26.613) # point=circle
+point(19:11:29.2434,+16:51:25.095) # point=circle width=3
+point(19:11:29.1628,+16:51:26.005) # point=circle
 point(19:11:29.0939,+16:51:25.209) # point=circle
 point(19:11:29.2753,+16:51:28.585) # point=circle
+point(19:11:29.2434,+16:51:29.025) # point=circle width=3
 point(19:11:29.1342,+16:51:28.850) # point=circle
+point(19:11:29.3474,+16:51:38.562) # point=circle width=3
 point(19:11:29.3196,+16:51:38.712) # point=circle
 point(19:11:29.5599,+16:51:38.412) # point=circle
+point(19:11:29.5285,+16:51:42.312) # point=circle width=3
 point(19:11:29.2429,+16:51:41.762) # point=circle
-point(19:11:30.5525,+16:51:46.313) # point=circle
+point(19:11:30.1973,+16:51:41.763) # point=circle width=3
+point(19:11:30.6083,+16:51:44.862) # point=circle width=3
+point(19:11:30.5526,+16:51:46.313) # point=circle
 point(19:11:30.9531,+16:51:41.863) # point=circle
 point(19:11:30.9949,+16:51:41.063) # point=circle
-point(19:11:31.0541,+16:51:43.013) # point=circle
+point(19:11:31.0541,+16:51:43.012) # point=circle
 point(19:11:31.1342,+16:51:40.563) # point=circle
-point(19:11:31.0785,+16:51:39.463) # point=circle
+point(19:11:31.0785,+16:51:39.462) # point=circle
 point(19:11:31.1098,+16:51:39.313) # point=circle
+point(19:11:30.7580,+16:51:42.413) # point=circle width=3
 point(19:11:31.1403,+16:51:41.404) # point=circle
+point(19:11:31.2310,+16:51:43.951) # point=circle width=3
 point(19:11:31.2411,+16:51:44.674) # point=circle
 point(19:11:31.5434,+16:51:43.227) # point=circle
+point(19:11:31.6502,+16:51:39.466) # point=circle width=3
 point(19:11:31.6825,+16:51:39.610) # point=circle
-point(19:11:31.7188,+16:51:38.135) # point=circle
+point(19:11:31.7188,+16:51:38.134) # point=circle
 point(19:11:31.7329,+16:51:37.816) # point=circle
+point(19:11:31.5817,+16:51:37.180) # point=circle width=3
 point(19:11:31.5233,+16:51:37.411) # point=circle
 point(19:11:31.6160,+16:51:33.650) # point=circle
-point(19:11:31.8276,+16:51:38.135) # point=circle
+point(19:11:31.8276,+16:51:38.134) # point=circle
 point(19:11:31.8317,+16:51:39.321) # point=circle
 point(19:11:31.8296,+16:51:33.389) # point=circle
 point(19:11:31.9203,+16:51:36.283) # point=circle
 point(19:11:31.9425,+16:51:37.469) # point=circle
 point(19:11:31.9788,+16:51:38.250) # point=circle
+point(19:11:31.8458,+16:51:42.272) # point=circle width=3
 point(19:11:31.9425,+16:51:42.475) # point=circle
 point(19:11:32.0010,+16:51:42.272) # point=circle
-point(19:11:31.8297,+16:51:43.835) # point=circle
+point(19:11:31.8296,+16:51:43.835) # point=circle
 point(19:11:31.9949,+16:51:44.384) # point=circle
 point(19:11:32.0776,+16:51:44.240) # point=circle
 point(19:11:31.6785,+16:51:44.992) # point=circle
 point(19:11:31.7793,+16:51:45.079) # point=circle
-point(19:11:31.5596,+16:51:45.166) # point=circle
+point(19:11:31.5595,+16:51:45.166) # point=circle
 point(19:11:31.6624,+16:51:46.381) # point=circle
 point(19:11:31.5434,+16:51:46.381) # point=circle
+point(19:11:31.3822,+16:51:46.092) # point=circle width=3
 point(19:11:31.4124,+16:51:46.150) # point=circle
 point(19:11:31.3600,+16:51:46.902) # point=circle
-point(19:11:32.1219,+16:51:42.185) # point=circle
+point(19:11:32.1219,+16:51:42.186) # point=circle
 point(19:11:32.3134,+16:51:42.909) # point=circle
 point(19:11:32.3638,+16:51:43.227) # point=circle
 point(19:11:32.3557,+16:51:43.690) # point=circle
+point(19:11:32.2771,+16:51:40.044) # point=circle width=3
 point(19:11:32.1763,+16:51:38.279) # point=circle
 point(19:11:32.2509,+16:51:38.019) # point=circle
 point(19:11:32.2932,+16:51:37.498) # point=circle
@@ -139,17 +134,22 @@ point(19:11:32.3739,+16:51:37.845) # point=circle
 point(19:11:32.4364,+16:51:40.941) # point=circle
 point(19:11:32.6923,+16:51:36.514) # point=circle
 point(19:11:32.6601,+16:51:36.890) # point=circle
-point(19:11:32.7770,+16:51:39.292) # point=circle
-point(19:11:32.6803,+16:51:39.870) # point=circle
+point(19:11:32.7770,+16:51:39.291) # point=circle
+point(19:11:32.6802,+16:51:39.870) # point=circle
 point(19:11:32.7810,+16:51:40.449) # point=circle
 point(19:11:32.7347,+16:51:40.796) # point=circle
 point(19:11:33.0213,+16:51:39.004) # point=circle
+point(19:11:31.3633,+16:51:48.661) # point=circle width=3
 point(19:11:31.4425,+16:51:49.488) # point=circle
 point(19:11:31.4061,+16:51:49.750) # point=circle
 point(19:11:31.4103,+16:51:50.754) # point=circle
 point(19:11:31.6637,+16:51:50.594) # point=circle
+point(19:11:30.9379,+16:51:48.300) # point=circle width=3
 point(19:11:30.8674,+16:51:48.589) # point=circle
 point(19:11:30.8452,+16:51:48.329) # point=circle
+point(19:11:30.8291,+16:51:47.982) # point=circle width=3
+point(19:11:30.7525,+16:51:52.582) # point=circle width=3
+point(19:11:30.8250,+16:51:52.958) # point=circle width=3
 point(19:11:30.8694,+16:51:53.537) # point=circle
 point(19:11:30.9157,+16:51:53.479) # point=circle
 point(19:11:30.8149,+16:51:53.971) # point=circle
@@ -159,17 +159,16 @@ point(19:11:30.9641,+16:51:54.550) # point=circle
 point(19:11:30.9903,+16:51:55.939) # point=circle
 point(19:11:31.0004,+16:51:56.633) # point=circle
 point(19:11:30.7827,+16:51:55.649) # point=circle
+point(19:11:30.6319,+16:51:53.711) # point=circle width=3
 point(19:11:30.6368,+16:51:54.440) # point=circle
 point(19:11:30.7601,+16:51:56.731) # point=circle
 point(19:11:30.7311,+16:51:58.294) # point=circle
 point(19:11:30.4940,+16:52:04.093) # point=circle
 point(19:11:30.6900,+16:51:39.544) # point=circle
+point(19:11:30.5160,+16:52:03.545) # point=circle width=3
+point(19:11:30.3215,+16:52:03.795) # point=circle width=3
 point(19:11:30.5047,+16:51:09.424) # point=circle
 point(19:11:30.4253,+16:51:11.584) # point=circle
 point(19:11:29.4975,+16:51:17.584) # point=circle
 point(19:11:30.4728,+16:51:20.619) # point=circle
 point(19:11:30.4889,+16:51:21.343) # point=circle
-point(19:11:30.8842,+16:51:29.704) # point=circle
-point(19:11:30.3193,+16:51:30.732) # point=circle
-point(19:11:30.4645,+16:51:27.607) # point=circle
-point(19:11:30.5753,+16:51:28.099) # point=circle
