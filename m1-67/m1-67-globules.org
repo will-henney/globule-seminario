@@ -9,7 +9,251 @@ This is in a [[file:m1-67-bowshocks-poster.md][separate markdown file]] for grea
   - [[file:../../../Work/WR124-HST/m1-67-globules.reg]]
 - Number of globules: 169
 - Number of isolated globules where we can hope to measure the shell: 49
-** HST images
+** JWST images
+- [[https://mast.stsci.edu/portal/Mashup/Clients/Mast/Portal.html?searchQuery=%7B%22service%22%3A%22CAOMDB%22%2C%22inputText%22%3A%22wr124%22%2C%22paramsService%22%3A%22Mast.Caom.Cone%22%2C%22title%22%3A%22MAST%3A%20wr124%22%2C%22columns%22%3A%22*%22%2C%22caomVersion%22%3Anull%7D][Link to search of MIRI and NIRCAM images]]
+*** Available filters and corresponding spectral features
+**** NIRCAM
+[[https://jwst-docs.stsci.edu/jwst-near-infrared-camera/nircam-instrumentation/nircam-filters][Documentation]]
+- f090w
+  - 0.795 - 1.005	
+  - [S III] 9069 AA, 9533 AA
+  - H I Paschen lines down to 0.9548590 H I 3-8 
+- f150w
+  - 1.331 - 1.668
+  - He I 1.3415350934 1s.3p-1s.5s 1Po-1S
+  - He I 1.508777481 1s.3s-1s.4p  1S-1Po
+  - H I Brackett lines down to 1.6411674 H I 4-12
+- f210m
+  - 1.992 - 2.201
+  - Br gamma H I 4-7 2.166120 micron
+  - He I 2.058690463 1s.2s-1s.2p  1S-1Po
+  - H_2 2.12 micron and others
+- f335m
+  - 3.177 - 3.537
+  - PAH feature at 3.3 micron (typical width 0.04 micron)
+    - Plus weaker feature at 3.4 micron
+    - Plus broad pedestal 3.25 - 3.6
+  - Pfund delta 3.296992 H I 5-9
+  - Weak He I intercombination line
+    - 3.36408868 He I] E1 1s.3s-1s.3p  3S-1Po  1 - 1  A=1.460e-01 
+- f444w
+  - 3.881 - 4.982 (W=1.101)
+  - He I lines are all weak (n=5 or higher for upper levels)
+  - [Mg IV] ground config fine structure line
+    - 4.4867 [Mg IV] M1 2s2.2p5-2s2.2p5 2Po-2Po 3/2 - 1/2
+  - Br alpha H I 4-5 4.052262 micron
+  - Pfund beta H I 5-7 4.653778 micron
+- f470n
+  - 4.683 - 4.733 (W=0.05)
+  - Pfund beta H I 5-7 4.653778 micron
+  - H_2 4.695 micron
+  - Unknown 4.673 micron
+***** Strange behavior of the f470n filter
+- Only the H_2 4.695 micron line is comfortably within the filter bandpass
+- The H I lines are all too far outside the filter to contribute significantly
+- This means that most of the emission must be continuum
+  - That is exactly what is seen in Orion
+  - Brightness of F470N and F480M are similar
+  - Brightness is in MJy/sr, so that is per Hz
+
+
+**** MIRI
+
+
+
+*** Alignment of JWST images
+
+**** Try and do a better job of alignment
+- We can use the scripts that I wrote for multifrecuencia class
+- 
+
+***** The HST images
+- In the notebook analysis, I used the Ha image from the second epoch
+  - ~11137_01~
+- But we want to align the wide band images too, which I suspect are only the first epoch
+  - ~06787_01~
+
+****** Copy the original images to working directory
+And give them shorter file names that include the year
+#+begin_src sh :dir data :results verbatim
+  D=/Users/will/Work/WR124-HST/MAST_2023-04-03T1936/HLA/
+  ID=06787
+  for FN in f656n f675w f555w; do
+      cp -av $D/hst_${ID}_01_wfpc2_${FN}_wf/hst_${ID}_01_wfpc2_${FN}_wf_drz.fits wr124-hst-1997-${FN}.fits
+  done
+  ID=11137
+  for FN in f656n; do
+      cp -av $D/hst_${ID}_01_wfpc2_${FN}_wf/hst_${ID}_01_wfpc2_${FN}_wf_drz.fits wr124-hst-2008-${FN}.fits
+  done
+#+end_src
+
+#+RESULTS:
+: /Users/will/Work/WR124-HST/MAST_2023-04-03T1936/HLA//hst_06787_01_wfpc2_f656n_wf/hst_06787_01_wfpc2_f656n_wf_drz.fits -> wr124-hst-1997-f656n.fits
+: /Users/will/Work/WR124-HST/MAST_2023-04-03T1936/HLA//hst_06787_01_wfpc2_f675w_wf/hst_06787_01_wfpc2_f675w_wf_drz.fits -> wr124-hst-1997-f675w.fits
+: /Users/will/Work/WR124-HST/MAST_2023-04-03T1936/HLA//hst_06787_01_wfpc2_f555w_wf/hst_06787_01_wfpc2_f555w_wf_drz.fits -> wr124-hst-1997-f555w.fits
+: /Users/will/Work/WR124-HST/MAST_2023-04-03T1936/HLA//hst_11137_01_wfpc2_f656n_wf/hst_11137_01_wfpc2_f656n_wf_drz.fits -> wr124-hst-2008-f656n.fits
+
+****** Do local background subtraction
+#+begin_src sh :dir data :results verbatim
+  for f in wr124-hst-????-f????.fits; do
+      python ../scripts/findbg-local.py $f
+  done
+
+#+end_src
+
+#+RESULTS:
+
+****** Source finding
+First try with brightness limit of 2 and radius of 3
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-sources.py wr124-hst-1997-f656n_BGSUB.fits 3.0 2.0
+#+end_src
+
+#+RESULTS:
+: Source list saved to wr124-hst-1997-f656n_BGSUB-sources-fwhm3.0-thresh2.ecsv
+: Region file saved to wr124-hst-1997-f656n_BGSUB-sources-fwhm3.0-thresh2.reg
+
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-sources.py wr124-hst-2008-f656n_BGSUB.fits 3.0 2.0
+#+end_src
+
+#+RESULTS:
+: Source list saved to wr124-hst-2008-f656n_BGSUB-sources-fwhm3.0-thresh2.ecsv
+: Region file saved to wr124-hst-2008-f656n_BGSUB-sources-fwhm3.0-thresh2.reg
+
+Try reducing brightness limit and radius
+
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-sources.py wr124-hst-1997-f656n_BGSUB.fits 2.0 1.0
+#+end_src
+
+#+RESULTS:
+: Source list saved to wr124-hst-1997-f656n_BGSUB-sources-fwhm2.0-thresh1.ecsv
+: Region file saved to wr124-hst-1997-f656n_BGSUB-sources-fwhm2.0-thresh1.reg
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-sources.py wr124-hst-2008-f656n_BGSUB.fits 2.0 1.0
+#+end_src
+
+#+RESULTS:
+: Source list saved to wr124-hst-2008-f656n_BGSUB-sources-fwhm2.0-thresh1.ecsv
+: Region file saved to wr124-hst-2008-f656n_BGSUB-sources-fwhm2.0-thresh1.reg
+
+This works the best. It looks like we have about 20 stars coincident between the two epochs in Ha
+
+Now try the wide band. Increase threshold by factor of 10 since stars are brighter in this filter
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-sources.py wr124-hst-1997-f675w_BGSUB.fits 2.0 10.0
+#+end_src
+
+#+RESULTS:
+: Source list saved to wr124-hst-1997-f675w_BGSUB-sources-fwhm2.0-thresh10.ecsv
+: Region file saved to wr124-hst-1997-f675w_BGSUB-sources-fwhm2.0-thresh10.reg
+
+This finds a superset of the same stars
+
+
+****** Source matching and aligning
+
+******* Two epochs of H alpha
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-offset.py \
+         wr124-hst-1997-f656n_BGSUB wr124-hst-2008-f656n_BGSUB \
+         fwhm2.0-thresh1 fwhm2.0-thresh1 \
+         --minimum-radius-arcsec 1.0 --maximum-separation-arcsec 0.3 \
+         --object-name wr124 --combo-prefix wr124-hst-f656n-1997-TO-2008
+#+end_src
+
+#+RESULTS:
+: Statistics based on 28 coincident sources
+: Mean displacement in RA: -2.45 +/- 4.04 marcsec
+: Mean displacement in Dec: -20.85 +/- 6.88 marcsec
+: Median displacement in RA: 0.95 +/- 4.56 marcsec
+: Median displacement in Dec: -25.26 +/- 4.88 marcsec
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets.py wr124-hst-f656n-1997-TO-2008-OFFSETS.ecsv
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-hst-f656n-1997-TO-2008-OFFSETS.pdf]]
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets-corr.py wr124-hst-f656n-1997-TO-2008-OFFSETS.ecsv
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-hst-f656n-1997-TO-2008-OFFSETS-CORR.pdf]]
+
+******* H alpha versus continuum for first epoch
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-offset.py \
+         wr124-hst-1997-f656n_BGSUB wr124-hst-1997-f675w_BGSUB \
+         fwhm2.0-thresh1 fwhm2.0-thresh10 \
+         --minimum-radius-arcsec 1.0 --maximum-separation-arcsec 0.3 \
+         --object-name wr124 --combo-prefix wr124-hst-1997-f656n-TO-f675w
+#+end_src
+
+#+RESULTS:
+: Statistics based on 43 coincident sources
+: Mean displacement in RA: 6.42 +/- 2.30 marcsec
+: Mean displacement in Dec: 46.07 +/- 8.35 marcsec
+: Median displacement in RA: 6.90 +/- 2.89 marcsec
+: Median displacement in Dec: 53.72 +/- 2.74 marcsec
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets.py wr124-hst-1997-f656n-TO-f675w-OFFSETS.ecsv
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-hst-1997-f656n-TO-f675w-OFFSETS.pdf]]
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets-corr.py wr124-hst-1997-f656n-TO-f675w-OFFSETS.ecsv
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-hst-1997-f656n-TO-f675w-OFFSETS-CORR.pdf]]
+
+******* Help on script
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-offset.py --help
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Usage: find-offset.py [OPTIONS] FILE_PREFIXES... CATALOG_SUFFIXES...
+
+Arguments:
+  FILE_PREFIXES...     [required]
+  CATALOG_SUFFIXES...  [required]
+
+Options:
+  --maximum-separation-arcsec FLOAT
+                                  [default: 1.0]
+  --maximum-radius-arcsec FLOAT
+  --minimum-radius-arcsec FLOAT
+  --object-name TEXT              [default: ngc 346]
+  --install-completion            Install completion for the current shell.
+  --show-completion               Show completion for the current shell, to
+                                  copy it or customize the installation.
+
+  --help                          Show this message and exit.
+#+end_example
+
+**** F090W
+|  2170.085 | 2491.3488 |
+| 2142.3437 | 2510.2938 |
+|-----------+-----------|
+|  -27.7413 |    18.945 |
+| 2318.2361 | 2335.5835 |
+|-----------+-----------|
+| 2290.4948 | 2354.5285 |
+#+TBLFM: @3$1..@3$2=@2 - @1::@5$1..@5$2=@3 + @4
+Align to HST f657w image
+
+
+
+** hst images
 - [[file:MAST_wr124.json]] has a list  of the files that I have downloaded
   - These are the Level 3 products from the HLA of the WFPC2 observations, plus the Level 2 products from the FOC in the UV
   - On my laptop I have put the data files in file:/Users/will/Work/WR124-HST/
