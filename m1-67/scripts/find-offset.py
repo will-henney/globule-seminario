@@ -41,6 +41,8 @@ def main(
     minimum_radius_arcsec: Union[float, None] = None,
     object_name: str = "ngc 346",
     combo_prefix: Union[str, None] = None,
+    guess_offset: float = 0.0,
+    guess_pa: float = 0.0,
 ):
     fname1, fname2 = file_prefixes
     sname1, sname2 = catalog_suffixes
@@ -53,10 +55,22 @@ def main(
     c1 = w1.pixel_to_world(stab1["xcentroid"], stab1["ycentroid"])
     c2 = w2.pixel_to_world(stab2["xcentroid"], stab2["ycentroid"])
 
+    shifted = False
+    if guess_offset:
+        # The guessed offset should be from 1 -> 2, so we first apply the
+        # opposite offset to 2
+        c2 = c2.directional_offset_by((guess_pa - 180) * u.deg, guess_offset * u.arcsec)
+        shifted = True
+
     max_sep = maximum_separation_arcsec * u.arcsec
     ii1, ii2 = match_catalogs(c1, c2, max_sep=max_sep)
     c1m = c1[ii1]
     c2m = c2[ii2]
+
+    if shifted:
+        # Now undo the shift that we did before the matching
+        c2m = c2m.directional_offset_by(guess_pa * u.deg, guess_offset * u.arcsec)
+
     # Offsets between two images
     offsets = c1m.spherical_offsets_to(c2m)
     ra, dec = [_.milliarcsecond for _ in offsets]
@@ -104,7 +118,7 @@ def main(
             "d Dec, mas": dec,
             "Radius, arcsec": r,
         },
-    ).write(f"{combo_prefix}-OFFSETS.ecsv", format="ascii.ecsv")
+    ).write(f"{combo_prefix}-OFFSETS.ecsv", format="ascii.ecsv", overwrite=True)
 
 
 if __name__ == "__main__":

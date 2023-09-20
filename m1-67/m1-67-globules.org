@@ -73,7 +73,7 @@ This is in a [[file:m1-67-bowshocks-poster.md][separate markdown file]] for grea
 - But we want to align the wide band images too, which I suspect are only the first epoch
   - ~06787_01~
 
-****** Copy the original images to working directory
+****** Copy the original HST images to working directory
 And give them shorter file names that include the year
 #+begin_src sh :dir data :results verbatim
   D=/Users/will/Work/WR124-HST/MAST_2023-04-03T1936/HLA/
@@ -93,7 +93,7 @@ And give them shorter file names that include the year
 : /Users/will/Work/WR124-HST/MAST_2023-04-03T1936/HLA//hst_06787_01_wfpc2_f555w_wf/hst_06787_01_wfpc2_f555w_wf_drz.fits -> wr124-hst-1997-f555w.fits
 : /Users/will/Work/WR124-HST/MAST_2023-04-03T1936/HLA//hst_11137_01_wfpc2_f656n_wf/hst_11137_01_wfpc2_f656n_wf_drz.fits -> wr124-hst-2008-f656n.fits
 
-****** Do local background subtraction
+****** Do HST local background subtraction
 #+begin_src sh :dir data :results verbatim
   for f in wr124-hst-????-f????.fits; do
       python ../scripts/findbg-local.py $f
@@ -103,7 +103,7 @@ And give them shorter file names that include the year
 
 #+RESULTS:
 
-****** Source finding
+****** Source finding in HST images
 First try with brightness limit of 2 and radius of 3
 #+begin_src sh :dir data :results verbatim
   python ../scripts/find-sources.py wr124-hst-1997-f656n_BGSUB.fits 3.0 2.0
@@ -151,8 +151,17 @@ Now try the wide band. Increase threshold by factor of 10 since stars are bright
 
 This finds a superset of the same stars
 
+And the V band
 
-****** Source matching and aligning
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-sources.py wr124-hst-1997-f555w_BGSUB.fits 2.0 10.0
+#+end_src
+
+#+RESULTS:
+: Source list saved to wr124-hst-1997-f555w_BGSUB-sources-fwhm2.0-thresh10.ecsv
+: Region file saved to wr124-hst-1997-f555w_BGSUB-sources-fwhm2.0-thresh10.reg
+
+****** Source matching and aligning of HST images
 
 ******* Two epochs of H alpha
 #+begin_src sh :dir data :results verbatim
@@ -214,6 +223,36 @@ This finds a superset of the same stars
 #+RESULTS:
 [[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-hst-1997-f656n-TO-f675w-OFFSETS-CORR.pdf]]
 
+******* H alpha versus green continuum
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-offset.py \
+         wr124-hst-1997-f656n_BGSUB wr124-hst-1997-f555w_BGSUB \
+         fwhm2.0-thresh1 fwhm2.0-thresh10 \
+         --minimum-radius-arcsec 1.0 --maximum-separation-arcsec 0.3 \
+         --object-name wr124 --combo-prefix wr124-hst-1997-f656n-TO-f555w
+#+end_src
+
+#+RESULTS:
+: Statistics based on 43 coincident sources
+: Mean displacement in RA: 17.14 +/- 2.54 marcsec
+: Mean displacement in Dec: -4.34 +/- 2.21 marcsec
+: Median displacement in RA: 18.26 +/- 2.11 marcsec
+: Median displacement in Dec: -5.80 +/- 2.28 marcsec
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets.py wr124-hst-1997-f656n-TO-f555w-OFFSETS.ecsv
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-hst-1997-f656n-TO-f555w-OFFSETS.pdf]]
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets-corr.py wr124-hst-1997-f656n-TO-f555w-OFFSETS.ecsv
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-hst-1997-f656n-TO-f555w-OFFSETS-CORR.pdf]]
+
 ******* Help on script
 #+begin_src sh :dir data :results verbatim
   python ../scripts/find-offset.py --help
@@ -240,6 +279,389 @@ Options:
   --help                          Show this message and exit.
 #+end_example
 
+****** TODO Apply shifts to HST images
+- We will use the 1997 Ha image as the reference and do WCS adjustments to all the others
+- We were finding the displacements from A \to B, which is (B - A)
+- So, if we want to correct the B coordinates to the A ones, then we need to subtract those
+  - B - (B - A) = A
+
+
+
+
+***** JWST images
+
+****** Copy the original JWST images to working directory
+#+begin_src sh :dir data :results verbatim
+  D=/Users/will/Work/WR124-JWST/MAST_2023-09-13T2208/JWST
+  for FN in f090w f150w f210m f335m f444w; do
+      cp -av $D/jw02730-o001_t013_nircam_clear-${FN}/jw02730-o001_t013_nircam_clear-${FN}_i2d.fits wr124-jwst-nircam-2022-${FN}.fits
+  done
+  for FN in f470n; do
+      cp -av $D/jw02730-o001_t013_nircam_f444w-${FN}/jw02730-o001_t013_nircam_f444w-${FN}_i2d.fits wr124-jwst-nircam-2022-${FN}.fits
+  done
+  for FN in f1130w f1280w f1800w f770w; do
+      cp -av $D/jw02730-o002_t013_miri_${FN}/jw02730-o002_t013_miri_${FN}_i2d.fits wr124-jwst-miri-2022-${FN}.fits
+  done
+#+end_src
+
+#+RESULTS:
+#+begin_example
+/Users/will/Work/WR124-JWST/MAST_2023-09-13T2208/JWST/jw02730-o001_t013_nircam_clear-f090w/jw02730-o001_t013_nircam_clear-f090w_i2d.fits -> wr124-jwst-nircam-2022-f090w.fits
+/Users/will/Work/WR124-JWST/MAST_2023-09-13T2208/JWST/jw02730-o001_t013_nircam_clear-f150w/jw02730-o001_t013_nircam_clear-f150w_i2d.fits -> wr124-jwst-nircam-2022-f150w.fits
+/Users/will/Work/WR124-JWST/MAST_2023-09-13T2208/JWST/jw02730-o001_t013_nircam_clear-f210m/jw02730-o001_t013_nircam_clear-f210m_i2d.fits -> wr124-jwst-nircam-2022-f210m.fits
+/Users/will/Work/WR124-JWST/MAST_2023-09-13T2208/JWST/jw02730-o001_t013_nircam_clear-f335m/jw02730-o001_t013_nircam_clear-f335m_i2d.fits -> wr124-jwst-nircam-2022-f335m.fits
+/Users/will/Work/WR124-JWST/MAST_2023-09-13T2208/JWST/jw02730-o001_t013_nircam_clear-f444w/jw02730-o001_t013_nircam_clear-f444w_i2d.fits -> wr124-jwst-nircam-2022-f444w.fits
+/Users/will/Work/WR124-JWST/MAST_2023-09-13T2208/JWST/jw02730-o001_t013_nircam_f444w-f470n/jw02730-o001_t013_nircam_f444w-f470n_i2d.fits -> wr124-jwst-nircam-2022-f470n.fits
+/Users/will/Work/WR124-JWST/MAST_2023-09-13T2208/JWST/jw02730-o002_t013_miri_f1130w/jw02730-o002_t013_miri_f1130w_i2d.fits -> wr124-jwst-miri-2022-f1130w.fits
+/Users/will/Work/WR124-JWST/MAST_2023-09-13T2208/JWST/jw02730-o002_t013_miri_f1280w/jw02730-o002_t013_miri_f1280w_i2d.fits -> wr124-jwst-miri-2022-f1280w.fits
+/Users/will/Work/WR124-JWST/MAST_2023-09-13T2208/JWST/jw02730-o002_t013_miri_f1800w/jw02730-o002_t013_miri_f1800w_i2d.fits -> wr124-jwst-miri-2022-f1800w.fits
+/Users/will/Work/WR124-JWST/MAST_2023-09-13T2208/JWST/jw02730-o002_t013_miri_f770w/jw02730-o002_t013_miri_f770w_i2d.fits -> wr124-jwst-miri-2022-f770w.fits
+#+end_example
+
+****** Do JWST local background subtraction
+Do all the NIRCAM filters first
+
+#+header: :prologue exec 2>&1 :epilogue :
+#+begin_src sh :dir data :results verbatim
+  for FN in f090w f150w f210m f335m f444w f470n; do
+      time python ../scripts/findbg-local.py wr124-jwst-nircam-2022-${FN}.fits
+  done
+#+end_src
+
+#+RESULTS:
+#+begin_example
+WARNING: FITSFixedWarning: 'datfix' made the change 'Set DATE-BEG to '2022-06-03T06:35:24.581' from MJD-BEG.
+Set DATE-AVG to '2022-06-03T06:52:40.729' from MJD-AVG.
+Set DATE-END to '2022-06-03T07:09:56.817' from MJD-END'. [astropy.wcs.wcs]
+WARNING: FITSFixedWarning: 'obsfix' made the change 'Set OBSGEO-L to   -82.793158 from OBSGEO-[XYZ].
+Set OBSGEO-B to   -31.526408 from OBSGEO-[XYZ].
+Set OBSGEO-H to 1653717953.818 from OBSGEO-[XYZ]'. [astropy.wcs.wcs]
+WARNING: Input data contains invalid values (NaNs or infs), which were automatically masked. [photutils.background.background_2d]
+
+real	0m13.047s
+user	0m10.931s
+sys	0m2.341s
+WARNING: FITSFixedWarning: 'datfix' made the change 'Set DATE-BEG to '2022-06-03T07:13:31.554' from MJD-BEG.
+Set DATE-AVG to '2022-06-03T07:30:47.696' from MJD-AVG.
+Set DATE-END to '2022-06-03T07:48:03.790' from MJD-END'. [astropy.wcs.wcs]
+WARNING: FITSFixedWarning: 'obsfix' made the change 'Set OBSGEO-L to   -82.780435 from OBSGEO-[XYZ].
+Set OBSGEO-B to   -31.535128 from OBSGEO-[XYZ].
+Set OBSGEO-H to 1653849940.851 from OBSGEO-[XYZ]'. [astropy.wcs.wcs]
+WARNING: Input data contains invalid values (NaNs or infs), which were automatically masked. [photutils.background.background_2d]
+
+real	0m12.342s
+user	0m10.826s
+sys	0m2.247s
+WARNING: FITSFixedWarning: 'datfix' made the change 'Set DATE-BEG to '2022-06-03T05:36:53.693' from MJD-BEG.
+Set DATE-AVG to '2022-06-03T06:04:02.984' from MJD-AVG.
+Set DATE-END to '2022-06-03T06:31:17.715' from MJD-END'. [astropy.wcs.wcs]
+WARNING: FITSFixedWarning: 'obsfix' made the change 'Set OBSGEO-L to   -82.806568 from OBSGEO-[XYZ].
+Set OBSGEO-B to   -31.517218 from OBSGEO-[XYZ].
+Set OBSGEO-H to 1653578937.800 from OBSGEO-[XYZ]'. [astropy.wcs.wcs]
+WARNING: Input data contains invalid values (NaNs or infs), which were automatically masked. [photutils.background.background_2d]
+
+real	0m13.507s
+user	0m11.649s
+sys	0m2.360s
+WARNING: FITSFixedWarning: 'datfix' made the change 'Set DATE-BEG to '2022-06-03T06:35:24.645' from MJD-BEG.
+Set DATE-AVG to '2022-06-03T06:52:40.747' from MJD-AVG.
+Set DATE-END to '2022-06-03T07:09:56.881' from MJD-END'. [astropy.wcs.wcs]
+WARNING: FITSFixedWarning: 'obsfix' made the change 'Set OBSGEO-L to   -82.803316 from OBSGEO-[XYZ].
+Set OBSGEO-B to   -31.519446 from OBSGEO-[XYZ].
+Set OBSGEO-H to 1653612642.314 from OBSGEO-[XYZ]'. [astropy.wcs.wcs]
+WARNING: Input data contains invalid values (NaNs or infs), which were automatically masked. [photutils.background.background_2d]
+
+real	0m4.530s
+user	0m4.305s
+sys	0m1.333s
+WARNING: FITSFixedWarning: 'datfix' made the change 'Set DATE-BEG to '2022-06-03T07:13:31.618' from MJD-BEG.
+Set DATE-AVG to '2022-06-03T07:30:47.704' from MJD-AVG.
+Set DATE-END to '2022-06-03T07:48:03.790' from MJD-END'. [astropy.wcs.wcs]
+WARNING: FITSFixedWarning: 'obsfix' made the change 'Set OBSGEO-L to   -82.778744 from OBSGEO-[XYZ].
+Set OBSGEO-B to   -31.536287 from OBSGEO-[XYZ].
+Set OBSGEO-H to 1653867491.040 from OBSGEO-[XYZ]'. [astropy.wcs.wcs]
+WARNING: Input data contains invalid values (NaNs or infs), which were automatically masked. [photutils.background.background_2d]
+
+real	0m4.235s
+user	0m4.199s
+sys	0m1.286s
+WARNING: FITSFixedWarning: 'datfix' made the change 'Set DATE-BEG to '2022-06-03T05:36:53.693' from MJD-BEG.
+Set DATE-AVG to '2022-06-03T06:04:03.008' from MJD-AVG.
+Set DATE-END to '2022-06-03T06:31:17.715' from MJD-END'. [astropy.wcs.wcs]
+WARNING: FITSFixedWarning: 'obsfix' made the change 'Set OBSGEO-L to   -82.825006 from OBSGEO-[XYZ].
+Set OBSGEO-B to   -31.504583 from OBSGEO-[XYZ].
+Set OBSGEO-H to 1653387953.977 from OBSGEO-[XYZ]'. [astropy.wcs.wcs]
+WARNING: Input data contains invalid values (NaNs or infs), which were automatically masked. [photutils.background.background_2d]
+
+real	0m4.209s
+user	0m4.161s
+sys	0m1.305s
+#+end_example
+
+
+
+****** Source finding in JWST images
+
+#+begin_src sh :dir data :results verbatim
+  for f in wr124-jwst-nircam-2022-f????_BGSUB.fits; do
+      python ../scripts/find-sources.py $f 5.0 30.0
+  done
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Source list saved to wr124-jwst-nircam-2022-f090w_BGSUB-sources-fwhm5.0-thresh30.ecsv
+Region file saved to wr124-jwst-nircam-2022-f090w_BGSUB-sources-fwhm5.0-thresh30.reg
+Source list saved to wr124-jwst-nircam-2022-f150w_BGSUB-sources-fwhm5.0-thresh30.ecsv
+Region file saved to wr124-jwst-nircam-2022-f150w_BGSUB-sources-fwhm5.0-thresh30.reg
+Source list saved to wr124-jwst-nircam-2022-f210m_BGSUB-sources-fwhm5.0-thresh30.ecsv
+Region file saved to wr124-jwst-nircam-2022-f210m_BGSUB-sources-fwhm5.0-thresh30.reg
+Source list saved to wr124-jwst-nircam-2022-f335m_BGSUB-sources-fwhm5.0-thresh30.ecsv
+Region file saved to wr124-jwst-nircam-2022-f335m_BGSUB-sources-fwhm5.0-thresh30.reg
+Source list saved to wr124-jwst-nircam-2022-f444w_BGSUB-sources-fwhm5.0-thresh30.ecsv
+Region file saved to wr124-jwst-nircam-2022-f444w_BGSUB-sources-fwhm5.0-thresh30.reg
+Source list saved to wr124-jwst-nircam-2022-f470n_BGSUB-sources-fwhm5.0-thresh30.ecsv
+Region file saved to wr124-jwst-nircam-2022-f470n_BGSUB-sources-fwhm5.0-thresh30.reg
+#+end_example
+
+****** Source matching and aligning of JWST images
+
+******* Match JWST f090w to HST 1999 continuum and Ha
+
+First the continuum. We put in a guess of 1 arcsec offset in RA, since that looks more or less right. 
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-offset.py \
+         wr124-hst-1997-f675w_BGSUB wr124-jwst-nircam-2022-f090w_BGSUB \
+         fwhm2.0-thresh1 fwhm5.0-thresh30 \
+         --minimum-radius-arcsec 1.0 --maximum-separation-arcsec 0.3 \
+         --guess-offset 1.0 --guess-pa 270.0 \
+         --object-name wr124 --combo-prefix wr124-hst-1997-f675w-TO-jwst-2022-f090w
+#+end_src
+
+#+RESULTS:
+: Statistics based on 246 coincident sources
+: Mean displacement in RA: -1026.00 +/- 4.16 marcsec
+: Mean displacement in Dec: 73.80 +/- 3.48 marcsec
+: Median displacement in RA: -1036.43 +/- 1.92 marcsec
+: Median displacement in Dec: 76.99 +/- 2.70 marcsec
+
+So this works really wel. We have a lot of coincident stars and their offsets are nice and tightly distributed. 
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets.py wr124-hst-1997-f675w-TO-jwst-2022-f090w-OFFSETS.ecsv
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-hst-1997-f675w-TO-jwst-2022-f090w-OFFSETS.pdf]]
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets-corr.py wr124-hst-1997-f675w-TO-jwst-2022-f090w-OFFSETS.ecsv
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-hst-1997-f675w-TO-jwst-2022-f090w-OFFSETS-CORR.pdf]]
+
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-offset.py \
+         wr124-hst-1997-f656n_BGSUB wr124-jwst-nircam-2022-f090w_BGSUB \
+         fwhm2.0-thresh1 fwhm5.0-thresh30 \
+         --minimum-radius-arcsec 1.0 --maximum-separation-arcsec 0.3 \
+         --guess-offset 1.0 --guess-pa 270.0 \
+         --object-name wr124 --combo-prefix wr124-hst-1997-f656n-TO-jwst-2022-f090w
+#+end_src
+
+#+RESULTS:
+: Statistics based on 12 coincident sources
+: Mean displacement in RA: -885.80 +/- 52.51 marcsec
+: Mean displacement in Dec: 34.33 +/- 22.94 marcsec
+: Median displacement in RA: -780.75 +/- 15.10 marcsec
+: Median displacement in Dec: 51.26 +/- 14.64 marcsec
+
+This is less satisfactory because it found very few coincident sources, so it would be better to use the continuum to tie these together
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets.py wr124-hst-1997-f656n-TO-jwst-2022-f090w-OFFSETS.ecsv
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-hst-1997-f656n-TO-jwst-2022-f090w-OFFSETS.pdf]]
+
+******* Match between NIRCAM JWST filters
+
+******** f090w to f150w
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-offset.py \
+         wr124-jwst-nircam-2022-f090w_BGSUB wr124-jwst-nircam-2022-f150w_BGSUB \
+         fwhm5.0-thresh30 fwhm5.0-thresh30 \
+         --minimum-radius-arcsec 1.0 --maximum-separation-arcsec 0.3 \
+         --guess-offset 0.0 --guess-pa 0.0 \
+         --object-name wr124 --combo-prefix wr124-jwst-2022-f090w-TO-f150w
+#+end_src
+
+#+RESULTS:
+: Statistics based on 409 coincident sources
+: Mean displacement in RA: 0.96 +/- 2.44 marcsec
+: Mean displacement in Dec: 1.74 +/- 2.66 marcsec
+: Median displacement in RA: -0.38 +/- 0.16 marcsec
+: Median displacement in Dec: -3.99 +/- 0.16 marcsec
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets.py wr124-jwst-2022-f090w-TO-f150w-OFFSETS.ecsv --max-sep 30
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f090w-TO-f150w-OFFSETS.pdf]]
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f090w-TO-f150w-OFFSETS.ecsv --max-sep 30
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f090w-TO-f150w-OFFSETS-CORR.pdf]]
+
+******** f150w to f210m
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-offset.py \
+         wr124-jwst-nircam-2022-f150w_BGSUB wr124-jwst-nircam-2022-f210m_BGSUB \
+         fwhm5.0-thresh30 fwhm5.0-thresh30 \
+         --minimum-radius-arcsec 1.0 --maximum-separation-arcsec 0.3 \
+         --guess-offset 0.0 --guess-pa 0.0 \
+         --object-name wr124 --combo-prefix wr124-jwst-2022-f150w-TO-f210m
+#+end_src
+
+#+RESULTS:
+: Statistics based on 2143 coincident sources
+: Mean displacement in RA: 1.56 +/- 0.66 marcsec
+: Mean displacement in Dec: -3.19 +/- 0.75 marcsec
+: Median displacement in RA: 3.01 +/- 0.02 marcsec
+: Median displacement in Dec: -2.20 +/- 0.03 marcsec
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets.py wr124-jwst-2022-f150w-TO-f210m-OFFSETS.ecsv --max-sep 30
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f150w-TO-f210m-OFFSETS.pdf]]
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f150w-TO-f210m-OFFSETS.ecsv --max-sep 10
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f150w-TO-f210m-OFFSETS-CORR.pdf]]
+
+- This is finally showing a distortion effect:
+  - we see systematic variation of dRA with RA and dDEC with DEC
+  - but it is very small!
+  - only 5 mas per 100 arcsec
+  - But on the other hand, it is comparable to the median shift
+
+******** f210m to f335m
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-offset.py \
+         wr124-jwst-nircam-2022-f210m_BGSUB wr124-jwst-nircam-2022-f335m_BGSUB \
+         fwhm5.0-thresh30 fwhm5.0-thresh30 \
+         --minimum-radius-arcsec 1.0 --maximum-separation-arcsec 0.3 \
+         --guess-offset 0.0 --guess-pa 0.0 \
+         --object-name wr124 --combo-prefix wr124-jwst-2022-f210m-TO-f335m
+#+end_src
+
+#+RESULTS:
+: Statistics based on 838 coincident sources
+: Mean displacement in RA: 7.31 +/- 1.61 marcsec
+: Mean displacement in Dec: -33.10 +/- 1.74 marcsec
+: Median displacement in RA: 0.51 +/- 0.13 marcsec
+: Median displacement in Dec: -43.65 +/- 0.09 marcsec
+
+This has a much larger displacement in Dec than between the other NIRCAM filters,  which we can  see in the RGB image
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets.py wr124-jwst-2022-f210m-TO-f335m-OFFSETS.ecsv --max-sep 30
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f210m-TO-f335m-OFFSETS.pdf]]
+
+There is a strange bifurcation in  dRA distributions between the small radii and the large radii
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f210m-TO-f335m-OFFSETS.ecsv --max-sep 10
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f210m-TO-f335m-OFFSETS-CORR.pdf]]
+
+There is a slight trend in displacement as a function of position,   but this time it is even apparent in the cross terms: e.g., dRA vs DEC
+
+
+******** f335m to f444w
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-offset.py \
+         wr124-jwst-nircam-2022-f335m_BGSUB wr124-jwst-nircam-2022-f444w_BGSUB \
+         fwhm5.0-thresh30 fwhm5.0-thresh30 \
+         --minimum-radius-arcsec 1.0 --maximum-separation-arcsec 0.3 \
+         --guess-offset 0.0 --guess-pa 0.0 \
+         --object-name wr124 --combo-prefix wr124-jwst-2022-f335m-TO-f444w
+#+end_src
+
+#+RESULTS:
+: Statistics based on 466 coincident sources
+: Mean displacement in RA: 4.51 +/- 0.92 marcsec
+: Mean displacement in Dec: 5.15 +/- 1.35 marcsec
+: Median displacement in RA: 3.78 +/- 0.08 marcsec
+: Median displacement in Dec: 5.22 +/- 0.06 marcsec
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets.py wr124-jwst-2022-f335m-TO-f444w-OFFSETS.ecsv --max-sep 30
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f335m-TO-f444w-OFFSETS.pdf]]
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f335m-TO-f444w-OFFSETS.ecsv --max-sep 10
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f335m-TO-f444w-OFFSETS-CORR.pdf]]
+
+******** f444w to f470n
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-offset.py \
+         wr124-jwst-nircam-2022-f444w_BGSUB wr124-jwst-nircam-2022-f470n_BGSUB \
+         fwhm5.0-thresh30 fwhm5.0-thresh30 \
+         --minimum-radius-arcsec 1.0 --maximum-separation-arcsec 0.3 \
+         --guess-offset 0.0 --guess-pa 0.0 \
+         --object-name wr124 --combo-prefix wr124-jwst-2022-f444w-TO-f470n
+#+end_src
+
+#+RESULTS:
+: Statistics based on 391 coincident sources
+: Mean displacement in RA: -4.98 +/- 1.17 marcsec
+: Mean displacement in Dec: -14.62 +/- 1.51 marcsec
+: Median displacement in RA: -6.57 +/- 0.87 marcsec
+: Median displacement in Dec: -12.74 +/- 1.04 marcsec
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets.py wr124-jwst-2022-f444w-TO-f470n-OFFSETS.ecsv --max-sep 100
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f444w-TO-f470n-OFFSETS.pdf]]
+
+This has more dispersion and fewer sources than the other pairs we have done, but it still seems to give a reliable shift
+
+The stars at smaller radii seem to have less dispersion in their displacements
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f444w-TO-f470n-OFFSETS.ecsv --max-sep 100
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f444w-TO-f470n-OFFSETS-CORR.pdf]]
+
+We get *very* strong linear correlation of dRA with RA and dDec with Dec, which suggests something strange might be going on
+
+****** Apply shifts to JWST images
+
 **** F090W
 |  2170.085 | 2491.3488 |
 | 2142.3437 | 2510.2938 |
@@ -251,7 +673,7 @@ Options:
 #+TBLFM: @3$1..@3$2=@2 - @1::@5$1..@5$2=@3 + @4
 Align to HST f657w image
 
-
+***** 
 
 ** hst images
 - [[file:MAST_wr124.json]] has a list  of the files that I have downloaded
