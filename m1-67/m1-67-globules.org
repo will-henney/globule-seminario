@@ -398,6 +398,62 @@ user	0m4.161s
 sys	0m1.305s
 #+end_example
 
+Now all the MIRI filters
+
+#+header: :prologue exec 2>&1 :epilogue :
+#+begin_src sh :dir data :results verbatim
+  for FN in f770w f1130w f1280w f1800w; do
+      time python ../scripts/findbg-local.py wr124-jwst-miri-2022-${FN}.fits
+  done
+#+end_src
+
+#+RESULTS:
+#+begin_example
+WARNING: FITSFixedWarning: 'datfix' made the change 'Set DATE-BEG to '2022-06-10T19:13:15.243' from MJD-BEG.
+Set DATE-AVG to '2022-06-10T20:42:59.464' from MJD-AVG.
+Set DATE-END to '2022-06-10T22:12:50.973' from MJD-END'. [astropy.wcs.wcs]
+WARNING: FITSFixedWarning: 'obsfix' made the change 'Set OBSGEO-L to   -79.020464 from OBSGEO-[XYZ].
+Set OBSGEO-B to   -34.077472 from OBSGEO-[XYZ].
+Set OBSGEO-H to 1694854319.412 from OBSGEO-[XYZ]'. [astropy.wcs.wcs]
+WARNING: Input data contains invalid values (NaNs or infs), which were automatically masked. [photutils.background.background_2d]
+
+real	0m15.767s
+user	0m2.877s
+sys	0m1.215s
+WARNING: FITSFixedWarning: 'datfix' made the change 'Set DATE-BEG to '2022-06-10T19:49:39.240' from MJD-BEG.
+Set DATE-AVG to '2022-06-10T21:19:22.082' from MJD-AVG.
+Set DATE-END to '2022-06-10T22:49:09.403' from MJD-END'. [astropy.wcs.wcs]
+WARNING: FITSFixedWarning: 'obsfix' made the change 'Set OBSGEO-L to   -79.011629 from OBSGEO-[XYZ].
+Set OBSGEO-B to   -34.083187 from OBSGEO-[XYZ].
+Set OBSGEO-H to 1694947246.087 from OBSGEO-[XYZ]'. [astropy.wcs.wcs]
+WARNING: Input data contains invalid values (NaNs or infs), which were automatically masked. [photutils.background.background_2d]
+
+real	0m2.169s
+user	0m2.684s
+sys	0m1.022s
+WARNING: FITSFixedWarning: 'datfix' made the change 'Set DATE-BEG to '2022-06-10T20:24:51.110' from MJD-BEG.
+Set DATE-AVG to '2022-06-10T21:54:36.204' from MJD-AVG.
+Set DATE-END to '2022-06-10T23:24:18.521' from MJD-END'. [astropy.wcs.wcs]
+WARNING: FITSFixedWarning: 'obsfix' made the change 'Set OBSGEO-L to   -79.005847 from OBSGEO-[XYZ].
+Set OBSGEO-B to   -34.086925 from OBSGEO-[XYZ].
+Set OBSGEO-H to 1695008013.869 from OBSGEO-[XYZ]'. [astropy.wcs.wcs]
+WARNING: Input data contains invalid values (NaNs or infs), which were automatically masked. [photutils.background.background_2d]
+
+real	0m2.488s
+user	0m2.729s
+sys	0m1.099s
+WARNING: FITSFixedWarning: 'datfix' made the change 'Set DATE-BEG to '2022-06-10T21:00:27.917' from MJD-BEG.
+Set DATE-AVG to '2022-06-10T22:30:14.762' from MJD-AVG.
+Set DATE-END to '2022-06-11T00:00:03.671' from MJD-END'. [astropy.wcs.wcs]
+WARNING: FITSFixedWarning: 'obsfix' made the change 'Set OBSGEO-L to   -78.991877 from OBSGEO-[XYZ].
+Set OBSGEO-B to   -34.095956 from OBSGEO-[XYZ].
+Set OBSGEO-H to 1695154734.210 from OBSGEO-[XYZ]'. [astropy.wcs.wcs]
+WARNING: Input data contains invalid values (NaNs or infs), which were automatically masked. [photutils.background.background_2d]
+
+real	0m2.273s
+user	0m2.819s
+sys	0m0.995s
+#+end_example
 
 
 ****** Source finding in JWST images
@@ -424,6 +480,22 @@ Source list saved to wr124-jwst-nircam-2022-f470n_BGSUB-sources-fwhm5.0-thresh30
 Region file saved to wr124-jwst-nircam-2022-f470n_BGSUB-sources-fwhm5.0-thresh30.reg
 #+end_example
 
+#+begin_src sh :dir data :results verbatim
+  for f in wr124-jwst-miri-2022-f*w_BGSUB.fits; do
+      python ../scripts/find-sources.py $f 5.0 30.0
+  done
+#+end_src
+
+#+RESULTS:
+: Source list saved to wr124-jwst-miri-2022-f1130w_BGSUB-sources-fwhm5.0-thresh30.ecsv
+: Region file saved to wr124-jwst-miri-2022-f1130w_BGSUB-sources-fwhm5.0-thresh30.reg
+: Source list saved to wr124-jwst-miri-2022-f1280w_BGSUB-sources-fwhm5.0-thresh30.ecsv
+: Region file saved to wr124-jwst-miri-2022-f1280w_BGSUB-sources-fwhm5.0-thresh30.reg
+: Source list saved to wr124-jwst-miri-2022-f1800w_BGSUB-sources-fwhm5.0-thresh30.ecsv
+: Region file saved to wr124-jwst-miri-2022-f1800w_BGSUB-sources-fwhm5.0-thresh30.reg
+: Source list saved to wr124-jwst-miri-2022-f770w_BGSUB-sources-fwhm5.0-thresh30.ecsv
+: Region file saved to wr124-jwst-miri-2022-f770w_BGSUB-sources-fwhm5.0-thresh30.reg
+
 ****** Source matching and aligning of JWST images
 
 ******* Match JWST f090w to HST 1999 continuum and Ha
@@ -445,7 +517,7 @@ First the continuum. We put in a guess of 1 arcsec offset in RA, since that look
 : Median displacement in RA: -1036.43 +/- 1.92 marcsec
 : Median displacement in Dec: 76.99 +/- 2.70 marcsec
 
-So this works really wel. We have a lot of coincident stars and their offsets are nice and tightly distributed. 
+So this works really well. We have a lot of coincident stars and their offsets are nice and tightly distributed. 
 
 #+begin_src sh :dir data :results file
   python ../scripts/plot-offsets.py wr124-hst-1997-f675w-TO-jwst-2022-f090w-OFFSETS.ecsv
@@ -591,6 +663,8 @@ There is a strange bifurcation in  dRA distributions between the small radii and
 
 There is a slight trend in displacement as a function of position,   but this time it is even apparent in the cross terms: e.g., dRA vs DEC
 
+This could be explained as a combination of expansion and rotation
+
 
 ******** f335m to f444w
 #+begin_src sh :dir data :results verbatim
@@ -660,7 +734,169 @@ The stars at smaller radii seem to have less dispersion in their displacements
 
 We get *very* strong linear correlation of dRA with RA and dDec with Dec, which suggests something strange might be going on
 
+******* Match NIRCAM to MIRI
+- Try this over the shortest gap: f444w to f770w
+- We know that MIRI is well matched to HST, so is offset about 1 arcsec in RA from NIRCAM
+
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-offset.py \
+         wr124-jwst-nircam-2022-f444w_BGSUB wr124-jwst-miri-2022-f770w_BGSUB \
+         fwhm5.0-thresh30 fwhm5.0-thresh30 \
+         --minimum-radius-arcsec 1.0 --maximum-separation-arcsec 0.3 \
+         --guess-offset 1.0 --guess-pa 90.0 \
+         --object-name wr124 --combo-prefix wr124-jwst-2022-f444w-TO-f770w   
+#+end_src
+
+#+RESULTS:
+: Statistics based on 42 coincident sources
+: Mean displacement in RA: 1042.90 +/- 3.25 marcsec
+: Mean displacement in Dec: 2.18 +/- 3.56 marcsec
+: Median displacement in RA: 1042.42 +/- 4.65 marcsec
+: Median displacement in Dec: 1.62 +/- 3.96 marcsec
+
+This seems to have worked, but there are a disturbingly small number of sources
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets.py wr124-jwst-2022-f444w-TO-f770w-OFFSETS.ecsv --max-sep 100
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f444w-TO-f770w-OFFSETS.pdf]]
+
+So the claimed accuracy is about 5 mas, but the distribution of offsets is not very gaussian, with sub clusters separated by about 20 mas, so that would be a better estimate of accuracy
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f444w-TO-f770w-OFFSETS.ecsv --max-sep 100
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f444w-TO-f770w-OFFSETS-CORR.pdf]]
+
+This shows a clear linear trend in the off-diagonal pairs, with opposite slopes, which is consistent with rotation
+
+******* Match between MIRI filters
+
+******** f770w to f1130w
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-offset.py \
+         wr124-jwst-miri-2022-f770w_BGSUB wr124-jwst-miri-2022-f1130w_BGSUB \
+         fwhm5.0-thresh30 fwhm5.0-thresh30 \
+         --minimum-radius-arcsec 1.0 --maximum-separation-arcsec 0.3 \
+         --guess-offset 0.0 --guess-pa 0.0 \
+         --object-name wr124 --combo-prefix wr124-jwst-2022-f770w-TO-f1130w   
+#+end_src
+
+#+RESULTS:
+: Statistics based on 87 coincident sources
+: Mean displacement in RA: 1.17 +/- 2.46 marcsec
+: Mean displacement in Dec: -14.48 +/- 3.28 marcsec
+: Median displacement in RA: -1.34 +/- 2.26 marcsec
+: Median displacement in Dec: -13.62 +/- 1.80 marcsec
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets.py wr124-jwst-2022-f770w-TO-f1130w-OFFSETS.ecsv --max-sep 100
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f770w-TO-f1130w-OFFSETS.pdf]]
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f770w-TO-f1130w-OFFSETS.ecsv --max-sep 100
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f770w-TO-f1130w-OFFSETS-CORR.pdf]]
+
+Sources are very concentrated towards center in RA, but not in Dec
+
+******** f1130w to f1280w
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-offset.py \
+         wr124-jwst-miri-2022-f1130w_BGSUB wr124-jwst-miri-2022-f1280w_BGSUB \
+         fwhm5.0-thresh30 fwhm5.0-thresh30 \
+         --minimum-radius-arcsec 1.0 --maximum-separation-arcsec 0.3 \
+         --guess-offset 0.0 --guess-pa 0.0 \
+         --object-name wr124 --combo-prefix wr124-jwst-2022-f1130w-TO-f1280w   
+#+end_src
+
+#+RESULTS:
+: Statistics based on 92 coincident sources
+: Mean displacement in RA: -3.51 +/- 7.95 marcsec
+: Mean displacement in Dec: 9.03 +/- 9.86 marcsec
+: Median displacement in RA: 1.97 +/- 5.84 marcsec
+: Median displacement in Dec: 12.66 +/- 6.91 marcsec
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets.py wr124-jwst-2022-f1130w-TO-f1280w-OFFSETS.ecsv --max-sep 300
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f1130w-TO-f1280w-OFFSETS.pdf]]
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f1130w-TO-f1280w-OFFSETS.ecsv --max-sep 300
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f1130w-TO-f1280w-OFFSETS-CORR.pdf]]
+
+The close-in stars have a much larger dispersion than the farther out ones. I have no idea why this is the case
+
+******** f1280w to f1800w
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-offset.py \
+         wr124-jwst-miri-2022-f1280w_BGSUB wr124-jwst-miri-2022-f1800w_BGSUB \
+         fwhm5.0-thresh30 fwhm5.0-thresh30 \
+         --minimum-radius-arcsec 1.0 --maximum-separation-arcsec 0.3 \
+         --guess-offset 0.0 --guess-pa 0.0 \
+         --object-name wr124 --combo-prefix wr124-jwst-2022-f1280w-TO-f1800w
+#+end_src
+
+#+RESULTS:
+: Statistics based on 96 coincident sources
+: Mean displacement in RA: -4.58 +/- 7.36 marcsec
+: Mean displacement in Dec: 0.69 +/- 7.84 marcsec
+: Median displacement in RA: -5.01 +/- 6.39 marcsec
+: Median displacement in Dec: -15.72 +/- 6.82 marcsec
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets.py wr124-jwst-2022-f1280w-TO-f1800w-OFFSETS.ecsv --max-sep 300
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f1280w-TO-f1800w-OFFSETS.pdf]]
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f1280w-TO-f1800w-OFFSETS.ecsv --max-sep 300
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f1280w-TO-f1800w-OFFSETS-CORR.pdf]]
+
+***** 
+
 ****** Apply shifts to JWST images
+
+***** Summary of shifts between images
+- We will make a provisional table with all the shifts, plus comments on any patterns in the residuals
+
+
+|                | From   | To     | d RA              | d Dec           |    N |    pix | Comments                       |
+|----------------+--------+--------+-------------------+-----------------+------+--------+--------------------------------|
+| HST -> JWST    | f675w  | f090w  | -1036.43 +/- 1.92 | 76.99 +/- 2.70  |  246 | 100/31 |                                |
+|----------------+--------+--------+-------------------+-----------------+------+--------+--------------------------------|
+| NIRCAM short   | f090w  | f150w  | -0.38 +/- 0.16    | -3.99 +/- 0.16  |  409 |     31 |                                |
+|                | f150w  | f210m  | 3.01 +/- 0.02     | -2.20 +/- 0.03  | 2143 |     31 | Linear contraction trend 5 mas |
+| short -> long  | f210m  | f335m  | 0.51 +/- 0.13     | -43.65 +/- 0.09 |  838 |  31/63 | Expansion and rotation 8 mas   |
+| NIRCAM long    | f335m  | f444w  | 3.78 +/- 0.08     | 5.22 +/- 0.06   |  466 |     63 |                                |
+|                | f444w  | f470n  | -6.57 +/- 0.87    | -12.74 +/- 1.04 |  391 |     63 | Strong contraction 30 mas      |
+|----------------+--------+--------+-------------------+-----------------+------+--------+--------------------------------|
+| NIRCAM -> MIRI | f444w  | f770w  | 1042.42 +/- 4.65  | 1.62 +/- 3.96   |   42 | 63/111 | Rotation 50 mas                |
+|----------------+--------+--------+-------------------+-----------------+------+--------+--------------------------------|
+| MIRI           | f770w  | f1130w | -1.34 +/- 2.26    | -13.62 +/- 1.80 |   87 |    111 |                                |
+|                | f1130w | f1280w | 1.97 +/- 5.84     | 12.66 +/- 6.91  |   92 |    111 | High dispersion at small r     |
+|                | f1280w | f1800w | -5.01 +/- 6.39    | -15.72 +/- 6.82 |   96 |    111 | Ditto                          |
+|----------------+--------+--------+-------------------+-----------------+------+--------+--------------------------------|
 
 **** F090W
 |  2170.085 | 2491.3488 |
