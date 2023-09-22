@@ -873,30 +873,97 @@ The close-in stars have a much larger dispersion than the farther out ones. I ha
 #+RESULTS:
 [[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f1280w-TO-f1800w-OFFSETS-CORR.pdf]]
 
-***** 
+
 
 ****** Apply shifts to JWST images
-
+***** TODO Align to GAIA frame
+- Maybe this would be a good idea
+***** Compare with Alejandro results
+- CSV file with shifts from Alejandro
+  - [[file:correction_coor_2.csv]]
 ***** Summary of shifts between images
 - We will make a provisional table with all the shifts, plus comments on any patterns in the residuals
 
 
-|                | From   | To     | d RA              | d Dec           |    N |    pix | Comments                       |
-|----------------+--------+--------+-------------------+-----------------+------+--------+--------------------------------|
-| HST -> JWST    | f675w  | f090w  | -1036.43 +/- 1.92 | 76.99 +/- 2.70  |  246 | 100/31 |                                |
-|----------------+--------+--------+-------------------+-----------------+------+--------+--------------------------------|
-| NIRCAM short   | f090w  | f150w  | -0.38 +/- 0.16    | -3.99 +/- 0.16  |  409 |     31 |                                |
-|                | f150w  | f210m  | 3.01 +/- 0.02     | -2.20 +/- 0.03  | 2143 |     31 | Linear contraction trend 5 mas |
-| short -> long  | f210m  | f335m  | 0.51 +/- 0.13     | -43.65 +/- 0.09 |  838 |  31/63 | Expansion and rotation 8 mas   |
-| NIRCAM long    | f335m  | f444w  | 3.78 +/- 0.08     | 5.22 +/- 0.06   |  466 |     63 |                                |
-|                | f444w  | f470n  | -6.57 +/- 0.87    | -12.74 +/- 1.04 |  391 |     63 | Strong contraction 30 mas      |
-|----------------+--------+--------+-------------------+-----------------+------+--------+--------------------------------|
-| NIRCAM -> MIRI | f444w  | f770w  | 1042.42 +/- 4.65  | 1.62 +/- 3.96   |   42 | 63/111 | Rotation 50 mas                |
-|----------------+--------+--------+-------------------+-----------------+------+--------+--------------------------------|
-| MIRI           | f770w  | f1130w | -1.34 +/- 2.26    | -13.62 +/- 1.80 |   87 |    111 |                                |
-|                | f1130w | f1280w | 1.97 +/- 5.84     | 12.66 +/- 6.91  |   92 |    111 | High dispersion at small r     |
-|                | f1280w | f1800w | -5.01 +/- 6.39    | -15.72 +/- 6.82 |   96 |    111 | Ditto                          |
-|----------------+--------+--------+-------------------+-----------------+------+--------+--------------------------------|
+|                | From   | To     | d RA              | d Dec           |    N |    pix | Comments                     |
+|----------------+--------+--------+-------------------+-----------------+------+--------+------------------------------|
+| HST -> JWST    | f675w  | f090w  | -1036.43 +/- 1.92 | 76.99 +/- 2.70  |  246 | 100/31 |                              |
+|----------------+--------+--------+-------------------+-----------------+------+--------+------------------------------|
+| NIRCAM short   | f090w  | f150w  | -0.38 +/- 0.16    | -3.99 +/- 0.16  |  409 |     31 |                              |
+|                | f150w  | f210m  | 3.01 +/- 0.02     | -2.20 +/- 0.03  | 2143 |     31 | Linear contraction 5 mas     |
+| short -> long  | f210m  | f335m  | 0.51 +/- 0.13     | -43.65 +/- 0.09 |  838 |  31/63 | Expansion and rotation 8 mas |
+| NIRCAM long    | f335m  | f444w  | 3.78 +/- 0.08     | 5.22 +/- 0.06   |  466 |     63 |                              |
+|                | f444w  | f470n  | -6.57 +/- 0.87    | -12.74 +/- 1.04 |  391 |     63 | Strong contraction 30 mas    |
+|----------------+--------+--------+-------------------+-----------------+------+--------+------------------------------|
+| NIRCAM -> MIRI | f444w  | f770w  | 1042.42 +/- 4.65  | 1.62 +/- 3.96   |   42 | 63/111 | Rotation 50 mas              |
+|----------------+--------+--------+-------------------+-----------------+------+--------+------------------------------|
+| MIRI           | f770w  | f1130w | -1.34 +/- 2.26    | -13.62 +/- 1.80 |   87 |    111 |                              |
+|                | f1130w | f1280w | 1.97 +/- 5.84     | 12.66 +/- 6.91  |   92 |    111 | High dispersion at small r   |
+|                | f1280w | f1800w | -5.01 +/- 6.39    | -15.72 +/- 6.82 |   96 |    111 | Ditto                        |
+|----------------+--------+--------+-------------------+-----------------+------+--------+------------------------------|
+
+***** Other work on JWST astrometry
+- This is mainly by Johannes Sahlmann
+****** Lessons learned from Sahlmann 2017 JWST-STScI-005492
+- JWST TECHNICAL REPORT
+- Astrometric accuracy of the JWST calibration field catalog examined with the first Gaia data release
+- They are comparing HST-ACS and GAIA astrometry for the JWST calibration field in the LMC
+- They fit highest degree d polynomials to the displacements
+  - They describe these by the "mode" k = 2 (d + 1)
+  - k = 2, d = 0 is a constant offset (2 parameters)
+  - k = 4, d = 1 adds linear transformations: scale, rotation, and skew (6 additional parameters)
+  - k = 6, d = 2 adds quadratic terms (12 additional parameters)
+  - etc ...
+- They find that they get "significant" improvement with k=8 (d=3) over k=6
+  - However, this is just the statistical significance (p < 0.0027, which I think is 3 sigma)
+  - It doesn't actually reduce the RMS of the residuals by very much over k=4 (from 1.835 mas to 1.778 mas in X, and from 2.513 mas to 2.369 mas in Y)
+  - So, I think that *for our purposes we can stick with k=4 (linear transformations)* because we are not really interested in effects below 1 mas
+  - Apparently the residual RMS is dominated by proper motions in this case, consistent with 50 km/s at distance of LMC over the 8.5 year baseline
+- It turns out that the "HST convention" is that "distortions" are the corrections other than global offset, global rotation, and global scale (which it calls "calibrations")
+  - So we will probably not need to bother with these /distortions/ unless a shear turns out to be important
+  - But other conventions count the global scale as one of the "distortions"
+- For their comparison, they find global scale and global rotation maximum offsets of order 5 mas, and skew maximum offsets of order 0.8 mas
+- The linear terms can be decomposed into four components, which can be expressed in terms of the partial derivatives x_x, x_y, y_x, y_y (called b, c, d, e, f in the report)
+  - global scale = sqrt(x_x y_y - x_y y_x)
+  - global rotation: tan \theta = (x_y - y_x) / (x_x + y_y)
+  - on-axis skew (different scales in X and Y) = 0.5 (x_x - y_y)
+  - off-axis skew (non-perpendicularity of X and Y axes) = 0.5 (x_y + y_x)
+- Note that these partial derivatives are of the "evaluation frame" coordinates with respect to the "reference frame" coordinates, which correspond to the second (TO) and first (FROM) image respectively in our case
+  - So they are x_x = d x_2 / d x_1, x_y = d x_2 / d y_1, y_x = d y_2 / d x_1, y_y = d y_2 / d y_1
+  - Our residual graphs are plotting
+    - x_2 - x_1 versus x_1
+    - x_2 - x_1 versus y_1, etc
+  - So the slopes of our residual graphs are
+    - D_xx = d x_2 / d x_1 - d x_1 / d x_1 = x_x - 1
+    - D_xy = d x_2 / d y_1 - d x_1 / d y_1 = x_y (because x_1 and y_1 are independent)
+    - D_yx = y_x
+    - D_yy = y_y - 1
+  - So we can put 
+    - global scale: A = sqrt((D_xx + 1) (D_yy + 1) - D_xy D_yx)
+      - Then to first order in D_xx, D_yy, D_xy, D_yx, we have ...
+      - ... (A - 1) = 0.5 (D_xx + D_yy)
+    - global rotation: tan \theta = (D_xy - D_yx) / (2 + D_xx + D_yy)
+      - tan \theta = (D_xy - D_yx) / 2 A
+      - First order ... tan \theta = 0.5 (D_xy - D_yx)
+    - on-axis skew: B = 0.5 (D_xx - D_yy)
+    - off-axis skew: C = 0.5 (D_xy + D_yx)
+      
+****** Follow-up report Sahlmann 2019 JWST-STScI-006828
+- Does a similar study of HAWK-I catalog instead of HST-ACS
+****** Third report Sahlmann 2020 JWST-STScI-007082
+- Applies the same ideas to relative alignment between JWST instruments
+- Uses FGS1, FGS2, and NIRISS (which are all parts of the same instrument)
+- Finds lateral alignment offsets of 1 to 10 milliarcsec
+- Finds orientation offsets of 3 to 6 arcsec (tan \theta less than 3e-5)
+- Finds distortion terms (scale, skew) of order 1e-5
+****** pystortion
+- Abstract
+  : pystortion provides support for distortion measurements in astronomical imagers. It includes classes to support fitting of bivariate polynomials of arbitrary degree and helper functions for crossmatching catalogs. The crossmatching uses an iterative approach in which a two-dimensional distortion model is fit at every iteration and used to continuously refine the position of extracted sources.
+- https://ascl.net/2206.004
+- https://github.com/spacetelescope/pystortion
+- This includes a crossmatch module for matching sky catalogs
+  - It is a bit more sophisticated than mine since it is iterative and uses the distortion model to refine the positions of the sources
+- There is not really any documentation, but there are extensive tests, so it should be easy to work out how to use it
 
 **** F090W
 |  2170.085 | 2491.3488 |
