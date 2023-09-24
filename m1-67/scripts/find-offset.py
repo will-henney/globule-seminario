@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import Union
 import numpy as np
-from astropy.table import Table
+from astropy.table import QTable, Table
 from astropy.coordinates import SkyCoord
 from astropy.wcs import WCS
 from astropy.io import fits
@@ -33,6 +33,19 @@ def match_catalogs(
     return np.asarray(imatch1), np.asarray(imatch2)
 
 
+def get_coords_from_fits_catalog(fname, sname):
+    """Get coordinates from sources detected in a FITS image"""
+    (hdu,) = fits.open(f"{fname}.fits")
+    w = WCS(hdu.header)
+    stab = QTable.read(f"{fname}-sources-{sname}.ecsv")
+    return w.pixel_to_world(stab["xcentroid"], stab["ycentroid"])
+
+
+def get_coords_from_gaia_catalog(fname, sname):
+    stab = QTable.read(f"{fname}-sources-{sname}.ecsv")
+    return SkyCoord(stab["ra"], stab["dec"])
+
+
 def main(
     file_prefixes: tuple[str, str],
     catalog_suffixes: tuple[str, str],
@@ -46,14 +59,14 @@ def main(
 ):
     fname1, fname2 = file_prefixes
     sname1, sname2 = catalog_suffixes
-    (hdu1,) = fits.open(f"{fname1}.fits")
-    (hdu2,) = fits.open(f"{fname2}.fits")
-    w1 = WCS(hdu1.header)
-    w2 = WCS(hdu2.header)
-    stab1 = Table.read(f"{fname1}-sources-{sname1}.ecsv")
-    stab2 = Table.read(f"{fname2}-sources-{sname2}.ecsv")
-    c1 = w1.pixel_to_world(stab1["xcentroid"], stab1["ycentroid"])
-    c2 = w2.pixel_to_world(stab2["xcentroid"], stab2["ycentroid"])
+    if fname1 == "gaia":
+        c1 = get_coords_from_gaia_catalog(fname1, sname1)
+    else:
+        c1 = get_coords_from_fits_catalog(fname1, sname1)
+    if fname2 == "gaia":
+        c2 = get_coords_from_gaia_catalog(fname2, sname2)
+    else:
+        c2 = get_coords_from_fits_catalog(fname2, sname2)
 
     shifted = False
     if guess_offset:
