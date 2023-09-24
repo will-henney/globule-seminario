@@ -8,14 +8,21 @@ import seaborn as sns
 def main(
     filename: str,
     max_sep: float = 200.0,
+    alpha: float = 1.0,
 ):
     tab = Table.read(filename)
     ra_med = np.median(tab["d RA, mas"])
     dec_med = np.median(tab["d Dec, mas"])
+    plot_kws = {}
+    if alpha < 1.0:
+        plot_kws["alpha"] = alpha
+        # If points are transparent, don't draw the edges
+        plot_kws["linewidth"] = 0
     grid = sns.pairplot(
         data=tab.to_pandas(),
         x_vars=["RA, arcsec", "Dec, arcsec"],
         y_vars=["d RA, mas", "d Dec, mas"],
+        plot_kws=plot_kws,
     )
     grid.figure.suptitle(filename, y=1.01, va="baseline")
 

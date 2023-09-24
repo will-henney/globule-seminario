@@ -885,22 +885,22 @@ The close-in stars have a much larger dispersion than the farther out ones. I ha
 - We will make a provisional table with all the shifts, plus comments on any patterns in the residuals
 
 
-|                | From   | To     | d RA              | d Dec           |    N |    pix | Comments                     |
-|----------------+--------+--------+-------------------+-----------------+------+--------+------------------------------|
-| HST -> JWST    | f675w  | f090w  | -1036.43 +/- 1.92 | 76.99 +/- 2.70  |  246 | 100/31 |                              |
-|----------------+--------+--------+-------------------+-----------------+------+--------+------------------------------|
-| NIRCAM short   | f090w  | f150w  | -0.38 +/- 0.16    | -3.99 +/- 0.16  |  409 |     31 |                              |
-|                | f150w  | f210m  | 3.01 +/- 0.02     | -2.20 +/- 0.03  | 2143 |     31 | Linear contraction 5 mas     |
-| short -> long  | f210m  | f335m  | 0.51 +/- 0.13     | -43.65 +/- 0.09 |  838 |  31/63 | Expansion and rotation 8 mas |
-| NIRCAM long    | f335m  | f444w  | 3.78 +/- 0.08     | 5.22 +/- 0.06   |  466 |     63 |                              |
-|                | f444w  | f470n  | -6.57 +/- 0.87    | -12.74 +/- 1.04 |  391 |     63 | Strong contraction 30 mas    |
-|----------------+--------+--------+-------------------+-----------------+------+--------+------------------------------|
-| NIRCAM -> MIRI | f444w  | f770w  | 1042.42 +/- 4.65  | 1.62 +/- 3.96   |   42 | 63/111 | Rotation 50 mas              |
-|----------------+--------+--------+-------------------+-----------------+------+--------+------------------------------|
-| MIRI           | f770w  | f1130w | -1.34 +/- 2.26    | -13.62 +/- 1.80 |   87 |    111 |                              |
-|                | f1130w | f1280w | 1.97 +/- 5.84     | 12.66 +/- 6.91  |   92 |    111 | High dispersion at small r   |
-|                | f1280w | f1800w | -5.01 +/- 6.39    | -15.72 +/- 6.82 |   96 |    111 | Ditto                        |
-|----------------+--------+--------+-------------------+-----------------+------+--------+------------------------------|
+|                | From   | To     | d RA              | d Dec           |    N |    pix | Comments                      |
+|----------------+--------+--------+-------------------+-----------------+------+--------+-------------------------------|
+| HST -> JWST    | f675w  | f090w  | -1036.43 +/- 1.92 | 76.99 +/- 2.70  |  246 | 100/31 |                               |
+|----------------+--------+--------+-------------------+-----------------+------+--------+-------------------------------|
+| NIRCAM short   | f090w  | f150w  | -0.38 +/- 0.16    | -3.99 +/- 0.16  |  409 |     31 |                               |
+|                | f150w  | f210m  | 3.01 +/- 0.02     | -2.20 +/- 0.03  | 2143 |     31 | Linear contraction 30 ppm     |
+| short -> long  | f210m  | f335m  | 0.51 +/- 0.13     | -43.65 +/- 0.09 |  838 |  31/63 | Expansion and rotation 70 ppm |
+| NIRCAM long    | f335m  | f444w  | 3.78 +/- 0.08     | 5.22 +/- 0.06   |  466 |     63 | Rotation 30 ppm = 6 arcsec    |
+|                | f444w  | f470n  | -6.57 +/- 0.87    | -12.74 +/- 1.04 |  391 |     63 | Strong contraction 400 ppm    |
+|----------------+--------+--------+-------------------+-----------------+------+--------+-------------------------------|
+| NIRCAM -> MIRI | f444w  | f770w  | 1042.42 +/- 4.65  | 1.62 +/- 3.96   |   42 | 63/111 | Rotation 500 ppm = 100 arcsec |
+|----------------+--------+--------+-------------------+-----------------+------+--------+-------------------------------|
+| MIRI           | f770w  | f1130w | -1.34 +/- 2.26    | -13.62 +/- 1.80 |   87 |    111 |                               |
+|                | f1130w | f1280w | 1.97 +/- 5.84     | 12.66 +/- 6.91  |   92 |    111 | High dispersion at small r    |
+|                | f1280w | f1800w | -5.01 +/- 6.39    | -15.72 +/- 6.82 |   96 |    111 | Ditto                         |
+|----------------+--------+--------+-------------------+-----------------+------+--------+-------------------------------|
 
 ***** Other work on JWST astrometry
 - This is mainly by Johannes Sahlmann
@@ -964,6 +964,10 @@ The close-in stars have a much larger dispersion than the farther out ones. I ha
 - This includes a crossmatch module for matching sky catalogs
   - It is a bit more sophisticated than mine since it is iterative and uses the distortion model to refine the positions of the sources
 - There is not really any documentation, but there are extensive tests, so it should be easy to work out how to use it
+
+***** Find and apply scale and rotation calibrations
+- We can fit straight lines to the residuals to get the first order derivatives
+- Then we can directly map those onto the FITS PC matrix for the rotation and CDELT for the scale (or CD matrix for both)
 
 **** F090W
 |  2170.085 | 2491.3488 |
