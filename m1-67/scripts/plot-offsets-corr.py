@@ -3,6 +3,7 @@ from astropy.table import Table
 import typer
 from matplotlib import pyplot as plt
 import seaborn as sns
+import pydove as dv
 
 
 def main(
@@ -23,6 +24,14 @@ def main(
         x_vars=["RA, arcsec", "Dec, arcsec"],
         y_vars=["d RA, mas", "d Dec, mas"],
         plot_kws=plot_kws,
+    )
+    grid.map(
+        dv.regplot,
+        scatter=False,
+        # robust=True,
+        color="m",
+        marker=".",
+        fit_reg=True,
     )
     grid.figure.suptitle(filename, y=1.01, va="baseline")
 

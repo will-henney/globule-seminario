@@ -880,20 +880,109 @@ The close-in stars have a much larger dispersion than the farther out ones. I ha
 - Maybe this would be a good idea
 
 
-Get all the GAIA sources in the field with a radius of two arcmin
+Get all the GAIA sources in the field with a radius of three arcmin
 
 #+begin_src sh :dir data :results verbatim
   python ../scripts/get-gaia-catalog.py \
          --object-name wr124 \
-         --search-radius-arcsec 120.0 
+         --search-radius-arcsec 180.0 
 #+end_src
 
 #+RESULTS:
 : INFO: Query finished. [astroquery.utils.tap.core]
+****** HST f675w continuum to GAIA
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-offset.py \
+         wr124-hst-1997-f675w_BGSUB gaia \
+         fwhm2.0-thresh1 wr124 \
+         --minimum-radius-arcsec 1.0 --maximum-separation-arcsec 0.3 \
+         --guess-offset 0.0 --guess-pa 0.0 \
+         --object-name wr124 --combo-prefix wr124-hst-1997-f675w-TO-gaia
+#+end_src
 
+#+RESULTS:
+: Statistics based on 339 coincident sources
+: Mean displacement in RA: -6.61 +/- 1.90 marcsec
+: Mean displacement in Dec: -133.67 +/- 2.47 marcsec
+: Median displacement in RA: -8.79 +/- 1.51 marcsec
+: Median displacement in Dec: -136.61 +/- 2.04 marcsec
 
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets.py wr124-hst-1997-f675w-TO-gaia-OFFSETS.ecsv --max-sep 100
+#+end_src
 
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-hst-1997-f675w-TO-gaia-OFFSETS.pdf]]
 
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets-corr.py wr124-hst-1997-f675w-TO-gaia-OFFSETS.ecsv --max-sep 200 --alpha 0.3
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-hst-1997-f675w-TO-gaia-OFFSETS-CORR.pdf]]
+
+Slight evidence for a rotation of the HST frame with respect to GAIA
+****** HST f656n Ha first epoch to Gaia
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-offset.py \
+         wr124-hst-1997-f656n_BGSUB gaia \
+         fwhm2.0-thresh1 wr124 \
+         --minimum-radius-arcsec 1.0 --maximum-separation-arcsec 0.3 \
+         --guess-offset 0.0 --guess-pa 0.0 \
+         --object-name wr124 --combo-prefix wr124-hst-1997-f656n-TO-gaia
+#+end_src
+
+#+RESULTS:
+: Statistics based on 43 coincident sources
+: Mean displacement in RA: 11.58 +/- 5.43 marcsec
+: Mean displacement in Dec: -79.62 +/- 8.62 marcsec
+: Median displacement in RA: 4.13 +/- 5.43 marcsec
+: Median displacement in Dec: -89.65 +/- 8.12 marcsec
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets.py wr124-hst-1997-f656n-TO-gaia-OFFSETS.ecsv --max-sep 100
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-hst-1997-f656n-TO-gaia-OFFSETS.pdf]]
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets-corr.py wr124-hst-1997-f656n-TO-gaia-OFFSETS.ecsv --max-sep 200 --alpha 0.3
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-hst-1997-f656n-TO-gaia-OFFSETS-CORR.pdf]]
+
+****** HST f656n Ha second epoch to Gaia
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-offset.py \
+         wr124-hst-2008-f656n_BGSUB gaia \
+         fwhm2.0-thresh1 wr124 \
+         --minimum-radius-arcsec 1.0 --maximum-separation-arcsec 0.3 \
+         --guess-offset 0.0 --guess-pa 0.0 \
+         --object-name wr124 --combo-prefix wr124-hst-2008-f656n-TO-gaia
+#+end_src
+
+#+RESULTS:
+: Statistics based on 36 coincident sources
+: Mean displacement in RA: 16.90 +/- 3.51 marcsec
+: Mean displacement in Dec: -56.02 +/- 4.90 marcsec
+: Median displacement in RA: 14.64 +/- 3.48 marcsec
+: Median displacement in Dec: -55.21 +/- 4.64 marcsec
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets.py wr124-hst-2008-f656n-TO-gaia-OFFSETS.ecsv --max-sep 100
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-hst-2008-f656n-TO-gaia-OFFSETS.pdf]]
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets-corr.py wr124-hst-2008-f656n-TO-gaia-OFFSETS.ecsv --max-sep 200 --alpha 0.3
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-hst-2008-f656n-TO-gaia-OFFSETS-CORR.pdf]]
 
 ****** NIRCAM f090w to GAIA
 #+begin_src sh :dir data :results verbatim
@@ -928,6 +1017,38 @@ Get all the GAIA sources in the field with a radius of two arcmin
 [[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f090w-TO-gaia-OFFSETS-CORR.pdf]]
 
 This shows clear signs of rotation
+
+
+****** NIRCAM f150w to GAIA
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-offset.py \
+         wr124-jwst-nircam-2022-f150w_BGSUB gaia \
+         fwhm5.0-thresh30 wr124 \
+         --minimum-radius-arcsec 1.0 --maximum-separation-arcsec 0.3 \
+         --guess-offset 1.0 --guess-pa 90.0 \
+         --object-name wr124 --combo-prefix wr124-jwst-2022-f150w-TO-gaia
+#+end_src
+
+#+RESULTS:
+: Statistics based on 109 coincident sources
+: Mean displacement in RA: 1039.02 +/- 7.61 marcsec
+: Mean displacement in Dec: -132.01 +/- 13.57 marcsec
+: Median displacement in RA: 1027.28 +/- 1.64 marcsec
+: Median displacement in Dec: -196.53 +/- 2.72 marcsec
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets.py wr124-jwst-2022-f150w-TO-gaia-OFFSETS.ecsv --max-sep 100
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f150w-TO-gaia-OFFSETS.pdf]]
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f150w-TO-gaia-OFFSETS.ecsv --max-sep 100 --alpha 0.3
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f150w-TO-gaia-OFFSETS-CORR.pdf]]
 
 ****** NIRCAM f210m to GAIA
 #+begin_src sh :dir data :results verbatim
@@ -992,6 +1113,38 @@ This shows clear signs of rotation
 
 #+RESULTS:
 [[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f335m-TO-gaia-OFFSETS-CORR.pdf]]
+
+
+****** NIRCAM f444w to GAIA
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-offset.py \
+         wr124-jwst-nircam-2022-f444w_BGSUB gaia \
+         fwhm5.0-thresh30 wr124 \
+         --minimum-radius-arcsec 1.0 --maximum-separation-arcsec 0.3 \
+         --guess-offset 1.0 --guess-pa 90.0 \
+         --object-name wr124 --combo-prefix wr124-jwst-2022-f444w-TO-gaia
+#+end_src
+
+#+RESULTS:
+: Statistics based on 353 coincident sources
+: Mean displacement in RA: 1018.60 +/- 0.91 marcsec
+: Mean displacement in Dec: -166.55 +/- 1.57 marcsec
+: Median displacement in RA: 1018.37 +/- 0.83 marcsec
+: Median displacement in Dec: -167.85 +/- 0.97 marcsec
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets.py wr124-jwst-2022-f444w-TO-gaia-OFFSETS.ecsv --max-sep 100
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f444w-TO-gaia-OFFSETS.pdf]]
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f444w-TO-gaia-OFFSETS.ecsv --max-sep 100 --alpha 0.3
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f444w-TO-gaia-OFFSETS-CORR.pdf]]
 
 
 ****** NIRCAM f470n to GAIA
@@ -1059,11 +1212,115 @@ This is the first one to show a scale as well as a rotation.
 
 #+RESULTS:
 [[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f770w-TO-gaia-OFFSETS-CORR.pdf]]
+
+****** MIRI f1130w to GAIA
+
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-offset.py \
+         wr124-jwst-miri-2022-f1130w_BGSUB gaia \
+         fwhm5.0-thresh30 wr124 \
+         --minimum-radius-arcsec 1.0 --maximum-separation-arcsec 0.3 \
+         --guess-offset 0.0 --guess-pa 0.0 \
+         --object-name wr124 --combo-prefix wr124-jwst-2022-f1130w-TO-gaia
+#+end_src
+
+#+RESULTS:
+: Statistics based on 26 coincident sources
+: Mean displacement in RA: -13.80 +/- 9.89 marcsec
+: Mean displacement in Dec: -148.69 +/- 12.14 marcsec
+: Median displacement in RA: -23.48 +/- 5.43 marcsec
+: Median displacement in Dec: -159.56 +/- 4.36 marcsec
+
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets.py wr124-jwst-2022-f1130w-TO-gaia-OFFSETS.ecsv --max-sep 100
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f1130w-TO-gaia-OFFSETS.pdf]]
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f1130w-TO-gaia-OFFSETS.ecsv --max-sep 100
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f1130w-TO-gaia-OFFSETS-CORR.pdf]]
+
+
+
+****** MIRI f1280w to GAIA
+
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-offset.py \
+         wr124-jwst-miri-2022-f1280w_BGSUB gaia \
+         fwhm5.0-thresh30 wr124 \
+         --minimum-radius-arcsec 1.0 --maximum-separation-arcsec 0.3 \
+         --guess-offset 0.0 --guess-pa 0.0 \
+         --object-name wr124 --combo-prefix wr124-jwst-2022-f1280w-TO-gaia
+#+end_src
+
+#+RESULTS:
+: Statistics based on 15 coincident sources
+: Mean displacement in RA: -31.01 +/- 5.26 marcsec
+: Mean displacement in Dec: -171.02 +/- 5.89 marcsec
+: Median displacement in RA: -32.11 +/- 7.57 marcsec
+: Median displacement in Dec: -172.41 +/- 7.16 marcsec
+
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets.py wr124-jwst-2022-f1280w-TO-gaia-OFFSETS.ecsv --max-sep 100
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f1280w-TO-gaia-OFFSETS.pdf]]
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f1280w-TO-gaia-OFFSETS.ecsv --max-sep 100
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f1280w-TO-gaia-OFFSETS-CORR.pdf]]
+
+
+****** MIRI f1800w to GAIA
+
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-offset.py \
+         wr124-jwst-miri-2022-f1800w_BGSUB gaia \
+         fwhm5.0-thresh30 wr124 \
+         --minimum-radius-arcsec 1.0 --maximum-separation-arcsec 0.3 \
+         --guess-offset 0.0 --guess-pa 0.0 \
+         --object-name wr124 --combo-prefix wr124-jwst-2022-f1800w-TO-gaia
+#+end_src
+
+#+RESULTS:
+: Statistics based on 8 coincident sources
+: Mean displacement in RA: -12.12 +/- 12.13 marcsec
+: Mean displacement in Dec: -151.68 +/- 6.52 marcsec
+: Median displacement in RA: -14.95 +/- 15.55 marcsec
+: Median displacement in Dec: -147.72 +/- 7.18 marcsec
+
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets.py wr124-jwst-2022-f1800w-TO-gaia-OFFSETS.ecsv --max-sep 100
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f1800w-TO-gaia-OFFSETS.pdf]]
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f1800w-TO-gaia-OFFSETS.ecsv --max-sep 100
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f1800w-TO-gaia-OFFSETS-CORR.pdf]]
+
 ***** Compare with Alejandro results
 - CSV file with shifts from Alejandro
   - [[file:correction_coor_2.csv]]
 ***** Summary of shifts between images
 - We will make a provisional table with all the shifts, plus comments on any patterns in the residuals
+****** Relative shifts between adjacent images
 
 
 |                | From   | To     | d RA              | d Dec           |    N |    pix | Comments                      |
@@ -1082,6 +1339,28 @@ This is the first one to show a scale as well as a rotation.
 |                | f1130w | f1280w | 1.97 +/- 5.84     | 12.66 +/- 6.91  |   92 |    111 | High dispersion at small r    |
 |                | f1280w | f1800w | -5.01 +/- 6.39    | -15.72 +/- 6.82 |   96 |    111 | Ditto                         |
 |----------------+--------+--------+-------------------+-----------------+------+--------+-------------------------------|
+****** Absolute shifts to GAIA frame
+All are to Gaia
+
+|              | From   | d RA             | d Dec            |   N | pix | Comments |
+|--------------+--------+------------------+------------------+-----+-----+----------|
+| HST -> Gaia  | f675w  | -8.79 +/- 1.51   | -136.61 +/- 2.04 | 339 | 100 | rotation |
+| 1997         | f656n  | 4.13 +/- 5.43    | -89.65 +/- 8.12  |  43 | 100 |          |
+| 2008         | f656n  | 14.64 +/- 3.48   | -55.21 +/- 4.64  |  36 | 100 |          |
+|--------------+--------+------------------+------------------+-----+-----+----------|
+| NIRCAM short | f090w  | 1022.59 +/- 1.41 | -210.59 +/- 1.69 | 122 |  31 | rotation |
+|              | f150w  | 1027.28 +/- 1.64 | -196.53 +/- 2.72 | 109 |  31 |          |
+|              | f210m  | 1022.15 +/- 0.83 | -204.17 +/- 1.02 | 404 |  31 |          |
+|--------------+--------+------------------+------------------+-----+-----+----------|
+| NIRCAM long  | f335m  | 1022.76 +/- 0.81 | -162.58 +/- 1.00 | 345 |  63 |          |
+|              | f444w  | 1018.37 +/- 0.83 | -167.85 +/- 0.97 | 353 |  63 |          |
+|              | f470n  | 1023.46 +/- 1.36 | -153.83 +/- 1.62 | 352 |  63 |          |
+|--------------+--------+------------------+------------------+-----+-----+----------|
+| MIRI         | f770w  | -22.98 +/- 1.83  | -171.72 +/- 2.19 |  73 | 111 |          |
+|              | f1130w | -23.48 +/- 5.43  | -159.56 +/- 4.36 |  26 | 111 |          |
+|              | f1280w | -32.11 +/- 7.57  | -172.41 +/- 7.16 |  15 | 111 |          |
+|              | f1800w | -14.95 +/- 15.55 | -147.72 +/- 7.18 |   8 | 111 |          |
+|--------------+--------+------------------+------------------+-----+-----+----------|
 
 ***** Other work on JWST astrometry
 - This is mainly by Johannes Sahlmann
