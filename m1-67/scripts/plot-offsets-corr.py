@@ -5,6 +5,8 @@ from matplotlib import pyplot as plt
 import seaborn as sns
 import statsmodels.api as sm
 import pandas as pd
+import yaml
+import npyaml
 
 
 def robust_fit(data: pd.DataFrame, xlabel: str, ylabel: str):
@@ -91,7 +93,8 @@ def main(
         y_vars=y_vars,
         plot_kws=plot_kws,
     )
-    results = []
+    summaries = []
+    full_results = {}
     for j, y_var in enumerate(y_vars):
         for i, x_var in enumerate(x_vars):
             ax = grid.axes[j, i]
@@ -99,18 +102,23 @@ def main(
             center = fit.params[0]
             ax.set_ylim(center - max_sep, center + max_sep)
             ax.axhline(center, color="k", linestyle="dashed")
-            results.append(fit.summary())
+            summaries.append(fit.summary2())
+            full_results[f"({y_var}) vs ({x_var})"] = fit
 
     grid.figure.suptitle(filename, y=1.01, va="baseline")
 
     figfile = filename.replace(".ecsv", "-CORR.pdf")
     fitfile = filename.replace(".ecsv", "-CORR.txt")
     grid.savefig(figfile, bbox_inches="tight")
+    # Save summaries of the fits
     with open(fitfile, "w") as f:
-        for result in results:
-            f.write(result.as_text())
+        for summary in summaries:
+            f.write(summary.as_text())
             f.write("\n")
-
+    # Save all the details of the fits as a YAML file
+    npyaml.register_all()
+    with open(filename.replace(".ecsv", "-CORR.yaml"), "w") as f:
+        f.write(yaml.dump(full_results, sort_keys=False))
     print(figfile, end="")
 
 

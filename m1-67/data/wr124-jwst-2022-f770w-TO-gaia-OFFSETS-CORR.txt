@@ -1,76 +1,76 @@
                     Robust linear Model Regression Results                    
 ==============================================================================
-Dep. Variable:              d RA, mas   No. Observations:                   43
-Model:                            RLM   Df Residuals:                       41
+Dep. Variable:              d RA, mas   No. Observations:                   73
+Model:                            RLM   Df Residuals:                       71
 Method:                          IRLS   Df Model:                            1
 Norm:                          HuberT                                         
 Scale Est.:                       mad                                         
 Cov Type:                          H1                                         
 Date:                Mon, 25 Sep 2023                                         
-Time:                        20:16:19                                         
-No. Iterations:                    10                                         
+Time:                        19:53:03                                         
+No. Iterations:                     8                                         
 ==============================================================================
                  coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------
-const          8.6227      5.647      1.527      0.127      -2.444      19.690
-RA, arcsec     0.1518      0.161      0.942      0.346      -0.164       0.468
+const        -20.4392      1.718    -11.899      0.000     -23.806     -17.072
+RA, arcsec     0.1372      0.037      3.739      0.000       0.065       0.209
 ==============================================================================
 
 If the model instance has been used for another fit with different fit parameters, then the fit options might not be the correct ones anymore .
                     Robust linear Model Regression Results                    
 ==============================================================================
-Dep. Variable:              d RA, mas   No. Observations:                   43
-Model:                            RLM   Df Residuals:                       41
+Dep. Variable:              d RA, mas   No. Observations:                   73
+Model:                            RLM   Df Residuals:                       71
 Method:                          IRLS   Df Model:                            1
 Norm:                          HuberT                                         
 Scale Est.:                       mad                                         
 Cov Type:                          H1                                         
 Date:                Mon, 25 Sep 2023                                         
-Time:                        20:16:19                                         
-No. Iterations:                    12                                         
+Time:                        19:53:03                                         
+No. Iterations:                    13                                         
 ===============================================================================
                   coef    std err          z      P>|z|      [0.025      0.975]
 -------------------------------------------------------------------------------
-const          10.5510      5.689      1.855      0.064      -0.599      21.700
-Dec, arcsec    -0.3134      0.130     -2.414      0.016      -0.568      -0.059
+const         -21.9103      1.852    -11.830      0.000     -25.540     -18.280
+Dec, arcsec     0.0981      0.048      2.038      0.042       0.004       0.193
 ===============================================================================
 
 If the model instance has been used for another fit with different fit parameters, then the fit options might not be the correct ones anymore .
                     Robust linear Model Regression Results                    
 ==============================================================================
-Dep. Variable:             d Dec, mas   No. Observations:                   43
-Model:                            RLM   Df Residuals:                       41
+Dep. Variable:             d Dec, mas   No. Observations:                   73
+Model:                            RLM   Df Residuals:                       71
 Method:                          IRLS   Df Model:                            1
 Norm:                          HuberT                                         
 Scale Est.:                       mad                                         
 Cov Type:                          H1                                         
 Date:                Mon, 25 Sep 2023                                         
-Time:                        20:16:19                                         
-No. Iterations:                    16                                         
+Time:                        19:53:03                                         
+No. Iterations:                    15                                         
 ==============================================================================
                  coef    std err          z      P>|z|      [0.025      0.975]
 ------------------------------------------------------------------------------
-const        -85.3154      8.183    -10.426      0.000    -101.354     -69.276
-RA, arcsec     0.2814      0.234      1.205      0.228      -0.176       0.739
+const       -170.9211      2.179    -78.424      0.000    -175.193    -166.649
+RA, arcsec    -0.1819      0.047     -3.906      0.000      -0.273      -0.091
 ==============================================================================
 
 If the model instance has been used for another fit with different fit parameters, then the fit options might not be the correct ones anymore .
                     Robust linear Model Regression Results                    
 ==============================================================================
-Dep. Variable:             d Dec, mas   No. Observations:                   43
-Model:                            RLM   Df Residuals:                       41
+Dep. Variable:             d Dec, mas   No. Observations:                   73
+Model:                            RLM   Df Residuals:                       71
 Method:                          IRLS   Df Model:                            1
 Norm:                          HuberT                                         
 Scale Est.:                       mad                                         
 Cov Type:                          H1                                         
 Date:                Mon, 25 Sep 2023                                         
-Time:                        20:16:19                                         
-No. Iterations:                    10                                         
+Time:                        19:53:03                                         
+No. Iterations:                    11                                         
 ===============================================================================
                   coef    std err          z      P>|z|      [0.025      0.975]
 -------------------------------------------------------------------------------
-const         -82.1873      8.840     -9.297      0.000     -99.513     -64.862
-Dec, arcsec    -0.2117      0.202     -1.049      0.294      -0.607       0.184
+const        -169.9986      2.448    -69.430      0.000    -174.798    -165.200
+Dec, arcsec     0.0250      0.064      0.393      0.694      -0.100       0.150
 ===============================================================================
 
 If the model instance has been used for another fit with different fit parameters, then the fit options might not be the correct ones anymore .

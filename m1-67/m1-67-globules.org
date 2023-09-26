@@ -1010,7 +1010,7 @@ Slight evidence for a rotation of the HST frame with respect to GAIA
 
 
 #+begin_src sh :dir data :results file
-  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f090w-TO-gaia-OFFSETS.ecsv --max-sep 100
+  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f090w-TO-gaia-OFFSETS.ecsv --max-sep 100 --alpha 0.3
 #+end_src
 
 #+RESULTS:
@@ -1044,11 +1044,13 @@ This shows clear signs of rotation
 [[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f150w-TO-gaia-OFFSETS.pdf]]
 
 #+begin_src sh :dir data :results file
-  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f150w-TO-gaia-OFFSETS.ecsv --max-sep 100 --alpha 0.3
+  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f150w-TO-gaia-OFFSETS.ecsv --max-sep 200 --alpha 0.3
 #+end_src
 
 #+RESULTS:
 [[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f150w-TO-gaia-OFFSETS-CORR.pdf]]
+
+This one has the least satisfactory robust fit. I am going to try and improve it
 
 ****** NIRCAM f210m to GAIA
 #+begin_src sh :dir data :results verbatim
@@ -1314,6 +1316,30 @@ This is the first one to show a scale as well as a rotation.
 
 #+RESULTS:
 [[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f1800w-TO-gaia-OFFSETS-CORR.pdf]]
+***** Test the yaml numpy dump
+#+begin_src sh :dir scripts :results verbatim
+  python npyaml.py
+#+end_src
+
+#+RESULTS:
+#+begin_example
+ndarray:
+- 1
+- 2
+- 3
+
+scalar int ndarray: 1
+
+scalar float ndarray: 1.0
+
+np.int64: 1
+
+np.float64: 1.0
+
+#+end_example
+***** TODO Details of the robust fits
+- I am using the default method to start with, which works well in most cases, but in the f150w filter it is too affected by outliers
+- So I am going to try a weighting function that is more aggressive in winnowing the outliers
 
 ***** Compare with Alejandro results
 - CSV file with shifts from Alejandro

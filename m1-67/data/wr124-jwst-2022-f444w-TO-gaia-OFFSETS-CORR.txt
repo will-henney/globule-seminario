@@ -7,7 +7,7 @@ Norm:                          HuberT
 Scale Est.:                       mad                                         
 Cov Type:                          H1                                         
 Date:                Mon, 25 Sep 2023                                         
-Time:                        13:26:11                                         
+Time:                        20:01:17                                         
 No. Iterations:                    11                                         
 ==============================================================================
                  coef    std err          z      P>|z|      [0.025      0.975]
@@ -26,7 +26,7 @@ Norm:                          HuberT
 Scale Est.:                       mad                                         
 Cov Type:                          H1                                         
 Date:                Mon, 25 Sep 2023                                         
-Time:                        13:26:11                                         
+Time:                        20:01:17                                         
 No. Iterations:                    11                                         
 ===============================================================================
                   coef    std err          z      P>|z|      [0.025      0.975]
@@ -45,7 +45,7 @@ Norm:                          HuberT
 Scale Est.:                       mad                                         
 Cov Type:                          H1                                         
 Date:                Mon, 25 Sep 2023                                         
-Time:                        13:26:11                                         
+Time:                        20:01:17                                         
 No. Iterations:                    14                                         
 ==============================================================================
                  coef    std err          z      P>|z|      [0.025      0.975]
@@ -64,7 +64,7 @@ Norm:                          HuberT
 Scale Est.:                       mad                                         
 Cov Type:                          H1                                         
 Date:                Mon, 25 Sep 2023                                         
-Time:                        13:26:11                                         
+Time:                        20:01:17                                         
 No. Iterations:                    12                                         
 ===============================================================================
                   coef    std err          z      P>|z|      [0.025      0.975]
