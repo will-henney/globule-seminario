@@ -8,6 +8,12 @@ import pandas as pd
 import yaml
 import npyaml
 
+INFO_STRING = """\
+Linear transform coefficients to convert between two coordinate frames
+The transform was calculated by fitting robust linear models to the offsets between the two frames as a function of position on the sky. The norm used for M-estimation was the trimmed mean with c=3.0.
+The constant offset is in coeff_0 in milliarcsecond. This can be added to the CRVAL WCS parameter. The associated uncertainty is in e_coeff_0.
+The linear terms (dilation, rotation, shear) are given by the matrix coeff_1. This can be added to the identity matrix and then multiply the CD WCS matrix. The associated uncertainty is in e_coeff_1."""
+
 
 def robust_fit(data: pd.DataFrame, xlabel: str, ylabel: str):
     """Fit a robust linear model to the data."""
@@ -18,7 +24,7 @@ def robust_fit(data: pd.DataFrame, xlabel: str, ylabel: str):
     #  Take the endogenous variable as y column from the data
     y = sorted_data[ylabel]
     #  Fit the model
-    fit = sm.RLM(y, X).fit()
+    fit = sm.RLM(y, X, M=sm.robust.norms.TrimmedMean(c=3.0)).fit()
     return fit
 
 
@@ -95,6 +101,15 @@ def main(
     )
     summaries = []
     full_results = {}
+    # Arrays to hold the transform coefficients and uncertainties
+    transform = {
+        "offsets_file": filename,
+        "info": INFO_STRING,
+        "coeff_0": np.empty((2, 2)),
+        "coeff_1": np.empty((2, 2)),
+        "e_coeff_0": np.empty((2, 2)),
+        "e_coeff_1": np.empty((2, 2)),
+    }
     for j, y_var in enumerate(y_vars):
         for i, x_var in enumerate(x_vars):
             ax = grid.axes[j, i]
@@ -102,8 +117,18 @@ def main(
             center = fit.params[0]
             ax.set_ylim(center - max_sep, center + max_sep)
             ax.axhline(center, color="k", linestyle="dashed")
+            # Save the summary of the fit
             summaries.append(fit.summary2())
+            # And the full results in a dict that we will later save as a YAML file
             full_results[f"({y_var}) vs ({x_var})"] = fit
+            # Save the transform coefficients separately
+            transform["coeff_0"][j, i] = fit.params[0]
+            transform["coeff_1"][j, i] = fit.params[1] * 1.0e-3
+            transform["e_coeff_0"][j, i] = fit.bse[0]
+            transform["e_coeff_1"][j, i] = fit.bse[1] * 1.0e-3
+    # Average the constant coefficient over the two axes
+    transform["coeff_0"] = np.mean(transform["coeff_0"], axis=1)
+    transform["e_coeff_0"] = np.mean(transform["e_coeff_0"], axis=1)
 
     grid.figure.suptitle(filename, y=1.01, va="baseline")
 
@@ -119,6 +144,9 @@ def main(
     npyaml.register_all()
     with open(filename.replace(".ecsv", "-CORR.yaml"), "w") as f:
         f.write(yaml.dump(full_results, sort_keys=False))
+    # And save the transform coefficients, which are the most important thing
+    with open(filename.replace(".ecsv", "-TRANSFORM.yaml"), "w") as f:
+        f.write(yaml.dump(transform, sort_keys=False))
     print(figfile, end="")
 
 

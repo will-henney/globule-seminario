@@ -1337,10 +1337,17 @@ np.int64: 1
 np.float64: 1.0
 
 #+end_example
-***** TODO Details of the robust fits
+***** DONE Details of the robust fits
+CLOSED: [2023-09-27 Wed 19:30]
 - I am using the default method to start with, which works well in most cases, but in the f150w filter it is too affected by outliers
 - So I am going to try a weighting function that is more aggressive in winnowing the outliers
-
+- Default weighting function is ~HuberT~, which has a very gentle fall off (1/x)
+- These are called M-estimators and the best documentation is file:///Users/will/Library/Application%20Support/Dash/User%20Contributed/statsmodels/statsmodels%200.14.docset/Contents/Resources/Documents/examples/notebooks/generated/robust_models_1.html
+- I will try with trimmed mean instead, which is the most drastic. Basically the same as sigma-clipping
+  - I will use ~c = 3~, which is number of sigma to clip (where sigma is actually from MAD)
+- This seems to work very well.  All the fits look more credible now. In ann cases except f150w the changes were very small
+- 
+***** Calculate the correction terms and apply them
 ***** Compare with Alejandro results
 - CSV file with shifts from Alejandro
   - [[file:correction_coor_2.csv]]

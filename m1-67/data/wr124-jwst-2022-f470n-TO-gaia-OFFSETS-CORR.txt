@@ -1,76 +1,56 @@
-                    Robust linear Model Regression Results                    
-==============================================================================
-Dep. Variable:              d RA, mas   No. Observations:                  352
-Model:                            RLM   Df Residuals:                      350
-Method:                          IRLS   Df Model:                            1
-Norm:                          HuberT                                         
-Scale Est.:                       mad                                         
-Cov Type:                          H1                                         
-Date:                Mon, 25 Sep 2023                                         
-Time:                        20:00:12                                         
-No. Iterations:                     8                                         
-==============================================================================
-                 coef    std err          z      P>|z|      [0.025      0.975]
-------------------------------------------------------------------------------
-const       1024.1099      0.869   1178.294      0.000    1022.406    1025.813
-RA, arcsec     0.3962      0.022     18.415      0.000       0.354       0.438
-==============================================================================
+                   Results: Robust linear model
+==================================================================
+Model:                RLM               Df Residuals:  350        
+Dependent Variable:   d RA, mas         Norm:          TrimmedMean
+Date:                 2023-09-27 22:47  Scale Est.:    mad        
+No. Observations:     352               Cov. Type:     H1         
+Df Model:             1                 Scale:         16.485     
+------------------------------------------------------------------
+             Coef.   Std.Err.     z     P>|z|    [0.025    0.975] 
+------------------------------------------------------------------
+const      1024.3179   0.8176 1252.7803 0.0000 1022.7154 1025.9204
+RA, arcsec    0.3992   0.0202   19.7205 0.0000    0.3595    0.4388
+==================================================================
 
-If the model instance has been used for another fit with different fit parameters, then the fit options might not be the correct ones anymore .
-                    Robust linear Model Regression Results                    
-==============================================================================
-Dep. Variable:              d RA, mas   No. Observations:                  352
-Model:                            RLM   Df Residuals:                      350
-Method:                          IRLS   Df Model:                            1
-Norm:                          HuberT                                         
-Scale Est.:                       mad                                         
-Cov Type:                          H1                                         
-Date:                Mon, 25 Sep 2023                                         
-Time:                        20:00:12                                         
-No. Iterations:                     8                                         
-===============================================================================
-                  coef    std err          z      P>|z|      [0.025      0.975]
--------------------------------------------------------------------------------
-const        1023.8557      1.087    942.152      0.000    1021.726    1025.986
-Dec, arcsec    -0.2891      0.026    -10.921      0.000      -0.341      -0.237
-===============================================================================
+                   Results: Robust linear model
+==================================================================
+Model:                RLM               Df Residuals:  350        
+Dependent Variable:   d RA, mas         Norm:          TrimmedMean
+Date:                 2023-09-27 22:47  Scale Est.:    mad        
+No. Observations:     352               Cov. Type:     H1         
+Df Model:             1                 Scale:         20.957     
+------------------------------------------------------------------
+              Coef.   Std.Err.    z     P>|z|    [0.025    0.975] 
+------------------------------------------------------------------
+const       1024.0226   1.0318 992.4920 0.0000 1022.0003 1026.0448
+Dec, arcsec   -0.2767   0.0251 -11.0083 0.0000   -0.3260   -0.2274
+==================================================================
 
-If the model instance has been used for another fit with different fit parameters, then the fit options might not be the correct ones anymore .
-                    Robust linear Model Regression Results                    
-==============================================================================
-Dep. Variable:             d Dec, mas   No. Observations:                  352
-Model:                            RLM   Df Residuals:                      350
-Method:                          IRLS   Df Model:                            1
-Norm:                          HuberT                                         
-Scale Est.:                       mad                                         
-Cov Type:                          H1                                         
-Date:                Mon, 25 Sep 2023                                         
-Time:                        20:00:12                                         
-No. Iterations:                     9                                         
-==============================================================================
-                 coef    std err          z      P>|z|      [0.025      0.975]
-------------------------------------------------------------------------------
-const       -154.8163      1.308   -118.359      0.000    -157.380    -152.253
-RA, arcsec     0.3246      0.032     10.025      0.000       0.261       0.388
-==============================================================================
+                   Results: Robust linear model
+==================================================================
+Model:                RLM               Df Residuals:  350        
+Dependent Variable:   d Dec, mas        Norm:          TrimmedMean
+Date:                 2023-09-27 22:47  Scale Est.:    mad        
+No. Observations:     352               Cov. Type:     H1         
+Df Model:             1                 Scale:         26.843     
+------------------------------------------------------------------
+             Coef.   Std.Err.     z     P>|z|    [0.025    0.975] 
+------------------------------------------------------------------
+const      -154.8650   1.2576 -123.1448 0.0000 -157.3298 -152.4002
+RA, arcsec    0.3218   0.0311   10.3378 0.0000    0.2608    0.3829
+==================================================================
 
-If the model instance has been used for another fit with different fit parameters, then the fit options might not be the correct ones anymore .
-                    Robust linear Model Regression Results                    
-==============================================================================
-Dep. Variable:             d Dec, mas   No. Observations:                  352
-Model:                            RLM   Df Residuals:                      350
-Method:                          IRLS   Df Model:                            1
-Norm:                          HuberT                                         
-Scale Est.:                       mad                                         
-Cov Type:                          H1                                         
-Date:                Mon, 25 Sep 2023                                         
-Time:                        20:00:12                                         
-No. Iterations:                    10                                         
-===============================================================================
-                  coef    std err          z      P>|z|      [0.025      0.975]
--------------------------------------------------------------------------------
-const        -153.7469      1.058   -145.317      0.000    -155.821    -151.673
-Dec, arcsec     0.4520      0.026     17.535      0.000       0.401       0.503
-===============================================================================
+                   Results: Robust linear model
+===================================================================
+Model:                 RLM               Df Residuals:  350        
+Dependent Variable:    d Dec, mas        Norm:          TrimmedMean
+Date:                  2023-09-27 22:47  Scale Est.:    mad        
+No. Observations:      352               Cov. Type:     H1         
+Df Model:              1                 Scale:         18.683     
+-------------------------------------------------------------------
+              Coef.   Std.Err.     z     P>|z|    [0.025    0.975] 
+-------------------------------------------------------------------
+const       -154.0772   1.0454 -147.3792 0.0000 -156.1263 -152.0282
+Dec, arcsec    0.4462   0.0255   17.5190 0.0000    0.3963    0.4961
+===================================================================
 
-If the model instance has been used for another fit with different fit parameters, then the fit options might not be the correct ones anymore .

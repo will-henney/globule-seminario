@@ -1,0 +1,29 @@
+offsets_file: wr124-hst-1997-f656n-TO-gaia-OFFSETS.ecsv
+info: 'Linear transform coefficients to convert between two coordinate frames
+
+  The transform was calculated by fitting robust linear models to the offsets between
+  the two frames as a function of position on the sky. The norm used for M-estimation
+  was the trimmed mean with c=3.0.
+
+  The constant offset is in coeff_0 in milliarcsecond. This can be added to the CRVAL
+  WCS parameter. The associated uncertainty is in e_coeff_0.
+
+  The linear terms (dilation, rotation, shear) are given by the matrix coeff_1. This
+  can be added to the identity matrix and then multiply the CD WCS matrix. The associated
+  uncertainty is in e_coeff_1.'
+coeff_0:
+- 11.548425199231826
+- -83.23478081575236
+coeff_1:
+- - 5.307732918658183e-05
+  - -0.00032606123024124425
+- - 0.00029791421406763036
+  - -0.00029485413166304087
+e_coeff_0:
+- 5.334949403421525
+- 7.994173127835241
+e_coeff_1:
+- - 0.0001590267419476814
+  - 0.00011634762420960896
+- - 0.0002109901418743347
+  - 0.00019617807770485642

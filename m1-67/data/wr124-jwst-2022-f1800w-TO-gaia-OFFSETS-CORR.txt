@@ -1,56 +1,56 @@
-               Results: Robust linear model
-===========================================================
-Model:                RLM              Df Residuals: 6     
-Dependent Variable:   d RA, mas        Norm:         HuberT
-Date:                 2023-09-26 12:44 Scale Est.:   mad   
-No. Observations:     8                Cov. Type:    H1    
-Df Model:             1                Scale:        16.171
------------------------------------------------------------
-            Coef.  Std.Err.    z    P>|z|   [0.025   0.975]
------------------------------------------------------------
-const      -9.1145   8.3394 -1.0929 0.2744 -25.4594  7.2304
-RA, arcsec -0.4144   0.1756 -2.3598 0.0183  -0.7585 -0.0702
-===========================================================
+                 Results: Robust linear model
+==============================================================
+Model:              RLM              Df Residuals: 6          
+Dependent Variable: d RA, mas        Norm:         TrimmedMean
+Date:               2023-09-27 22:48 Scale Est.:   mad        
+No. Observations:   8                Cov. Type:    H1         
+Df Model:           1                Scale:        16.489     
+--------------------------------------------------------------
+               Coef.   Std.Err.    z    P>|z|   [0.025  0.975]
+--------------------------------------------------------------
+const         -17.0947   9.5343 -1.7930 0.0730 -35.7815 1.5922
+RA, arcsec     -0.3725   0.2007 -1.8555 0.0635  -0.7660 0.0210
+==============================================================
 
-                Results: Robust linear model
-=============================================================
-Model:                RLM               Df Residuals:  6     
-Dependent Variable:   d RA, mas         Norm:          HuberT
-Date:                 2023-09-26 12:44  Scale Est.:    mad   
-No. Observations:     8                 Cov. Type:     H1    
-Df Model:             1                 Scale:         44.552
--------------------------------------------------------------
-             Coef.   Std.Err.    z    P>|z|   [0.025   0.975]
--------------------------------------------------------------
-const       -10.4114  19.6369 -0.5302 0.5960 -48.8990 28.0763
-Dec, arcsec   0.0875   0.7058  0.1240 0.9013  -1.2958  1.4708
-=============================================================
+                 Results: Robust linear model
+==============================================================
+Model:              RLM              Df Residuals: 6          
+Dependent Variable: d RA, mas        Norm:         TrimmedMean
+Date:               2023-09-27 22:48 Scale Est.:   mad        
+No. Observations:   8                Cov. Type:    H1         
+Df Model:           1                Scale:        44.552     
+--------------------------------------------------------------
+              Coef.   Std.Err.    z    P>|z|   [0.025   0.975]
+--------------------------------------------------------------
+const        -10.4114  19.6369 -0.5302 0.5960 -48.8990 28.0763
+Dec, arcsec    0.0875   0.7058  0.1240 0.9013  -1.2958  1.4708
+==============================================================
 
                   Results: Robust linear model
 =================================================================
-Model:                  RLM                Df Residuals:   6     
-Dependent Variable:     d Dec, mas         Norm:           HuberT
-Date:                   2023-09-26 12:44   Scale Est.:     mad   
-No. Observations:       8                  Cov. Type:      H1    
-Df Model:               1                  Scale:          18.765
+Model:               RLM               Df Residuals:  6          
+Dependent Variable:  d Dec, mas        Norm:          TrimmedMean
+Date:                2023-09-27 22:48  Scale Est.:    mad        
+No. Observations:    8                 Cov. Type:     H1         
+Df Model:            1                 Scale:         19.242     
 -----------------------------------------------------------------
              Coef.   Std.Err.    z     P>|z|    [0.025    0.975] 
 -----------------------------------------------------------------
-const      -149.6688   8.0994 -18.4789 0.0000 -165.5434 -133.7942
-RA, arcsec   -0.1620   0.1705  -0.9498 0.3422   -0.4962    0.1723
+const      -149.8458   7.0076 -21.3833 0.0000 -163.5805 -136.1112
+RA, arcsec   -0.1687   0.1475  -1.1437 0.2528   -0.4579    0.1204
 =================================================================
 
                    Results: Robust linear model
 ==================================================================
-Model:                 RLM                 Df Residuals:    6     
-Dependent Variable:    d Dec, mas          Norm:            HuberT
-Date:                  2023-09-26 12:44    Scale Est.:      mad   
-No. Observations:      8                   Cov. Type:       H1    
-Df Model:              1                   Scale:           16.301
+Model:                RLM               Df Residuals:  6          
+Dependent Variable:   d Dec, mas        Norm:          TrimmedMean
+Date:                 2023-09-27 22:48  Scale Est.:    mad        
+No. Observations:     8                 Cov. Type:     H1         
+Df Model:             1                 Scale:         15.607     
 ------------------------------------------------------------------
               Coef.   Std.Err.    z     P>|z|    [0.025    0.975] 
 ------------------------------------------------------------------
-const       -156.6444  11.3322 -13.8230 0.0000 -178.8550 -134.4337
-Dec, arcsec   -0.3128   0.4073  -0.7680 0.4425   -1.1111    0.4855
+const       -157.7829   9.9514 -15.8553 0.0000 -177.2874 -138.2785
+Dec, arcsec   -0.3126   0.3577  -0.8741 0.3821   -1.0137    0.3884
 ==================================================================
 
