@@ -1347,7 +1347,57 @@ CLOSED: [2023-09-27 Wed 19:30]
   - I will use ~c = 3~, which is number of sigma to clip (where sigma is actually from MAD)
 - This seems to work very well.  All the fits look more credible now. In ann cases except f150w the changes were very small
 - 
-***** Calculate the correction terms and apply them
+***** TODO Calculate the correction terms and apply them
+- We now write out the shifts and linear correction matrix to a yaml file
+
+
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/apply-alignment.py \
+         wr124-jwst-nircam-2022-f090w \
+         wr124-jwst-2022-f090w-TO-gaia \
+         --output-suffix ALIGN-GAIA
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Matrix: [[ 9.99986088e-01 -2.23834349e-04]
+ [ 3.14915814e-04  1.00005617e+00]]
+SCI
+WCS Keywords
+
+Number of WCS axes: 2
+CTYPE : 'RA---TAN'  'DEC--TAN'  
+CRVAL : 287.8782749319743  16.86055445453192  
+CRPIX : 2318.236138285078  2335.583515165627  
+PC1_1 PC1_2  : 0.7446704416628519  -0.6674323436226725  
+PC2_1 PC2_2  : -0.6674323436226725  -0.7446704416628519  
+CDELT : 8.66473024246969e-06  8.66473024246969e-06  
+NAXIS : 4672  4666
+#+end_example
+
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/apply-alignment.py \
+         wr124-hst-2008-f656n \
+         wr124-hst-2008-f656n-TO-gaia \
+         --output-suffix ALIGN-GAIA
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Matrix: [[ 1.00014408e+00 -3.63201740e-04]
+ [ 4.16101236e-04  9.99937065e-01]]
+SCI
+WCS Keywords
+
+Number of WCS axes: 2
+CTYPE : 'RA---TAN'  'DEC--TAN'  
+CRVAL : 287.8782164216667  16.86331641638889  
+CRPIX : 1075.0  1075.0  
+CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
+CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
+NAXIS : 2150  2150
+#+end_example
+
 ***** Compare with Alejandro results
 - CSV file with shifts from Alejandro
   - [[file:correction_coor_2.csv]]
