@@ -7,12 +7,19 @@ import typer
 import yaml
 
 
-def transform_header(hdr: fits.Header, offset, matrix) -> fits.Header:
+def transform_header(
+    hdr: fits.Header,
+    offset,
+    matrix=None,
+) -> fits.Header:
     new_hdr = hdr.copy()
 
     # Update CRVAL for offset
     new_hdr["CRVAL1"] = hdr["CRVAL1"] + offset[0]
     new_hdr["CRVAL2"] = hdr["CRVAL2"] + offset[1]
+
+    if matrix is None:
+        return new_hdr
 
     # Update CD or PC matrix for rotation, scale, and shear
     try:
@@ -40,6 +47,7 @@ def main(
     fits_file_prefix: str,
     yaml_file_prefix: str,
     output_suffix: str = "align",
+    offset_only: bool = False,
 ):
     """Apply astrometric correction to a FITS image"""
 
@@ -52,8 +60,13 @@ def main(
 
     # Calculate offset vector
     offset = np.array(transform["coeff_0"]) * u.milliarcsecond.to(u.deg)
+    print(f"Offset: {offset}")
+
     # Calculate transform matrix
-    matrix = np.array(transform["coeff_1"]) + np.eye(2)
+    if offset_only:
+        matrix = None
+    else:
+        matrix = np.array(transform["coeff_1"]) + np.eye(2)
     print(f"Matrix: {matrix}")
 
     for hdu in hdulist:
@@ -67,7 +80,8 @@ def main(
             continue
         print(hdu.name)
         print(WCS(hdu.header))
-        hdu.header = transform_header(hdu.header, offset, matrix)
+        hdu.header.update(transform_header(hdu.header, offset, matrix))
+        print(WCS(hdu.header))
 
     # Write the output file
     hdulist.writeto(f"{fits_file_prefix}-{output_suffix}.fits", overwrite=True)

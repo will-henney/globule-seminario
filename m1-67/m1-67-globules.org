@@ -1345,23 +1345,132 @@ CLOSED: [2023-09-27 Wed 19:30]
 - These are called M-estimators and the best documentation is file:///Users/will/Library/Application%20Support/Dash/User%20Contributed/statsmodels/statsmodels%200.14.docset/Contents/Resources/Documents/examples/notebooks/generated/robust_models_1.html
 - I will try with trimmed mean instead, which is the most drastic. Basically the same as sigma-clipping
   - I will use ~c = 3~, which is number of sigma to clip (where sigma is actually from MAD)
-- This seems to work very well.  All the fits look more credible now. In ann cases except f150w the changes were very small
+- This seems to work very well.  All the fits look more credible now. In all cases except f150w the changes were very small
 - 
-***** TODO Calculate the correction terms and apply them
-- We now write out the shifts and linear correction matrix to a yaml file
+***** TODO Apply the correction terms
+- We now write out the offset and linear correction matrix to a yaml file
+- We are getting inconsistent results from applying them though, which I need to investigate
+****** HST continuum to GAIA
+First, just the offset
+#+begin_src sh :dir data :results verbatim
+    python ../scripts/apply-alignment.py \
+           wr124-hst-1997-f675w \
+           wr124-hst-1997-f675w-TO-gaia \
+           --output-suffix SHIFT-GAIA \
+           --offset-only
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Offset: [-2.24718784e-06 -3.76273863e-05]
+Matrix: None
+SCI
+WCS Keywords
+
+Number of WCS axes: 2
+CTYPE : 'RA---TAN'  'DEC--TAN'  
+CRVAL : 287.8815537983334  16.86099615888889  
+CRPIX : 1075.0  1075.0  
+CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
+CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
+NAXIS : 2150  2150
+WCS Keywords
+
+Number of WCS axes: 2
+CTYPE : 'RA---TAN'  'DEC--TAN'  
+CRVAL : 287.88155155114555  16.860958531502604  
+CRPIX : 1075.0  1075.0  
+CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
+CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
+NAXIS : 2150  2150
+#+end_example
+
+Second, the full transform
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/apply-alignment.py \
+         wr124-hst-1997-f675w \
+         wr124-hst-1997-f675w-TO-gaia \
+         --output-suffix ALIGN-GAIA 
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Offset: [-2.24718784e-06 -3.76273863e-05]
+Matrix: [[ 9.99997554e-01 -2.60577406e-04]
+ [ 1.43443600e-04  9.99984840e-01]]
+SCI
+WCS Keywords
+
+Number of WCS axes: 2
+CTYPE : 'RA---TAN'  'DEC--TAN'  
+CRVAL : 287.8815537983334  16.86099615888889  
+CRPIX : 1075.0  1075.0  
+CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
+CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
+NAXIS : 2150  2150
+WCS Keywords
+
+Number of WCS axes: 2
+CTYPE : 'RA---TAN'  'DEC--TAN'  
+CRVAL : 287.88155155114555  16.860958531502604  
+CRPIX : 1075.0  1075.0  
+CD1_1 CD1_2  : -2.7777709836848e-05  -7.238261269138e-09  
+CD2_1 CD2_2  : -3.9845444366332e-09  2.77773566770786e-05  
+NAXIS : 2150  2150
+#+end_example
+
+****** HST Ha to GAIA
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/apply-alignment.py \
+         wr124-hst-2008-f656n \
+         wr124-hst-2008-f656n-TO-gaia \
+         --output-suffix SHIFT-GAIA \
+         --offset-only
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Offset: [ 4.50497961e-06 -1.58938708e-05]
+Matrix: None
+SCI
+WCS Keywords
+
+Number of WCS axes: 2
+CTYPE : 'RA---TAN'  'DEC--TAN'  
+CRVAL : 287.8782164216667  16.86331641638889  
+CRPIX : 1075.0  1075.0  
+CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
+CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
+NAXIS : 2150  2150
+WCS Keywords
+
+Number of WCS axes: 2
+CTYPE : 'RA---TAN'  'DEC--TAN'  
+CRVAL : 287.87822092664635  16.863300522518056  
+CRPIX : 1075.0  1075.0  
+CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
+CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
+NAXIS : 2150  2150
+#+end_example
+
+
+****** NIRCAM f090w to GAIA
+
+
 
 
 #+begin_src sh :dir data :results verbatim
   python ../scripts/apply-alignment.py \
          wr124-jwst-nircam-2022-f090w \
          wr124-jwst-2022-f090w-TO-gaia \
-         --output-suffix ALIGN-GAIA
+         --output-suffix SHIFT-GAIA \
+         --offset-only
 #+end_src
 
 #+RESULTS:
 #+begin_example
-Matrix: [[ 9.99986088e-01 -2.23834349e-04]
- [ 3.14915814e-04  1.00005617e+00]]
+Offset: [ 2.84643759e-04 -5.91367057e-05]
+Matrix: None
 SCI
 WCS Keywords
 
@@ -1373,29 +1482,16 @@ PC1_1 PC1_2  : 0.7446704416628519  -0.6674323436226725
 PC2_1 PC2_2  : -0.6674323436226725  -0.7446704416628519  
 CDELT : 8.66473024246969e-06  8.66473024246969e-06  
 NAXIS : 4672  4666
-#+end_example
-
-#+begin_src sh :dir data :results verbatim
-  python ../scripts/apply-alignment.py \
-         wr124-hst-2008-f656n \
-         wr124-hst-2008-f656n-TO-gaia \
-         --output-suffix ALIGN-GAIA
-#+end_src
-
-#+RESULTS:
-#+begin_example
-Matrix: [[ 1.00014408e+00 -3.63201740e-04]
- [ 4.16101236e-04  9.99937065e-01]]
-SCI
 WCS Keywords
 
 Number of WCS axes: 2
 CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.8782164216667  16.86331641638889  
-CRPIX : 1075.0  1075.0  
-CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
-CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
-NAXIS : 2150  2150
+CRVAL : 287.87855957573305  16.86049531782626  
+CRPIX : 2318.236138285078  2335.583515165627  
+PC1_1 PC1_2  : 0.7446704416628519  -0.6674323436226725  
+PC2_1 PC2_2  : -0.6674323436226725  -0.7446704416628519  
+CDELT : 8.66473024246969e-06  8.66473024246969e-06  
+NAXIS : 4672  4666
 #+end_example
 
 ***** Compare with Alejandro results
