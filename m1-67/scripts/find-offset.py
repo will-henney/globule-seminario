@@ -35,7 +35,11 @@ def match_catalogs(
 
 def get_coords_from_fits_catalog(fname, sname):
     """Get coordinates from sources detected in a FITS image"""
-    (hdu,) = fits.open(f"{fname}.fits")
+    hdulist = fits.open(f"{fname}.fits")
+    for hdu in hdulist:
+        # Find first HDU with data
+        if hdu.data is not None:
+            break
     w = WCS(hdu.header)
     stab = QTable.read(f"{fname}-sources-{sname}.ecsv")
     return w.pixel_to_world(stab["xcentroid"], stab["ycentroid"])

@@ -223,6 +223,37 @@ And the V band
 #+RESULTS:
 [[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-hst-1997-f656n-TO-f675w-OFFSETS-CORR.pdf]]
 
+******* Green to red continuum
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-offset.py \
+         wr124-hst-1997-f555w_BGSUB wr124-hst-1997-f675w_BGSUB \
+         fwhm2.0-thresh10 fwhm2.0-thresh10 \
+         --minimum-radius-arcsec 1.0 --maximum-separation-arcsec 0.3 \
+         --object-name wr124 --combo-prefix wr124-hst-1997-f555w-TO-f675w
+#+end_src
+
+#+RESULTS:
+: Statistics based on 93 coincident sources
+: Mean displacement in RA: -12.09 +/- 1.46 marcsec
+: Mean displacement in Dec: 54.96 +/- 3.72 marcsec
+: Median displacement in RA: -11.81 +/- 1.00 marcsec
+: Median displacement in Dec: 59.20 +/- 1.13 marcsec
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets.py wr124-hst-1997-f555w-TO-f675w-OFFSETS.ecsv
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-hst-1997-f555w-TO-f675w-OFFSETS.pdf]]
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets-corr.py wr124-hst-1997-f555w-TO-f675w-OFFSETS.ecsv
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-hst-1997-f555w-TO-f675w-OFFSETS-CORR.pdf]]
+
+
 ******* H alpha versus green continuum
 #+begin_src sh :dir data :results verbatim
   python ../scripts/find-offset.py \
@@ -891,6 +922,9 @@ Get all the GAIA sources in the field with a radius of three arcmin
 #+RESULTS:
 : INFO: Query finished. [astroquery.utils.tap.core]
 ****** HST f675w continuum to GAIA
+:PROPERTIES:
+:ID:       CD08DF32-308B-4F9C-A6C5-A76C52482495
+:END:
 #+begin_src sh :dir data :results verbatim
   python ../scripts/find-offset.py \
          wr124-hst-1997-f675w_BGSUB gaia \
@@ -908,7 +942,7 @@ Get all the GAIA sources in the field with a radius of three arcmin
 : Median displacement in Dec: -136.61 +/- 2.04 marcsec
 
 #+begin_src sh :dir data :results file
-  python ../scripts/plot-offsets.py wr124-hst-1997-f675w-TO-gaia-OFFSETS.ecsv --max-sep 100
+  python ../scripts/plot-offsets.py wr124-hst-1997-f675w-TO-gaia-OFFSETS.ecsv --max-sep 200
 #+end_src
 
 #+RESULTS:
@@ -923,6 +957,9 @@ Get all the GAIA sources in the field with a radius of three arcmin
 
 Slight evidence for a rotation of the HST frame with respect to GAIA
 ****** HST f656n Ha first epoch to Gaia
+:PROPERTIES:
+:ID:       F646740A-848E-4F5F-B333-5B931D06C3E4
+:END:
 #+begin_src sh :dir data :results verbatim
   python ../scripts/find-offset.py \
          wr124-hst-1997-f656n_BGSUB gaia \
@@ -940,7 +977,7 @@ Slight evidence for a rotation of the HST frame with respect to GAIA
 : Median displacement in Dec: -89.65 +/- 8.12 marcsec
 
 #+begin_src sh :dir data :results file
-  python ../scripts/plot-offsets.py wr124-hst-1997-f656n-TO-gaia-OFFSETS.ecsv --max-sep 100
+  python ../scripts/plot-offsets.py wr124-hst-1997-f656n-TO-gaia-OFFSETS.ecsv
 #+end_src
 
 #+RESULTS:
@@ -1350,7 +1387,7 @@ CLOSED: [2023-09-27 Wed 19:30]
 ***** TODO Apply the correction terms
 - We now write out the offset and linear correction matrix to a yaml file
 - We are getting inconsistent results from applying them though, which I need to investigate
-****** HST continuum to GAIA
+****** HST 1997 continuum to GAIA
 First, just the offset
 #+begin_src sh :dir data :results verbatim
     python ../scripts/apply-alignment.py \
@@ -1418,8 +1455,145 @@ CD1_1 CD1_2  : -2.7777709836848e-05  -7.238261269138e-09
 CD2_1 CD2_2  : -3.9845444366332e-09  2.77773566770786e-05  
 NAXIS : 2150  2150
 #+end_example
+****** HST 1997 Ha to continuum
+Shift only 
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/apply-alignment.py \
+         wr124-hst-1997-f656n \
+         wr124-hst-1997-f656n-TO-f675w \
+         --output-suffix SHIFT-f675w \
+         --offset-only
+#+end_src
 
-****** HST Ha to GAIA
+#+RESULTS:
+#+begin_example
+Offset: [2.00573872e-06 1.48251688e-05]
+Matrix: None
+SCI
+WCS Keywords
+
+Number of WCS axes: 2
+CTYPE : 'RA---TAN'  'DEC--TAN'  
+CRVAL : 287.8815537983334  16.86099615888889  
+CRPIX : 1075.0  1075.0  
+CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
+CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
+NAXIS : 2150  2150
+WCS Keywords
+
+Number of WCS axes: 2
+CTYPE : 'RA---TAN'  'DEC--TAN'  
+CRVAL : 287.88155580407215  16.86101098405767  
+CRPIX : 1075.0  1075.0  
+CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
+CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
+NAXIS : 2150  2150
+#+end_example
+****** HST 1997 green to red continuum
+Shift only 
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/apply-alignment.py \
+         wr124-hst-1997-f555w \
+         wr124-hst-1997-f555w-TO-f675w \
+         --output-suffix SHIFT-f675w \
+         --offset-only
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Offset: [-3.48804762e-06  1.60188712e-05]
+Matrix: None
+SCI
+WCS Keywords
+
+Number of WCS axes: 2
+CTYPE : 'RA---TAN'  'DEC--TAN'  
+CRVAL : 287.8815537983334  16.86099615888889  
+CRPIX : 1075.0  1075.0  
+CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
+CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
+NAXIS : 2150  2150
+WCS Keywords
+
+Number of WCS axes: 2
+CTYPE : 'RA---TAN'  'DEC--TAN'  
+CRVAL : 287.8815503102858  16.86101217776012  
+CRPIX : 1075.0  1075.0  
+CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
+CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
+NAXIS : 2150  2150
+#+end_example
+
+****** HST 1997 Ha to GAIA
+Shift only 
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/apply-alignment.py \
+         wr124-hst-1997-f656n \
+         wr124-hst-1997-f656n-TO-gaia \
+         --output-suffix SHIFT-GAIA \
+         --offset-only
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Offset: [ 3.20789589e-06 -2.31207724e-05]
+Matrix: None
+SCI
+WCS Keywords
+
+Number of WCS axes: 2
+CTYPE : 'RA---TAN'  'DEC--TAN'  
+CRVAL : 287.8815537983334  16.86099615888889  
+CRPIX : 1075.0  1075.0  
+CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
+CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
+NAXIS : 2150  2150
+WCS Keywords
+
+Number of WCS axes: 2
+CTYPE : 'RA---TAN'  'DEC--TAN'  
+CRVAL : 287.8815570062293  16.86097303811644  
+CRPIX : 1075.0  1075.0  
+CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
+CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
+NAXIS : 2150  2150
+#+end_example
+
+Full transform
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/apply-alignment.py \
+         wr124-hst-1997-f656n \
+         wr124-hst-1997-f656n-TO-gaia \
+         --output-suffix ALIGN-GAIA 
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Offset: [ 3.20789589e-06 -2.31207724e-05]
+Matrix: [[ 1.00005308e+00 -3.26061230e-04]
+ [ 2.97914214e-04  9.99705146e-01]]
+SCI
+WCS Keywords
+
+Number of WCS axes: 2
+CTYPE : 'RA---TAN'  'DEC--TAN'  
+CRVAL : 287.8815537983334  16.86099615888889  
+CRPIX : 1075.0  1075.0  
+CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
+CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
+NAXIS : 2150  2150
+WCS Keywords
+
+Number of WCS axes: 2
+CTYPE : 'RA---TAN'  'DEC--TAN'  
+CRVAL : 287.8815570062293  16.86097303811644  
+CRPIX : 1075.0  1075.0  
+CD1_1 CD1_2  : -2.7779252148032e-05  -9.0572563955901e-09  
+CD2_1 CD2_2  : -8.2753948352119e-09  2.77695873852315e-05  
+NAXIS : 2150  2150
+#+end_example
+
+****** HST 2008 Ha to GAIA
 #+begin_src sh :dir data :results verbatim
   python ../scripts/apply-alignment.py \
          wr124-hst-2008-f656n \
@@ -1493,6 +1667,164 @@ PC2_1 PC2_2  : -0.6674323436226725  -0.7446704416628519
 CDELT : 8.66473024246969e-06  8.66473024246969e-06  
 NAXIS : 4672  4666
 #+end_example
+
+***** Test the results of applying the alignment
+- We have corrected the WCS of different images to give alignment to the GAIA frame
+- But when we look at these in DS9, they do no seem to be that well aligned with one another
+- So I want a quantitative measure of the alignment
+- We can re-run the ~plot-offsets.py~ and the ~plot-offsets-corr.py~ scripts for the relative displacements to see how well the images are aligned
+  - But we need to have a list of point sources for the gaia-aligned image
+  - However, the source lists are in pixel coordinates, so we can just reuse the original ones that we already did for each observation
+  - We just need to make a symbolic link so that the program can find them
+
+
+****** Test case: HST 1997 Ha and continuum
+We do this first because it is using the CD matrix, which should be more straightforward
+
+******* Summary of results
+- The shift in DEC worked OK, but the RA shift seems to be overcompensated
+  - Is this because of the cos delta term?
+  - delta is 17 deg, so cos delta is 0.96, which should not make a big difference
+  - It seems to be just due to inaccuracy in f656n-TO-gaia matching
+- But the expansion/rotation has not
+  - There was a slight expansion in the original f656n-to-f675w of about 2e-4
+    - No significant rotation or skew
+  - In the GAIA-aligned version it is still there with an additional on-axis skew
+- Compare with the individual HST-to-GAIA alignments
+  - [[id:F646740A-848E-4F5F-B333-5B931D06C3E4][HST f656n Ha first epoch to Gaia]]
+  - [[id:CD08DF32-308B-4F9C-A6C5-A76C52482495][HST f675w continuum to GAIA]]
+- Lesson seems to be that we should only use the best filter of a given camera for the GAIA matching
+  - And other filters should be done relatively
+  - Also, we should not construct the CD matrix directly, but rather extract a scale and rotation
+  - And apply them only if they are significant
+  - And the skew terms should never be applied (although reported if they seem significant)
+    - One reason for this is that I suspect that DS9 does not use the skew terms in the WCS when displaying the image
+- With the shifts only we get a good mutual alignment between f555w, f675w, and f656n
+  - It eliminates rainbow patterns that we saw in RGB image without correction
+
+
+******* Relative vs absolute alignments
+- The relative alignment f656n-TO-f675w gives
+  - offset, mas:
+    + 7 +/- 2
+    + 52 +/- 2
+  - (1 - scale), ppm : 210 +/- 50
+  - rotation, tan\theta, ppm: -30 +/- 65 so no significant rotation
+  - on-axis skew, ppm: 80 +/- 50, marginally significant
+  - off-axis skew, ppm: 50 +/- 65, not significant
+- The absolute alignment f656n-TO-gaia gives
+  - offset, mas:
+    + 11 +/- 5
+    + -83 +/- 8
+  - (1 - scale), ppm : 180 +/- 180
+  - rotation, tan\theta, ppm: -310 +/- 150
+  - on-axis skew, ppm: -120 +/- 180
+  - off-axis skew, ppm: 10 +/- 150, insignificant
+- The absolute alignment f675w-TO-gaia gives
+  - offset, mas:
+    + -8 +/- 2
+    + -135 +/- 2
+  - (1 - scale), ppm : -9 +/- 50, insignificant
+  - rotation, tan\theta, ppm: -202 +/- 40 
+  - on-axis skew, ppm: 46 +/- 50, insignificant
+  - off-axis skew, ppm: -59 +/- 65, insignificant
+
+
+******** Accuracy of round tripping
+- With the shifts only we have
+  - Round trip shifts
+     | From   | To     | RA        | Dec        |
+     |--------+--------+-----------+------------|
+     | f656n  | Gaia   | 11 +/- 5  | -83 +/- 8  |
+     | f675w  | Gaia   | -8 +/- 2  | -135 +/- 2 |
+     |--------+--------+-----------+------------|
+     | f656n* | f675w* | 19 +/- 5. | 52 +/- 8.  |
+     | f656n  | f675w  | 7 +/- 2   | 52 +/- 2   |
+     |--------+--------+-----------+------------|
+     | f656n  | f656n  | 12 +/- 5. | 0 +/- 8.   |
+     #+TBLFM: @4$3..@4$4=@-2 - @-1 ;f0::@6$3..@6$4=@-2 - @-1 ;f0
+  - Starred values are indirect via gaia: f656n -> gaia -> f675w
+  - Final row is the round trip f656n -> gaia -> f675w -> f656n
+  - We have a 2.5 sigma discrepancy in the RA
+
+******* Symbolic links to give source lists for gaia-aligned images
+#+begin_src sh :dir data :results verbatim
+  ln -sf wr124-hst-1997-f656n_BGSUB-sources-fwhm2.0-thresh1.ecsv \
+     wr124-hst-1997-f656n-ALIGN-GAIA-sources-LINK.ecsv
+  ln -sf wr124-hst-1997-f675w_BGSUB-sources-fwhm2.0-thresh10.ecsv \
+     wr124-hst-1997-f675w-ALIGN-GAIA-sources-LINK.ecsv
+#+end_src
+
+#+begin_src sh :dir data :results verbatim
+  ln -sf wr124-hst-1997-f656n_BGSUB-sources-fwhm2.0-thresh1.ecsv \
+     wr124-hst-1997-f656n-SHIFT-GAIA-sources-LINK.ecsv
+  ln -sf wr124-hst-1997-f675w_BGSUB-sources-fwhm2.0-thresh10.ecsv \
+     wr124-hst-1997-f675w-SHIFT-GAIA-sources-LINK.ecsv
+#+end_src
+
+#+RESULTS:
+
+******* Re-run the relative offsets plots
+Using the Gaia-aligned images
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-offset.py \
+         wr124-hst-1997-f656n-ALIGN-GAIA wr124-hst-1997-f675w-ALIGN-GAIA \
+         LINK LINK \
+         --minimum-radius-arcsec 1.0 --maximum-separation-arcsec 0.3 \
+         --object-name wr124 --combo-prefix wr124-ALIGN-GAIA-hst-1997-f656n-TO-f675w
+#+end_src
+
+#+RESULTS:
+: Statistics based on 43 coincident sources
+: Mean displacement in RA: -11.15 +/- 2.19 marcsec
+: Mean displacement in Dec: 3.38 +/- 3.57 marcsec
+: Median displacement in RA: -11.83 +/- 2.38 marcsec
+: Median displacement in Dec: 3.80 +/- 4.68 marcsec
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets.py wr124-ALIGN-GAIA-hst-1997-f656n-TO-f675w-OFFSETS.ecsv
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-ALIGN-GAIA-hst-1997-f656n-TO-f675w-OFFSETS.pdf]]
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets-corr.py wr124-ALIGN-GAIA-hst-1997-f656n-TO-f675w-OFFSETS.ecsv
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-ALIGN-GAIA-hst-1997-f656n-TO-f675w-OFFSETS-CORR.pdf]]
+
+Repeat for the shift-only images
+
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-offset.py \
+         wr124-hst-1997-f656n-SHIFT-GAIA wr124-hst-1997-f675w-SHIFT-GAIA \
+         LINK LINK \
+         --minimum-radius-arcsec 1.0 --maximum-separation-arcsec 0.3 \
+         --object-name wr124 --combo-prefix wr124-SHIFT-GAIA-hst-1997-f656n-TO-f675w
+#+end_src
+
+#+RESULTS:
+: Statistics based on 43 coincident sources
+: Mean displacement in RA: -11.85 +/- 2.29 marcsec
+: Mean displacement in Dec: 1.23 +/- 2.47 marcsec
+: Median displacement in RA: -11.29 +/- 2.55 marcsec
+: Median displacement in Dec: 1.50 +/- 2.74 marcsec
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets.py wr124-SHIFT-GAIA-hst-1997-f656n-TO-f675w-OFFSETS.ecsv
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-SHIFT-GAIA-hst-1997-f656n-TO-f675w-OFFSETS.pdf]]
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets-corr.py wr124-SHIFT-GAIA-hst-1997-f656n-TO-f675w-OFFSETS.ecsv
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-SHIFT-GAIA-hst-1997-f656n-TO-f675w-OFFSETS-CORR.pdf]]
 
 ***** Compare with Alejandro results
 - CSV file with shifts from Alejandro
