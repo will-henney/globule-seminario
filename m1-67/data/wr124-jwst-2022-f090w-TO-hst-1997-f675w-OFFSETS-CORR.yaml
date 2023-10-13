@@ -1,0 +1,2213 @@
+(d RA, mas) vs (RA, arcsec): !!python/object:statsmodels.robust.robust_linear_model.RLMResultsWrapper
+  _results: !!python/object:statsmodels.robust.robust_linear_model.RLMResults
+    params: &id009
+    - 1029.826445683477
+    - -0.14850873958761746
+    model: !!python/object:statsmodels.robust.robust_linear_model.RLM
+      M: !!python/object:statsmodels.robust.norms.TrimmedMean
+        c: 3.0
+      data: !!python/object:statsmodels.base.data.PandasData
+        orig_endog: !!python/object:pandas.core.series.Series
+          _mgr: !!python/object/new:pandas.core.internals.managers.SingleBlockManager
+            state: !!python/tuple
+            - &id002
+              - !!python/object/apply:pandas.core.indexes.base._new_Index
+                - &id001 !!python/name:pandas.core.indexes.numeric.Int64Index ''
+                - data: &id004
+                  - 15
+                  - 23
+                  - 13
+                  - 20
+                  - 17
+                  - 11
+                  - 3
+                  - 6
+                  - 16
+                  - 0
+                  - 19
+                  - 22
+                  - 21
+                  - 18
+                  - 9
+                  - 1
+                  - 14
+                  - 12
+                  - 10
+                  - 4
+                  - 2
+                  - 5
+                  - 7
+                  - 8
+                  name: null
+            - - &id003
+                - 1013.6382402141219
+                - 1087.7656136187748
+                - 1012.6479702100903
+                - 1028.339620184039
+                - 1191.4456066059015
+                - 1012.179076602954
+                - 1049.471668596443
+                - 1072.8331917305843
+                - 858.653264042452
+                - 934.7678696574678
+                - 1043.1134564668516
+                - 1054.2845050847975
+                - 972.0936434097871
+                - 837.3611548760916
+                - 1055.6191028635683
+                - 1052.3056824618272
+                - 1020.5033632267027
+                - 1009.9422808448487
+                - 1078.3240814491332
+                - 1023.6244843776486
+                - 1073.7341661059622
+                - 1009.8892786491474
+                - 995.3990500748074
+                - 1006.5584450462914
+            - - !!python/object/apply:pandas.core.indexes.base._new_Index
+                - *id001
+                - data:
+                  - 15
+                  - 23
+                  - 13
+                  - 20
+                  - 17
+                  - 11
+                  - 3
+                  - 6
+                  - 16
+                  - 0
+                  - 19
+                  - 22
+                  - 21
+                  - 18
+                  - 9
+                  - 1
+                  - 14
+                  - 12
+                  - 10
+                  - 4
+                  - 2
+                  - 5
+                  - 7
+                  - 8
+                  name: null
+            - 0.14.1:
+                axes: *id002
+                blocks:
+                - values: *id003
+                  mgr_locs: !!python/object/apply:builtins.slice
+                  - 0
+                  - 24
+                  - 1
+          _typ: series
+          _metadata: &id012
+          - name
+          attrs: {}
+          _flags:
+            allows_duplicate_labels: true
+          name: d RA, mas
+        orig_exog: !!python/object:pandas.core.frame.DataFrame
+          _mgr: !!python/object/apply:pandas.core.internals.managers.BlockManager
+          - !!python/tuple
+            - !!python/object/apply:pandas._libs.internals._unpickle_block
+              - - - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                - - -47.8022670502998
+                  - -44.57409269170125
+                  - -34.47012358402337
+                  - -25.052728134230723
+                  - -21.258207854872705
+                  - -18.874643349364096
+                  - -14.691333884227387
+                  - -8.174943331863227
+                  - -1.6479290607683172
+                  - -0.5716064457585598
+                  - -0.497279963848444
+                  - 1.9811732737330903
+                  - 2.3392464188710163
+                  - 7.368876448507793
+                  - 10.676873980106459
+                  - 10.839966042669946
+                  - 14.29362663068919
+                  - 16.753774824586404
+                  - 25.73683204203059
+                  - 29.720284712930596
+                  - 40.57924676919406
+                  - 51.45923056217407
+                  - 54.327679389726846
+                  - 66.09826548194651
+              - !!python/object/apply:builtins.slice
+                - 0
+                - 2
+                - 1
+              - 2
+          - - !!python/object/apply:pandas.core.indexes.base._new_Index
+              - &id013 !!python/name:pandas.core.indexes.base.Index ''
+              - data:
+                - const
+                - RA, arcsec
+                name: null
+            - &id005 !!python/object/apply:pandas.core.indexes.base._new_Index
+              - *id001
+              - data: *id004
+                name: null
+          _typ: dataframe
+          _metadata: &id015 []
+          attrs: {}
+          _flags:
+            allows_duplicate_labels: true
+        endog: *id003
+        exog: &id006
+        - - 1.0
+          - -47.8022670502998
+        - - 1.0
+          - -44.57409269170125
+        - - 1.0
+          - -34.47012358402337
+        - - 1.0
+          - -25.052728134230723
+        - - 1.0
+          - -21.258207854872705
+        - - 1.0
+          - -18.874643349364096
+        - - 1.0
+          - -14.691333884227387
+        - - 1.0
+          - -8.174943331863227
+        - - 1.0
+          - -1.6479290607683172
+        - - 1.0
+          - -0.5716064457585598
+        - - 1.0
+          - -0.497279963848444
+        - - 1.0
+          - 1.9811732737330903
+        - - 1.0
+          - 2.3392464188710163
+        - - 1.0
+          - 7.368876448507793
+        - - 1.0
+          - 10.676873980106459
+        - - 1.0
+          - 10.839966042669946
+        - - 1.0
+          - 14.29362663068919
+        - - 1.0
+          - 16.753774824586404
+        - - 1.0
+          - 25.73683204203059
+        - - 1.0
+          - 29.720284712930596
+        - - 1.0
+          - 40.57924676919406
+        - - 1.0
+          - 51.45923056217407
+        - - 1.0
+          - 54.327679389726846
+        - - 1.0
+          - 66.09826548194651
+        const_idx: 0
+        k_constant: 1
+        _cache:
+          ynames: d RA, mas
+          row_labels: *id005
+          xnames:
+          - const
+          - RA, arcsec
+      k_constant: 1
+      exog: *id006
+      endog: *id003
+      _data_attr:
+      - exog
+      - endog
+      - data.exog
+      - data.endog
+      - data.orig_endog
+      - data.orig_exog
+      - weights
+      - pinv_wexog
+      _init_keys: []
+      pinv_wexog:
+      - - 0.053863373977760615
+        - 0.053114488563771406
+        - 0.05077052747381891
+        - 0.048585840617815367
+        - 0.04770557190409846
+        - 0.047152622622804785
+        - 0.046182160964716445
+        - 0.044670461380236406
+        - 0.04315629726097109
+        - 0.04290660743087236
+        - 0.042889364862165574
+        - 0.04231440289521504
+        - 0.04223133558665386
+        - 0.04106454093786907
+        - 0.04029713780974251
+        - 0.04025930302970162
+        - 0.03945810837540798
+        - 0.038887392889190776
+        - 0.03680346563623569
+        - 0.03587936759468865
+        - 0.033360260077048794
+        - 0.030836275848842857
+        - 0.03017084107082137
+        - 0.02744025118955047
+      - - -0.002555177869651735
+        - -0.002398288359399272
+        - -0.0019072347207730758
+        - -0.0014495486122032865
+        - -0.0012651346487239513
+        - -0.0011492932391890752
+        - -0.0009459840928068085
+        - -0.0006292870347154272
+        - -0.00031207366311567316
+        - -0.00025976430519863655
+        - -0.0002561520327342926
+        - -0.00013569902387122485
+        - -0.00011829664279301175
+        - 0.0001261437450066633
+        - 0.00028691266731301036
+        - 0.0002948389534981091
+        - 0.0004626871110145467
+        - 0.0005822504934139344
+        - 0.001018827732081587
+        - 0.0012124238236268662
+        - 0.0017401701748483867
+        - 0.002268938184013918
+        - 0.0024083450071120294
+        - 0.002980396353246413
+      normalized_cov_params: &id007
+      - - 0.0427740037725134
+        - -0.00023198419007153926
+      - - -0.00023198419007153926
+        - 4.8600073237857574e-05
+      df_resid: 22.0
+      df_model: 1.0
+      nobs: 24.0
+      cov: H1
+      scale_est: mad
+      scale: 36.20614501957094
+      weights:
+      - true
+      - true
+      - true
+      - true
+      - false
+      - true
+      - true
+      - true
+      - false
+      - true
+      - true
+      - true
+      - true
+      - false
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+    k_constant: 1
+    _data_attr: []
+    _data_in_cache:
+    - fittedvalues
+    - resid
+    - wresid
+    - sresid
+    normalized_cov_params: *id007
+    scale: 36.20614501957094
+    _use_t: false
+    df_model: 1.0
+    df_resid: 22.0
+    nobs: 24.0
+    _cache:
+      fittedvalues:
+      - 1036.9255001125478
+      - 1036.4460880073832
+      - 1034.9455602903697
+      - 1033.5469947619229
+      - 1032.9834753378957
+      - 1032.6294951774569
+      - 1032.0082371614844
+      - 1031.0404962138923
+      - 1030.0711775512216
+      - 1029.9113342362768
+      - 1029.9002961041303
+      - 1029.5322241376903
+      - 1029.4790471462256
+      - 1028.7321031299323
+      - 1028.2408365859555
+      - 1028.2166159893075
+      - 1027.7037172084174
+      - 1027.3383637009429
+      - 1026.004301195937
+      - 1025.4127236605746
+      - 1023.8000728923691
+      - 1022.1843002125399
+      - 1021.7583104925885
+      - 1020.0102755878254
+      resid:
+      - -23.287259898425873
+      - 51.319525611391555
+      - -22.297590080279406
+      - -5.207374577883911
+      - 158.4621312680058
+      - -20.45041857450292
+      - 17.463431434958466
+      - 41.79269551669199
+      - -171.41791350876963
+      - -95.14346457880902
+      - 13.213160362721283
+      - 24.752280947107238
+      - -57.38540373643855
+      - -191.37094825384065
+      - 27.378266277612738
+      - 24.08906647251979
+      - -7.20035398171467
+      - -17.396082856094154
+      - 52.31978025319631
+      - -1.7882392829259288
+      - 49.93409321359309
+      - -12.295021563392538
+      - -26.359260417781115
+      - -13.451830541534036
+      sresid:
+      - -0.643185290393057
+      - 1.417425842592499
+      - -0.6158509851912327
+      - -0.14382571176989725
+      - 4.376663993980866
+      - -0.5648328084486379
+      - 0.4823333559957501
+      - 1.1542984069168725
+      - -4.734497788044297
+      - -2.627826423591354
+      - 0.3649424802220456
+      - 0.6836486163806611
+      - -1.5849630968836734
+      - -5.28559304367799
+      - 0.7561773357205976
+      - 0.6653308840115024
+      - -0.19887104738222136
+      - -0.48047321377878927
+      - 1.4450524966111493
+      - -0.04939049108816502
+      - 1.3791607249709024
+      - -0.339583834643168
+      - -0.7280327801684722
+      - -0.37153446008302615
+      bcov_scaled: &id008
+      - - 70.85236726708789
+        - -0.38426678789580154
+      - - -0.38426678789580154
+        - 0.08050287404867168
+      bse:
+      - 8.417384823511865
+      - 0.28373028398229133
+      tvalues:
+      - 122.34517813738462
+      - -0.5234151867866401
+      pvalues:
+      - 0.0
+      - 0.6006853580288727
+    cov_params_default: *id008
+    fit_history:
+      params:
+      - .inf
+      - - 1022.1296497106316
+        - -0.31962990427130933
+      - - 1029.826445683477
+        - -0.14850873958761746
+      - *id009
+      scale:
+      - 5273.775858863598
+      - 1238.5435686050432
+      - 1238.5435686050432
+      deviance:
+      - .inf
+      - 0.0020857920955272263
+      - 0.038580803408842554
+      - 0.038580803408842554
+      iteration: 3
+    fit_options:
+      cov: H1
+      scale_est: mad
+      norm: TrimmedMean
+      conv: dev
+  __doc__: "\n    Class to contain RLM results\n\n    Attributes\n    ----------\n\
+    \n    bcov_scaled : ndarray\n        p x p scaled covariance matrix specified\
+    \ in the model fit method.\n        The default is H1. H1 is defined as\n    \
+    \    ``k**2 * (1/df_resid*sum(M.psi(sresid)**2)*scale**2)/\n        ((1/nobs*sum(M.psi_deriv(sresid)))**2)\
+    \ * (X.T X)^(-1)``\n\n        where ``k = 1 + (df_model +1)/nobs * var_psiprime/m**2``\n\
+    \        where ``m = mean(M.psi_deriv(sresid))`` and\n        ``var_psiprime =\
+    \ var(M.psi_deriv(sresid))``\n\n        H2 is defined as\n        ``k * (1/df_resid)\
+    \ * sum(M.psi(sresid)**2) *scale**2/\n        ((1/nobs)*sum(M.psi_deriv(sresid)))*W_inv``\n\
+    \n        H3 is defined as\n        ``1/k * (1/df_resid * sum(M.psi(sresid)**2)*scale**2\
+    \ *\n        (W_inv X.T X W_inv))``\n\n        where `k` is defined as above and\n\
+    \        ``W_inv = (M.psi_deriv(sresid) exog.T exog)^(-1)``\n\n        See the\
+    \ technical documentation for cleaner formulae.\n    bcov_unscaled : ndarray\n\
+    \        The usual p x p covariance matrix with scale set equal to 1.  It\n  \
+    \      is then just equivalent to normalized_cov_params.\n    bse : ndarray\n\
+    \        An array of the standard errors of the parameters.  The standard\n  \
+    \      errors are taken from the robust covariance matrix specified in the\n \
+    \       argument to fit.\n    chisq : ndarray\n        An array of the chi-squared\
+    \ values of the parameter estimates.\n    df_model\n        See RLM.df_model\n\
+    \    df_resid\n        See RLM.df_resid\n    fit_history : dict\n        Contains\
+    \ information about the iterations. Its keys are `deviance`,\n        `params`,\
+    \ `iteration` and the convergence criteria specified in\n        `RLM.fit`, if\
+    \ different from `deviance` or `params`.\n    fit_options : dict\n        Contains\
+    \ the options given to fit.\n    fittedvalues : ndarray\n        The linear predicted\
+    \ values.  dot(exog, params)\n    model : statsmodels.rlm.RLM\n        A reference\
+    \ to the model instance\n    nobs : float\n        The number of observations\
+    \ n\n    normalized_cov_params : ndarray\n        See RLM.normalized_cov_params\n\
+    \    params : ndarray\n        The coefficients of the fitted model\n    pinv_wexog\
+    \ : ndarray\n        See RLM.pinv_wexog\n    pvalues : ndarray\n        The p\
+    \ values associated with `tvalues`. Note that `tvalues` are assumed\n        to\
+    \ be distributed standard normal rather than Student's t.\n    resid : ndarray\n\
+    \        The residuals of the fitted model.  endog - fittedvalues\n    scale :\
+    \ float\n        The type of scale is determined in the arguments to the fit method\
+    \ in\n        RLM.  The reported scale is taken from the residuals of the weighted\n\
+    \        least squares in the last IRLS iteration if update_scale is True.  If\n\
+    \        update_scale is False, then it is the scale given by the first OLS\n\
+    \        fit before the IRLS iterations.\n    sresid : ndarray\n        The scaled\
+    \ residuals.\n    tvalues : ndarray\n        The \"t-statistics\" of params. These\
+    \ are defined as params/bse where\n        bse are taken from the robust covariance\
+    \ matrix specified in the\n        argument to fit.\n    weights : ndarray\n \
+    \       The reported weights are determined by passing the scaled residuals\n\
+    \        from the last weighted least squares fit in the IRLS algorithm.\n\n \
+    \   See Also\n    --------\n    statsmodels.base.model.LikelihoodModelResults\n\
+    \    "
+(d RA, mas) vs (Dec, arcsec): !!python/object:statsmodels.robust.robust_linear_model.RLMResultsWrapper
+  _results: !!python/object:statsmodels.robust.robust_linear_model.RLMResults
+    params: &id020
+    - 1030.7700757875514
+    - -0.08406606520914606
+    model: !!python/object:statsmodels.robust.robust_linear_model.RLM
+      M: !!python/object:statsmodels.robust.norms.TrimmedMean
+        c: 3.0
+      data: !!python/object:statsmodels.base.data.PandasData
+        orig_endog: !!python/object:pandas.core.series.Series
+          _mgr: !!python/object/new:pandas.core.internals.managers.SingleBlockManager
+            state: !!python/tuple
+            - &id010
+              - !!python/object/apply:pandas.core.indexes.base._new_Index
+                - *id001
+                - data: &id014
+                  - 22
+                  - 21
+                  - 23
+                  - 18
+                  - 19
+                  - 14
+                  - 20
+                  - 16
+                  - 8
+                  - 12
+                  - 17
+                  - 10
+                  - 7
+                  - 5
+                  - 2
+                  - 15
+                  - 9
+                  - 4
+                  - 11
+                  - 13
+                  - 6
+                  - 1
+                  - 3
+                  - 0
+                  name: null
+            - - &id011
+                - 1054.2845050847975
+                - 972.0936434097871
+                - 1087.7656136187748
+                - 837.3611548760916
+                - 1043.1134564668516
+                - 1020.5033632267027
+                - 1028.339620184039
+                - 858.653264042452
+                - 1006.5584450462914
+                - 1009.9422808448487
+                - 1191.4456066059015
+                - 1078.3240814491332
+                - 995.3990500748074
+                - 1009.8892786491474
+                - 1073.7341661059622
+                - 1013.6382402141219
+                - 1055.6191028635683
+                - 1023.6244843776486
+                - 1012.179076602954
+                - 1012.6479702100903
+                - 1072.8331917305843
+                - 1052.3056824618272
+                - 1049.471668596443
+                - 934.7678696574678
+            - - !!python/object/apply:pandas.core.indexes.base._new_Index
+                - *id001
+                - data:
+                  - 22
+                  - 21
+                  - 23
+                  - 18
+                  - 19
+                  - 14
+                  - 20
+                  - 16
+                  - 8
+                  - 12
+                  - 17
+                  - 10
+                  - 7
+                  - 5
+                  - 2
+                  - 15
+                  - 9
+                  - 4
+                  - 11
+                  - 13
+                  - 6
+                  - 1
+                  - 3
+                  - 0
+                  name: null
+            - 0.14.1:
+                axes: *id010
+                blocks:
+                - values: *id011
+                  mgr_locs: !!python/object/apply:builtins.slice
+                  - 0
+                  - 24
+                  - 1
+          _typ: series
+          _metadata: *id012
+          attrs: {}
+          _flags:
+            allows_duplicate_labels: true
+          name: d RA, mas
+        orig_exog: !!python/object:pandas.core.frame.DataFrame
+          _mgr: !!python/object/apply:pandas.core.internals.managers.BlockManager
+          - !!python/tuple
+            - !!python/object/apply:pandas._libs.internals._unpickle_block
+              - - - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                - - -76.59658844342081
+                  - -55.810764679733836
+                  - -44.74748533260947
+                  - -29.772747895672715
+                  - -27.037420115269022
+                  - -9.98993853291234
+                  - -6.955228148648659
+                  - 0.11140262505201565
+                  - 3.2609369463708435
+                  - 9.574949256461974
+                  - 10.546050328356971
+                  - 13.81791368498564
+                  - 17.711651427109125
+                  - 21.61331205677489
+                  - 40.69790720968135
+                  - 44.26148748187878
+                  - 44.577838891612906
+                  - 48.86170337593615
+                  - 51.13475022310231
+                  - 53.33755629485722
+                  - 74.8130721708963
+                  - 79.21361857893727
+                  - 89.92461742431207
+                  - 93.88425460120112
+              - !!python/object/apply:builtins.slice
+                - 0
+                - 2
+                - 1
+              - 2
+          - - !!python/object/apply:pandas.core.indexes.base._new_Index
+              - *id013
+              - data:
+                - const
+                - Dec, arcsec
+                name: null
+            - &id016 !!python/object/apply:pandas.core.indexes.base._new_Index
+              - *id001
+              - data: *id014
+                name: null
+          _typ: dataframe
+          _metadata: *id015
+          attrs: {}
+          _flags:
+            allows_duplicate_labels: true
+        endog: *id011
+        exog: &id017
+        - - 1.0
+          - -76.59658844342081
+        - - 1.0
+          - -55.810764679733836
+        - - 1.0
+          - -44.74748533260947
+        - - 1.0
+          - -29.772747895672715
+        - - 1.0
+          - -27.037420115269022
+        - - 1.0
+          - -9.98993853291234
+        - - 1.0
+          - -6.955228148648659
+        - - 1.0
+          - 0.11140262505201565
+        - - 1.0
+          - 3.2609369463708435
+        - - 1.0
+          - 9.574949256461974
+        - - 1.0
+          - 10.546050328356971
+        - - 1.0
+          - 13.81791368498564
+        - - 1.0
+          - 17.711651427109125
+        - - 1.0
+          - 21.61331205677489
+        - - 1.0
+          - 40.69790720968135
+        - - 1.0
+          - 44.26148748187878
+        - - 1.0
+          - 44.577838891612906
+        - - 1.0
+          - 48.86170337593615
+        - - 1.0
+          - 51.13475022310231
+        - - 1.0
+          - 53.33755629485722
+        - - 1.0
+          - 74.8130721708963
+        - - 1.0
+          - 79.21361857893727
+        - - 1.0
+          - 89.92461742431207
+        - - 1.0
+          - 93.88425460120112
+        const_idx: 0
+        k_constant: 1
+        _cache:
+          ynames: d RA, mas
+          row_labels: *id016
+          xnames:
+          - const
+          - Dec, arcsec
+      k_constant: 1
+      exog: *id017
+      endog: *id011
+      _data_attr:
+      - exog
+      - endog
+      - data.exog
+      - data.endog
+      - data.orig_endog
+      - data.orig_exog
+      - weights
+      - pinv_wexog
+      _init_keys: []
+      pinv_wexog:
+      - - 0.07867186105275488
+        - 0.07059202959713291
+        - 0.06629152972339723
+        - 0.0604705742511384
+        - 0.059407302105044635
+        - 0.05278063291482011
+        - 0.051600985252055226
+        - 0.048854056082456375
+        - 0.047629774246467256
+        - 0.045175401696489995
+        - 0.04479791687431071
+        - 0.04352608349556489
+        - 0.04201251612164566
+        - 0.04049586897582461
+        - 0.03307733632648824
+        - 0.03169210722490042
+        - 0.031569135621731845
+        - 0.029903918817934746
+        - 0.029020343760980755
+        - 0.02816407258349227
+        - 0.019816145136706764
+        - 0.018105571926145363
+        - 0.01394200995352914
+        - 0.012402826258987731
+      - - -0.0019893801865197313
+        - -0.0015550126098890288
+        - -0.0013238199521318605
+        - -0.0010108883846792992
+        - -0.0009537274218628881
+        - -0.0005974811000057206
+        - -0.000534063849365334
+        - -0.00038639035232170124
+        - -0.0003205735915226182
+        - -0.00018862778763573777
+        - -0.0001683343980612807
+        - -9.996129082035327e-05
+        - -1.859268853111338e-05
+        - 6.294148070898606e-05
+        - 0.0004617579741899058
+        - 0.0005362271770736316
+        - 0.0005428380671096562
+        - 0.0006323592646250803
+        - 0.0006798598045024801
+        - 0.0007258925018857402
+        - 0.0011746727808884814
+        - 0.0012666323154656492
+        - 0.0014904632622038622
+        - 0.0015732089846931907
+      normalized_cov_params: &id018
+      - - 0.04889736032886813
+        - -0.0003887183663000878
+      - - -0.0003887183663000878
+        - 2.0897299119294265e-05
+      df_resid: 22.0
+      df_model: 1.0
+      nobs: 24.0
+      cov: H1
+      scale_est: mad
+      scale: 40.36828242723149
+      weights:
+      - true
+      - true
+      - true
+      - false
+      - true
+      - true
+      - true
+      - false
+      - true
+      - true
+      - false
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+    k_constant: 1
+    _data_attr: []
+    _data_in_cache:
+    - fittedvalues
+    - resid
+    - wresid
+    - sresid
+    normalized_cov_params: *id018
+    scale: 40.36828242723149
+    _use_t: false
+    df_model: 1.0
+    df_resid: 22.0
+    nobs: 24.0
+    _cache:
+      fittedvalues:
+      - 1037.2092495864342
+      - 1035.4618671704902
+      - 1034.5318208074677
+      - 1033.2729535536046
+      - 1033.0430053100486
+      - 1031.6098906116945
+      - 1031.3547744506402
+      - 1030.7607106072094
+      - 1030.495941649575
+      - 1029.9651474789835
+      - 1029.8835108329488
+      - 1029.608458154655
+      - 1029.2811269437184
+      - 1028.9531296868008
+      - 1027.3487628661865
+      - 1027.0491866946459
+      - 1027.0225922764062
+      - 1026.66246464532
+      - 1026.4713785408426
+      - 1026.2861973019715
+      - 1024.4808351839363
+      - 1024.110898562642
+      - 1023.2104670352517
+      - 1022.8775959181347
+      resid:
+      - 17.075255498363276
+      - -63.36822376070313
+      - 53.23379281130701
+      - -195.91179867751293
+      - 10.070451156803074
+      - -11.10652738499175
+      - -3.0151542666012574
+      - -172.10744656475742
+      - -23.937496603283535
+      - -20.022866634134743
+      - 161.56209577295272
+      - 48.71562329447829
+      - -33.882076868910985
+      - -19.06385103765342
+      - 46.38540323977577
+      - -13.41094648052399
+      - 28.59651058716213
+      - -3.037980267671287
+      - -14.292301937888624
+      - -13.638227091881163
+      - 48.352356546648025
+      - 28.194783899185268
+      - 26.26120156119123
+      - -88.10972626066689
+      sresid:
+      - 0.42298692120833736
+      - -1.5697527848734139
+      - 1.3187034377117008
+      - -4.853112069622151
+      - 0.24946444464057219
+      - -0.27513004559984816
+      - -0.07469117052568244
+      - -4.263432482543716
+      - -0.5929778321986735
+      - -0.4960049184710368
+      - 4.0022038605231005
+      - 1.2067796885412168
+      - -0.8393242127649934
+      - -0.4722482575774241
+      - 1.1490556558454237
+      - -0.33221493891147774
+      - 0.7083905697179624
+      - -0.07525661447567403
+      - -0.3540478087878065
+      - -0.3378451168058896
+      - 1.1977808724908907
+      - 0.6984390269764297
+      - 0.650540473415734
+      - -2.1826473895562657
+      bcov_scaled: &id019
+      - - 81.35195958830181
+        - -0.6467220441714885
+      - - -0.6467220441714885
+        - 0.03476744392792531
+      bse:
+      - 9.019532115819635
+      - 0.1864603012116126
+      tvalues:
+      - 114.28198963665223
+      - -0.4508523512130339
+      pvalues:
+      - 0.0
+      - 0.6520959673132938
+    cov_params_default: *id019
+    fit_history:
+      params:
+      - .inf
+      - - 1017.7526753087424
+        - 0.15328309526945727
+      - - 1030.7700757875514
+        - -0.08406606520914606
+      - *id020
+      scale:
+      - 5318.220405595884
+      - 1243.9972791989287
+      - 1243.9972791989287
+      deviance:
+      - .inf
+      - 0.002068361060858947
+      - 0.03924728998678184
+      - 0.03924728998678184
+      iteration: 3
+    fit_options:
+      cov: H1
+      scale_est: mad
+      norm: TrimmedMean
+      conv: dev
+  __doc__: "\n    Class to contain RLM results\n\n    Attributes\n    ----------\n\
+    \n    bcov_scaled : ndarray\n        p x p scaled covariance matrix specified\
+    \ in the model fit method.\n        The default is H1. H1 is defined as\n    \
+    \    ``k**2 * (1/df_resid*sum(M.psi(sresid)**2)*scale**2)/\n        ((1/nobs*sum(M.psi_deriv(sresid)))**2)\
+    \ * (X.T X)^(-1)``\n\n        where ``k = 1 + (df_model +1)/nobs * var_psiprime/m**2``\n\
+    \        where ``m = mean(M.psi_deriv(sresid))`` and\n        ``var_psiprime =\
+    \ var(M.psi_deriv(sresid))``\n\n        H2 is defined as\n        ``k * (1/df_resid)\
+    \ * sum(M.psi(sresid)**2) *scale**2/\n        ((1/nobs)*sum(M.psi_deriv(sresid)))*W_inv``\n\
+    \n        H3 is defined as\n        ``1/k * (1/df_resid * sum(M.psi(sresid)**2)*scale**2\
+    \ *\n        (W_inv X.T X W_inv))``\n\n        where `k` is defined as above and\n\
+    \        ``W_inv = (M.psi_deriv(sresid) exog.T exog)^(-1)``\n\n        See the\
+    \ technical documentation for cleaner formulae.\n    bcov_unscaled : ndarray\n\
+    \        The usual p x p covariance matrix with scale set equal to 1.  It\n  \
+    \      is then just equivalent to normalized_cov_params.\n    bse : ndarray\n\
+    \        An array of the standard errors of the parameters.  The standard\n  \
+    \      errors are taken from the robust covariance matrix specified in the\n \
+    \       argument to fit.\n    chisq : ndarray\n        An array of the chi-squared\
+    \ values of the parameter estimates.\n    df_model\n        See RLM.df_model\n\
+    \    df_resid\n        See RLM.df_resid\n    fit_history : dict\n        Contains\
+    \ information about the iterations. Its keys are `deviance`,\n        `params`,\
+    \ `iteration` and the convergence criteria specified in\n        `RLM.fit`, if\
+    \ different from `deviance` or `params`.\n    fit_options : dict\n        Contains\
+    \ the options given to fit.\n    fittedvalues : ndarray\n        The linear predicted\
+    \ values.  dot(exog, params)\n    model : statsmodels.rlm.RLM\n        A reference\
+    \ to the model instance\n    nobs : float\n        The number of observations\
+    \ n\n    normalized_cov_params : ndarray\n        See RLM.normalized_cov_params\n\
+    \    params : ndarray\n        The coefficients of the fitted model\n    pinv_wexog\
+    \ : ndarray\n        See RLM.pinv_wexog\n    pvalues : ndarray\n        The p\
+    \ values associated with `tvalues`. Note that `tvalues` are assumed\n        to\
+    \ be distributed standard normal rather than Student's t.\n    resid : ndarray\n\
+    \        The residuals of the fitted model.  endog - fittedvalues\n    scale :\
+    \ float\n        The type of scale is determined in the arguments to the fit method\
+    \ in\n        RLM.  The reported scale is taken from the residuals of the weighted\n\
+    \        least squares in the last IRLS iteration if update_scale is True.  If\n\
+    \        update_scale is False, then it is the scale given by the first OLS\n\
+    \        fit before the IRLS iterations.\n    sresid : ndarray\n        The scaled\
+    \ residuals.\n    tvalues : ndarray\n        The \"t-statistics\" of params. These\
+    \ are defined as params/bse where\n        bse are taken from the robust covariance\
+    \ matrix specified in the\n        argument to fit.\n    weights : ndarray\n \
+    \       The reported weights are determined by passing the scaled residuals\n\
+    \        from the last weighted least squares fit in the IRLS algorithm.\n\n \
+    \   See Also\n    --------\n    statsmodels.base.model.LikelihoodModelResults\n\
+    \    "
+(d Dec, mas) vs (RA, arcsec): !!python/object:statsmodels.robust.robust_linear_model.RLMResultsWrapper
+  _results: !!python/object:statsmodels.robust.robust_linear_model.RLMResults
+    params: &id028
+    - -66.99653739422111
+    - 0.17600979842201847
+    model: !!python/object:statsmodels.robust.robust_linear_model.RLM
+      M: !!python/object:statsmodels.robust.norms.TrimmedMean
+        c: 3.0
+      data: !!python/object:statsmodels.base.data.PandasData
+        orig_endog: !!python/object:pandas.core.series.Series
+          _mgr: !!python/object/new:pandas.core.internals.managers.SingleBlockManager
+            state: !!python/tuple
+            - &id021
+              - !!python/object/apply:pandas.core.indexes.base._new_Index
+                - *id001
+                - data: &id023
+                  - 15
+                  - 23
+                  - 13
+                  - 20
+                  - 17
+                  - 11
+                  - 3
+                  - 6
+                  - 16
+                  - 0
+                  - 19
+                  - 22
+                  - 21
+                  - 18
+                  - 9
+                  - 1
+                  - 14
+                  - 12
+                  - 10
+                  - 4
+                  - 2
+                  - 5
+                  - 7
+                  - 8
+                  name: null
+            - - &id022
+                - -81.01826862995577
+                - -135.139483067267
+                - -70.18522485813303
+                - -66.68608845012871
+                - 15.991222573281883
+                - -117.7308621775166
+                - -48.20374446041549
+                - -70.78628754234674
+                - 13.48105811748475
+                - -135.4460538819641
+                - -50.90249069643594
+                - -15.468719153328246
+                - -107.35947812246795
+                - 66.87902758390445
+                - -53.15784091101217
+                - -50.01776614512926
+                - -101.91197849906966
+                - -97.14279736795345
+                - -33.489638448901346
+                - -57.94985718305234
+                - -54.83544617676642
+                - -110.538473145155
+                - -38.05807196058727
+                - -55.49739569629697
+            - - !!python/object/apply:pandas.core.indexes.base._new_Index
+                - *id001
+                - data:
+                  - 15
+                  - 23
+                  - 13
+                  - 20
+                  - 17
+                  - 11
+                  - 3
+                  - 6
+                  - 16
+                  - 0
+                  - 19
+                  - 22
+                  - 21
+                  - 18
+                  - 9
+                  - 1
+                  - 14
+                  - 12
+                  - 10
+                  - 4
+                  - 2
+                  - 5
+                  - 7
+                  - 8
+                  name: null
+            - 0.14.1:
+                axes: *id021
+                blocks:
+                - values: *id022
+                  mgr_locs: !!python/object/apply:builtins.slice
+                  - 0
+                  - 24
+                  - 1
+          _typ: series
+          _metadata: *id012
+          attrs: {}
+          _flags:
+            allows_duplicate_labels: true
+          name: d Dec, mas
+        orig_exog: !!python/object:pandas.core.frame.DataFrame
+          _mgr: !!python/object/apply:pandas.core.internals.managers.BlockManager
+          - !!python/tuple
+            - !!python/object/apply:pandas._libs.internals._unpickle_block
+              - - - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                - - -47.8022670502998
+                  - -44.57409269170125
+                  - -34.47012358402337
+                  - -25.052728134230723
+                  - -21.258207854872705
+                  - -18.874643349364096
+                  - -14.691333884227387
+                  - -8.174943331863227
+                  - -1.6479290607683172
+                  - -0.5716064457585598
+                  - -0.497279963848444
+                  - 1.9811732737330903
+                  - 2.3392464188710163
+                  - 7.368876448507793
+                  - 10.676873980106459
+                  - 10.839966042669946
+                  - 14.29362663068919
+                  - 16.753774824586404
+                  - 25.73683204203059
+                  - 29.720284712930596
+                  - 40.57924676919406
+                  - 51.45923056217407
+                  - 54.327679389726846
+                  - 66.09826548194651
+              - !!python/object/apply:builtins.slice
+                - 0
+                - 2
+                - 1
+              - 2
+          - - !!python/object/apply:pandas.core.indexes.base._new_Index
+              - *id013
+              - data:
+                - const
+                - RA, arcsec
+                name: null
+            - &id024 !!python/object/apply:pandas.core.indexes.base._new_Index
+              - *id001
+              - data: *id023
+                name: null
+          _typ: dataframe
+          _metadata: *id015
+          attrs: {}
+          _flags:
+            allows_duplicate_labels: true
+        endog: *id022
+        exog: &id025
+        - - 1.0
+          - -47.8022670502998
+        - - 1.0
+          - -44.57409269170125
+        - - 1.0
+          - -34.47012358402337
+        - - 1.0
+          - -25.052728134230723
+        - - 1.0
+          - -21.258207854872705
+        - - 1.0
+          - -18.874643349364096
+        - - 1.0
+          - -14.691333884227387
+        - - 1.0
+          - -8.174943331863227
+        - - 1.0
+          - -1.6479290607683172
+        - - 1.0
+          - -0.5716064457585598
+        - - 1.0
+          - -0.497279963848444
+        - - 1.0
+          - 1.9811732737330903
+        - - 1.0
+          - 2.3392464188710163
+        - - 1.0
+          - 7.368876448507793
+        - - 1.0
+          - 10.676873980106459
+        - - 1.0
+          - 10.839966042669946
+        - - 1.0
+          - 14.29362663068919
+        - - 1.0
+          - 16.753774824586404
+        - - 1.0
+          - 25.73683204203059
+        - - 1.0
+          - 29.720284712930596
+        - - 1.0
+          - 40.57924676919406
+        - - 1.0
+          - 51.45923056217407
+        - - 1.0
+          - 54.327679389726846
+        - - 1.0
+          - 66.09826548194651
+        const_idx: 0
+        k_constant: 1
+        _cache:
+          ynames: d Dec, mas
+          row_labels: *id024
+          xnames:
+          - const
+          - RA, arcsec
+      k_constant: 1
+      exog: *id025
+      endog: *id022
+      _data_attr:
+      - exog
+      - endog
+      - data.exog
+      - data.endog
+      - data.orig_endog
+      - data.orig_exog
+      - weights
+      - pinv_wexog
+      _init_keys: []
+      pinv_wexog:
+      - - 0.053863373977760615
+        - 0.053114488563771406
+        - 0.05077052747381891
+        - 0.048585840617815367
+        - 0.04770557190409846
+        - 0.047152622622804785
+        - 0.046182160964716445
+        - 0.044670461380236406
+        - 0.04315629726097109
+        - 0.04290660743087236
+        - 0.042889364862165574
+        - 0.04231440289521504
+        - 0.04223133558665386
+        - 0.04106454093786907
+        - 0.04029713780974251
+        - 0.04025930302970162
+        - 0.03945810837540798
+        - 0.038887392889190776
+        - 0.03680346563623569
+        - 0.03587936759468865
+        - 0.033360260077048794
+        - 0.030836275848842857
+        - 0.03017084107082137
+        - 0.02744025118955047
+      - - -0.002555177869651735
+        - -0.002398288359399272
+        - -0.0019072347207730758
+        - -0.0014495486122032865
+        - -0.0012651346487239513
+        - -0.0011492932391890752
+        - -0.0009459840928068085
+        - -0.0006292870347154272
+        - -0.00031207366311567316
+        - -0.00025976430519863655
+        - -0.0002561520327342926
+        - -0.00013569902387122485
+        - -0.00011829664279301175
+        - 0.0001261437450066633
+        - 0.00028691266731301036
+        - 0.0002948389534981091
+        - 0.0004626871110145467
+        - 0.0005822504934139344
+        - 0.001018827732081587
+        - 0.0012124238236268662
+        - 0.0017401701748483867
+        - 0.002268938184013918
+        - 0.0024083450071120294
+        - 0.002980396353246413
+      normalized_cov_params: &id026
+      - - 0.0427740037725134
+        - -0.00023198419007153926
+      - - -0.00023198419007153926
+        - 4.8600073237857574e-05
+      df_resid: 22.0
+      df_model: 1.0
+      nobs: 24.0
+      cov: H1
+      scale_est: mad
+      scale: 37.32864432725681
+      weights:
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - false
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+    k_constant: 1
+    _data_attr: []
+    _data_in_cache:
+    - fittedvalues
+    - resid
+    - wresid
+    - sresid
+    normalized_cov_params: *id026
+    scale: 37.32864432725681
+    _use_t: false
+    df_model: 1.0
+    df_resid: 22.0
+    nobs: 24.0
+    _cache:
+      fittedvalues:
+      - -75.41020478185987
+      - -74.84201446373181
+      - -73.06361689782713
+      - -71.40606302304869
+      - -70.73819027357062
+      - -70.31865956543017
+      - -69.58235610973453
+      - -68.43540752217378
+      - -67.28658905602073
+      - -67.0971457295158
+      - -67.08406354041738
+      - -66.64783148567226
+      - -66.5848071035762
+      - -65.6995429359225
+      - -65.11730295720528
+      - -65.08859715614925
+      - -64.48071905223391
+      - -64.04770886453777
+      - -62.466602774481956
+      - -61.7654760728532
+      - -59.85419235025792
+      - -57.93920859602068
+      - -57.434333496099235
+      - -55.36259501069864
+      resid:
+      - -5.608063848095895
+      - -60.297468603535194
+      - 2.8783920396941056
+      - 4.7199745729199805
+      - 86.72941284685251
+      - -47.41220261208643
+      - 21.37861164931904
+      - -2.3508800201729656
+      - 80.76764717350548
+      - -68.3489081524483
+      - 16.181572843981435
+      - 51.17911233234401
+      - -40.77467101889175
+      - 132.57857051982694
+      - 11.95946204619311
+      - 15.07083101101999
+      - -37.43125944683575
+      - -33.09508850341568
+      - 28.97696432558061
+      - 3.8156188898008594
+      - 5.0187461734915
+      - -52.59926454913432
+      - 19.376261535511965
+      - -0.13480068559832858
+      sresid:
+      - -0.15023486518638374
+      - -1.615313646938603
+      - 0.07710947160200907
+      - 0.12644377147855665
+      - 2.323401088089449
+      - -1.270129238994805
+      - 0.5727133153268227
+      - -0.06297791046369151
+      - 2.163690876781458
+      - -1.8310042966800422
+      - 0.43348943246154525
+      - 1.3710412808903911
+      - -1.0923158811079219
+      - 3.55165779280712
+      - 0.32038297296161095
+      - 0.403733681804659
+      - -1.0027489645399208
+      - -0.886586938793546
+      - 0.7762661850653405
+      - 0.10221691568409712
+      - 0.13444758747445024
+      - -1.4090858507477897
+      - 0.5190722000413959
+      - -0.003611186209082315
+      bcov_scaled: &id027
+      - - 77.95372494448286
+        - -0.4227808984279889
+      - - -0.4227808984279889
+        - 0.08857147817198727
+      bse:
+      - 8.829140668518248
+      - 0.29760960698873157
+      tvalues:
+      - -7.588115300179583
+      - 0.5914116825828232
+      pvalues:
+      - 3.245920248849653e-14
+      - 0.5542446145782096
+    cov_params_default: *id027
+    fit_history:
+      params:
+      - .inf
+      - - -61.55225925762552
+        - 0.19273375581502003
+      - - -66.99653739422111
+        - 0.17600979842201847
+      - *id028
+      scale:
+      - 2427.0918758651646
+      - 1661.685321653669
+      - 1661.685321653669
+      deviance:
+      - .inf
+      - 0.004532172889449819
+      - 0.009802656730191223
+      - 0.009802656730191223
+      iteration: 3
+    fit_options:
+      cov: H1
+      scale_est: mad
+      norm: TrimmedMean
+      conv: dev
+  __doc__: "\n    Class to contain RLM results\n\n    Attributes\n    ----------\n\
+    \n    bcov_scaled : ndarray\n        p x p scaled covariance matrix specified\
+    \ in the model fit method.\n        The default is H1. H1 is defined as\n    \
+    \    ``k**2 * (1/df_resid*sum(M.psi(sresid)**2)*scale**2)/\n        ((1/nobs*sum(M.psi_deriv(sresid)))**2)\
+    \ * (X.T X)^(-1)``\n\n        where ``k = 1 + (df_model +1)/nobs * var_psiprime/m**2``\n\
+    \        where ``m = mean(M.psi_deriv(sresid))`` and\n        ``var_psiprime =\
+    \ var(M.psi_deriv(sresid))``\n\n        H2 is defined as\n        ``k * (1/df_resid)\
+    \ * sum(M.psi(sresid)**2) *scale**2/\n        ((1/nobs)*sum(M.psi_deriv(sresid)))*W_inv``\n\
+    \n        H3 is defined as\n        ``1/k * (1/df_resid * sum(M.psi(sresid)**2)*scale**2\
+    \ *\n        (W_inv X.T X W_inv))``\n\n        where `k` is defined as above and\n\
+    \        ``W_inv = (M.psi_deriv(sresid) exog.T exog)^(-1)``\n\n        See the\
+    \ technical documentation for cleaner formulae.\n    bcov_unscaled : ndarray\n\
+    \        The usual p x p covariance matrix with scale set equal to 1.  It\n  \
+    \      is then just equivalent to normalized_cov_params.\n    bse : ndarray\n\
+    \        An array of the standard errors of the parameters.  The standard\n  \
+    \      errors are taken from the robust covariance matrix specified in the\n \
+    \       argument to fit.\n    chisq : ndarray\n        An array of the chi-squared\
+    \ values of the parameter estimates.\n    df_model\n        See RLM.df_model\n\
+    \    df_resid\n        See RLM.df_resid\n    fit_history : dict\n        Contains\
+    \ information about the iterations. Its keys are `deviance`,\n        `params`,\
+    \ `iteration` and the convergence criteria specified in\n        `RLM.fit`, if\
+    \ different from `deviance` or `params`.\n    fit_options : dict\n        Contains\
+    \ the options given to fit.\n    fittedvalues : ndarray\n        The linear predicted\
+    \ values.  dot(exog, params)\n    model : statsmodels.rlm.RLM\n        A reference\
+    \ to the model instance\n    nobs : float\n        The number of observations\
+    \ n\n    normalized_cov_params : ndarray\n        See RLM.normalized_cov_params\n\
+    \    params : ndarray\n        The coefficients of the fitted model\n    pinv_wexog\
+    \ : ndarray\n        See RLM.pinv_wexog\n    pvalues : ndarray\n        The p\
+    \ values associated with `tvalues`. Note that `tvalues` are assumed\n        to\
+    \ be distributed standard normal rather than Student's t.\n    resid : ndarray\n\
+    \        The residuals of the fitted model.  endog - fittedvalues\n    scale :\
+    \ float\n        The type of scale is determined in the arguments to the fit method\
+    \ in\n        RLM.  The reported scale is taken from the residuals of the weighted\n\
+    \        least squares in the last IRLS iteration if update_scale is True.  If\n\
+    \        update_scale is False, then it is the scale given by the first OLS\n\
+    \        fit before the IRLS iterations.\n    sresid : ndarray\n        The scaled\
+    \ residuals.\n    tvalues : ndarray\n        The \"t-statistics\" of params. These\
+    \ are defined as params/bse where\n        bse are taken from the robust covariance\
+    \ matrix specified in the\n        argument to fit.\n    weights : ndarray\n \
+    \       The reported weights are determined by passing the scaled residuals\n\
+    \        from the last weighted least squares fit in the IRLS algorithm.\n\n \
+    \   See Also\n    --------\n    statsmodels.base.model.LikelihoodModelResults\n\
+    \    "
+(d Dec, mas) vs (Dec, arcsec): !!python/object:statsmodels.robust.robust_linear_model.RLMResultsWrapper
+  _results: !!python/object:statsmodels.robust.robust_linear_model.RLMResults
+    params: &id036
+    - -64.36951715414808
+    - -0.08726229084904373
+    model: !!python/object:statsmodels.robust.robust_linear_model.RLM
+      M: !!python/object:statsmodels.robust.norms.TrimmedMean
+        c: 3.0
+      data: !!python/object:statsmodels.base.data.PandasData
+        orig_endog: !!python/object:pandas.core.series.Series
+          _mgr: !!python/object/new:pandas.core.internals.managers.SingleBlockManager
+            state: !!python/tuple
+            - &id029
+              - !!python/object/apply:pandas.core.indexes.base._new_Index
+                - *id001
+                - data: &id031
+                  - 22
+                  - 21
+                  - 23
+                  - 18
+                  - 19
+                  - 14
+                  - 20
+                  - 16
+                  - 8
+                  - 12
+                  - 17
+                  - 10
+                  - 7
+                  - 5
+                  - 2
+                  - 15
+                  - 9
+                  - 4
+                  - 11
+                  - 13
+                  - 6
+                  - 1
+                  - 3
+                  - 0
+                  name: null
+            - - &id030
+                - -15.468719153328246
+                - -107.35947812246795
+                - -135.139483067267
+                - 66.87902758390445
+                - -50.90249069643594
+                - -101.91197849906966
+                - -66.68608845012871
+                - 13.48105811748475
+                - -55.49739569629697
+                - -97.14279736795345
+                - 15.991222573281883
+                - -33.489638448901346
+                - -38.05807196058727
+                - -110.538473145155
+                - -54.83544617676642
+                - -81.01826862995577
+                - -53.15784091101217
+                - -57.94985718305234
+                - -117.7308621775166
+                - -70.18522485813303
+                - -70.78628754234674
+                - -50.01776614512926
+                - -48.20374446041549
+                - -135.4460538819641
+            - - !!python/object/apply:pandas.core.indexes.base._new_Index
+                - *id001
+                - data:
+                  - 22
+                  - 21
+                  - 23
+                  - 18
+                  - 19
+                  - 14
+                  - 20
+                  - 16
+                  - 8
+                  - 12
+                  - 17
+                  - 10
+                  - 7
+                  - 5
+                  - 2
+                  - 15
+                  - 9
+                  - 4
+                  - 11
+                  - 13
+                  - 6
+                  - 1
+                  - 3
+                  - 0
+                  name: null
+            - 0.14.1:
+                axes: *id029
+                blocks:
+                - values: *id030
+                  mgr_locs: !!python/object/apply:builtins.slice
+                  - 0
+                  - 24
+                  - 1
+          _typ: series
+          _metadata: *id012
+          attrs: {}
+          _flags:
+            allows_duplicate_labels: true
+          name: d Dec, mas
+        orig_exog: !!python/object:pandas.core.frame.DataFrame
+          _mgr: !!python/object/apply:pandas.core.internals.managers.BlockManager
+          - !!python/tuple
+            - !!python/object/apply:pandas._libs.internals._unpickle_block
+              - - - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                  - 1.0
+                - - -76.59658844342081
+                  - -55.810764679733836
+                  - -44.74748533260947
+                  - -29.772747895672715
+                  - -27.037420115269022
+                  - -9.98993853291234
+                  - -6.955228148648659
+                  - 0.11140262505201565
+                  - 3.2609369463708435
+                  - 9.574949256461974
+                  - 10.546050328356971
+                  - 13.81791368498564
+                  - 17.711651427109125
+                  - 21.61331205677489
+                  - 40.69790720968135
+                  - 44.26148748187878
+                  - 44.577838891612906
+                  - 48.86170337593615
+                  - 51.13475022310231
+                  - 53.33755629485722
+                  - 74.8130721708963
+                  - 79.21361857893727
+                  - 89.92461742431207
+                  - 93.88425460120112
+              - !!python/object/apply:builtins.slice
+                - 0
+                - 2
+                - 1
+              - 2
+          - - !!python/object/apply:pandas.core.indexes.base._new_Index
+              - *id013
+              - data:
+                - const
+                - Dec, arcsec
+                name: null
+            - &id032 !!python/object/apply:pandas.core.indexes.base._new_Index
+              - *id001
+              - data: *id031
+                name: null
+          _typ: dataframe
+          _metadata: *id015
+          attrs: {}
+          _flags:
+            allows_duplicate_labels: true
+        endog: *id030
+        exog: &id033
+        - - 1.0
+          - -76.59658844342081
+        - - 1.0
+          - -55.810764679733836
+        - - 1.0
+          - -44.74748533260947
+        - - 1.0
+          - -29.772747895672715
+        - - 1.0
+          - -27.037420115269022
+        - - 1.0
+          - -9.98993853291234
+        - - 1.0
+          - -6.955228148648659
+        - - 1.0
+          - 0.11140262505201565
+        - - 1.0
+          - 3.2609369463708435
+        - - 1.0
+          - 9.574949256461974
+        - - 1.0
+          - 10.546050328356971
+        - - 1.0
+          - 13.81791368498564
+        - - 1.0
+          - 17.711651427109125
+        - - 1.0
+          - 21.61331205677489
+        - - 1.0
+          - 40.69790720968135
+        - - 1.0
+          - 44.26148748187878
+        - - 1.0
+          - 44.577838891612906
+        - - 1.0
+          - 48.86170337593615
+        - - 1.0
+          - 51.13475022310231
+        - - 1.0
+          - 53.33755629485722
+        - - 1.0
+          - 74.8130721708963
+        - - 1.0
+          - 79.21361857893727
+        - - 1.0
+          - 89.92461742431207
+        - - 1.0
+          - 93.88425460120112
+        const_idx: 0
+        k_constant: 1
+        _cache:
+          ynames: d Dec, mas
+          row_labels: *id032
+          xnames:
+          - const
+          - Dec, arcsec
+      k_constant: 1
+      exog: *id033
+      endog: *id030
+      _data_attr:
+      - exog
+      - endog
+      - data.exog
+      - data.endog
+      - data.orig_endog
+      - data.orig_exog
+      - weights
+      - pinv_wexog
+      _init_keys: []
+      pinv_wexog:
+      - - 0.07867186105275488
+        - 0.07059202959713291
+        - 0.06629152972339723
+        - 0.0604705742511384
+        - 0.059407302105044635
+        - 0.05278063291482011
+        - 0.051600985252055226
+        - 0.048854056082456375
+        - 0.047629774246467256
+        - 0.045175401696489995
+        - 0.04479791687431071
+        - 0.04352608349556489
+        - 0.04201251612164566
+        - 0.04049586897582461
+        - 0.03307733632648824
+        - 0.03169210722490042
+        - 0.031569135621731845
+        - 0.029903918817934746
+        - 0.029020343760980755
+        - 0.02816407258349227
+        - 0.019816145136706764
+        - 0.018105571926145363
+        - 0.01394200995352914
+        - 0.012402826258987731
+      - - -0.0019893801865197313
+        - -0.0015550126098890288
+        - -0.0013238199521318605
+        - -0.0010108883846792992
+        - -0.0009537274218628881
+        - -0.0005974811000057206
+        - -0.000534063849365334
+        - -0.00038639035232170124
+        - -0.0003205735915226182
+        - -0.00018862778763573777
+        - -0.0001683343980612807
+        - -9.996129082035327e-05
+        - -1.859268853111338e-05
+        - 6.294148070898606e-05
+        - 0.0004617579741899058
+        - 0.0005362271770736316
+        - 0.0005428380671096562
+        - 0.0006323592646250803
+        - 0.0006798598045024801
+        - 0.0007258925018857402
+        - 0.0011746727808884814
+        - 0.0012666323154656492
+        - 0.0014904632622038622
+        - 0.0015732089846931907
+      normalized_cov_params: &id034
+      - - 0.04889736032886813
+        - -0.0003887183663000878
+      - - -0.0003887183663000878
+        - 2.0897299119294265e-05
+      df_resid: 22.0
+      df_model: 1.0
+      nobs: 24.0
+      cov: H1
+      scale_est: mad
+      scale: 44.32591648824184
+      weights:
+      - true
+      - true
+      - true
+      - false
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+      - true
+    k_constant: 1
+    _data_attr: []
+    _data_in_cache:
+    - fittedvalues
+    - resid
+    - wresid
+    - sresid
+    normalized_cov_params: *id034
+    scale: 44.32591648824184
+    _use_t: false
+    df_model: 1.0
+    df_resid: 22.0
+    nobs: 24.0
+    _cache:
+      fittedvalues:
+      - -57.685523375353796
+      - -59.499341974157616
+      - -60.4647490742906
+      - -61.771478967900634
+      - -62.010169936241695
+      - -63.49777223232502
+      - -63.76258801251925
+      - -64.37923840241672
+      - -64.65407398240269
+      - -65.2050491610303
+      - -65.28978966520982
+      - -65.57529995705428
+      - -65.91507643239736
+      - -66.25554427705752
+      - -67.9209097700267
+      - -68.2318759482031
+      - -68.25948149692982
+      - -68.63330132551873
+      - -68.83165260060964
+      - -69.02387450472716
+      - -70.89787721723533
+      - -71.28187897778852
+      - -72.2165452743174
+      - -72.56207228530377
+      resid:
+      - 42.21680422202555
+      - -47.86013614831033
+      - -74.6747339929764
+      - 128.65050655180508
+      - 11.107679239805755
+      - -38.41420626674464
+      - -2.923500437609455
+      - 77.86029651990147
+      - 9.156678286105723
+      - -31.937748206923146
+      - 81.28101223849171
+      - 32.08566150815294
+      - 27.857004471810086
+      - -44.28292886809747
+      - 13.085463593260279
+      - -12.786392681752673
+      - 15.10164058591765
+      - 10.683444142466392
+      - -48.899209576906955
+      - -1.1613503534058651
+      - 0.11158967488859162
+      - 21.264112832659265
+      - 24.012800813901904
+      - -62.883981596660334
+      sresid:
+      - 0.9524180787829675
+      - -1.0797325794945718
+      - -1.6846743374789572
+      - 2.902376684888889
+      - 0.2505910789854113
+      - -0.8666308406039304
+      - -0.06595465292601363
+      - 1.7565411544407696
+      - 0.20657617510367055
+      - -0.7205208766612902
+      - 1.8337130662611976
+      - 0.7238578251769295
+      - 0.6284586237308732
+      - -0.9990301921866461
+      - 0.2952102207910672
+      - -0.28846313161160403
+      - 0.34069550688080197
+      - 0.2410202650925525
+      - -1.103174247731082
+      - -0.026200255864172194
+      - 0.0025174815035847614
+      - 0.47972189900010104
+      - 0.5417327540260038
+      - -1.418673015217662
+      bcov_scaled: &id035
+      - - 118.6860174173707
+        - -0.9435158561290796
+      - - -0.9435158561290796
+        - 0.050722926361820166
+      bse:
+      - 10.894311241073053
+      - 0.2252175090036744
+      tvalues:
+      - -5.908543984998899
+      - -0.3874578456847245
+      pvalues:
+      - 3.4514466342987503e-09
+      - 0.6984172867245371
+    cov_params_default: *id035
+    fit_history:
+      params:
+      - .inf
+      - - -56.589947145260595
+        - -0.2173135936053714
+      - - -64.36951715414808
+        - -0.08726229084904373
+      - - -56.589947145260595
+        - -0.2173135936053714
+      - - -64.36951715414808
+        - -0.08726229084904373
+      - - -56.589947145260595
+        - -0.2173135936053714
+      - - -64.36951715414808
+        - -0.08726229084904373
+      - - -56.589947145260595
+        - -0.2173135936053714
+      - - -64.36951715414808
+        - -0.08726229084904373
+      - - -56.589947145260595
+        - -0.2173135936053714
+      - - -64.36951715414808
+        - -0.08726229084904373
+      - - -56.589947145260595
+        - -0.2173135936053714
+      - - -64.36951715414808
+        - -0.08726229084904373
+      - - -56.589947145260595
+        - -0.2173135936053714
+      - - -64.36951715414808
+        - -0.08726229084904373
+      - - -56.589947145260595
+        - -0.2173135936053714
+      - - -64.36951715414808
+        - -0.08726229084904373
+      - - -56.589947145260595
+        - -0.2173135936053714
+      - - -64.36951715414808
+        - -0.08726229084904373
+      - - -56.589947145260595
+        - -0.2173135936053714
+      - - -64.36951715414808
+        - -0.08726229084904373
+      - - -56.589947145260595
+        - -0.2173135936053714
+      - - -64.36951715414808
+        - -0.08726229084904373
+      - - -56.589947145260595
+        - -0.2173135936053714
+      - - -64.36951715414808
+        - -0.08726229084904373
+      - - -56.589947145260595
+        - -0.2173135936053714
+      - - -64.36951715414808
+        - -0.08726229084904373
+      - - -56.589947145260595
+        - -0.2173135936053714
+      - - -64.36951715414808
+        - -0.08726229084904373
+      - - -56.589947145260595
+        - -0.2173135936053714
+      - - -64.36951715414808
+        - -0.08726229084904373
+      - - -56.589947145260595
+        - -0.2173135936053714
+      - - -64.36951715414808
+        - -0.08726229084904373
+      - - -56.589947145260595
+        - -0.2173135936053714
+      - - -64.36951715414808
+        - -0.08726229084904373
+      - - -56.589947145260595
+        - -0.2173135936053714
+      - - -64.36951715414808
+        - -0.08726229084904373
+      - - -56.589947145260595
+        - -0.2173135936053714
+      - - -64.36951715414808
+        - -0.08726229084904373
+      - - -56.589947145260595
+        - -0.2173135936053714
+      - - -64.36951715414808
+        - -0.08726229084904373
+      - - -56.589947145260595
+        - -0.2173135936053714
+      - - -64.36951715414808
+        - -0.08726229084904373
+      - - -56.589947145260595
+        - -0.2173135936053714
+      - - -64.36951715414808
+        - -0.08726229084904373
+      - - -56.589947145260595
+        - -0.2173135936053714
+      - - -64.36951715414808
+        - -0.08726229084904373
+      - - -56.589947145260595
+        - -0.2173135936053714
+      - - -64.36951715414808
+        - -0.08726229084904373
+      - - -56.589947145260595
+        - -0.2173135936053714
+      - *id036
+      scale:
+      - 2359.112563654317
+      - 1674.9319078818655
+      - 2359.112563654317
+      - 1674.9319078818655
+      - 2359.112563654317
+      - 1674.9319078818655
+      - 2359.112563654317
+      - 1674.9319078818655
+      - 2359.112563654317
+      - 1674.9319078818655
+      - 2359.112563654317
+      - 1674.9319078818655
+      - 2359.112563654317
+      - 1674.9319078818655
+      - 2359.112563654317
+      - 1674.9319078818655
+      - 2359.112563654317
+      - 1674.9319078818655
+      - 2359.112563654317
+      - 1674.9319078818655
+      - 2359.112563654317
+      - 1674.9319078818655
+      - 2359.112563654317
+      - 1674.9319078818655
+      - 2359.112563654317
+      - 1674.9319078818655
+      - 2359.112563654317
+      - 1674.9319078818655
+      - 2359.112563654317
+      - 1674.9319078818655
+      - 2359.112563654317
+      - 1674.9319078818655
+      - 2359.112563654317
+      - 1674.9319078818655
+      - 2359.112563654317
+      - 1674.9319078818655
+      - 2359.112563654317
+      - 1674.9319078818655
+      - 2359.112563654317
+      - 1674.9319078818655
+      - 2359.112563654317
+      - 1674.9319078818655
+      - 2359.112563654317
+      - 1674.9319078818655
+      - 2359.112563654317
+      - 1674.9319078818655
+      - 2359.112563654317
+      - 1674.9319078818655
+      - 2359.112563654317
+      - 1674.9319078818655
+      deviance:
+      - .inf
+      - 0.004662770301625946
+      - 0.009517272740409552
+      - 0.004662770301625946
+      - 0.009517272740409552
+      - 0.004662770301625946
+      - 0.009517272740409552
+      - 0.004662770301625946
+      - 0.009517272740409552
+      - 0.004662770301625946
+      - 0.009517272740409552
+      - 0.004662770301625946
+      - 0.009517272740409552
+      - 0.004662770301625946
+      - 0.009517272740409552
+      - 0.004662770301625946
+      - 0.009517272740409552
+      - 0.004662770301625946
+      - 0.009517272740409552
+      - 0.004662770301625946
+      - 0.009517272740409552
+      - 0.004662770301625946
+      - 0.009517272740409552
+      - 0.004662770301625946
+      - 0.009517272740409552
+      - 0.004662770301625946
+      - 0.009517272740409552
+      - 0.004662770301625946
+      - 0.009517272740409552
+      - 0.004662770301625946
+      - 0.009517272740409552
+      - 0.004662770301625946
+      - 0.009517272740409552
+      - 0.004662770301625946
+      - 0.009517272740409552
+      - 0.004662770301625946
+      - 0.009517272740409552
+      - 0.004662770301625946
+      - 0.009517272740409552
+      - 0.004662770301625946
+      - 0.009517272740409552
+      - 0.004662770301625946
+      - 0.009517272740409552
+      - 0.004662770301625946
+      - 0.009517272740409552
+      - 0.004662770301625946
+      - 0.009517272740409552
+      - 0.004662770301625946
+      - 0.009517272740409552
+      - 0.004662770301625946
+      - 0.009517272740409552
+      iteration: 50
+    fit_options:
+      cov: H1
+      scale_est: mad
+      norm: TrimmedMean
+      conv: dev
+  __doc__: "\n    Class to contain RLM results\n\n    Attributes\n    ----------\n\
+    \n    bcov_scaled : ndarray\n        p x p scaled covariance matrix specified\
+    \ in the model fit method.\n        The default is H1. H1 is defined as\n    \
+    \    ``k**2 * (1/df_resid*sum(M.psi(sresid)**2)*scale**2)/\n        ((1/nobs*sum(M.psi_deriv(sresid)))**2)\
+    \ * (X.T X)^(-1)``\n\n        where ``k = 1 + (df_model +1)/nobs * var_psiprime/m**2``\n\
+    \        where ``m = mean(M.psi_deriv(sresid))`` and\n        ``var_psiprime =\
+    \ var(M.psi_deriv(sresid))``\n\n        H2 is defined as\n        ``k * (1/df_resid)\
+    \ * sum(M.psi(sresid)**2) *scale**2/\n        ((1/nobs)*sum(M.psi_deriv(sresid)))*W_inv``\n\
+    \n        H3 is defined as\n        ``1/k * (1/df_resid * sum(M.psi(sresid)**2)*scale**2\
+    \ *\n        (W_inv X.T X W_inv))``\n\n        where `k` is defined as above and\n\
+    \        ``W_inv = (M.psi_deriv(sresid) exog.T exog)^(-1)``\n\n        See the\
+    \ technical documentation for cleaner formulae.\n    bcov_unscaled : ndarray\n\
+    \        The usual p x p covariance matrix with scale set equal to 1.  It\n  \
+    \      is then just equivalent to normalized_cov_params.\n    bse : ndarray\n\
+    \        An array of the standard errors of the parameters.  The standard\n  \
+    \      errors are taken from the robust covariance matrix specified in the\n \
+    \       argument to fit.\n    chisq : ndarray\n        An array of the chi-squared\
+    \ values of the parameter estimates.\n    df_model\n        See RLM.df_model\n\
+    \    df_resid\n        See RLM.df_resid\n    fit_history : dict\n        Contains\
+    \ information about the iterations. Its keys are `deviance`,\n        `params`,\
+    \ `iteration` and the convergence criteria specified in\n        `RLM.fit`, if\
+    \ different from `deviance` or `params`.\n    fit_options : dict\n        Contains\
+    \ the options given to fit.\n    fittedvalues : ndarray\n        The linear predicted\
+    \ values.  dot(exog, params)\n    model : statsmodels.rlm.RLM\n        A reference\
+    \ to the model instance\n    nobs : float\n        The number of observations\
+    \ n\n    normalized_cov_params : ndarray\n        See RLM.normalized_cov_params\n\
+    \    params : ndarray\n        The coefficients of the fitted model\n    pinv_wexog\
+    \ : ndarray\n        See RLM.pinv_wexog\n    pvalues : ndarray\n        The p\
+    \ values associated with `tvalues`. Note that `tvalues` are assumed\n        to\
+    \ be distributed standard normal rather than Student's t.\n    resid : ndarray\n\
+    \        The residuals of the fitted model.  endog - fittedvalues\n    scale :\
+    \ float\n        The type of scale is determined in the arguments to the fit method\
+    \ in\n        RLM.  The reported scale is taken from the residuals of the weighted\n\
+    \        least squares in the last IRLS iteration if update_scale is True.  If\n\
+    \        update_scale is False, then it is the scale given by the first OLS\n\
+    \        fit before the IRLS iterations.\n    sresid : ndarray\n        The scaled\
+    \ residuals.\n    tvalues : ndarray\n        The \"t-statistics\" of params. These\
+    \ are defined as params/bse where\n        bse are taken from the robust covariance\
+    \ matrix specified in the\n        argument to fit.\n    weights : ndarray\n \
+    \       The reported weights are determined by passing the scaled residuals\n\
+    \        from the last weighted least squares fit in the IRLS algorithm.\n\n \
+    \   See Also\n    --------\n    statsmodels.base.model.LikelihoodModelResults\n\
+    \    "

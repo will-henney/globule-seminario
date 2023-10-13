@@ -48,6 +48,7 @@ def main(
     yaml_file_prefix: str,
     output_suffix: str = "align",
     offset_only: bool = False,
+    object_name: str = "wr124",
 ):
     """Apply astrometric correction to a FITS image"""
 

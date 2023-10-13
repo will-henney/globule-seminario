@@ -284,6 +284,38 @@ And the V band
 #+RESULTS:
 [[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-hst-1997-f656n-TO-f555w-OFFSETS-CORR.pdf]]
 
+******* H alpha 2008 to red continuum 1997
+- We want to use the 1997 f675w image as the reference since it has the most accurate transformation to the GAIA frame
+
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-offset.py \
+         wr124-hst-2008-f656n_BGSUB wr124-hst-1997-f675w_BGSUB \
+         fwhm2.0-thresh1 fwhm2.0-thresh10 \
+         --minimum-radius-arcsec 1.0 --maximum-separation-arcsec 0.3 \
+         --object-name wr124 --combo-prefix wr124-hst-2008-f656n-TO-1997-f675w
+#+end_src
+
+#+RESULTS:
+: Statistics based on 29 coincident sources
+: Mean displacement in RA: 9.84 +/- 4.38 marcsec
+: Mean displacement in Dec: 64.21 +/- 13.98 marcsec
+: Median displacement in RA: 11.95 +/- 4.07 marcsec
+: Median displacement in Dec: 78.40 +/- 7.17 marcsec
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets.py wr124-hst-2008-f656n-TO-1997-f675w-OFFSETS.ecsv
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-hst-2008-f656n-TO-1997-f675w-OFFSETS.pdf]]
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets-corr.py wr124-hst-2008-f656n-TO-1997-f675w-OFFSETS.ecsv
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-hst-2008-f656n-TO-1997-f675w-OFFSETS-CORR.pdf]]
+
 ******* Help on script
 #+begin_src sh :dir data :results verbatim
   python ../scripts/find-offset.py --help
@@ -1055,6 +1087,45 @@ Slight evidence for a rotation of the HST frame with respect to GAIA
 
 This shows clear signs of rotation
 
+****** NIRCAM f090w to HST f675w
+The GAIA alignments may be insufficiently precise, so we want to directly tie together NIRCAM and HST
+
+Note that we reduce the max separation to 200 mas to avoid outliers (chosen by eye, based on experiments with larger values up to 500).  This yield fewer coincident sources,  but the results are more robust.
+
+#+begin_src sh :dir data :results verbatim
+    python ../scripts/find-offset.py \
+           wr124-jwst-nircam-2022-f090w_BGSUB \
+           wr124-hst-1997-f675w_BGSUB \
+           fwhm5.0-thresh30 fwhm2.0-thresh10 \
+           --minimum-radius-arcsec 1.0 --maximum-separation-arcsec 0.2 \
+           --guess-offset 1.0 --guess-pa 90.0 \
+           --object-name wr124 --combo-prefix wr124-jwst-2022-f090w-TO-hst-1997-f675w
+#+end_src
+
+#+RESULTS:
+: Statistics based on 24 coincident sources
+: Mean displacement in RA: 1020.60 +/- 14.32 marcsec
+: Mean displacement in Dec: -60.63 +/- 9.70 marcsec
+: Median displacement in RA: 1022.06 +/- 8.72 marcsec
+: Median displacement in Dec: -56.72 +/- 7.19 marcsec
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets.py wr124-jwst-2022-f090w-TO-hst-1997-f675w-OFFSETS.ecsv 
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f090w-TO-hst-1997-f675w-OFFSETS.pdf]]
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f090w-TO-hst-1997-f675w-OFFSETS.ecsv
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f090w-TO-hst-1997-f675w-OFFSETS-CORR.pdf]]
+
+So this has bigger error bars than the Gaia alignment, which makes me think that we do want to go through GAIA after all for tying these together
+
+Note that both HST and NIRCAM have similar rotations to the GAIA frame, so there is no significant relative rotation between the two instruments.
 
 ****** NIRCAM f150w to GAIA
 #+begin_src sh :dir data :results verbatim
@@ -1387,6 +1458,9 @@ CLOSED: [2023-09-27 Wed 19:30]
 ***** TODO Apply the correction terms
 - We now write out the offset and linear correction matrix to a yaml file
 - We are getting inconsistent results from applying them though, which I need to investigate
+  - [2023-10-13 Fri] I think I have found part of the problem at least. The reference pixel does not correspond to the central star, so any adjustment to the CD matrix will also produce a net shift
+  - The other thing I want to do is to use only the rotation and scale components
+    
 ****** HST 1997 continuum to GAIA
 First, just the offset
 #+begin_src sh :dir data :results verbatim
@@ -1627,6 +1701,40 @@ CD2_1 CD2_2  : 0.0  2.777777777777778e-05
 NAXIS : 2150  2150
 #+end_example
 
+****** HST 2008 Ha to 1997 continuum
+Shift only
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/apply-alignment.py \
+         wr124-hst-2008-f656n \
+         wr124-hst-2008-f656n-TO-1997-f675w \
+         --output-suffix SHIFT-1997-f675w \
+         --offset-only
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Offset: [2.66762619e-06 2.15070395e-05]
+Matrix: None
+SCI
+WCS Keywords
+
+Number of WCS axes: 2
+CTYPE : 'RA---TAN'  'DEC--TAN'  
+CRVAL : 287.8782164216667  16.86331641638889  
+CRPIX : 1075.0  1075.0  
+CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
+CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
+NAXIS : 2150  2150
+WCS Keywords
+
+Number of WCS axes: 2
+CTYPE : 'RA---TAN'  'DEC--TAN'  
+CRVAL : 287.8782190892929  16.863337923428386  
+CRPIX : 1075.0  1075.0  
+CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
+CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
+NAXIS : 2150  2150
+#+end_example
 
 ****** NIRCAM f090w to GAIA
 
