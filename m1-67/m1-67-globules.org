@@ -1541,7 +1541,7 @@ Shift only
 
 #+RESULTS:
 #+begin_example
-Offset: [2.00573872e-06 1.48251688e-05]
+Offset: [ 7.22065939 53.37060761] marcsec
 Matrix: None
 SCI
 WCS Keywords
@@ -1557,10 +1557,11 @@ WCS Keywords
 
 Number of WCS axes: 2
 CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.88155580407215  16.86101098405767  
-CRPIX : 1075.0  1075.0  
-CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
-CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
+CRVAL : 287.87864749231  16.860626196909  
+CRPIX : 1175.1985394451  1061.148400228  
+PC1_1 PC1_2  : -2.7777777777778e-05  0.0  
+PC2_1 PC2_2  : 0.0  2.7777777777778e-05  
+CDELT : 1.0  1.0  
 NAXIS : 2150  2150
 #+end_example
 ****** HST 1997 green to red continuum
@@ -1736,22 +1737,20 @@ CD2_1 CD2_2  : 0.0  2.777777777777778e-05
 NAXIS : 2150  2150
 #+end_example
 
-****** NIRCAM f090w to GAIA
-
-
-
+****** NIRCAM f090w to HST continuum
+Shift only
 
 #+begin_src sh :dir data :results verbatim
   python ../scripts/apply-alignment.py \
          wr124-jwst-nircam-2022-f090w \
-         wr124-jwst-2022-f090w-TO-gaia \
-         --output-suffix SHIFT-GAIA \
+         wr124-jwst-2022-f090w-TO-hst-1997-f675w \
+         --output-suffix SHIFT-HST \
          --offset-only
 #+end_src
 
 #+RESULTS:
 #+begin_example
-Offset: [ 2.84643759e-04 -5.91367057e-05]
+Offset: [1030.29826074  -65.68302727] marcsec
 Matrix: None
 SCI
 WCS Keywords
@@ -1768,11 +1767,49 @@ WCS Keywords
 
 Number of WCS axes: 2
 CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.87855957573305  16.86049531782626  
+CRVAL : 287.87893168053  16.860593126455  
+CRPIX : 2344.3293482124  2303.3755381089  
+PC1_1 PC1_2  : 0.74467044166285  -0.66743234362267  
+PC2_1 PC2_2  : -0.66743234362267  -0.74467044166285  
+CDELT : 8.6647302424697e-06  8.6647302424697e-06  
+NAXIS : 4672  4666
+#+end_example
+
+****** NIRCAM f090w to GAIA
+
+
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/apply-alignment.py \
+         wr124-jwst-nircam-2022-f090w \
+         wr124-jwst-2022-f090w-TO-gaia \
+         --output-suffix SHIFT-GAIA \
+         --offset-only
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Offset: [1024.71753151 -212.89214037] marcsec
+Matrix: None
+SCI
+WCS Keywords
+
+Number of WCS axes: 2
+CTYPE : 'RA---TAN'  'DEC--TAN'  
+CRVAL : 287.8782749319743  16.86055445453192  
 CRPIX : 2318.236138285078  2335.583515165627  
 PC1_1 PC1_2  : 0.7446704416628519  -0.6674323436226725  
 PC2_1 PC2_2  : -0.6674323436226725  -0.7446704416628519  
 CDELT : 8.66473024246969e-06  8.66473024246969e-06  
+NAXIS : 4672  4666
+WCS Keywords
+
+Number of WCS axes: 2
+CTYPE : 'RA---TAN'  'DEC--TAN'  
+CRVAL : 287.87893013033  16.860552235034  
+CRPIX : 2344.3293482124  2303.3755381089  
+PC1_1 PC1_2  : 0.74467044166285  -0.66743234362267  
+PC2_1 PC2_2  : -0.66743234362267  -0.74467044166285  
+CDELT : 8.6647302424697e-06  8.6647302424697e-06  
 NAXIS : 4672  4666
 #+end_example
 

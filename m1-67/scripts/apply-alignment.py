@@ -3,44 +3,44 @@ import numpy as np
 from astropy.wcs import WCS
 from astropy.io import fits
 import astropy.units as u
+from astropy.coordinates import SkyCoord
 import typer
 import yaml
 
 
+@u.quantity_input
 def transform_header(
     hdr: fits.Header,
-    offset,
+    origin: SkyCoord,
+    offset: u.deg,
     matrix=None,
 ) -> fits.Header:
-    new_hdr = hdr.copy()
+    """Apply coordinate transformation to WCS in a FITS header"""
 
-    # Update CRVAL for offset
-    new_hdr["CRVAL1"] = hdr["CRVAL1"] + offset[0]
-    new_hdr["CRVAL2"] = hdr["CRVAL2"] + offset[1]
+    # Original WCS
+    wcs = WCS(hdr)
+    # New WCS starts same as original
+    new_wcs = wcs.deepcopy()
 
-    if matrix is None:
-        return new_hdr
+    # Move reference pixel to the origin
+    new_wcs.wcs.crpix = origin.to_pixel(wcs, origin=1)
+    new_wcs.wcs.crval = origin.ra.deg, origin.dec.deg
 
-    # Update CD or PC matrix for rotation, scale, and shear
-    try:
-        # HST images have CD matrix
-        cd = WCS(hdr).wcs.cd
-        new_cd = np.dot(matrix, cd)
-        (new_hdr["CD1_1"], new_hdr["CD1_2"]), (
-            new_hdr["CD2_1"],
-            new_hdr["CD2_2"],
-        ) = new_cd
-    except AttributeError:
-        # JWST images have PC matrix together with CDELT
-        # But what happens when PC matrix does not sum to 1?
-        pc = WCS(hdr).wcs.pc
-        new_pc = np.dot(matrix, pc)
-        (new_hdr["PC1_1"], new_hdr["PC1_2"]), (
-            new_hdr["PC2_1"],
-            new_hdr["PC2_2"],
-        ) = new_pc
+    # Shift CRVAL by the offset
+    new_wcs.wcs.crval += offset.to_value(u.deg)
 
-    return new_hdr
+    if matrix is not None:
+        # Update CD or PC matrix for rotation, scale, and shear
+        try:
+            # HST images have CD matrix
+            cd = WCS(hdr).wcs.cd
+            new_wcs.wcs.cd = np.dot(matrix, new_wcs.wcs.cd)
+        except AttributeError:
+            # JWST images have PC matrix together with CDELT
+            # But what happens when PC matrix does not sum to 1?
+            new_wcs.wcs.pc = np.dot(matrix, new_wcs.wcs.pc)
+
+    return new_wcs.to_header()
 
 
 def main(
@@ -52,6 +52,9 @@ def main(
 ):
     """Apply astrometric correction to a FITS image"""
 
+    # Take origin as canonical coordinates of object
+    origin = SkyCoord.from_name(object_name)
+
     # Read the FITS HDU list
     hdulist = fits.open(f"{fits_file_prefix}.fits")
 
@@ -60,7 +63,7 @@ def main(
         transform = yaml.safe_load(f)
 
     # Calculate offset vector
-    offset = np.array(transform["coeff_0"]) * u.milliarcsecond.to(u.deg)
+    offset = np.array(transform["coeff_0"]) * u.milliarcsecond
     print(f"Offset: {offset}")
 
     # Calculate transform matrix
@@ -81,7 +84,7 @@ def main(
             continue
         print(hdu.name)
         print(WCS(hdu.header))
-        hdu.header.update(transform_header(hdu.header, offset, matrix))
+        hdu.header.update(transform_header(hdu.header, origin, offset, matrix))
         print(WCS(hdu.header))
 
     # Write the output file
