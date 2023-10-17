@@ -159,12 +159,12 @@ def main(
             ]:
                 # Only do SCI for now since other have no WCS in JWST files
                 continue
-            print(hdu.name)
-            print(WCS(hdu.header, fix=False))
+            # print(hdu.name)
+            # print(WCS(hdu.header, fix=False))
             hdu.header.update(
                 transform_header(hdu.header, origin, offset, scale, tan_theta)
             )
-            print(WCS(hdu.header, fix=False))
+            # print(WCS(hdu.header, fix=False))
 
     # Write the output file
     hdulist.writeto(

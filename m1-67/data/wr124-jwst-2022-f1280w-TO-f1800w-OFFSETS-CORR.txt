@@ -2,7 +2,7 @@
 ==============================================================
 Model:              RLM              Df Residuals: 94         
 Dependent Variable: d RA, mas        Norm:         TrimmedMean
-Date:               2023-09-27 13:34 Scale Est.:   mad        
+Date:               2023-10-16 21:50 Scale Est.:   mad        
 No. Observations:   96               Cov. Type:    H1         
 Df Model:           1                Scale:        64.213     
 --------------------------------------------------------------
@@ -16,7 +16,7 @@ RA, arcsec      0.7165   0.5479  1.3078 0.1910  -0.3574 1.7904
 ==============================================================
 Model:              RLM              Df Residuals: 94         
 Dependent Variable: d RA, mas        Norm:         TrimmedMean
-Date:               2023-09-27 13:34 Scale Est.:   mad        
+Date:               2023-10-16 21:50 Scale Est.:   mad        
 No. Observations:   96               Cov. Type:    H1         
 Df Model:           1                Scale:        61.123     
 --------------------------------------------------------------
@@ -30,7 +30,7 @@ Dec, arcsec    -0.1567   0.4922 -0.3183 0.7502  -1.1214 0.8080
 ==============================================================
 Model:              RLM              Df Residuals: 94         
 Dependent Variable: d Dec, mas       Norm:         TrimmedMean
-Date:               2023-09-27 13:34 Scale Est.:   mad        
+Date:               2023-10-16 21:50 Scale Est.:   mad        
 No. Observations:   96               Cov. Type:    H1         
 Df Model:           1                Scale:        73.255     
 --------------------------------------------------------------
@@ -44,7 +44,7 @@ RA, arcsec    -0.4221   0.6077 -0.6946 0.4873  -1.6132  0.7690
 ==============================================================
 Model:              RLM              Df Residuals: 94         
 Dependent Variable: d Dec, mas       Norm:         TrimmedMean
-Date:               2023-09-27 13:34 Scale Est.:   mad        
+Date:               2023-10-16 21:50 Scale Est.:   mad        
 No. Observations:   96               Cov. Type:    H1         
 Df Model:           1                Scale:        76.943     
 --------------------------------------------------------------

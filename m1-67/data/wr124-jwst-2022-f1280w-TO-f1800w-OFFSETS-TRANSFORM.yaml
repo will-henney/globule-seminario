@@ -1,4 +1,4 @@
-offsets_file: wr124-ALIGN-GAIA-hst-1997-f656n-TO-f675w-OFFSETS.ecsv
+offsets_file: wr124-jwst-2022-f1280w-TO-f1800w-OFFSETS.ecsv
 info: 'Linear transform coefficients to convert between two coordinate frames
 
   The transform was calculated by fitting robust linear models to the offsets between
@@ -12,18 +12,18 @@ info: 'Linear transform coefficients to convert between two coordinate frames
   can be added to the identity matrix and then multiply the CD WCS matrix. The associated
   uncertainty is in e_coeff_1.'
 coeff_0:
-- -11.10697929772373
-- 0.30768868023174656
+- -5.538079426472645
+- -0.19233412463832578
 coeff_1:
-- - 0.000222563739421947
-  - -0.00010238129086007125
-- - 0.00015931954687150579
-  - 0.000215917509949758
+- - 0.0007165362141271885
+  - -0.0001566938203315192
+- - -0.0004220945252185107
+  - 8.260341633575739e-06
 e_coeff_0:
-- 2.114231083499191
-- 2.321271512511
+- 6.993221071779837
+- 7.888059735942541
 e_coeff_1:
-- - 5.4789360980345896e-05
-  - 5.7694534874642035e-05
-- - 7.354940697010061e-05
-  - 5.2075621799992435e-05
+- - 0.0005479145747163512
+  - 0.000492220182428459
+- - 0.0006077104571582869
+  - 0.0005642456692466206

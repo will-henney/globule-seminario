@@ -40,7 +40,7 @@ def get_coords_from_fits_catalog(fname, sname):
         # Find first HDU with data
         if hdu.data is not None:
             break
-    w = WCS(hdu.header)
+    w = WCS(hdu.header, fix=False)
     stab = QTable.read(f"{fname}-sources-{sname}.ecsv")
     return w.pixel_to_world(stab["xcentroid"], stab["ycentroid"])
 

@@ -2,7 +2,7 @@
 =================================================================
 Model:               RLM               Df Residuals:  107        
 Dependent Variable:  d RA, mas         Norm:          TrimmedMean
-Date:                2023-09-27 22:47  Scale Est.:    mad        
+Date:                2023-10-15 23:30  Scale Est.:    mad        
 No. Observations:    109               Cov. Type:     H1         
 Df Model:            1                 Scale:         18.540     
 -----------------------------------------------------------------
@@ -16,7 +16,7 @@ RA, arcsec    0.0454   0.0360   1.2584 0.2082   -0.0253    0.1160
 ===================================================================
 Model:                 RLM               Df Residuals:  107        
 Dependent Variable:    d RA, mas         Norm:          TrimmedMean
-Date:                  2023-09-27 22:47  Scale Est.:    mad        
+Date:                  2023-10-15 23:30  Scale Est.:    mad        
 No. Observations:      109               Cov. Type:     H1         
 Df Model:              1                 Scale:         11.269     
 -------------------------------------------------------------------
@@ -30,7 +30,7 @@ Dec, arcsec   -0.2279   0.0249   -9.1568 0.0000   -0.2767   -0.1791
 ==================================================================
 Model:                RLM               Df Residuals:  107        
 Dependent Variable:   d Dec, mas        Norm:          TrimmedMean
-Date:                 2023-09-27 22:47  Scale Est.:    mad        
+Date:                 2023-10-15 23:30  Scale Est.:    mad        
 No. Observations:     109               Cov. Type:     H1         
 Df Model:             1                 Scale:         15.297     
 ------------------------------------------------------------------
@@ -44,7 +44,7 @@ RA, arcsec    0.3015   0.0316    9.5485 0.0000    0.2397    0.3634
 ==================================================================
 Model:                RLM               Df Residuals:  107        
 Dependent Variable:   d Dec, mas        Norm:          TrimmedMean
-Date:                 2023-09-27 22:47  Scale Est.:    mad        
+Date:                 2023-10-15 23:30  Scale Est.:    mad        
 No. Observations:     109               Cov. Type:     H1         
 Df Model:             1                 Scale:         26.534     
 ------------------------------------------------------------------

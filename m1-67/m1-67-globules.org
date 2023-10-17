@@ -923,14 +923,14 @@ The close-in stars have a much larger dispersion than the farther out ones. I ha
 : Median displacement in Dec: -15.72 +/- 6.82 marcsec
 
 #+begin_src sh :dir data :results file
-  python ../scripts/plot-offsets.py wr124-jwst-2022-f1280w-TO-f1800w-OFFSETS.ecsv --max-sep 300
+  python ../scripts/plot-offsets.py wr124-jwst-2022-f1280w-TO-f1800w-OFFSETS.ecsv
 #+end_src
 
 #+RESULTS:
 [[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f1280w-TO-f1800w-OFFSETS.pdf]]
 
 #+begin_src sh :dir data :results file
-  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f1280w-TO-f1800w-OFFSETS.ecsv --max-sep 300 --alpha 0.3
+  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f1280w-TO-f1800w-OFFSETS.ecsv  --alpha 0.3
 #+end_src
 
 #+RESULTS:
@@ -1145,14 +1145,14 @@ Note that both HST and NIRCAM have similar rotations to the GAIA frame, so there
 : Median displacement in Dec: -196.53 +/- 2.72 marcsec
 
 #+begin_src sh :dir data :results file
-  python ../scripts/plot-offsets.py wr124-jwst-2022-f150w-TO-gaia-OFFSETS.ecsv --max-sep 100
+  python ../scripts/plot-offsets.py wr124-jwst-2022-f150w-TO-gaia-OFFSETS.ecsv
 #+end_src
 
 #+RESULTS:
 [[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f150w-TO-gaia-OFFSETS.pdf]]
 
 #+begin_src sh :dir data :results file
-  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f150w-TO-gaia-OFFSETS.ecsv --max-sep 200 --alpha 0.3
+  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f150w-TO-gaia-OFFSETS.ecsv --alpha 0.3
 #+end_src
 
 #+RESULTS:
@@ -1178,14 +1178,14 @@ This one has the least satisfactory robust fit. I am going to try and improve it
 : Median displacement in Dec: -204.17 +/- 1.02 marcsec
 
 #+begin_src sh :dir data :results file
-  python ../scripts/plot-offsets.py wr124-jwst-2022-f210m-TO-gaia-OFFSETS.ecsv --max-sep 100
+  python ../scripts/plot-offsets.py wr124-jwst-2022-f210m-TO-gaia-OFFSETS.ecsv
 #+end_src
 
 #+RESULTS:
 [[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f210m-TO-gaia-OFFSETS.pdf]]
 
 #+begin_src sh :dir data :results file
-  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f210m-TO-gaia-OFFSETS.ecsv --max-sep 100 --alpha 0.3
+  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f210m-TO-gaia-OFFSETS.ecsv --alpha 0.3
 #+end_src
 
 #+RESULTS:
@@ -1211,14 +1211,14 @@ This one has the least satisfactory robust fit. I am going to try and improve it
 
 
 #+begin_src sh :dir data :results file
-  python ../scripts/plot-offsets.py wr124-jwst-2022-f335m-TO-gaia-OFFSETS.ecsv --max-sep 100
+  python ../scripts/plot-offsets.py wr124-jwst-2022-f335m-TO-gaia-OFFSETS.ecsv
 #+end_src
 
 #+RESULTS:
 [[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f335m-TO-gaia-OFFSETS.pdf]]
 
 #+begin_src sh :dir data :results file
-  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f335m-TO-gaia-OFFSETS.ecsv --max-sep 100 --alpha 0.3
+  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f335m-TO-gaia-OFFSETS.ecsv --alpha 0.3
 #+end_src
 
 #+RESULTS:
@@ -1250,7 +1250,7 @@ This one has the least satisfactory robust fit. I am going to try and improve it
 [[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f444w-TO-gaia-OFFSETS.pdf]]
 
 #+begin_src sh :dir data :results file
-  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f444w-TO-gaia-OFFSETS.ecsv --max-sep 100 --alpha 0.3
+  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f444w-TO-gaia-OFFSETS.ecsv --alpha 0.3
 #+end_src
 
 #+RESULTS:
@@ -1283,7 +1283,7 @@ This one has the least satisfactory robust fit. I am going to try and improve it
 [[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f470n-TO-gaia-OFFSETS.pdf]]
 
 #+begin_src sh :dir data :results file
-  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f470n-TO-gaia-OFFSETS.ecsv --max-sep 100 --alpha 0.3
+  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f470n-TO-gaia-OFFSETS.ecsv --alpha 0.3
 #+end_src
 
 #+RESULTS:
@@ -1310,14 +1310,14 @@ This is the first one to show a scale as well as a rotation.
 : Median displacement in Dec: -171.72 +/- 2.19 marcsec
 
 #+begin_src sh :dir data :results file
-  python ../scripts/plot-offsets.py wr124-jwst-2022-f770w-TO-gaia-OFFSETS.ecsv --max-sep 100
+  python ../scripts/plot-offsets.py wr124-jwst-2022-f770w-TO-gaia-OFFSETS.ecsv
 #+end_src
 
 #+RESULTS:
 [[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f770w-TO-gaia-OFFSETS.pdf]]
 
 #+begin_src sh :dir data :results file
-  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f770w-TO-gaia-OFFSETS.ecsv --max-sep 100
+  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f770w-TO-gaia-OFFSETS.ecsv
 #+end_src
 
 #+RESULTS:
@@ -1343,14 +1343,14 @@ This is the first one to show a scale as well as a rotation.
 
 
 #+begin_src sh :dir data :results file
-  python ../scripts/plot-offsets.py wr124-jwst-2022-f1130w-TO-gaia-OFFSETS.ecsv --max-sep 100
+  python ../scripts/plot-offsets.py wr124-jwst-2022-f1130w-TO-gaia-OFFSETS.ecsv
 #+end_src
 
 #+RESULTS:
 [[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f1130w-TO-gaia-OFFSETS.pdf]]
 
 #+begin_src sh :dir data :results file
-  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f1130w-TO-gaia-OFFSETS.ecsv --max-sep 100
+  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f1130w-TO-gaia-OFFSETS.ecsv
 #+end_src
 
 #+RESULTS:
@@ -1378,14 +1378,14 @@ This is the first one to show a scale as well as a rotation.
 
 
 #+begin_src sh :dir data :results file
-  python ../scripts/plot-offsets.py wr124-jwst-2022-f1280w-TO-gaia-OFFSETS.ecsv --max-sep 100
+  python ../scripts/plot-offsets.py wr124-jwst-2022-f1280w-TO-gaia-OFFSETS.ecsv
 #+end_src
 
 #+RESULTS:
 [[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f1280w-TO-gaia-OFFSETS.pdf]]
 
 #+begin_src sh :dir data :results file
-  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f1280w-TO-gaia-OFFSETS.ecsv --max-sep 100
+  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f1280w-TO-gaia-OFFSETS.ecsv
 #+end_src
 
 #+RESULTS:
@@ -1412,14 +1412,14 @@ This is the first one to show a scale as well as a rotation.
 
 
 #+begin_src sh :dir data :results file
-  python ../scripts/plot-offsets.py wr124-jwst-2022-f1800w-TO-gaia-OFFSETS.ecsv --max-sep 100
+  python ../scripts/plot-offsets.py wr124-jwst-2022-f1800w-TO-gaia-OFFSETS.ecsv
 #+end_src
 
 #+RESULTS:
 [[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-jwst-2022-f1800w-TO-gaia-OFFSETS.pdf]]
 
 #+begin_src sh :dir data :results file
-  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f1800w-TO-gaia-OFFSETS.ecsv --max-sep 100
+  python ../scripts/plot-offsets-corr.py wr124-jwst-2022-f1800w-TO-gaia-OFFSETS.ecsv
 #+end_src
 
 #+RESULTS:
@@ -1566,6 +1566,42 @@ PC2_1 PC2_2  : 0.0  2.7777777777778e-05
 CDELT : 1.0  1.0  
 NAXIS : 2150  2150
 #+end_example
+
+Second, the full transform
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/apply-alignment.py \
+         wr124-hst-1997-f656n \
+         wr124-hst-1997-f656n-TO-f675w \
+         --output-suffix ALIGN-f675w 
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Offset: [ 7.22065939 53.37060761] marcsec
+Scale 1.000214 (significant at 2.965 sigma)
+Scale: 1.000214, Rotation: 0.000000
+SCI
+WCS Keywords
+
+Number of WCS axes: 2
+CTYPE : 'RA---TAN'  'DEC--TAN'  
+CRVAL : 287.8815537983334  16.86099615888889  
+CRPIX : 1075.0  1075.0  
+CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
+CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
+NAXIS : 2150  2150
+WCS Keywords
+
+Number of WCS axes: 2
+CTYPE : 'RA---TAN'  'DEC--TAN'  
+CRVAL : 287.87864749231  16.860626196909  
+CRPIX : 1175.1985394451  1061.148400228  
+PC1_1 PC1_2  : -2.778372645901e-05  0.0  
+PC2_1 PC2_2  : 0.0  2.778372645901e-05  
+CDELT : 1.0  1.0  
+NAXIS : 2150  2150
+#+end_example
+
 ****** HST 1997 green to red continuum
 Shift only 
 #+begin_src sh :dir data :results verbatim
@@ -1646,9 +1682,9 @@ Full transform
 
 #+RESULTS:
 #+begin_example
-Offset: [ 3.20789589e-06 -2.31207724e-05]
-Matrix: [[ 1.00005308e+00 -3.26061230e-04]
- [ 2.97914214e-04  9.99705146e-01]]
+Offset: [ 11.5484252  -83.23478082] marcsec
+Rotation -0.000312 (significant at -1.295 sigma)
+Scale: 1.000000, Rotation: -0.000312
 SCI
 WCS Keywords
 
@@ -1663,10 +1699,11 @@ WCS Keywords
 
 Number of WCS axes: 2
 CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.8815570062293  16.86097303811644  
-CRPIX : 1075.0  1075.0  
-CD1_1 CD1_2  : -2.7779252148032e-05  -9.0572563955901e-09  
-CD2_1 CD2_2  : -8.2753948352119e-09  2.77695873852315e-05  
+CRVAL : 287.87864869447  16.860588250968  
+CRPIX : 1175.1985394451  1061.148400228  
+PC1_1 PC1_2  : -2.7777776425884e-05  8.6663251936269e-09  
+PC2_1 PC2_2  : 8.6663251936269e-09  2.7777776425884e-05  
+CDELT : 1.0  1.0  
 NAXIS : 2150  2150
 #+end_example
 
@@ -1777,7 +1814,42 @@ CDELT : 8.6647302424697e-06  8.6647302424697e-06
 NAXIS : 4672  4666
 #+end_example
 
-****** NIRCAM f090w to GAIA
+Also scale and rotate
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/apply-alignment.py \
+         wr124-jwst-nircam-2022-f090w \
+         wr124-jwst-2022-f090w-TO-hst-1997-f675w \
+         --output-suffix ALIGN-HST 
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Offset: [1030.29826074  -65.68302727] marcsec
+Scale: 1.000000, Rotation: 0.000000
+SCI
+WCS Keywords
+
+Number of WCS axes: 2
+CTYPE : 'RA---TAN'  'DEC--TAN'  
+CRVAL : 287.8782749319743  16.86055445453192  
+CRPIX : 2318.236138285078  2335.583515165627  
+PC1_1 PC1_2  : 0.7446704416628519  -0.6674323436226725  
+PC2_1 PC2_2  : -0.6674323436226725  -0.7446704416628519  
+CDELT : 8.66473024246969e-06  8.66473024246969e-06  
+NAXIS : 4672  4666
+WCS Keywords
+
+Number of WCS axes: 2
+CTYPE : 'RA---TAN'  'DEC--TAN'  
+CRVAL : 287.87893168053  16.860593126455  
+CRPIX : 2344.3293482124  2303.3755381089  
+PC1_1 PC1_2  : 0.74467044166285  -0.66743234362267  
+PC2_1 PC2_2  : -0.66743234362267  -0.74467044166285  
+CDELT : 8.6647302424697e-06  8.6647302424697e-06  
+NAXIS : 4672  4666
+#+end_example
+
+****** NIRCAM to GAIA
 
 
 #+begin_src sh :dir data :results verbatim
@@ -1817,39 +1889,93 @@ NAXIS : 4672  4666
 
 Full transform
 #+begin_src sh :dir data :results verbatim
-  python ../scripts/apply-alignment.py \
-         wr124-jwst-nircam-2022-f090w \
-         wr124-jwst-2022-f090w-TO-gaia \
-         --output-suffix ALIGN-GAIA 
+  for F in f090w f150w f210m f335m f444w f470n; do
+    echo "NIRCAM $F to GAIA"
+    python ../scripts/apply-alignment.py \
+           wr124-jwst-nircam-2022-$F \
+           wr124-jwst-2022-$F-TO-gaia \
+           --output-suffix ALIGN-GAIA
+    echo
+  done
 #+end_src
 
 #+RESULTS:
 #+begin_example
+NIRCAM f090w to GAIA
 Offset: [1024.71753151 -212.89214037] marcsec
 WARNING: Off-axis shear 0.000046 (significant at 1.238 sigma)
 Rotation -0.000269 (significant at -7.321 sigma)
 Scale: 1.000000, Rotation: -0.000269
-SCI
-WCS Keywords
 
-Number of WCS axes: 2
-CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.8782749319743  16.86055445453192  
-CRPIX : 2318.236138285078  2335.583515165627  
-PC1_1 PC1_2  : 0.7446704416628519  -0.6674323436226725  
-PC2_1 PC2_2  : -0.6674323436226725  -0.7446704416628519  
-CDELT : 8.66473024246969e-06  8.66473024246969e-06  
-NAXIS : 4672  4666
-WCS Keywords
+NIRCAM f150w to GAIA
+Offset: [1025.13267886 -205.03170231] marcsec
+Rotation -0.000265 (significant at -6.584 sigma)
+Scale: 1.000000, Rotation: -0.000265
 
-Number of WCS axes: 2
-CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.87893013033  16.860552235034  
-CRPIX : 2344.3293482124  2303.3755381089  
-PC1_1 PC1_2  : 0.74449062500994  -0.6676329150606  
-PC2_1 PC2_2  : -0.6676329150606  -0.74449062500994  
-CDELT : 8.6647302424697e-06  8.6647302424697e-06  
-NAXIS : 4672  4666
+NIRCAM f210m to GAIA
+Offset: [1022.21858083 -206.1106554 ] marcsec
+WARNING: Off-axis shear 0.000038 (significant at 1.771 sigma)
+Rotation -0.000262 (significant at -12.311 sigma)
+Scale 1.000053 (significant at 1.752 sigma)
+Scale: 1.000053, Rotation: -0.000262
+
+NIRCAM f335m to GAIA
+Offset: [1022.70303814 -162.6647966 ] marcsec
+WARNING: Off-axis shear 0.000027 (significant at 1.300 sigma)
+Rotation -0.000294 (significant at -13.964 sigma)
+Scale: 1.000000, Rotation: -0.000294
+
+NIRCAM f444w to GAIA
+Offset: [1018.61605194 -167.59920456] marcsec
+WARNING: Off-axis shear 0.000028 (significant at 1.316 sigma)
+Rotation -0.000313 (significant at -14.496 sigma)
+Scale: 1.000000, Rotation: -0.000313
+
+NIRCAM f470n to GAIA
+Offset: [1024.1702356 -154.4711154] marcsec
+Rotation -0.000299 (significant at -7.479 sigma)
+Scale 1.000423 (significant at 12.992 sigma)
+Scale: 1.000423, Rotation: -0.000299
+
+#+end_example
+
+
+****** MIRI to GAIA
+#+begin_src sh :dir data :results verbatim
+  for F in f770w f1130w f1280w f1800w; do
+    echo "MIRI $F to GAIA"
+    python ../scripts/apply-alignment.py \
+           wr124-jwst-miri-2022-$F \
+           wr124-jwst-2022-$F-TO-gaia \
+           --output-suffix ALIGN-GAIA
+    echo
+  done
+#+end_src
+
+#+RESULTS:
+#+begin_example
+MIRI f770w to GAIA
+Offset: [ -21.59359324 -170.80839271] marcsec
+Rotation 0.000149 (significant at 2.346 sigma)
+Scale 1.000093 (significant at 1.321 sigma)
+Scale: 1.000093, Rotation: 0.000149
+
+MIRI f1130w to GAIA
+Offset: [ -22.73882763 -156.49597159] marcsec
+WARNING: Off-axis shear -0.000275 (significant at -1.856 sigma)
+Scale 0.999808 (significant at -1.158 sigma)
+Scale: 0.999808, Rotation: 0.000000
+
+MIRI f1280w to GAIA
+Offset: [ -30.36850347 -170.03723244] marcsec
+WARNING: Off-axis shear -0.000271 (significant at -1.344 sigma)
+Scale 0.999719 (significant at -1.314 sigma)
+Scale: 0.999719, Rotation: 0.000000
+
+MIRI f1800w to GAIA
+Offset: [ -13.75302628 -153.81436994] marcsec
+Scale: 1.000000, Rotation: 0.000000
+
 #+end_example
 
 ***** Test the results of applying the alignment
@@ -1960,10 +2086,10 @@ Using the Gaia-aligned images
 
 #+RESULTS:
 : Statistics based on 43 coincident sources
-: Mean displacement in RA: -11.15 +/- 2.19 marcsec
-: Mean displacement in Dec: 3.38 +/- 3.57 marcsec
-: Median displacement in RA: -11.83 +/- 2.38 marcsec
-: Median displacement in Dec: 3.80 +/- 4.68 marcsec
+: Mean displacement in RA: -12.15 +/- 2.38 marcsec
+: Mean displacement in Dec: 1.08 +/- 2.60 marcsec
+: Median displacement in RA: -12.61 +/- 2.41 marcsec
+: Median displacement in Dec: 0.91 +/- 2.98 marcsec
 
 #+begin_src sh :dir data :results file
   python ../scripts/plot-offsets.py wr124-ALIGN-GAIA-hst-1997-f656n-TO-f675w-OFFSETS.ecsv
