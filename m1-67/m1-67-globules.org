@@ -1455,11 +1455,13 @@ CLOSED: [2023-09-27 Wed 19:30]
   - I will use ~c = 3~, which is number of sigma to clip (where sigma is actually from MAD)
 - This seems to work very well.  All the fits look more credible now. In all cases except f150w the changes were very small
 - 
-***** TODO Apply the correction terms
+***** DONE Apply the correction terms
+CLOSED: [2023-10-19 Thu 09:57]
 - We now write out the offset and linear correction matrix to a yaml file
 - We are getting inconsistent results from applying them though, which I need to investigate
   - [2023-10-13 Fri] I think I have found part of the problem at least. The reference pixel does not correspond to the central star, so any adjustment to the CD matrix will also produce a net shift
   - The other thing I want to do is to use only the rotation and scale components
+- [2023-10-19 Thu] This now gives good enough results, so I will not attempt to refine it further
     
 ****** HST 1997 continuum to GAIA
 First, just the offset
@@ -2250,18 +2252,135 @@ All are to Gaia
 - We can fit straight lines to the residuals to get the first order derivatives
 - Then we can directly map those onto the FITS PC matrix for the rotation and CDELT for the scale (or CD matrix for both)
 
-**** F090W
-|  2170.085 | 2491.3488 |
-| 2142.3437 | 2510.2938 |
-|-----------+-----------|
-|  -27.7413 |    18.945 |
-| 2318.2361 | 2335.5835 |
-|-----------+-----------|
-| 2290.4948 | 2354.5285 |
-#+TBLFM: @3$1..@3$2=@2 - @1::@5$1..@5$2=@3 + @4
-Align to HST f657w image
+ 
+** Reprojection and calculation of ratios
+- [2023-10-19 Thu] We will reproject the images onto an orthogonal ra-dec grid, since that will make things easier for using matplotlib
+- Initial approach is to take small groups of similar filters, as we did for the rgb images
+-
 
-***** 
+  
+
+*** Make a folder to hold them all
+#+begin_src sh :dir data :results verbatim
+  mkdir -vp reproject
+#+end_src
+
+#+RESULTS:
+: reproject
+
+*** Reproject NIRCAM images
+
+Test with just f090w first
+#+begin_src sh :dir data :results verbatim
+  for F in f090w; do
+    echo "NIRCAM $F reproject"
+    time python ../scripts/reproject-radec.py \
+           wr124-jwst-nircam-2022-$F-ALIGN-GAIA \
+           reproject/wr124-jwst-nircam-2022-$F-radec \
+           --pixel-scale-arcsec 0.031 \
+           --angular-size-arcmin 2
+    echo
+  done
+#+end_src
+
+#+RESULTS:
+: NIRCAM f090w reproject
+: 
+
+Then do the rest
+#+begin_src sh :dir data :results verbatim
+  for F in f150w f210m f335m f444w f470n; do
+    echo "NIRCAM $F reproject"
+    time python ../scripts/reproject-radec.py \
+           wr124-jwst-nircam-2022-$F-ALIGN-GAIA \
+           reproject/wr124-jwst-nircam-2022-$F-radec \
+           --pixel-scale-arcsec 0.031 \
+           --angular-size-arcmin 2
+    echo
+  done
+#+end_src
+
+#+RESULTS:
+#+begin_example
+NIRCAM f150w reproject
+
+NIRCAM f210m reproject
+
+NIRCAM f335m reproject
+
+NIRCAM f444w reproject
+
+NIRCAM f470n reproject
+
+#+end_example
+
+*** Ratio of NIRCAM images
+
+#+begin_src sh :dir data/reproject :results silent
+  python ../../scripts/find-ratio.py \
+         wr124-jwst-nircam-2022-f470n-radec.fits \
+         wr124-jwst-nircam-2022-f444w-radec.fits \
+         ratio-f470n-f444w.fits \
+         --bg-a 0.3 --bg-b 0.3
+#+end_src
+
+#+begin_src sh :dir data/reproject :results silent
+  python ../../scripts/find-ratio.py \
+         wr124-jwst-nircam-2022-f444w-radec.fits \
+         wr124-jwst-nircam-2022-f335m-radec.fits \
+         ratio-f444w-f335m.fits \
+         --bg-a 0.3 --bg-b 0.25
+#+end_src
+
+#+begin_src sh :dir data/reproject :results silent
+  python ../../scripts/find-ratio.py \
+         wr124-jwst-nircam-2022-f335m-radec.fits \
+         wr124-jwst-nircam-2022-f210m-radec.fits \
+         ratio-f335m-f210m.fits \
+         --bg-a 0.25 --bg-b 0.2
+#+end_src
+
+#+begin_src sh :dir data/reproject :results silent
+  python ../../scripts/find-ratio.py \
+         wr124-jwst-nircam-2022-f210m-radec.fits \
+         wr124-jwst-nircam-2022-f150w-radec.fits \
+         ratio-f210m-f150w.fits \
+         --bg-a 0.2 --bg-b 0.3
+#+end_src
+
+#+begin_src sh :dir data/reproject :results silent
+  python ../../scripts/find-ratio.py \
+         wr124-jwst-nircam-2022-f150w-radec.fits \
+         wr124-jwst-nircam-2022-f090w-radec.fits \
+         ratio-f150w-f090w.fits \
+         --bg-a 0.3 --bg-b 0.3
+#+end_src
+
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-ratio.py --help
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Usage: find-ratio.py [OPTIONS] FILE_A FILE_B OUTFILE
+
+  Find the ratio of two bg-subtracted fits images
+
+Arguments:
+  FILE_A   [required]
+  FILE_B   [required]
+  OUTFILE  [required]
+
+Options:
+  --bg-a FLOAT          [default: 0]
+  --bg-b FLOAT          [default: 0]
+  --install-completion  Install completion for the current shell.
+  --show-completion     Show completion for the current shell, to copy it or
+                        customize the installation.
+
+  --help                Show this message and exit.
+#+end_example
+
 
 ** hst images
 - [[file:MAST_wr124.json]] has a list  of the files that I have downloaded
