@@ -2314,6 +2314,29 @@ NIRCAM f470n reproject
 
 #+end_example
 
+*** Reproject MIRI images
+#+begin_src sh :dir data :results verbatim
+  for F in f770w f1130w f1280w f1800w; do
+    echo "MIRI $F reproject"
+    time python ../scripts/reproject-radec.py \
+           wr124-jwst-miri-2022-$F-ALIGN-GAIA \
+           reproject/wr124-jwst-miri-2022-$F-radec \
+           --pixel-scale-arcsec 0.031 \
+           --angular-size-arcmin 2
+    echo
+  done
+#+end_src
+
+#+RESULTS:
+: MIRI f770w reproject
+: 
+: MIRI f1130w reproject
+: 
+: MIRI f1280w reproject
+: 
+: MIRI f1800w reproject
+: 
+
 *** Ratio of NIRCAM images
 
 #+begin_src sh :dir data/reproject :results silent
@@ -2329,7 +2352,7 @@ NIRCAM f470n reproject
          wr124-jwst-nircam-2022-f444w-radec.fits \
          wr124-jwst-nircam-2022-f335m-radec.fits \
          ratio-f444w-f335m.fits \
-         --bg-a 0.3 --bg-b 0.25
+         --bg-a 0.3 --bg-b 0.2
 #+end_src
 
 #+begin_src sh :dir data/reproject :results silent
@@ -2337,15 +2360,15 @@ NIRCAM f470n reproject
          wr124-jwst-nircam-2022-f335m-radec.fits \
          wr124-jwst-nircam-2022-f210m-radec.fits \
          ratio-f335m-f210m.fits \
-         --bg-a 0.25 --bg-b 0.2
+         --bg-a 0.2 --bg-b 0.15
 #+end_src
 
 #+begin_src sh :dir data/reproject :results silent
-  python ../../scripts/find-ratio.py \
-         wr124-jwst-nircam-2022-f210m-radec.fits \
-         wr124-jwst-nircam-2022-f150w-radec.fits \
-         ratio-f210m-f150w.fits \
-         --bg-a 0.2 --bg-b 0.3
+    python ../../scripts/find-ratio.py \
+           wr124-jwst-nircam-2022-f210m-radec.fits \
+           wr124-jwst-nircam-2022-f150w-radec.fits \
+           ratio-f210m-f150w.fits \
+           --bg-a 0.15 --bg-b 0.3
 #+end_src
 
 #+begin_src sh :dir data/reproject :results silent
@@ -2353,7 +2376,7 @@ NIRCAM f470n reproject
          wr124-jwst-nircam-2022-f150w-radec.fits \
          wr124-jwst-nircam-2022-f090w-radec.fits \
          ratio-f150w-f090w.fits \
-         --bg-a 0.3 --bg-b 0.3
+         --bg-a 0.35 --bg-b 0.3
 #+end_src
 
 #+begin_src sh :dir data/reproject :results verbatim
@@ -2381,6 +2404,38 @@ Options:
   --help                Show this message and exit.
 #+end_example
 
+*** Ratio of MIRI images
+First do MIRI/NIRCAM
+#+begin_src sh :dir data/reproject :results silent
+  python ../../scripts/find-ratio.py \
+         wr124-jwst-miri-2022-f770w-radec.fits \
+         wr124-jwst-nircam-2022-f444w-radec.fits \
+         ratio-f770w-f444w.fits \
+         --bg-a 7.0 --bg-b 0.3
+#+end_src
+Then interband of MIRI
+#+begin_src sh :dir data/reproject :results silent
+  python ../../scripts/find-ratio.py \
+         wr124-jwst-miri-2022-f1130w-radec.fits \
+         wr124-jwst-miri-2022-f770w-radec.fits \
+         ratio-f1130w-f770w.fits \
+         --bg-a 23.0 --bg-b 7.0
+#+end_src
+
+#+begin_src sh :dir data/reproject :results silent
+  python ../../scripts/find-ratio.py \
+         wr124-jwst-miri-2022-f1280w-radec.fits \
+         wr124-jwst-miri-2022-f1130w-radec.fits \
+         ratio-f1280w-f1130w.fits \
+         --bg-a 26.0 --bg-b 23.0
+#+end_src
+#+begin_src sh :dir data/reproject :results silent
+  python ../../scripts/find-ratio.py \
+         wr124-jwst-miri-2022-f1800w-radec.fits \
+         wr124-jwst-miri-2022-f1280w-radec.fits \
+         ratio-f1800w-f1280w.fits \
+         --bg-a 95.0 --bg-b 26.0
+#+end_src
 
 ** hst images
 - [[file:MAST_wr124.json]] has a list  of the files that I have downloaded
