@@ -988,6 +988,37 @@ Get all the GAIA sources in the field with a radius of three arcmin
 [[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-hst-1997-f675w-TO-gaia-OFFSETS-CORR.pdf]]
 
 Slight evidence for a rotation of the HST frame with respect to GAIA
+****** HST f555w to Gaia
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/find-offset.py \
+         wr124-hst-1997-f555w_BGSUB gaia \
+         fwhm2.0-thresh10 wr124 \
+         --minimum-radius-arcsec 1.0 --maximum-separation-arcsec 0.15 \
+         --guess-offset 0.1 --guess-pa 180.0 \
+         --object-name wr124 --combo-prefix wr124-hst-1997-f555w-TO-gaia
+#+end_src
+
+#+RESULTS:
+: Statistics based on 93 coincident sources
+: Mean displacement in RA: -15.87 +/- 3.22 marcsec
+: Mean displacement in Dec: -81.64 +/- 4.57 marcsec
+: Median displacement in RA: -20.04 +/- 2.94 marcsec
+: Median displacement in Dec: -84.09 +/- 4.66 marcsec
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets.py wr124-hst-1997-f555w-TO-gaia-OFFSETS.ecsv 
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-hst-1997-f555w-TO-gaia-OFFSETS.pdf]]
+
+#+begin_src sh :dir data :results file
+  python ../scripts/plot-offsets-corr.py wr124-hst-1997-f555w-TO-gaia-OFFSETS.ecsv 
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/wr124-hst-1997-f555w-TO-gaia-OFFSETS-CORR.pdf]]
+
 ****** HST f656n Ha first epoch to Gaia
 :PROPERTIES:
 :ID:       F646740A-848E-4F5F-B333-5B931D06C3E4
@@ -1474,30 +1505,8 @@ First, just the offset
 #+end_src
 
 #+RESULTS:
-#+begin_example
-Offset: [  -8.08987622 -135.45859063] marcsec
-Scale: 1.000000, Rotation: 0.000000
-SCI
-WCS Keywords
-
-Number of WCS axes: 2
-CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.8815537983334  16.86099615888889  
-CRPIX : 1075.0  1075.0  
-CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
-CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
-NAXIS : 2150  2150
-WCS Keywords
-
-Number of WCS axes: 2
-CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.87864323938  16.860573744354  
-CRPIX : 1175.1985394451  1061.148400228  
-PC1_1 PC1_2  : -2.7777777777778e-05  0.0  
-PC2_1 PC2_2  : 0.0  2.7777777777778e-05  
-CDELT : 1.0  1.0  
-NAXIS : 2150  2150
-#+end_example
+: Offset: [  -8.08987622 -135.45859063] marcsec
+: Scale: 1.000000, Rotation: 0.000000
 
 Second, the full transform
 #+begin_src sh :dir data :results verbatim
@@ -1508,31 +1517,23 @@ Second, the full transform
 #+end_src
 
 #+RESULTS:
-#+begin_example
-Offset: [  -8.08987622 -135.45859063] marcsec
-Rotation -0.000202 (significant at -3.159 sigma)
-Scale: 1.000000, Rotation: -0.000202
-SCI
-WCS Keywords
+: Offset: [  -8.08987622 -135.45859063] marcsec
+: Rotation -0.000202 (significant at -3.159 sigma)
+: Scale: 1.000000, Rotation: -0.000202
 
-Number of WCS axes: 2
-CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.8815537983334  16.86099615888889  
-CRPIX : 1075.0  1075.0  
-CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
-CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
-NAXIS : 2150  2150
-WCS Keywords
+****** HST 1997 green continuum to Gaia
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/apply-alignment.py \
+         wr124-hst-1997-f555w \
+         wr124-hst-1997-f555w-TO-gaia \
+         --output-suffix ALIGN-GAIA 
+#+end_src
 
-Number of WCS axes: 2
-CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.87864323938  16.860573744354  
-CRPIX : 1175.1985394451  1061.148400228  
-PC1_1 PC1_2  : -2.7777777210997e-05  5.6114027383899e-09  
-PC2_1 PC2_2  : 5.6114027383899e-09  2.7777777210997e-05  
-CDELT : 1.0  1.0  
-NAXIS : 2150  2150
-#+end_example
+#+RESULTS:
+: Offset: [-15.3002092  -81.39261515] marcsec
+: Rotation -0.000222 (significant at -1.506 sigma)
+: Scale: 1.000000, Rotation: -0.000222
+
 ****** HST 1997 Ha to continuum
 Shift only 
 #+begin_src sh :dir data :results verbatim
@@ -1544,30 +1545,8 @@ Shift only
 #+end_src
 
 #+RESULTS:
-#+begin_example
-Offset: [ 7.22065939 53.37060761] marcsec
-Matrix: None
-SCI
-WCS Keywords
-
-Number of WCS axes: 2
-CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.8815537983334  16.86099615888889  
-CRPIX : 1075.0  1075.0  
-CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
-CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
-NAXIS : 2150  2150
-WCS Keywords
-
-Number of WCS axes: 2
-CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.87864749231  16.860626196909  
-CRPIX : 1175.1985394451  1061.148400228  
-PC1_1 PC1_2  : -2.7777777777778e-05  0.0  
-PC2_1 PC2_2  : 0.0  2.7777777777778e-05  
-CDELT : 1.0  1.0  
-NAXIS : 2150  2150
-#+end_example
+: Offset: [ 7.22065939 53.37060761] marcsec
+: Scale: 1.000000, Rotation: 0.000000
 
 Second, the full transform
 #+begin_src sh :dir data :results verbatim
@@ -1578,31 +1557,9 @@ Second, the full transform
 #+end_src
 
 #+RESULTS:
-#+begin_example
-Offset: [ 7.22065939 53.37060761] marcsec
-Scale 1.000214 (significant at 2.965 sigma)
-Scale: 1.000214, Rotation: 0.000000
-SCI
-WCS Keywords
-
-Number of WCS axes: 2
-CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.8815537983334  16.86099615888889  
-CRPIX : 1075.0  1075.0  
-CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
-CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
-NAXIS : 2150  2150
-WCS Keywords
-
-Number of WCS axes: 2
-CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.87864749231  16.860626196909  
-CRPIX : 1175.1985394451  1061.148400228  
-PC1_1 PC1_2  : -2.778372645901e-05  0.0  
-PC2_1 PC2_2  : 0.0  2.778372645901e-05  
-CDELT : 1.0  1.0  
-NAXIS : 2150  2150
-#+end_example
+: Offset: [ 7.22065939 53.37060761] marcsec
+: Scale 1.000214 (significant at 2.965 sigma)
+: Scale: 1.000214, Rotation: 0.000000
 
 ****** HST 1997 green to red continuum
 Shift only 
@@ -1615,29 +1572,20 @@ Shift only
 #+end_src
 
 #+RESULTS:
-#+begin_example
-Offset: [-3.48804762e-06  1.60188712e-05]
-Matrix: None
-SCI
-WCS Keywords
+: Offset: [-12.55697143  57.66793642] marcsec
+: Scale: 1.000000, Rotation: 0.000000
 
-Number of WCS axes: 2
-CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.8815537983334  16.86099615888889  
-CRPIX : 1075.0  1075.0  
-CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
-CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
-NAXIS : 2150  2150
-WCS Keywords
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/apply-alignment.py \
+         wr124-hst-1997-f555w \
+         wr124-hst-1997-f555w-TO-f675w \
+         --output-suffix ALIGN-f675w 
+#+end_src
 
-Number of WCS axes: 2
-CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.8815503102858  16.86101217776012  
-CRPIX : 1075.0  1075.0  
-CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
-CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
-NAXIS : 2150  2150
-#+end_example
+#+RESULTS:
+: Offset: [-12.55697143  57.66793642] marcsec
+: WARNING: On-axis shear -0.000042 (significant at -1.042 sigma)
+: Scale: 1.000000, Rotation: 0.000000
 
 ****** HST 1997 Ha to GAIA
 Shift only 
@@ -1650,29 +1598,8 @@ Shift only
 #+end_src
 
 #+RESULTS:
-#+begin_example
-Offset: [ 3.20789589e-06 -2.31207724e-05]
-Matrix: None
-SCI
-WCS Keywords
-
-Number of WCS axes: 2
-CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.8815537983334  16.86099615888889  
-CRPIX : 1075.0  1075.0  
-CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
-CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
-NAXIS : 2150  2150
-WCS Keywords
-
-Number of WCS axes: 2
-CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.8815570062293  16.86097303811644  
-CRPIX : 1075.0  1075.0  
-CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
-CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
-NAXIS : 2150  2150
-#+end_example
+: Offset: [ 11.5484252  -83.23478082] marcsec
+: Scale: 1.000000, Rotation: 0.000000
 
 Full transform
 #+begin_src sh :dir data :results verbatim
@@ -1683,31 +1610,9 @@ Full transform
 #+end_src
 
 #+RESULTS:
-#+begin_example
-Offset: [ 11.5484252  -83.23478082] marcsec
-Rotation -0.000312 (significant at -1.295 sigma)
-Scale: 1.000000, Rotation: -0.000312
-SCI
-WCS Keywords
-
-Number of WCS axes: 2
-CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.8815537983334  16.86099615888889  
-CRPIX : 1075.0  1075.0  
-CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
-CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
-NAXIS : 2150  2150
-WCS Keywords
-
-Number of WCS axes: 2
-CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.87864869447  16.860588250968  
-CRPIX : 1175.1985394451  1061.148400228  
-PC1_1 PC1_2  : -2.7777776425884e-05  8.6663251936269e-09  
-PC2_1 PC2_2  : 8.6663251936269e-09  2.7777776425884e-05  
-CDELT : 1.0  1.0  
-NAXIS : 2150  2150
-#+end_example
+: Offset: [ 11.5484252  -83.23478082] marcsec
+: Rotation -0.000312 (significant at -1.295 sigma)
+: Scale: 1.000000, Rotation: -0.000312
 
 ****** HST 2008 Ha to GAIA
 #+begin_src sh :dir data :results verbatim
@@ -1719,29 +1624,20 @@ NAXIS : 2150  2150
 #+end_src
 
 #+RESULTS:
-#+begin_example
-Offset: [ 4.50497961e-06 -1.58938708e-05]
-Matrix: None
-SCI
-WCS Keywords
+: Offset: [ 16.21792661 -57.217935  ] marcsec
+: Scale: 1.000000, Rotation: 0.000000
 
-Number of WCS axes: 2
-CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.8782164216667  16.86331641638889  
-CRPIX : 1075.0  1075.0  
-CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
-CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
-NAXIS : 2150  2150
-WCS Keywords
+#+begin_src sh :dir data :results verbatim
+  python ../scripts/apply-alignment.py \
+         wr124-hst-2008-f656n \
+         wr124-hst-2008-f656n-TO-gaia \
+         --output-suffix ALIGN-GAIA 
+#+end_src
 
-Number of WCS axes: 2
-CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.87822092664635  16.863300522518056  
-CRPIX : 1075.0  1075.0  
-CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
-CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
-NAXIS : 2150  2150
-#+end_example
+#+RESULTS:
+: Offset: [ 16.21792661 -57.217935  ] marcsec
+: Rotation -0.000390 (significant at -2.977 sigma)
+: Scale: 1.000000, Rotation: -0.000390
 
 ****** HST 2008 Ha to 1997 continuum
 Shift only
@@ -1754,29 +1650,8 @@ Shift only
 #+end_src
 
 #+RESULTS:
-#+begin_example
-Offset: [2.66762619e-06 2.15070395e-05]
-Matrix: None
-SCI
-WCS Keywords
-
-Number of WCS axes: 2
-CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.8782164216667  16.86331641638889  
-CRPIX : 1075.0  1075.0  
-CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
-CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
-NAXIS : 2150  2150
-WCS Keywords
-
-Number of WCS axes: 2
-CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.8782190892929  16.863337923428386  
-CRPIX : 1075.0  1075.0  
-CD1_1 CD1_2  : -2.777777777777778e-05  0.0  
-CD2_1 CD2_2  : 0.0  2.777777777777778e-05  
-NAXIS : 2150  2150
-#+end_example
+: Offset: [ 9.60345428 77.42534219] marcsec
+: Scale: 1.000000, Rotation: 0.000000
 
 ****** NIRCAM f090w to HST continuum
 Shift only
@@ -1790,31 +1665,8 @@ Shift only
 #+end_src
 
 #+RESULTS:
-#+begin_example
-Offset: [1030.29826074  -65.68302727] marcsec
-Matrix: None
-SCI
-WCS Keywords
-
-Number of WCS axes: 2
-CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.8782749319743  16.86055445453192  
-CRPIX : 2318.236138285078  2335.583515165627  
-PC1_1 PC1_2  : 0.7446704416628519  -0.6674323436226725  
-PC2_1 PC2_2  : -0.6674323436226725  -0.7446704416628519  
-CDELT : 8.66473024246969e-06  8.66473024246969e-06  
-NAXIS : 4672  4666
-WCS Keywords
-
-Number of WCS axes: 2
-CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.87893168053  16.860593126455  
-CRPIX : 2344.3293482124  2303.3755381089  
-PC1_1 PC1_2  : 0.74467044166285  -0.66743234362267  
-PC2_1 PC2_2  : -0.66743234362267  -0.74467044166285  
-CDELT : 8.6647302424697e-06  8.6647302424697e-06  
-NAXIS : 4672  4666
-#+end_example
+: Offset: [1030.29826074  -65.68302727] marcsec
+: Scale: 1.000000, Rotation: 0.000000
 
 Also scale and rotate
 #+begin_src sh :dir data :results verbatim
@@ -1825,31 +1677,8 @@ Also scale and rotate
 #+end_src
 
 #+RESULTS:
-#+begin_example
-Offset: [1030.29826074  -65.68302727] marcsec
-Scale: 1.000000, Rotation: 0.000000
-SCI
-WCS Keywords
-
-Number of WCS axes: 2
-CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.8782749319743  16.86055445453192  
-CRPIX : 2318.236138285078  2335.583515165627  
-PC1_1 PC1_2  : 0.7446704416628519  -0.6674323436226725  
-PC2_1 PC2_2  : -0.6674323436226725  -0.7446704416628519  
-CDELT : 8.66473024246969e-06  8.66473024246969e-06  
-NAXIS : 4672  4666
-WCS Keywords
-
-Number of WCS axes: 2
-CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.87893168053  16.860593126455  
-CRPIX : 2344.3293482124  2303.3755381089  
-PC1_1 PC1_2  : 0.74467044166285  -0.66743234362267  
-PC2_1 PC2_2  : -0.66743234362267  -0.74467044166285  
-CDELT : 8.6647302424697e-06  8.6647302424697e-06  
-NAXIS : 4672  4666
-#+end_example
+: Offset: [1030.29826074  -65.68302727] marcsec
+: Scale: 1.000000, Rotation: 0.000000
 
 ****** NIRCAM to GAIA
 
@@ -1863,31 +1692,8 @@ NAXIS : 4672  4666
 #+end_src
 
 #+RESULTS:
-#+begin_example
-Offset: [1024.71753151 -212.89214037] marcsec
-Scale: 1.000000, Rotation: 0.000000
-SCI
-WCS Keywords
-
-Number of WCS axes: 2
-CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.8782749319743  16.86055445453192  
-CRPIX : 2318.236138285078  2335.583515165627  
-PC1_1 PC1_2  : 0.7446704416628519  -0.6674323436226725  
-PC2_1 PC2_2  : -0.6674323436226725  -0.7446704416628519  
-CDELT : 8.66473024246969e-06  8.66473024246969e-06  
-NAXIS : 4672  4666
-WCS Keywords
-
-Number of WCS axes: 2
-CTYPE : 'RA---TAN'  'DEC--TAN'  
-CRVAL : 287.87893013033  16.860552235034  
-CRPIX : 2344.3293482124  2303.3755381089  
-PC1_1 PC1_2  : 0.74467044166285  -0.66743234362267  
-PC2_1 PC2_2  : -0.66743234362267  -0.74467044166285  
-CDELT : 8.6647302424697e-06  8.6647302424697e-06  
-NAXIS : 4672  4666
-#+end_example
+: Offset: [1024.71753151 -212.89214037] marcsec
+: Scale: 1.000000, Rotation: 0.000000
 
 Full transform
 #+begin_src sh :dir data :results verbatim
@@ -2278,7 +2084,7 @@ Test with just f090w first
            wr124-jwst-nircam-2022-$F-ALIGN-GAIA \
            reproject/wr124-jwst-nircam-2022-$F-radec \
            --pixel-scale-arcsec 0.031 \
-           --angular-size-arcmin 2
+           --angular-size-arcmin 2.5
     echo
   done
 #+end_src
@@ -2295,7 +2101,7 @@ Then do the rest
            wr124-jwst-nircam-2022-$F-ALIGN-GAIA \
            reproject/wr124-jwst-nircam-2022-$F-radec \
            --pixel-scale-arcsec 0.031 \
-           --angular-size-arcmin 2
+           --angular-size-arcmin 2.5
     echo
   done
 #+end_src
@@ -2322,7 +2128,7 @@ NIRCAM f470n reproject
            wr124-jwst-miri-2022-$F-ALIGN-GAIA \
            reproject/wr124-jwst-miri-2022-$F-radec \
            --pixel-scale-arcsec 0.031 \
-           --angular-size-arcmin 2
+           --angular-size-arcmin 2.5
     echo
   done
 #+end_src
@@ -2337,6 +2143,43 @@ NIRCAM f470n reproject
 : MIRI f1800w reproject
 : 
 
+*** Reproject HST images
+#+begin_src sh :dir data :results verbatim
+  for F in 2008-f656n; do
+    echo "HST $F reproject"
+    time python ../scripts/reproject-radec.py \
+           wr124-hst-$F-ALIGN-GAIA \
+           reproject/wr124-hst-$F-radec \
+           --pixel-scale-arcsec 0.031 \
+           --angular-size-arcmin 2.5
+    echo
+  done
+#+end_src
+
+#+RESULTS:
+: HST 2008-f656n reproject
+: 
+
+#+begin_src sh :dir data :results verbatim
+  for F in 1997-f555w 1997-f675w 1997-f656n; do
+    echo "HST $F reproject"
+    time python ../scripts/reproject-radec.py \
+           wr124-hst-$F-ALIGN-GAIA \
+           reproject/wr124-hst-$F-radec \
+           --pixel-scale-arcsec 0.031 \
+           --angular-size-arcmin 2.5
+    echo
+  done
+#+end_src
+
+#+RESULTS:
+: HST 1997-f555w reproject
+: 
+: HST 1997-f675w reproject
+: 
+: HST 1997-f656n reproject
+: 
+
 *** Ratio of NIRCAM images
 
 #+begin_src sh :dir data/reproject :results silent
@@ -2344,7 +2187,7 @@ NIRCAM f470n reproject
          wr124-jwst-nircam-2022-f470n-radec.fits \
          wr124-jwst-nircam-2022-f444w-radec.fits \
          ratio-f470n-f444w.fits \
-         --bg-a 0.3 --bg-b 0.3
+         --bg-a 0.2 --bg-b 0.2
 #+end_src
 
 #+begin_src sh :dir data/reproject :results silent
@@ -2352,7 +2195,7 @@ NIRCAM f470n reproject
          wr124-jwst-nircam-2022-f444w-radec.fits \
          wr124-jwst-nircam-2022-f335m-radec.fits \
          ratio-f444w-f335m.fits \
-         --bg-a 0.3 --bg-b 0.2
+         --bg-a 0.2 --bg-b 0.18
 #+end_src
 
 #+begin_src sh :dir data/reproject :results silent
@@ -2360,15 +2203,15 @@ NIRCAM f470n reproject
          wr124-jwst-nircam-2022-f335m-radec.fits \
          wr124-jwst-nircam-2022-f210m-radec.fits \
          ratio-f335m-f210m.fits \
-         --bg-a 0.2 --bg-b 0.15
+         --bg-a 0.15 --bg-b 0.1
 #+end_src
 
 #+begin_src sh :dir data/reproject :results silent
-    python ../../scripts/find-ratio.py \
-           wr124-jwst-nircam-2022-f210m-radec.fits \
-           wr124-jwst-nircam-2022-f150w-radec.fits \
-           ratio-f210m-f150w.fits \
-           --bg-a 0.15 --bg-b 0.3
+  python ../../scripts/find-ratio.py \
+         wr124-jwst-nircam-2022-f210m-radec.fits \
+         wr124-jwst-nircam-2022-f150w-radec.fits \
+         ratio-f210m-f150w.fits \
+         --bg-a 0.1 --bg-b 0.22
 #+end_src
 
 #+begin_src sh :dir data/reproject :results silent
@@ -2376,7 +2219,7 @@ NIRCAM f470n reproject
          wr124-jwst-nircam-2022-f150w-radec.fits \
          wr124-jwst-nircam-2022-f090w-radec.fits \
          ratio-f150w-f090w.fits \
-         --bg-a 0.35 --bg-b 0.3
+         --bg-a 0.22 --bg-b 0.2
 #+end_src
 
 #+begin_src sh :dir data/reproject :results verbatim
@@ -2387,7 +2230,8 @@ NIRCAM f470n reproject
 #+begin_example
 Usage: find-ratio.py [OPTIONS] FILE_A FILE_B OUTFILE
 
-  Find the ratio of two bg-subtracted fits images
+  Find the ratio A/B of two fits images after subtracting respective
+  backgrounds
 
 Arguments:
   FILE_A   [required]
@@ -2411,7 +2255,7 @@ First do MIRI/NIRCAM
          wr124-jwst-miri-2022-f770w-radec.fits \
          wr124-jwst-nircam-2022-f444w-radec.fits \
          ratio-f770w-f444w.fits \
-         --bg-a 7.0 --bg-b 0.3
+         --bg-a 7.0 --bg-b 0.2
 #+end_src
 Then interband of MIRI
 #+begin_src sh :dir data/reproject :results silent
@@ -2436,6 +2280,33 @@ Then interband of MIRI
          ratio-f1800w-f1280w.fits \
          --bg-a 95.0 --bg-b 26.0
 #+end_src
+
+*** Ratio of HST images
+
+#+begin_src sh :dir data/reproject :results silent
+  python ../../scripts/find-ratio.py \
+         wr124-hst-2008-f656n-radec.fits \
+         wr124-hst-1997-f656n-radec.fits \
+         ratio-f656n-2008-1997.fits \
+         --bg-a 0.0 --bg-b 0.0
+#+end_src
+
+#+begin_src sh :dir data/reproject :results silent
+  python ../../scripts/find-ratio.py \
+         wr124-hst-1997-f675w-radec.fits \
+         wr124-hst-1997-f656n-radec.fits \
+         ratio-f675w-f656n.fits \
+         --bg-a 0.0 --bg-b 0.0
+#+end_src
+
+#+begin_src sh :dir data/reproject :results silent
+  python ../../scripts/find-ratio.py \
+         wr124-hst-1997-f675w-radec.fits \
+         wr124-hst-1997-f555w-radec.fits \
+         ratio-f675w-f555w.fits \
+         --bg-a 0.0 --bg-b 0.0
+#+end_src
+
 
 ** hst images
 - [[file:MAST_wr124.json]] has a list  of the files that I have downloaded
