@@ -2375,3 +2375,49 @@ Then interband of MIRI
 - I also have some FOC images in the NUV, which appear to show nothing but the star
 - Now I am downloading the original HST datasets (not the HLA ones)
   - They have the c1f extension, which means they may not have been drizzled
+
+** Spitzer IRS spectra
+- These are courtesy of Palmira
+
+ 
+*** Apertures for IRS spectra
+- [2023-10-24 Tue]
+- I have converted the extraction area polygons into DS9 regions
+  - using "composite" shape of 4 "line" shapes
+  - e.g., from
+    #+begin_example
+      \FILENAME= 'wr124_SH_complete.tbl'
+      \ COMMENT This file contains a spectral extraction created from
+      \ COMMENT an IRS spectral mapping dataset.
+      \ Extraction Area:
+      \ # Poly: 19:11:30.463,+16:51:41.67 ; 19:11:30.306,+16:51:37.76
+      \ #       19:11:31.397,+16:51:28.72 ; 19:11:31.554,+16:51:32.64
+    #+end_example
+    to
+    #+begin_example
+      # composite(19:11:30.7415,+16:51:36.500,4.8606623e-06) || composite=1 text={SH}
+      line(19:11:30.463,+16:51:41.67,19:11:30.306,+16:51:37.76) || # line=0 0
+      line(19:11:30.306,+16:51:37.76,19:11:31.397,+16:51:28.72) || # line=0 0
+      line(19:11:31.397,+16:51:28.72,19:11:31.554,+16:51:32.64) || # line=0 0
+      line(19:11:31.554,+16:51:32.64,19:11:30.463,+16:51:41.67) # line=0 0
+    #+end_example
+  - Then I converted them to DS9 boxes by overlaying the box by hand
+    - [[file:m1-67-spitzer-irs-boxes.reg]]
+  - Table of IRS extraction region sizes and positions
+    |     | Length |  Width |  PA |   Area |
+    |     | arcsec | arcsec | deg |    msr |
+    |-----+--------+--------+-----+--------|
+    | SH  |   18.1 |    4.6 | 210 | 0.0020 |
+    | LH  |   31.3 |    8.8 | 305 | 0.0065 |
+    | SL1 |  179.7 |   53.2 | 254 | 0.2247 |
+    | SL2 |  215.8 |   54.3 | 254 | 0.2754 |
+    | LL1 |  472.2 |   46.0 | 351 | 0.5105 |
+    | LL2 |  437.7 |   44.9 | 350 | 0.4619 |
+    #+TBLFM: $5=1e6 $2 $3 / (206265**2);f4
+    - Note area is in milli-steradians (msr) because MJy/sr is Jy/msr
+  - The apertures for the low-res spectra (LL: Long Low, SL: Short Low) are large and cover most of the nebula
+    - About 50% of the full area (including halo)
+    - but the LL and SL are orthogonal to one another, so they are not quite the same, which might explain the jump between them
+  - The hi-res spectra (LH: Long High, SH: Short High) are much smaller
+    - They cover small regions near the center of the nebula
+    - This could explain why the surface brightnesses are higher
