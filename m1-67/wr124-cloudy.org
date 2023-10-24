@@ -1,0 +1,8 @@
+* Cloudy models of M1-67 around WR 124
+
+Principle aim is to understand the emission processes in the infrared JWST bands
+
+
+** Prior work
+- Palmira did models with pyCloudy
+  - She used the Hamann WR model atmospheres

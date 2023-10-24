@@ -1,6 +1,20 @@
  
 * Circumstellar nebula M1-67 around the Wolf Rayet star WR124
 
+** Previous papers on M1-67
+
+*** HST H alpha images
+- [[https://ui.adsabs.harvard.edu/abs/1998Ap&SS.260..181G][Grosdidier et al (1998)]] First epoch HST images. Has some prescient comments:
+  : We see many bright resolved knots of emission in the inner nebula, often surrounded by spherical, diffuse material (Fig. 2).
+  So they seem to have notice the knots and the shocked shells.
+- [[https://ui.adsabs.harvard.edu/abs/2001ApJ...562..753G][Grosdidier et al (2001)]] Analysis of same HST images, together with 
+  CFHT spectra. They do lots of statistical analysis of structure functions and PDFs and try to relate it to turbulence. However, when they try and remove the stars from the HST image, they also remove the knots, which is not ideal.
+- 
+*** Infrared observations
+- [[https://ui.adsabs.harvard.edu/abs/2016A&A...588A..92V][Vamvatira-Nakou et al (2016)]] Analysis of Herschel observations, plus a dust model
+*** Kinematics
+- Zavala et al. 2022
+  - Maybe the halo corresponds to the systemic velocity
 ** Plan for poster
 This is in a [[file:m1-67-bowshocks-poster.md][separate markdown file]] for greater accessibility
 
@@ -2062,7 +2076,11 @@ All are to Gaia
 ** Reprojection and calculation of ratios
 - [2023-10-19 Thu] We will reproject the images onto an orthogonal ra-dec grid, since that will make things easier for using matplotlib
 - Initial approach is to take small groups of similar filters, as we did for the rgb images
--
+- 
+*** [2023-10-22 Sun] Initial results of ratios
+- The alignment seems very good for the JWST filters, but is still not good enough for HST
+  - so I need to try again with tying the HST f675w to GAIA-aligned NIRCAM f090w, and then the other HST filters in a chain from there
+- 
 
   
 
@@ -2296,7 +2314,7 @@ Then interband of MIRI
          wr124-hst-1997-f675w-radec.fits \
          wr124-hst-1997-f656n-radec.fits \
          ratio-f675w-f656n.fits \
-         --bg-a 0.0 --bg-b 0.0
+         --bg-a -0.02 --bg-b -0.02
 #+end_src
 
 #+begin_src sh :dir data/reproject :results silent
@@ -2304,9 +2322,40 @@ Then interband of MIRI
          wr124-hst-1997-f675w-radec.fits \
          wr124-hst-1997-f555w-radec.fits \
          ratio-f675w-f555w.fits \
-         --bg-a 0.0 --bg-b 0.0
+         --bg-a -0.02 --bg-b -0.05
 #+end_src
 
+#+begin_src sh :dir data/reproject :results silent
+  python ../../scripts/find-ratio.py \
+         wr124-jwst-nircam-2022-f150w-radec.fits \
+         wr124-hst-2008-f656n-radec.fits \
+         ratio-f150w-f656n.fits \
+         --bg-a 0.2 --bg-b -0.06
+#+end_src
+
+#+begin_src sh :dir data/reproject :results silent
+  python ../../scripts/find-ratio.py \
+         wr124-jwst-nircam-2022-f090w-radec.fits \
+         wr124-hst-2008-f656n-radec.fits \
+         ratio-f090w-f656n.fits \
+         --bg-a 0.22 --bg-b -0.06
+#+end_src
+
+#+begin_src sh :dir data/reproject :results silent
+  python ../../scripts/find-ratio.py \
+         wr124-jwst-nircam-2022-f210m-radec.fits \
+         wr124-hst-2008-f656n-radec.fits \
+         ratio-f210m-f656n.fits \
+         --bg-a 0.1 --bg-b -0.06
+#+end_src
+
+#+begin_src sh :dir data/reproject :results silent
+  python ../../scripts/find-ratio.py \
+         wr124-jwst-nircam-2022-f150w-radec.fits \
+         wr124-hst-1997-f675w-radec.fits \
+         ratio-f150w-f675w.fits \
+         --bg-a 0.2 --bg-b -0.06
+#+end_src
 
 ** hst images
 - [[file:MAST_wr124.json]] has a list  of the files that I have downloaded
@@ -2326,10 +2375,3 @@ Then interband of MIRI
 - I also have some FOC images in the NUV, which appear to show nothing but the star
 - Now I am downloading the original HST datasets (not the HLA ones)
   - They have the c1f extension, which means they may not have been drizzled
-** Papers
-- [[https://ui.adsabs.harvard.edu/abs/1998Ap&SS.260..181G][Grosdidier et al (1998)]] First epoch HST images. Has some prescient comments:
-  : We see many bright resolved knots of emission in the inner nebula, often surrounded by spherical, diffuse material (Fig. 2).
-  So they seem to have notice the knots and the shocked shells.
-- [[https://ui.adsabs.harvard.edu/abs/2001ApJ...562..753G][Grosdidier et al (2001)]] Analysis of same HST images, together with 
-  CFHT spectra. They do lots of statistical analysis of structure functions and PDFs and try to relate it to turbulence. However, when they try and remove the stars from the HST image, they also remove the knots, which is not ideal.
-- 
