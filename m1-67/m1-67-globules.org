@@ -72,9 +72,111 @@ This is in a [[file:m1-67-bowshocks-poster.md][separate markdown file]] for grea
 
 
 **** MIRI
+- f770w
+  - 7.7 +/- 1.95/2
+  - 6.725 - 8.675
+- f1130w
+  -   
+- f1280w
+- f1800w
 
+*** Pandeia engine
+This seems to be te easiest way to get access to the filter transmission curves
 
+**** Installation
+- I am following the instructions at https://outerspace.stsci.edu/display/PEN/Pandeia+Engine+Installation
+  - I got to that page from https://jwst-docs.stsci.edu/jwst-exposure-time-calculator-overview/jwst-etc-pandeia-engine-tutorial, which has a more general description of what the package does
+    : In addition to its web UI, the JWST ETC (hereafter Pandeia) may be used as a Python module, and incorporated into Python scripts or programs. This tutorial provides information for installing the JWST ETC as a Python module, on the JWST ETC Python programming API, and on producing calculations with the JWST ETC Python interface that might be difficult or impossible to generate through the web interface.
+  - Installed the python library with pip
+  - Installed the required and additional data files
+    - Pandeia files in ~~/Work/pandeia-data~
+    - CDBS files in ~~/Work/synphot-data~
+  - Set environment variables in profile file (in my case, in ~.zshrc~)
+    #+begin_src sh
+      export PYSYN_CDBS=${HOME}/Work/synphot-data
+      export pandeia_refdata=${HOME}/Work/pandeia-data
+    #+end_src
 
+    #+RESULTS:
+
+  - Test installation
+    #+begin_src sh :results verbatim
+      export PYSYN_CDBS=${HOME}/Work/synphot-data
+      export pandeia_refdata=${HOME}/Work/pandeia-data
+      python -c "import pandeia.engine; pandeia.engine.pandeia_version()"
+    #+end_src
+
+    #+RESULTS:
+    : Pandeia Engine version:  3.0
+    : Pandeia RefData version:  3.0
+    : Synphot Data:  /Users/will/Work/synphot-data
+    
+**** Instrument throughputs
+- Based on [[https://jwst-docs.stsci.edu/jwst-exposure-time-calculator-overview/jwst-etc-pandeia-engine-tutorial/jwst-etc-instrument-throughputs][Pandeia Quickstart]] and [[https://jwst-docs.stsci.edu/jwst-exposure-time-calculator-overview/jwst-etc-pandeia-engine-tutorial/pandeia-quickstart][JWST ETC Instrument Throughputs]] docs
+- First construct a suitable config dict
+  #+begin_src python :return config :results verbatim
+    from pandeia.engine.calc_utils import build_default_calc
+    calculation = build_default_calc("jwst", "miri", "imaging")
+    config = calculation["configuration"]
+  #+end_src
+
+  #+RESULTS:
+  : {'detector': {'nexp': 1, 'ngroup': 100, 'nint': 1, 'readout_pattern': 'fastr1', 'subarray': 'full'}, 'instrument': {'aperture': 'imager', 'disperser': None, 'filter': 'f560w', 'instrument': 'miri', 'mode': 'imaging'}}
+- Now try and get the transmission curve
+  #+begin_src python :return rslt
+    import numpy as np
+    from pandeia.engine.calc_utils import build_default_calc
+    from pandeia.engine.instrument_factory import InstrumentFactory
+
+    calculation = build_default_calc("jwst", "miri", "imaging")
+    config = calculation["configuration"]
+    config["instrument"]["filter"] = "f770w"
+
+    # set up your wavelengths
+    wave = np.linspace(6.0, 9.0, 31)
+
+    # create a configured instrument
+    instrument_factory = InstrumentFactory(config=config)
+
+    # get the throughput of the instrument over the desired wavelength range
+    eff = instrument_factory.get_total_eff(wave)
+
+    rslt = list(zip(wave, np.round(eff, 3)))
+  #+end_src
+
+  #+RESULTS:
+  | 6.0 |   0.0 |
+  | 6.1 |   0.0 |
+  | 6.2 |   0.0 |
+  | 6.3 |   0.0 |
+  | 6.4 |   0.0 |
+  | 6.5 | 0.014 |
+  | 6.6 | 0.211 |
+  | 6.7 | 0.274 |
+  | 6.8 | 0.339 |
+  | 6.9 | 0.322 |
+  | 7.0 | 0.333 |
+  | 7.1 | 0.358 |
+  | 7.2 | 0.352 |
+  | 7.3 | 0.364 |
+  | 7.4 | 0.351 |
+  | 7.5 | 0.372 |
+  | 7.6 | 0.351 |
+  | 7.7 | 0.372 |
+  | 7.8 | 0.374 |
+  | 7.9 | 0.374 |
+  | 8.0 | 0.373 |
+  | 8.1 | 0.382 |
+  | 8.2 | 0.375 |
+  | 8.3 | 0.378 |
+  | 8.4 | 0.366 |
+  | 8.5 | 0.373 |
+  | 8.6 | 0.358 |
+  | 8.7 | 0.143 |
+  | 8.8 | 0.009 |
+  | 8.9 | 0.001 |
+  | 9.0 |   0.0 |
+- That seems to have worked well for f770w
 *** Alignment of JWST images
 
 **** Try and do a better job of alignment
