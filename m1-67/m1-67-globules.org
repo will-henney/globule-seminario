@@ -2481,6 +2481,8 @@ Then interband of MIRI
 ** Spitzer IRS spectra
 - These are courtesy of Palmira
 
+
+
  
 *** Apertures for IRS spectra
 - [2023-10-24 Tue]
@@ -2523,3 +2525,21 @@ Then interband of MIRI
   - The hi-res spectra (LH: Long High, SH: Short High) are much smaller
     - They cover small regions near the center of the nebula
     - This could explain why the surface brightnesses are higher
+
+*** Plot the spectra
+Test of throughput function
+
+#+begin_src sh :dir scripts :results verbatim
+  python filter_throughput.py
+#+end_src
+
+#+RESULTS:
+: Transmission of f1800w
+: [(<Quantity 16. micron>, 0.003939849542589399), (<Quantity 18. micron>, 0.4615843668830719), (<Quantity 22. micron>, 0.0)]
+
+#+begin_src sh :dir data/spitzer-irs :results file
+  python ../../scripts/plot-spitzer-irs.py
+#+end_src
+
+#+RESULTS:
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/spitzer-irs/irs-spec.pdf]]
