@@ -73,10 +73,74 @@ This is in a [[file:m1-67-bowshocks-poster.md][separate markdown file]] for grea
 
 **** MIRI
 - f770w
-  - 7.7 +/- 1.95/2
-  - 6.725 - 8.675
+  - 6.5 - 8.7 (W = 2.2)
+  - Continuum is a bit discrepant between SL1 and SL2
+    - We should really work in F_lam ~ F_nu / lam^2 when we are considering a broad range of lambda
+      - But really no need since fractional wave width is no more than 15%
+    - Around 7 microns, SL2 gives F_nu = 1 - 2 (see below), climbing with lambda
+    - Around 8.5 microns, SL1 gives F_nu = 4
+    - So factor of 2 or 3 discrepancy,
+      - possibly due to bad BG subtraction of SL2 (it does go negative at shorter waves)
+      - or real difference due to different apertures
+      - coincidence of PAH 7.7 feature with the overlap does not help the matching of continuum either
+    - /We will use a compromise continuum level of 3 for the filter average/
+  - [Ar II] 6.985 is extremely strong
+    - Measurement in SL2
+    - Continuum level between 6.6 and 7.3: 0.5 (1.0 + 2.0) = 1.5
+    - Peak @ 6.98: 37.6 - 1.5 = 36.1
+    - FWHM: 0.06 micron
+    - EW = 36.1 0.06 / 1.5 = 1.444 micron
+  - H I 7.460 is a minor contribution
+    - Also includes He I 7.455 (and potentially [Cl IV] 7.447)
+    - Continuum level between 7.4 and 7.6: 2
+    - Peak @ 7.47: 8.5 - 2 = 6.5
+    - FWHM: 0.09 micron
+    - EW = 6.5 0.09 / 2 = 0.29 micron
+  - PAH features at 7.7 and 8.6 microns should contribute
+    - In Spitzer spectra, only 8.6 is seen clearly
+      - Measurement in SL1
+      - Continuum: 4
+      - Peak @ 8.53: 5.27 - 4 = 1.27
+      - FWHM: 0.4 microns
+      - EW = 1.27 0.4 / 4 = 0.13 micron
+    - Although 7.7 should be stronger by a factor of about 2
+    - The H I 7.46 gets in the way
+    - And also hampered by being at join between SL1 and SL2 modules in spectrograph
+  - Relative contributions:
+    - Summed cont plus line EWs: 2.2 + 1.444 + 0.29 + 0.13 = 4.064
+    - Continuum: 2.2 / 4.064 = 0.54
+    - [Ar II] 6.985: 1.444 / 4.064 = 0.36
+    - H I 7.460: 0.29 / 4.064 = 0.07
+    - PAH: 0.13 / 4.064 = 0.03
+    - 
 - f1130w
-  -   
+  - 10.9 - 11.7 (W = 0.8) narrowest of filters
+  - PAH 11.2 might be the dominant feature
+    - Measurement in SL1 (short-low module)
+      - Continuum level between 11 and 11.6: 0.5 (5.7 + 7.2) = 6.45 +/- 0.75
+      - Peak @ 11.3: 9.04 - 6.45 = 2.6
+      - FWHM: 0.2 micron
+      - EW = 2.6 0.2 / 6.45 = 0.08 micron
+      - Relative contribution: 0.08 / (0.08 + 0.8) = 0.09
+    - Measurement in SH (short-high module)
+      - Continuum level between 11 and 11.6: 90
+      - Narrow Peak @ 11.31: 195 - 90 = 105
+      - Narrow FWHM: 0.036 micron
+      - Narrow EW: 105 0.036 / 90 = 0.042 micron
+      - Broad Peak @ 11.23: 104 - 90 = 14
+      - Broad FWHM: 0.2 micron
+      - Broad EW: 14 0.2 / 90 = 0.031 micron
+      - Relative contribution:
+        - Narrow 0.042 / (0.042 + 0.031 + 0.8) = 0.05
+        - Broad 0.031 / (0.042 + 0.031 + 0.8) = 0.04
+  - So both high and low res spectra give total PAH contribution of 9%
+  - The other 90% is continuum since there are no strong lines in the pass band
+  - There will be a tiny contribution from [Ne III] 10.863
+    - Throughput is only 0.2 times maximum
+    - Line peak is 0.5 of narrow PAH peak, and similar width
+    - So contribution of 0.5% to total
+  - There are also unidentified lines or features at 11.01 and 11.54
+    - Each with contribution of order 1%
 - f1280w
 - f1800w
 
@@ -2544,3 +2608,4 @@ Test of throughput function
 #+RESULTS:
 [[file:/Users/will/Dropbox/globule-seminario/m1-67/data/spitzer-irs/irs-spec.pdf]]
 
+*** Identification of components
