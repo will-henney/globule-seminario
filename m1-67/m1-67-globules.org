@@ -2543,3 +2543,4 @@ Test of throughput function
 
 #+RESULTS:
 [[file:/Users/will/Dropbox/globule-seminario/m1-67/data/spitzer-irs/irs-spec.pdf]]
+
