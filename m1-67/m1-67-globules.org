@@ -72,6 +72,21 @@ This is in a [[file:m1-67-bowshocks-poster.md][separate markdown file]] for grea
 
 
 **** MIRI
+- Summary table
+  | Filter | Component       | Fraction |
+  |--------+-----------------+----------|
+  | F770W  | CONTINUUM       |     0.54 |
+  | F770W  | [Ar II] 6.985   |     0.36 |
+  | F770W  | H I 7.460       |     0.07 |
+  | F770W  | PAH 8.6         |     0.03 |
+  |--------+-----------------+----------|
+  | F1130W | CONTINUUM       |      0.9 |
+  | F1130W | PAH 11.2        |     0.09 |
+  | F1130W | [Ne III] 10.863 |    0.005 |
+  | F1130W | UIL 11.01       |    0.003 |
+  | F1130W | UIL 11.54       |    0.003 |
+  |--------+-----------------+----------|
+  |        |                 |          |
 - f770w
   - 6.5 - 8.7 (W = 2.2)
   - Continuum is a bit discrepant between SL1 and SL2
@@ -111,7 +126,7 @@ This is in a [[file:m1-67-bowshocks-poster.md][separate markdown file]] for grea
     - Continuum: 2.2 / 4.064 = 0.54
     - [Ar II] 6.985: 1.444 / 4.064 = 0.36
     - H I 7.460: 0.29 / 4.064 = 0.07
-    - PAH: 0.13 / 4.064 = 0.03
+    - PAH 8.6: 0.13 / 4.064 = 0.03
     - 
 - f1130w
   - 10.9 - 11.7 (W = 0.8) narrowest of filters
@@ -140,8 +155,57 @@ This is in a [[file:m1-67-bowshocks-poster.md][separate markdown file]] for grea
     - Line peak is 0.5 of narrow PAH peak, and similar width
     - So contribution of 0.5% to total
   - There are also unidentified lines or features at 11.01 and 11.54
-    - Each with contribution of order 1%
+    - Total contribution of order 1%
+    - Work out EW of 11.54 line
+      - Cont level is 95
+      - Excess pixels: 102, 105, 107, 99, 96
+        - vsum([102, 105, 107, 99, 96]) - 5 95 = 34
+      - Pixel size: 11.58489 - 11.57600 = 8.89e-3 micron
+      - So EW = 34 8.89e-3 / 95 = 0.003 Micron
+      - Relative contribution is 0.003 / (0.8 + 0.09 + 0.003 + 0.003) = 0.003
 - f1280w
+  - 11.6 - 14.1 (W=2.5)
+  - Continuum levels:
+    - SL1: 7.3 to 11.9, so roughly 9.6
+    - SH: 93 to 87, so roughly 90
+  - H I 12.372
+    - SL1:
+      - local cont level = 9
+      - excess pixels: 11.95, 15.35, 12.77, 11.98
+        - vsum([11.95, 15.35, 12.77, 11.98]) - 4 9 = 16.05
+      - pixel size: 12.50124 - 12.43915 = 0.06209 micron
+      - EW = 16.05 0.06209 / 9.6 = *0.10 microns*
+      - Note that we are now doing the EW in the best way I think
+        - subtract local continuum
+        - but divide by average continuum over full filter bandpass
+        - we were not entirely consistent with that above, but it does not really matter
+    - SH:
+      - local cont level = 93
+      - excess pixels
+        vsum([98.57770, 109.0163, 120.5194, 156.2358, 252.6667, 349.4323, 404.9628, 401.0829, 335.2653, 215.6403, 145.0898, 108.7390, 99.62641, 98.39452, 96.95181]) - 15 93
+        = 1597.20104
+      - pixel size: 12.44439 - 12.43502 = 9.37e-3
+      - EW = 1597 9.37e-3 / 90 = *0.166 microns*
+      - So slightly larger in SH, maybe due to smaller aperture
+  - [Ne II] 12.814
+    - SH:
+      - local cont level = 90
+      - excess pixels
+        vsum([96.35126, 98.83986, 98.33226, 105.5441, 123.4146, 210.1461, 400.2357, 1368.507, 2619.267, 1245.834, 312.5799, 133.4844, 103.5154, 99.60088, 95.13274, 93.56950]) - 16 90
+        = 5764.3547
+      - pixel size: 12.82066 - 12.81065 = 0.01 microns
+      - EW = 5764 0.01 / 90 = *0.64 microns*
+    - SL1 but this includes blend with PAH feature
+      - local cont level: 9.5
+      - excess pixels
+        vsum([13.34165, 15.93223, 23.00680, 65.62168, 144.8405, 100.5812, 24.06742, 11.31612, 10.00899, 9.607738]) - 10 9.5
+        = 323.324328
+      - pixel size: 12.87381 - 12.81171 = 0.0621
+      - EW = 323 0.0621 / 9.6 = *2.1 microns*
+      - /This is way higher than in the hi resolution spectrum!/
+  - PAH 12.70
+  - [Ne II] 12.814
+  - 
 - f1800w
 
 *** Pandeia engine
