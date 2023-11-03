@@ -16,7 +16,7 @@ def get_spectrum_from_region(
     cube: np.ndarray,
     region: rg.PixelRegion | rg.SkyRegion,
     wcs: Optional[WCS] = None,
-    reduction_method: callable = np.nanmean,
+    sum_method: callable = np.nansum,
     debug: bool = False,
 ) -> np.ndarray:
     """Obtain one-dimensional spectrum of 2D region from 3D cube
@@ -38,15 +38,19 @@ def get_spectrum_from_region(
         assert wcs is not None, "For sky regions, wcs must not be None"
         region_mask = region.to_pixel(wcs.celestial).to_mask()
     nv, ny, nx = cube.shape
+    assert ny, nx == wcs.celestial.pixel_shape
     # Slices into 2D arrays
     slices_large, slices_small = region_mask.get_overlap_slices((ny, nx))
     if debug:
+        print(region.meta["label"])
         print("2D slice:", slices_large)
     slices_cube = (slice(None, None),) + slices_large
     image_mask_large = region_mask.to_image((ny, nx))
     image_mask_small = image_mask_large[slices_large]
     cube_cutout = cube[slices_cube]
-    spec = reduction_method(cube_cutout * image_mask_small[None, :, :], axis=(1, 2))
+    spec = sum_method(
+        cube_cutout * image_mask_small[None, :, :], axis=(1, 2)
+    ) / sum_method(image_mask_small)
     return spec
 
 
@@ -66,6 +70,7 @@ def main(
     cube_file: Path,
     region_file: Path,
     save_prefix: Optional[str] = None,
+    debug: bool = False,
 ):
     """Extract one-dimensional spectra from spectral cube
 
@@ -79,11 +84,10 @@ def main(
 
     # Obtain wavelength array in microns
     waves = get_wavelength_array(wcs).to(u.micron)
-
     # Extract spectrum of each region with correct units
     spec_dict = {
         reg.meta["label"]: u.Quantity(
-            get_spectrum_from_region(cube_hdu.data, reg, wcs),
+            get_spectrum_from_region(cube_hdu.data, reg, wcs, debug=debug),
             unit=cube_hdu.header["BUNIT"],
         )
         for reg in rg.Regions.read(region_file)
