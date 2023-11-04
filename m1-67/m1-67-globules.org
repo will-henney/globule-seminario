@@ -71,8 +71,8 @@ This is in a [[file:m1-67-bowshocks-poster.md][separate markdown file]] for grea
   - Brightness is in MJy/sr, so that is per Hz
 
 
-**** MIRI
-- Summary table
+**** MIRI Imaging
+- Summary table from Spitzer spectra
   | Filter | Component       | Fraction |
   |--------+-----------------+----------|
   | F770W  | CONTINUUM       |     0.54 |
@@ -86,7 +86,12 @@ This is in a [[file:m1-67-bowshocks-poster.md][separate markdown file]] for grea
   | F1130W | UIL 11.01       |    0.003 |
   | F1130W | UIL 11.54       |    0.003 |
   |--------+-----------------+----------|
-  |        |                 |          |
+  | F1280W | CONTINUUM       |     0.75 |
+  | F1280W | H I 12.372      |     0.05 |
+  | F1280W | [Ne II] 12.814  |     0.19 |
+  | F1280W | PAH 12.7        |    0.003 |
+  |--------+-----------------+----------|
+  | F1800W |                 |          |
 - f770w
   - 6.5 - 8.7 (W = 2.2)
   - Continuum is a bit discrepant between SL1 and SL2
@@ -222,11 +227,20 @@ This is in a [[file:m1-67-bowshocks-poster.md][separate markdown file]] for grea
     - 12.58 microns
       - similar strength to 12.7, EW < 0.01 micron, but broader
     - 
-  - Relative contributions
-    - Denominator: 
+  - Relative contributions from EWs for SH
+    - Denominator: 2.5 + 0.166 + 0.64 + 0.01 = 3.316
+    - Continuum: 2.5 / 3.316 = 0.75
+    - H I 12.372: 0.166 / 3.316 = 0.05
+    - [Ne II] 12.814: 0.64 / 3.316 = 0.19
+    - PAH 12.7: 0.01 / 3.316 = 0.003
+  - Relative contributions from EWs for SL1
+    - Denominator: 2.5 + 0.1 + 2.1 = 4.7
+    - Continuum: 2.5 / 4.7 = 0.53
+    - H I 12.372: 0.1 / 4.7 = 0.02
+    - ([Ne II] 12.814 + PAH 12.7): 2.1 / 4.7 = 0.45
   - 
 - f1800w
-  - 
+  - 16.5 - 19.5 (W=3.0)
 
 *** Pandeia engine
 This seems to be te easiest way to get access to the filter transmission curves
@@ -2926,55 +2940,64 @@ The two-pass version is slightly better in that it reduces the negative halo aro
 
 
 **** Nebular lines we have found
-| Chan |    Wave | ID           |       Wave_0 |  Peak | Spatial distro   |    V_hel |
-|------+---------+--------------+-------------+-------+------------------+---------|
-|    1 |  5.1316 | H I 6-10     |    5.128657 |   200 | Diffuse          |    172. |
-|      |  5.3436 | [Fe II]      |   5.3401693 |   600 | Very compact     |    193. |
-|      |  5.9116 | H I 6-9      |    5.908213 |   350 | H-like           |    172. |
-|      |  5.9604 | H I 7-14     |   5.9568435 |   180 | H-like           |    179. |
-|      |  6.2956 | H I 7-13     |    6.291916 |   106 | V. Marginal      |    176. |
-|      |  6.7756 | H I 7-12     |    6.771991 |   170 | Marginal         |    160. |
-|      |   6.914 | ?            |             |   150 | Marginal         |  69098. |
-|      |  6.9892 | [Ar II]      |    6.985274 | 30000 | More compact     |    168. |
-|      |  7.4644 | H I 5-6      |    7.459858 |  3000 | H-like           |    183. |
-|      |  7.5068 | H I 6-8      |    7.502493 |   700 | H-like           |    172. |
-|      |  7.5124 | H I 7-11     |     7.50810 |   165 | H-like           |    172. |
-|------+---------+--------------+-------------+-------+------------------+---------|
-|    2 | 7.51325 | H I 7-11     |     7.50810 |   190 | Same as prev     |    206. |
-|      | 8.16065 | H I 8-15     |    8.154890 |    60 | Very marginal    |    212. |
-|      | 8.67025 | H I 8-14     |    8.664503 |    60 | Marginal diffuse |    199. |
-|      | 8.76515 | H I 7-10     |    8.760064 |   250 | H-like           |    174. |
-|      | 9.39825 | H I 8-13     |    9.392018 |    80 | H-like           |    199. |
-|      | 9.67125 | ?            |             |   175 | compact          |  96654. |
-|      | 10.5098 | H I 8-12     |   10.503499 |   135 | H-like           |    180. |
-|      | 11.3158 | H I 7-9      |   11.308695 |   450 | H-like           |    188. |
-|      | 11.5472 | H I 9-15     |   11.539491 |    50 | v. marginal      |    200. |
-|------+---------+--------------+-------------+-------+------------------+---------|
-|    3 | 12.3788 | H I 6-7      |   12.371898 |  1200 | H-like           |    167. |
-|      | 12.3938 | H I 8-11     |   12.387168 |   110 | In wing of 6-7   |    161. |
-|      | 12.5938 | H I 9-14     |   12.587077 |    60 | Diffuse          |    160. |
-|      | 12.8213 | [Ne II]      |   12.813548 | 75000 | Super strong     |    181. |
-|      | 13.9488 | ?            |             |    20 | V. marginal      | 139404. |
-|      | 14.1913 | H I 9-13     |   14.183084 |   105 | H-like           |    174. |
-|      | 14.3763 | [Cl II]      |     14.3678 |  1100 | Compact          |    177. |
-|      | 14.8163 | He I  ?      | 14.80408269 |    85 | V. diffuse       |    247. |
-|      | 14.9713 | ?            |             |    40 | H-like           | 149623. |
-|      | 15.5638 | [Ne III]     |    15.55505 |    80 | V. diffuse       |    169. |
-|      | 16.2188 | H I 8-10     |   16.209104 |   250 | H-like           |    179. |
-|      | 16.4213 | H I 10-15    |   16.411724 |    40 | H-like           |    175. |
-|      | 16.8913 | H I 9-12     |   16.880628 |   130 | H-like           |    190. |
-|      | 17.8963 | [P III]      |     17.8846 |   230 | Diffuse          |    196. |
-|      | 17.9463 | [Fe II]      |   17.936026 |   350 | V. Compact       |    172. |
-|------+---------+--------------+-------------+-------+------------------+---------|
-|    4 |  18.627 | H I 10-14    |   18.615150 |    30 | V. marginal      |    191. |
-|      |  18.723 | [S III]      |    18.71303 | 35000 |                  |    160. |
-|      |  19.071 | H I 7-8      |   19.061898 |   500 | H-like           |    143. |
-|      |  21.873 | NOT [Ar III] |     21.8291 |    90 | V. diffuse       |    603. |
-|      |  22.941 | [Fe III]     |     22.9250 |  1000 | Compact          |    209. |
-|      |  26.007 | [Fe II]      |   25.988390 |   650 | V. compact       |    215. |
-#+TBLFM: $7=$4 > 0 ? $c ($2 - $4) / $4 $km : $2 (1 - (180 $km / $c)) 10000 ;f0
-
+|   | Filter |    Wave | ID           |       Wave_0 |  Peak | Spatial distro   |    V_hel |
+|---+--------+---------+--------------+-------------+-------+------------------+---------|
+| 1 |        |  5.1316 | H I 6-10     |    5.128657 |   200 | Diffuse          |    172. |
+|   |        |  5.3436 | [Fe II]      |   5.3401693 |   600 | Very compact     |    193. |
+|   |        |  5.9116 | H I 6-9      |    5.908213 |   350 | H-like           |    172. |
+|   |        |  5.9604 | H I 7-14     |   5.9568435 |   180 | H-like           |    179. |
+|   |        |  6.2956 | H I 7-13     |    6.291916 |   106 | V. Marginal      |    176. |
+|   | f770w  |  6.7756 | H I 7-12     |    6.771991 |   170 | Marginal         |    160. |
+|   | f770w  |   6.914 | ?            |             |   150 | Marginal         |  69098. |
+|   | f770w  |  6.9892 | [Ar II]      |    6.985274 | 30000 | More compact     |    168. |
+|   | f770w  |  7.4644 | H I 5-6      |    7.459858 |  3000 | H-like           |    183. |
+|   | f770w  |  7.5068 | H I 6-8      |    7.502493 |   700 | H-like           |    172. |
+|   | f770w  |  7.5124 | H I 7-11     |     7.50810 |   165 | H-like           |    172. |
+|---+--------+---------+--------------+-------------+-------+------------------+---------|
+| 2 | f770w  | 7.51325 | H I 7-11     |     7.50810 |   190 | Same as prev     |    206. |
+|   | f770w  | 8.16065 | H I 8-15     |    8.154890 |    60 | Very marginal    |    212. |
+|   | f770w  | 8.67025 | H I 8-14     |    8.664503 |    60 | Marginal diffuse |    199. |
+|   |        | 8.76515 | H I 7-10     |    8.760064 |   250 | H-like           |    174. |
+|   |        | 9.39825 | H I 8-13     |    9.392018 |    80 | H-like           |    199. |
+|   |        | 9.67125 | ?            |             |   175 | compact          |  96654. |
+|   |        | 10.5098 | H I 8-12     |   10.503499 |   135 | H-like           |    180. |
+|   | f1130w | 11.3158 | H I 7-9      |   11.308695 |   450 | H-like           |    188. |
+|   | f1130w | 11.5472 | H I 9-15     |   11.539491 |    50 | v. marginal      |    200. |
+|---+--------+---------+--------------+-------------+-------+------------------+---------|
+| 3 | f1280w | 12.3788 | H I 6-7      |   12.371898 |  1200 | H-like           |    167. |
+|   | f1280w | 12.3938 | H I 8-11     |   12.387168 |   110 | In wing of 6-7   |    161. |
+|   | f1280w | 12.5938 | H I 9-14     |   12.587077 |    60 | Diffuse          |    160. |
+|   | f1280w | 12.8213 | [Ne II]      |   12.813548 | 75000 | Super strong     |    181. |
+|   | f1280w | 13.9488 | ?            |             |    20 | V. marginal      | 139404. |
+|   |        | 14.1913 | H I 9-13     |   14.183084 |   105 | H-like           |    174. |
+|   |        | 14.3763 | [Cl II]      |     14.3678 |  1100 | Compact          |    177. |
+|   |        | 14.8163 | He I  ?      | 14.80408269 |    85 | V. diffuse       |    247. |
+|   |        | 14.9713 | ?            |             |    40 | H-like           | 149623. |
+|   |        | 15.5638 | [Ne III]     |    15.55505 |    80 | V. diffuse       |    169. |
+|   |        | 16.2188 | H I 8-10     |   16.209104 |   250 | H-like           |    179. |
+|   |        | 16.4213 | H I 10-15    |   16.411724 |    40 | H-like           |    175. |
+|   | f1800w | 16.8913 | H I 9-12     |   16.880628 |   130 | H-like           |    190. |
+|   | f1800w | 17.8963 | [P III]      |     17.8846 |   230 | Diffuse          |    196. |
+|   | f1800w | 17.9463 | [Fe II]      |   17.936026 |   350 | V. Compact       |    172. |
+|---+--------+---------+--------------+-------------+-------+------------------+---------|
+| 4 | f1800w |  18.627 | H I 10-14    |   18.615150 |    30 | V. marginal      |    191. |
+|   | f1800w |  18.723 | [S III]      |    18.71303 | 35000 |                  |    160. |
+|   | f1800w |  19.071 | H I 7-8      |   19.061898 |   500 | H-like           |    143. |
+|   |        |  21.873 | NOT [Ar III] |     21.8291 |    90 | V. diffuse       |    603. |
+|   |        |  22.941 | [Fe III]     |     22.9250 |  1000 | Compact          |    209. |
+|   |        |  26.007 | [Fe II]      |   25.988390 |   650 | V. compact       |    215. |
+#+TBLFM: $8=$5 > 0 ? $c ($3 - $5) / $5 $km : $3 (1 - (180 $km / $c)) 10000 ;f0
+- Note that the [Ne III] 10.863, which we detected in the Spitzer IRS spectra turns out to be entirely stellar, with no nebular component at all
+  - But we do detect a nebular component for [Ne III] 15.5638 (as well as a stellar wind one)
+  - This is probably due to the difference in A values, which is much lower for [Ne III] 10.863
 *** Make maps of the medium width features
 
+*** Make maps of relative contributions to image filters
+- Use the median filtered cubes to separate out different components
+  - Nebular lines
+  - UIB features
+  - Featureless continuum
+  - Stellar wind lines?
+- Make maps for each MRI filter of the contributions of each
 *** 
 
