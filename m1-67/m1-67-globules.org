@@ -2823,6 +2823,158 @@ Options:
 [[file:/Users/will/Dropbox/globule-seminario/m1-67/data/jwst-miri-mrs/jwst-miri-mrs-spec.pdf]]
 
 *** Median filter the cubes to better extract the narrow lines
+- We can use the ~median_continuum.py~ script from the MUSE projects
+- I plan to do a series of passes to isolate different features
+  - Narrow filter (say 7 or 11 pixels) to remove the nebular lines
+  - Intermediate filter (50 pixels or so) to remove the stellar lines
+    - And this is applied to the "cont" given from the narrow filter
+  - That should still leave the UIB features relatively unscathed
+    - They would probably be best isolated by fitting a large scale polynomial
+
+    - 
+
+**** Copy original data cubes to the project folder and with less verbose names
+
+#+begin_src sh :dir data/jwst-miri-mrs :results verbatim
+  D=${HOME}/Work/WR124-JWST/MAST_2023-10-30T1155/JWST
+  for chan in 1 2 3 4; do
+      F=jw02730-c1001_t015_miri_ch${chan}-shortmediumlong
+      cp -avf ${D}/${F}/${F}_s3d.fits wr124-miri-mrs-ch${chan}_s3d.fits
+  done
+#+end_src
+
+#+RESULTS:
+: /Users/will/Work/WR124-JWST/MAST_2023-10-30T1155/JWST/jw02730-c1001_t015_miri_ch1-shortmediumlong/jw02730-c1001_t015_miri_ch1-shortmediumlong_s3d.fits -> wr124-miri-mrs-ch1_s3d.fits
+: /Users/will/Work/WR124-JWST/MAST_2023-10-30T1155/JWST/jw02730-c1001_t015_miri_ch2-shortmediumlong/jw02730-c1001_t015_miri_ch2-shortmediumlong_s3d.fits -> wr124-miri-mrs-ch2_s3d.fits
+: /Users/will/Work/WR124-JWST/MAST_2023-10-30T1155/JWST/jw02730-c1001_t015_miri_ch3-shortmediumlong/jw02730-c1001_t015_miri_ch3-shortmediumlong_s3d.fits -> wr124-miri-mrs-ch3_s3d.fits
+: /Users/will/Work/WR124-JWST/MAST_2023-10-30T1155/JWST/jw02730-c1001_t015_miri_ch4-shortmediumlong/jw02730-c1001_t015_miri_ch4-shortmediumlong_s3d.fits -> wr124-miri-mrs-ch4_s3d.fits
+
+**** Command line help for new version of ~median_continuum.py~
+#+begin_src sh :dir data/jwst-miri-mrs :results verbatim
+  python ../../scripts/median_continuum.py --help
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Usage: median_continuum.py [OPTIONS] WINDOW_SIZE CUBE_PATH
+
+  Find and remove continuum from cube by median filtering
+
+Arguments:
+  WINDOW_SIZE  [required]
+  CUBE_PATH    [required]
+
+Options:
+  --out-label TEXT             [default: median]
+  --save-path PATH             [default: /Users/will/Dropbox/globule-
+                               seminario/m1-67/data/jwst-miri-mrs]
+
+  --two-pass / --no-two-pass   [default: False]
+  --first-window-size INTEGER  [default: 11]
+  --shave-threshold FLOAT      [default: 1.0]
+  --hdu-key TEXT               [default: SCI]
+  --hdu-index INTEGER
+  --install-completion         Install completion for the current shell.
+  --show-completion            Show completion for the current shell, to copy
+                               it or customize the installation.
+
+  --help                       Show this message and exit.
+#+end_example
+
+**** Apply narrow filter for nebular emission lines
+It turns out that these only take a few seconds to run
+#+begin_src sh :dir data/jwst-miri-mrs :results ouutput
+  python ../../scripts/median_continuum.py 11 wr124-miri-mrs-ch1_s3d.fits --two-pass --shave-threshold 100
+#+end_src
+
+#+RESULTS:
+
+Try a wider filter to better eliminate the [Ar II] line, which is super strong
+
+#+begin_src sh :dir data/jwst-miri-mrs :results ouutput
+  python ../../scripts/median_continuum.py 21 wr124-miri-mrs-ch1_s3d.fits --two-pass --shave-threshold 100
+#+end_src
+
+#+RESULTS:
+
+#+begin_src sh :dir data/jwst-miri-mrs :results ouutput
+  python ../../scripts/median_continuum.py 15 wr124-miri-mrs-ch1_s3d.fits --no-two-pass --out-label one-pass
+#+end_src
+
+#+RESULTS:
+Turns out that 21 seems to be the best compromise, where the nebular lines are eliminated from the cont version.
+
+The two-pass version is slightly better in that it reduces the negative halo around the strong lines
+
+#+begin_src sh :dir data/jwst-miri-mrs :results output
+  python ../../scripts/median_continuum.py 21 wr124-miri-mrs-ch2_s3d.fits --two-pass --shave-threshold 100
+#+end_src
+
+#+RESULTS:
+
+#+begin_src sh :dir data/jwst-miri-mrs :results output
+  python ../../scripts/median_continuum.py 21 wr124-miri-mrs-ch3_s3d.fits --two-pass --shave-threshold 100
+#+end_src
+
+#+RESULTS:
+
+#+begin_src sh :dir data/jwst-miri-mrs :results output
+  python ../../scripts/median_continuum.py 21 wr124-miri-mrs-ch4_s3d.fits --two-pass --shave-threshold 100
+#+end_src
+
+#+RESULTS:
+
+
+**** Nebular lines we have found
+| Chan |    Wave | ID           |       Wave_0 |  Peak | Spatial distro   |    V_hel |
+|------+---------+--------------+-------------+-------+------------------+---------|
+|    1 |  5.1316 | H I 6-10     |    5.128657 |   200 | Diffuse          |    172. |
+|      |  5.3436 | [Fe II]      |   5.3401693 |   600 | Very compact     |    193. |
+|      |  5.9116 | H I 6-9      |    5.908213 |   350 | H-like           |    172. |
+|      |  5.9604 | H I 7-14     |   5.9568435 |   180 | H-like           |    179. |
+|      |  6.2956 | H I 7-13     |    6.291916 |   106 | V. Marginal      |    176. |
+|      |  6.7756 | H I 7-12     |    6.771991 |   170 | Marginal         |    160. |
+|      |   6.914 | ?            |             |   150 | Marginal         |  69098. |
+|      |  6.9892 | [Ar II]      |    6.985274 | 30000 | More compact     |    168. |
+|      |  7.4644 | H I 5-6      |    7.459858 |  3000 | H-like           |    183. |
+|      |  7.5068 | H I 6-8      |    7.502493 |   700 | H-like           |    172. |
+|      |  7.5124 | H I 7-11     |     7.50810 |   165 | H-like           |    172. |
+|------+---------+--------------+-------------+-------+------------------+---------|
+|    2 | 7.51325 | H I 7-11     |     7.50810 |   190 | Same as prev     |    206. |
+|      | 8.16065 | H I 8-15     |    8.154890 |    60 | Very marginal    |    212. |
+|      | 8.67025 | H I 8-14     |    8.664503 |    60 | Marginal diffuse |    199. |
+|      | 8.76515 | H I 7-10     |    8.760064 |   250 | H-like           |    174. |
+|      | 9.39825 | H I 8-13     |    9.392018 |    80 | H-like           |    199. |
+|      | 9.67125 | ?            |             |   175 | compact          |  96654. |
+|      | 10.5098 | H I 8-12     |   10.503499 |   135 | H-like           |    180. |
+|      | 11.3158 | H I 7-9      |   11.308695 |   450 | H-like           |    188. |
+|      | 11.5472 | H I 9-15     |   11.539491 |    50 | v. marginal      |    200. |
+|------+---------+--------------+-------------+-------+------------------+---------|
+|    3 | 12.3788 | H I 6-7      |   12.371898 |  1200 | H-like           |    167. |
+|      | 12.3938 | H I 8-11     |   12.387168 |   110 | In wing of 6-7   |    161. |
+|      | 12.5938 | H I 9-14     |   12.587077 |    60 | Diffuse          |    160. |
+|      | 12.8213 | [Ne II]      |   12.813548 | 75000 | Super strong     |    181. |
+|      | 13.9488 | ?            |             |    20 | V. marginal      | 139404. |
+|      | 14.1913 | H I 9-13     |   14.183084 |   105 | H-like           |    174. |
+|      | 14.3763 | [Cl II]      |     14.3678 |  1100 | Compact          |    177. |
+|      | 14.8163 | He I  ?      | 14.80408269 |    85 | V. diffuse       |    247. |
+|      | 14.9713 | ?            |             |    40 | H-like           | 149623. |
+|      | 15.5638 | [Ne III]     |    15.55505 |    80 | V. diffuse       |    169. |
+|      | 16.2188 | H I 8-10     |   16.209104 |   250 | H-like           |    179. |
+|      | 16.4213 | H I 10-15    |   16.411724 |    40 | H-like           |    175. |
+|      | 16.8913 | H I 9-12     |   16.880628 |   130 | H-like           |    190. |
+|      | 17.8963 | [P III]      |     17.8846 |   230 | Diffuse          |    196. |
+|      | 17.9463 | [Fe II]      |   17.936026 |   350 | V. Compact       |    172. |
+|------+---------+--------------+-------------+-------+------------------+---------|
+|    4 |  18.627 | H I 10-14    |   18.615150 |    30 | V. marginal      |    191. |
+|      |  18.723 | [S III]      |    18.71303 | 35000 |                  |    160. |
+|      |  19.071 | H I 7-8      |   19.061898 |   500 | H-like           |    143. |
+|      |  21.873 | NOT [Ar III] |     21.8291 |    90 | V. diffuse       |    603. |
+|      |  22.941 | [Fe III]     |     22.9250 |  1000 | Compact          |    209. |
+|      |  26.007 | [Fe II]      |   25.988390 |   650 | V. compact       |    215. |
+#+TBLFM: $7=$4 > 0 ? $c ($2 - $4) / $4 $km : $2 (1 - (180 $km / $c)) 10000 ;f0
 
 *** Make maps of the medium width features
+
+*** 
 
