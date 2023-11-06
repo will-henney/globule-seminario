@@ -91,7 +91,10 @@ This is in a [[file:m1-67-bowshocks-poster.md][separate markdown file]] for grea
   | F1280W | [Ne II] 12.814  |     0.19 |
   | F1280W | PAH 12.7        |    0.003 |
   |--------+-----------------+----------|
-  | F1800W |                 |          |
+  | F1800W | CONTINUUM       |          |
+  | F1800W | [S III] 18.713  |          |
+  | F1800W | H I 19.062      |          |
+  |--------+-----------------+----------|
 - f770w
   - 6.5 - 8.7 (W = 2.2)
   - Continuum is a bit discrepant between SL1 and SL2
@@ -238,9 +241,77 @@ This is in a [[file:m1-67-bowshocks-poster.md][separate markdown file]] for grea
     - Continuum: 2.5 / 4.7 = 0.53
     - H I 12.372: 0.1 / 4.7 = 0.02
     - ([Ne II] 12.814 + PAH 12.7): 2.1 / 4.7 = 0.45
-  - 
 - f1800w
   - 16.5 - 19.5 (W=3.0)
+  - Continuum levels
+    - SH: 110 to 150, so roughly 130
+    - LL2: 8 to 16, so roughly 12
+  - [S III] 18.713
+    - LL2:
+      #+begin_src literate-calc
+        pixel size = 18.75956 - 18.66787 
+        local continuum = 13
+        global continuum = 12
+        excess pixels = [13.81146, 14.10895, 15.20396, 37.70677, 55.64561, 34.55833]
+        line flux = (vsum(excess pixels) - local continuum vcount(excess pixels)) pixel size 
+        EW = line flux / global continuum
+      #+end_src
+
+      #+RESULTS:
+      : EW: 0.710865540433
+    - SH:
+      #+begin_src literate-calc
+        pixel size = 18.71894 - 18.70461 
+        local continuum = 150
+        global continuum = 130
+        excess pixels = [149.6441, 159.3758, 162.137, 167.0328, 177.1403, 197.2899, 329.7, 801.2004, 1993.435, 1779.581, 617.2753, 225.6703, 179.5071, 164.7809, 157.2606, 161.6798, 166.8396, 163.0172]
+        line flux = (vsum(excess pixels) - local continuum vcount(excess pixels)) pixel size 
+        EW = line flux / global continuum
+      #+end_src  
+
+      #+RESULTS:
+      : EW: 0.556948358023
+
+  - H I 19.062
+    - LL2:
+      #+begin_src literate-calc
+        pixel size = 18.75956 - 18.66787 
+        local continuum = 16  
+        global continuum = 12
+        excess pixels = [20.0934, 19.12052, 19.08846, 17.71572, 17.23154, 16.76833, 16.38189, 16.22759]
+        line flux = (vsum(excess pixels) - local continuum vcount(excess pixels)) pixel size 
+        EW = line flux / global continuum
+      #+end_src
+
+      #+RESULTS:
+      : EW: 0.111765907542
+    - SH:
+       #+begin_src literate-calc
+         pixel size = 18.71894 - 18.70461 
+         local continuum = 150
+         global continuum = 130
+         excess pixels = [165.4142, 167.0518, 169.862, 171.248, 167.1111, 173.8094, 188.3421, 180.972, 178.9863, 188.7144, 190.8224, 201.0344, 245.9152, 280.4614, 297.4046, 302.9159, 242.5485, 198.7767, 176.3045, 162.2901, 160.6702, 162.6303, 160.3429, 160.4061]
+         line flux = (vsum(excess pixels) - local continuum vcount(excess pixels)) pixel size 
+         EW = line flux / global continuum
+      #+end_src  
+
+      #+RESULTS:
+      : EW: 0.1205962645
+  - Other weak lines:
+    - None are important
+  - Relative contributions from EWs for SH
+    - Denominator: 3.0 + 0.56 + 0.12 = 3.68
+    - Continuum: 3.0 / 3.68 = 0.815
+    - [S III] 18.713: 0.56 / 3.68 = 0.152
+    - H I 19.062: 0.12 / 3.68 = 0.033
+  - Relative contributions from EWs for SL1
+    - Denominator: 3.0 + 0.711 + 0.112 = 3.823
+    - Continuum: 3.0 / 3.823 = 0.785
+    - [S III] 18.713: 0.711 / 3.823 = 0.186
+    - H I 19.062: 0.112 / 3.823 = 0.029
+
+    
+
 
 *** Pandeia engine
 This seems to be te easiest way to get access to the filter transmission curves
