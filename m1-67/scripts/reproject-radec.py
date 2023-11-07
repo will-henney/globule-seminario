@@ -87,7 +87,9 @@ def main(
     # Then update the WCS keywords
     header2.update(hdu0.header)
     # Then reproject the data
-    data2 = reproject_interp(hdu1, hdu0.header, return_footprint=False)
+    data2 = reproject_interp(hdu1, hdu0.header, return_footprint=False).astype(
+        np.float32
+    )
     # Then create a new HDU
     hdu2 = fits.PrimaryHDU(
         header=header2,

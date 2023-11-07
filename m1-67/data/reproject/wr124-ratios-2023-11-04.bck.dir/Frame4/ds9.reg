@@ -1,0 +1,8 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+# composite(287.8780896,16.8601389,4.8606623e-06) || composite=1 text={LH1}
+line(287.8817584,16.8629694,287.8796417,16.8643972) || # line=0 0 text={LH1-a}
+line(287.8796417,16.8643972,287.8744209,16.8573083) || # line=0 0 text={LH1-b}
+line(287.8744209,16.8573083,287.8765375,16.8558805) || # line=0 0 text={LH1-c}
+line(287.8765375,16.8558805,287.8817584,16.8629694) # line=0 0 text={LH1-d}
