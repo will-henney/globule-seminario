@@ -72,7 +72,7 @@ This is in a [[file:m1-67-bowshocks-poster.md][separate markdown file]] for grea
 
 
 **** MIRI Imaging
-- Summary table from Spitzer spectra
+***** Summary table from Spitzer spectra
   | Filter | Component       | Fraction |
   |--------+-----------------+----------|
   | F770W  | CONTINUUM       |     0.54 |
@@ -91,10 +91,46 @@ This is in a [[file:m1-67-bowshocks-poster.md][separate markdown file]] for grea
   | F1280W | [Ne II] 12.814  |     0.19 |
   | F1280W | PAH 12.7        |    0.003 |
   |--------+-----------------+----------|
-  | F1800W | CONTINUUM       |          |
-  | F1800W | [S III] 18.713  |          |
-  | F1800W | H I 19.062      |          |
+  | F1800W | CONTINUUM       |      0.8 |
+  | F1800W | [S III] 18.713  |     0.17 |
+  | F1800W | H I 19.062      |     0.03 |
   |--------+-----------------+----------|
+***** Predictions for behavior of each filter
+- Derived from Spitzer spectra
+- F770W has roughly equal contribution from LINES and CONTINUUM
+  - Some contribution from PAH but 3 times less than for F1130W
+- F1130W is CONTINUUM dominated for the entire nebula with 10% PAH
+  - But can plausibly be PAH dominated in small regions
+  - Negligible LINES contribution
+- F1280W has significant CONTINUUM and LINES contribution
+  - But CONTINUUM dominates more than in F770W
+  - Negligible PAH contribution
+- F1800W is dominated by CONTINUUM
+  - with 20% LINES contribution ([S III], so higher ionization)
+  - no PAH at all
+ 
+***** Predictions for what factors influence the colors
+- f1800w / f1280w
+  1. Variations in continuum slope
+     - thermal dust emission increases to red
+     - large wave difference of 50% will amplify variations in slope
+     - Roberto calculated this on blackboard [2023-11-08 Wed]
+       - Assume I_\nu \propto \lambda^\beta
+       - Observed log10(18/12.8) varied from 0.2 to 0.8 with median 0.5
+       - => Slope \beta varies from +1 to +6 with median +3
+       - Consistent with appearance of JWST spectra, although not so much with Spitzer
+       - Remember that SED is I_\nu / \lambda so should have median slope 2
+  2. Variations in ionization of gas
+     - High ionization favors [S III], so f1800w
+     - Low ionization favors [Ne II], so f1280w
+- f1280w / f1130w
+  1. Variations in continuum slope
+     - This might be dominant effect on the scale of the entire nebula since both filters are dominated by continuum (80 to 90%)
+     - BUT small wavelength difference (10%) will suppress the impact on the ratio of variations in slope
+     - Also, it would predict a positive correlation of (f1280w / f1130w) with (f1800w / f1280w), whereas we observe a negative correlation
+  2. 
+       
+***** Detailed inventory of each filter
 - f770w
   - 6.5 - 8.7 (W = 2.2)
   - Continuum is a bit discrepant between SL1 and SL2
