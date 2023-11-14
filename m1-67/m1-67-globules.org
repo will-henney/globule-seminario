@@ -3045,8 +3045,68 @@ The two-pass version is slightly better in that it reduces the negative halo aro
 
 #+RESULTS:
 
+**** Apply broader filter for the stellar lines
+Apply this to the "cont" output of the N=21 filter
+
+***** Production runs of broad filter
+- Use N=81
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  python ../../scripts/median_continuum.py 81 wr124-miri-mrs-ch1_s3d-median-cont-021.fits --two-pass --shave-threshold 10
+#+end_src
+
+#+RESULTS:
+
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  python ../../scripts/median_continuum.py 81 wr124-miri-mrs-ch2_s3d-median-cont-021.fits --two-pass --shave-threshold 10
+#+end_src
+
+#+RESULTS:
+
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  python ../../scripts/median_continuum.py 81 wr124-miri-mrs-ch3_s3d-median-cont-021.fits --two-pass --shave-threshold 10
+#+end_src
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  python ../../scripts/median_continuum.py 81 wr124-miri-mrs-ch4_s3d-median-cont-021.fits --two-pass --shave-threshold 10
+#+end_src
+
+#+RESULTS:
+
+***** Initial tests of broad filter
+Try N=101 to start with
+
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  python ../../scripts/median_continuum.py 401 wr124-miri-mrs-ch1_s3d-median-cont-021.fits --two-pass --shave-threshold 10
+#+end_src
+
+#+RESULTS:
+
+- An issue that I found is that when the separation between two strong lines is of order the filter width, then we can get a bump in the "cont" profile *between* the lines, with a corresponding negative bump in the "csub" profile.  For ch4 this happens for N=101 and N=81.
+- I tried to solve this by reducing N to 51, but that does not work since this means that we now get undersubtraction of all lines. So, I think N=81 is the optimum.
+- The original problem is minor and can partially be solved by only taking positive part of the "csub" profile.
+- The worst problems are in ch1 around 7.5 microns, where we have the convergence of
+  - H I line
+  - [Cl IV] line
+  - PAH feature
+- I have tried increasing to 201, but it did not help much
+  - I will try 401 but I do not want to nuke the PAH features
+  - YES, that works better, especially for the star spaxels
+  - Although it does mean that some of the narrower PAH features gets filtered out of the final continuum
+  - But hopefully that will not matter if we just these results to construct an average stellar spectrum
+
+Now try 999, which is 0.8 microns in ch1 (/takes 40s to run/)
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  python ../../scripts/median_continuum.py 999 wr124-miri-mrs-ch1_s3d-median-cont-021-median-cont-081.fits --two-pass --shave-threshold 1
+#+end_src
+
+#+RESULTS:
+
 
 **** Nebular lines we have found
+:PROPERTIES:
+:TABLE_EXPORT_FILE: data/jwst-miri-mrs/jwst-miri-lines.tab
+:TABLE_EXPORT_FORMAT: orgtbl-to-tsv
+:END:
+
 #+name: jwst-miri-lines
 | Ch | Filter |     Wave | ID            |       Wave_0 |  Peak | Spatial distro   | V_hel |
 |----+--------+----------+---------------+-------------+-------+------------------+------|
@@ -3109,22 +3169,102 @@ The two-pass version is slightly better in that it reduces the negative halo aro
 - Note that the [Ne III] 10.863, which we detected in the Spitzer IRS spectra turns out to be entirely stellar, with no nebular component at all
   - [-] But we do detect a nebular component for [Ne III] 15.5638 (as well as a stellar wind one)
   - This is probably due to the difference in A values, which is much lower for [Ne III] 10.863
-- Save the table to a file
-  #+begin_src python
-    
+- Save the table to a file with ~C-c t e~
+
+
+**** Test readimg the table
+  #+begin_src python :results output :dir data/jwst-miri-mrs
+    from astropy.table import Table
+    tab = Table.read("jwst-miri-lines.tab", format="ascii.tab")
+    print(tab)
   #+end_src
+
+  #+RESULTS:
+  #+begin_example
+   Ch Filter   Wave        ID        Wave_0    Peak Spatial distro V_hel
+  --- ------ ------- ------------- ---------- ----- -------------- -----
+    1     --  5.1316      H I 6-10   5.128657   200        Diffuse 172.0
+    1     --  5.3436       [Fe II]  5.3401693   600   Very compact 193.0
+    1     --  5.9116       H I 6-9   5.908213   350         H-like 172.0
+    1     --  5.9604      H I 7-14  5.9568435   180         H-like 179.0
+    1     --  6.2956      H I 7-13   6.291916   106    V. Marginal 176.0
+    1  f770w  6.7756      H I 7-12   6.771991   170       Marginal 160.0
+    1  f770w   6.914      H_2 S(5)     6.9091   150       Marginal 213.0
+    1  f770w  6.9892       [Ar II]   6.985274 30000   More compact 168.0
+    1  f770w  7.4644       H I 5-6   7.459858  3000         H-like 183.0
+    1  f770w  7.5068       H I 6-8   7.502493   700         H-like 172.0
+  ...    ...     ...           ...        ...   ...            ...   ...
+    3 f1800w 17.8963       [P III]    17.8846   230        Diffuse 196.0
+    3 f1800w 17.9463       [Fe II]  17.936026   350     V. Compact 172.0
+    4 f1800w  18.627     H I 10-14   18.61515    30    V. marginal 191.0
+    4 f1800w  18.723       [S III]   18.71303 35000             -- 160.0
+    4 f1800w  19.071       H I 7-8  19.061898   500         H-like 143.0
+    4     --  21.873           UIL     21.861    90     V. diffuse 165.0
+    4     --  22.347 He I 9g-11f T 22.3331956   140        Diffuse 185.0
+    4     --  22.941      [Fe III]     22.925  1000        Compact 209.0
+    4     --  24.531           UIL     24.517    60         H-like 171.0
+    4     --  26.007       [Fe II]   25.98839   650     V. compact 215.0
+    4     --  27.273           UIL     27.258   160             -- 165.0
+  Length = 52 rows
+  #+end_example
 
 *** Make maps of the nebular lines
 
 
 *** Make maps of the medium width features
+- Options for how to proceed with this
+  1. We could use PAHfit
+     - Pro :: industry standard
+     - Pro :: would also fit some lines
+     - Pro :: maybe we could customize it to fit all the lines
+     - Con :: something new to learn
+     - Con :: unclear if fast enough to employ pixel by pixel on the cubes
+     - Con :: would be hard to combine with the stellar continuum removal (see below)
+  2. Or we could try median filtering them into submission
+  3. Or we could just measure the excess in a certain wav range
+     - Pro :: this is simpler
+     - Pro :: we only need a certain number of PAH bands to characterise the filter contributions: 7.7, 8.6, 11.2, 12.7
+     - Con :: we need to think carefully about the continuum level
+  4. Or we could fit some template spectra
+     - Pro :: this should be efficient
+     - Con :: where do we get the templates from?
 
-*** Make maps of relative contributions to image filters
+
+*** Make synthetic maps of the MIRI filters
 - Use the median filtered cubes to separate out different components
   - Nebular lines
   - UIB features
   - Featureless continuum
   - Stellar wind lines?
 - Make maps for each MRI filter of the contributions of each
-*** 
-
+*** Dealing with the stellar contribution
+- The median filtered (N=21) "cont" component should be a good representation of the stellar spectrum (continuum plus broad lines).
+- We could then just scale and subtract this component for all the other pixels and/or apertures
+- This is only necessary for the UIB and dust continuum, since the median filtering already solves the problem for the nebular lines
+- 
+**** Big plan for the PSF removal
+- Note that we cannot use WebbPSF since they do not support spectral cubes
+  - From [[https://www.stsci.edu/jwst/science-planning/proposal-planning-toolbox/psf-simulation-tool][WebbPSF documentation]] (checked [2023-11-14 Tue 12:38])
+    : Limitations: The spectroscopy modes of NIRSpec and MIRI are not yet supported.
+  - On the other hand, it also says
+    : What this software does NOT do: ... Model spectrally dispersed PSFs produced by any of the spectrograph gratings. It does, however, let you produce monochromatic PSFs in these modes, suitable for stitching together into spectra using some other software.
+  - So it looks like we could generate PSFs at a few different wavelengths and then interpolate from those
+  - This might even be better ....
+    - There is even a ~calc_datacube()~  function for this (see [[https://webbpsf.readthedocs.io/en/stable/usage.html#calculating-data-cubes][Calculating Data Cubes]] in docs)
+  - The only tedious bit with this approach would be interpolating onto the WCS of the pipeline-reduced cubes
+    - Since the files I have do not have the original detector coordinates
+- The big advantage we have is the broad stellar wind lines
+  - These unambiguously come from a point source
+  - And they can be isolated by the median filter chain:
+    - cont-021 + csub-081 (or 401 or whatever)
+  - This gives a series of PSF maps at discrete wavelengths of the lines
+    - Usually 3 or 4 of the strongest per channel
+  - We can wave-interpolate a PSF cube from these
+    - Better results would come from parameterizing the PSF and interpolating the parameters, but that sounds like too much work
+- Then we need to get a pure stellar spectrum
+  - Continuum plus broad lines
+- We can use the "Star" box in the ~cont-021~ cube for this, since it should have pretty much zero contribution from the nebula
+  - The nebular lines have been all filtered out
+  - There is no PAH emission that overlaps the star
+  - There may be some dust emission at long wavelengths, but remember that this is going to be multiplied the PSF and subtracted, so that is not a worry
+  - The PSF petals that overlap with the knots are 300 times fainter than the PSF peak
