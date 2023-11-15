@@ -23,12 +23,19 @@ import scipy.ndimage as ndi
 import typer
 
 
-def get_median_continuum(data: np.ndarray, window_size=11):
+def get_median_continuum(
+    data: np.ndarray,
+    window_size=11,
+    percentile: Optional[float] = None,
+):
     """Take windowed median along first axis of data array"""
     ndim = len(data.shape)
     # Conform the window size parameter to the shape of the data
     size = (window_size,) + (1,) * (ndim - 1)
-    return ndi.median_filter(data, size=size)
+    if percentile is None:
+        return ndi.median_filter(data, size=size, mode="nearest")
+    else:
+        return ndi.percentile_filter(data, percentile, size=size, mode="nearest")
 
 
 def main(
@@ -37,8 +44,9 @@ def main(
     out_label: str = "median",
     save_path: Path = Path.cwd(),
     two_pass: bool = False,
+    percentile: Optional[float] = None,
     first_window_size: int = 11,
-    shave_threshold: float = 1.0,
+    shave_threshold: float = 0.1,
     hdu_key: str = "SCI",
     hdu_index: Optional[int] = None,
 ):
@@ -52,13 +60,13 @@ def main(
 
     if two_pass:
         # First filter pass
-        cont_data = get_median_continuum(hdu.data, first_window_size)
+        cont_data = get_median_continuum(hdu.data, first_window_size, percentile)
         # Save off the lines that go more than shave_threshold above continuum
-        shaved_data = np.minimum(hdu.data, cont_data + shave_threshold)
+        shaved_data = np.minimum(hdu.data, cont_data * (1.0 + shave_threshold))
         # Second filter pass
-        cont_data = get_median_continuum(shaved_data, window_size)
+        cont_data = get_median_continuum(shaved_data, window_size, percentile)
     else:
-        cont_data = get_median_continuum(hdu.data, window_size)
+        cont_data = get_median_continuum(hdu.data, window_size, percentile)
 
     # Write out the new cubes
     for data, label in [
@@ -67,7 +75,7 @@ def main(
         (hdu.data / cont_data, "cdiv"),  # Original over continuum
     ]:
         fits.PrimaryHDU(header=hdu.header, data=data).writeto(
-            f"{cube_path.stem}-{out_label}-{label}-{window_size:03d}.fits",
+            f"{cube_path.stem}-{out_label}-{label}-{window_size:04d}.fits",
             overwrite=True,
         )
 

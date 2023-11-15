@@ -2991,8 +2991,9 @@ Options:
                                seminario/m1-67/data/jwst-miri-mrs]
 
   --two-pass / --no-two-pass   [default: False]
+  --percentile FLOAT
   --first-window-size INTEGER  [default: 11]
-  --shave-threshold FLOAT      [default: 1.0]
+  --shave-threshold FLOAT      [default: 0.1]
   --hdu-key TEXT               [default: SCI]
   --hdu-index INTEGER
   --install-completion         Install completion for the current shell.
@@ -3013,7 +3014,7 @@ It turns out that these only take a few seconds to run
 Try a wider filter to better eliminate the [Ar II] line, which is super strong
 
 #+begin_src sh :dir data/jwst-miri-mrs :results ouutput
-  python ../../scripts/median_continuum.py 21 wr124-miri-mrs-ch1_s3d.fits --two-pass --shave-threshold 100
+  python ../../scripts/median_continuum.py 21 wr124-miri-mrs-ch1_s3d.fits --no-two-pass --shave-threshold 1
 #+end_src
 
 #+RESULTS:
@@ -3051,7 +3052,17 @@ Apply this to the "cont" output of the N=21 filter
 ***** Production runs of broad filter
 - Use N=81
 #+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
-  python ../../scripts/median_continuum.py 81 wr124-miri-mrs-ch1_s3d-median-cont-021.fits --two-pass --shave-threshold 10
+  python ../../scripts/median_continuum.py 81 wr124-miri-mrs-ch1_s3d-median-cont-021.fits --two-pass --first-window-size 81 --shave-threshold 0.1
+#+end_src
+
+- I have been getting better results using a slightly wider filter, but with the 10th centile in place of the median
+- This does better in the case of closely-spaced lines
+  - It picks out the continuum in between them
+- But it does badly in cases where there is an absorption feature
+  - Since the absorption just gets spread out over the entire filter width
+
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  python ../../scripts/median_continuum.py 151 wr124-miri-mrs-ch1_s3d-median-cont-021.fits --no-two-pass --percentile 10
 #+end_src
 
 #+RESULTS:
@@ -3100,6 +3111,27 @@ Now try 999, which is 0.8 microns in ch1 (/takes 40s to run/)
 
 #+RESULTS:
 
+***** What if we were to apply the broad filter first?
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  python ../../scripts/median_continuum.py 301 wr124-miri-mrs-ch1_s3d.fits --no-two-pass --percentile 20
+#+end_src
+
+#+RESULTS:
+
+This works OK, without any obvious artefacts, but the UIB profiles get split between the ~cont~ and the ~csub~ profiles
+
+Try progressively larger filters
+
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  python ../../scripts/median_continuum.py 601 wr124-miri-mrs-ch1_s3d.fits --no-two-pass --percentile 20
+#+end_src
+
+#+RESULTS:
+
+And N=1501, which is half the range
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  python ../../scripts/median_continuum.py 1501 wr124-miri-mrs-ch1_s3d.fits --no-two-pass --percentile 20
+#+end_src
 
 **** Nebular lines we have found
 :PROPERTIES:
@@ -3268,3 +3300,5 @@ Now try 999, which is 0.8 microns in ch1 (/takes 40s to run/)
   - There is no PAH emission that overlaps the star
   - There may be some dust emission at long wavelengths, but remember that this is going to be multiplied the PSF and subtracted, so that is not a worry
   - The PSF petals that overlap with the knots are 300 times fainter than the PSF peak
+  - 
+**** Implement the plan
