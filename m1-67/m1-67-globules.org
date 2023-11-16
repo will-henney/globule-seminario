@@ -3005,56 +3005,85 @@ Options:
 
 **** Apply narrow filter for nebular emission lines
 It turns out that these only take a few seconds to run
-#+begin_src sh :dir data/jwst-miri-mrs :results ouutput
+#+begin_src sh :dir data/jwst-miri-mrs :results output
   python ../../scripts/median_continuum.py 11 wr124-miri-mrs-ch1_s3d.fits --two-pass --shave-threshold 100
 #+end_src
 
 #+RESULTS:
+: Saving median filtered cube to wr124-miri-mrs-ch1_s3d-median-cont-0011.fits
+: Saving residual cube to wr124-miri-mrs-ch1_s3d-median-csub-0011.fits
+: Saving ratio cube to wr124-miri-mrs-ch1_s3d-median-cdiv-0011.fits
 
 Try a wider filter to better eliminate the [Ar II] line, which is super strong
 
-#+begin_src sh :dir data/jwst-miri-mrs :results ouutput
-  python ../../scripts/median_continuum.py 21 wr124-miri-mrs-ch1_s3d.fits --no-two-pass --shave-threshold 1
+#+begin_src sh :dir data/jwst-miri-mrs :results output
+  python ../../scripts/median_continuum.py 21 wr124-miri-mrs-ch1_s3d.fits --no-two-pass 
 #+end_src
 
 #+RESULTS:
+: Saving median filtered cube to wr124-miri-mrs-ch1_s3d-median-cont-0021.fits
+: Saving residual cube to wr124-miri-mrs-ch1_s3d-median-csub-0021.fits
+: Saving ratio cube to wr124-miri-mrs-ch1_s3d-median-cdiv-0021.fits
 
-#+begin_src sh :dir data/jwst-miri-mrs :results ouutput
-  python ../../scripts/median_continuum.py 15 wr124-miri-mrs-ch1_s3d.fits --no-two-pass --out-label one-pass
-#+end_src
 
-#+RESULTS:
 Turns out that 21 seems to be the best compromise, where the nebular lines are eliminated from the cont version.
 
-The two-pass version is slightly better in that it reduces the negative halo around the strong lines
-
 #+begin_src sh :dir data/jwst-miri-mrs :results output
-  python ../../scripts/median_continuum.py 21 wr124-miri-mrs-ch2_s3d.fits --two-pass --shave-threshold 100
+  python ../../scripts/median_continuum.py 21 wr124-miri-mrs-ch1_s3d.fits --two-pass --out-label med2pass
 #+end_src
 
 #+RESULTS:
+: Saving median filtered cube to wr124-miri-mrs-ch1_s3d-med2pass-cont-0021.fits
+: Saving residual cube to wr124-miri-mrs-ch1_s3d-med2pass-csub-0021.fits
+: Saving ratio cube to wr124-miri-mrs-ch1_s3d-med2pass-cdiv-0021.fits
+
+The two-pass version Does not make much difference, so we will not use it for now
 
 #+begin_src sh :dir data/jwst-miri-mrs :results output
-  python ../../scripts/median_continuum.py 21 wr124-miri-mrs-ch3_s3d.fits --two-pass --shave-threshold 100
+  python ../../scripts/median_continuum.py 21 wr124-miri-mrs-ch2_s3d.fits --no-two-pass 
 #+end_src
 
 #+RESULTS:
+: Saving median filtered cube to wr124-miri-mrs-ch2_s3d-median-cont-0021.fits
+: Saving residual cube to wr124-miri-mrs-ch2_s3d-median-csub-0021.fits
+: Saving ratio cube to wr124-miri-mrs-ch2_s3d-median-cdiv-0021.fits
 
 #+begin_src sh :dir data/jwst-miri-mrs :results output
-  python ../../scripts/median_continuum.py 21 wr124-miri-mrs-ch4_s3d.fits --two-pass --shave-threshold 100
+  python ../../scripts/median_continuum.py 21 wr124-miri-mrs-ch3_s3d.fits --no-two-pass 
 #+end_src
 
 #+RESULTS:
+: Saving median filtered cube to wr124-miri-mrs-ch3_s3d-median-cont-0021.fits
+: Saving residual cube to wr124-miri-mrs-ch3_s3d-median-csub-0021.fits
+: Saving ratio cube to wr124-miri-mrs-ch3_s3d-median-cdiv-0021.fits
+
+
+Channel 4 seems to have wider pixels:
+| Ch |   wav0 |  d wav |   d V |
+|----+--------+--------+-------|
+|  1 |    4.9 | 0.0008 |  49.0 |
+|  2 |  7.511 | 0.0013 |  51.9 |
+|  3 | 11.551 | 0.0025 |  64.9 |
+|  4 |   17.7 |  0.006 | 101.7 |
+#+TBLFM: $4=3e5 $3/$2;f1
+So ch4 has twice as wide in velocity space at blue end of range (ch3 also has slightly wider pixels but it does not seem to matter)
+
+So, we should use a narrower filter since with N=21 we are getting some stellar wind line in the ~csub~ profile
+
+#+begin_src sh :dir data/jwst-miri-mrs :results output
+  python ../../scripts/median_continuum.py 11 wr124-miri-mrs-ch4_s3d.fits --no-two-pass  
+#+end_src
+
+#+RESULTS:
+: Saving median filtered cube to wr124-miri-mrs-ch4_s3d-median-cont-0011.fits
+: Saving residual cube to wr124-miri-mrs-ch4_s3d-median-csub-0011.fits
+: Saving ratio cube to wr124-miri-mrs-ch4_s3d-median-cdiv-0011.fits
 
 **** Apply broader filter for the stellar lines
-Apply this to the "cont" output of the N=21 filter
+Apply this to the "cont" output of the N=21 filter (or N=11 for ch4)
 
 ***** Production runs of broad filter
-- Use N=81
-#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
-  python ../../scripts/median_continuum.py 81 wr124-miri-mrs-ch1_s3d-median-cont-021.fits --two-pass --first-window-size 81 --shave-threshold 0.1
-#+end_src
-
+- [2023-11-15 Wed] These are the ones I am using for the PSF construction
 - I have been getting better results using a slightly wider filter, but with the 10th centile in place of the median
 - This does better in the case of closely-spaced lines
   - It picks out the continuum in between them
@@ -3062,10 +3091,46 @@ Apply this to the "cont" output of the N=21 filter
   - Since the absorption just gets spread out over the entire filter width
 
 #+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
-  python ../../scripts/median_continuum.py 151 wr124-miri-mrs-ch1_s3d-median-cont-021.fits --no-two-pass --percentile 10
+  python ../../scripts/median_continuum.py 151 wr124-miri-mrs-ch1_s3d-median-cont-0021.fits --no-two-pass --percentile 10
 #+end_src
 
 #+RESULTS:
+: Saving median filtered cube to wr124-miri-mrs-ch1_s3d-median-cont-0021-median-cont-0151.fits
+: Saving residual cube to wr124-miri-mrs-ch1_s3d-median-cont-0021-median-csub-0151.fits
+: Saving ratio cube to wr124-miri-mrs-ch1_s3d-median-cont-0021-median-cdiv-0151.fits
+
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  python ../../scripts/median_continuum.py 151 wr124-miri-mrs-ch2_s3d-median-cont-0021.fits --no-two-pass --percentile 10
+#+end_src
+
+#+RESULTS:
+: Saving median filtered cube to wr124-miri-mrs-ch2_s3d-median-cont-0021-median-cont-0151.fits
+: Saving residual cube to wr124-miri-mrs-ch2_s3d-median-cont-0021-median-csub-0151.fits
+: Saving ratio cube to wr124-miri-mrs-ch2_s3d-median-cont-0021-median-cdiv-0151.fits
+
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  python ../../scripts/median_continuum.py 151 wr124-miri-mrs-ch3_s3d-median-cont-0021.fits --no-two-pass --percentile 10
+#+end_src
+
+#+RESULTS:
+: Saving median filtered cube to wr124-miri-mrs-ch3_s3d-median-cont-0021-median-cont-0151.fits
+: Saving residual cube to wr124-miri-mrs-ch3_s3d-median-cont-0021-median-csub-0151.fits
+: Saving ratio cube to wr124-miri-mrs-ch3_s3d-median-cont-0021-median-cdiv-0151.fits
+
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  python ../../scripts/median_continuum.py 75 wr124-miri-mrs-ch4_s3d-median-cont-0011.fits --no-two-pass --percentile 10
+#+end_src
+
+#+RESULTS:
+: Saving median filtered cube to wr124-miri-mrs-ch4_s3d-median-cont-0011-median-cont-0075.fits
+: Saving residual cube to wr124-miri-mrs-ch4_s3d-median-cont-0011-median-csub-0075.fits
+: Saving ratio cube to wr124-miri-mrs-ch4_s3d-median-cont-0011-median-cdiv-0075.fits
+
+****** Older ones that are not so good
+- Use N=81
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  python ../../scripts/median_continuum.py 81 wr124-miri-mrs-ch1_s3d-median-cont-021.fits --two-pass --first-window-size 81 --shave-threshold 0.1
+#+end_src
 
 #+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
   python ../../scripts/median_continuum.py 81 wr124-miri-mrs-ch2_s3d-median-cont-021.fits --two-pass --shave-threshold 10
@@ -3201,10 +3266,12 @@ And N=1501, which is half the range
 - Note that the [Ne III] 10.863, which we detected in the Spitzer IRS spectra turns out to be entirely stellar, with no nebular component at all
   - [-] But we do detect a nebular component for [Ne III] 15.5638 (as well as a stellar wind one)
   - This is probably due to the difference in A values, which is much lower for [Ne III] 10.863
+- Also note that [Fe II] 17.936 is seen in ch4 as well as ch3
+  - And we see more knots in ch4 because the FOV is larger
 - Save the table to a file with ~C-c t e~
 
 
-**** Test readimg the table
+**** Test reading the table
   #+begin_src python :results output :dir data/jwst-miri-mrs
     from astropy.table import Table
     tab = Table.read("jwst-miri-lines.tab", format="ascii.tab")
@@ -3301,4 +3368,31 @@ And N=1501, which is half the range
   - There may be some dust emission at long wavelengths, but remember that this is going to be multiplied the PSF and subtracted, so that is not a worry
   - The PSF petals that overlap with the knots are 300 times fainter than the PSF peak
   - 
-**** Implement the plan
+**** DONE Construct the PSF cubes
+CLOSED: [2023-11-15 Wed 19:11]
+
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  python ../../scripts/find-cube-psf.py wr124-miri-mrs-ch1 --radius-arcsec 0.2 --polynomial-degree 1 > /dev/null
+#+end_src
+
+#+RESULTS:
+
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  python ../../scripts/find-cube-psf.py wr124-miri-mrs-ch2 --radius-arcsec 0.3 --polynomial-degree 1 > /dev/null
+#+end_src
+
+#+RESULTS:
+
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  python ../../scripts/find-cube-psf.py wr124-miri-mrs-ch3 --radius-arcsec 0.6 --max-radius-arcsec 3.0 --polynomial-degree 1 > /dev/null
+#+end_src
+
+#+RESULTS:
+
+Channel 4 is different since filters are narrower in pixels
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  python ../../scripts/find-cube-psf.py wr124-miri-mrs-ch4 --mid-pass-suffix median-cont-0011-median-csub-0075 --max-wavelength-micron 25 --radius-arcsec 1.0 --max-radius-arcsec 4.0 --polynomial-degree 1 > /dev/null
+#+end_src
+
+#+RESULTS:
+**** TODO Use the PSF cubes to remove the stellar spectrum

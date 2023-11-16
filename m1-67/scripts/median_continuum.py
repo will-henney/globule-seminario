@@ -49,6 +49,7 @@ def main(
     shave_threshold: float = 0.1,
     hdu_key: str = "SCI",
     hdu_index: Optional[int] = None,
+    verbose: bool = True,
 ):
     """Find and remove continuum from cube by median filtering"""
 
@@ -69,13 +70,16 @@ def main(
         cont_data = get_median_continuum(hdu.data, window_size, percentile)
 
     # Write out the new cubes
-    for data, label in [
-        (cont_data, "cont"),  # Continuum
-        (hdu.data - cont_data, "csub"),  # Original minus continuum
-        (hdu.data / cont_data, "cdiv"),  # Original over continuum
+    for data, label, long_label in [
+        (cont_data, "cont", "median filtered cube"),  # Continuum
+        (hdu.data - cont_data, "csub", "residual cube"),  # Original minus continuum
+        (hdu.data / cont_data, "cdiv", "ratio cube"),  # Original over continuum
     ]:
+        out_file = f"{cube_path.stem}-{out_label}-{label}-{window_size:04d}.fits"
+        if verbose:
+            print("Saving", long_label, "to", out_file)
         fits.PrimaryHDU(header=hdu.header, data=data).writeto(
-            f"{cube_path.stem}-{out_label}-{label}-{window_size:04d}.fits",
+            out_file,
             overwrite=True,
         )
 
