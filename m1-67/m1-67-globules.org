@@ -3177,6 +3177,7 @@ Now try 999, which is 0.8 microns in ch1 (/takes 40s to run/)
 #+RESULTS:
 
 ***** What if we were to apply the broad filter first?
+
 #+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
   python ../../scripts/median_continuum.py 301 wr124-miri-mrs-ch1_s3d.fits --no-two-pass --percentile 20
 #+end_src
@@ -3193,10 +3194,43 @@ Try progressively larger filters
 
 #+RESULTS:
 
-And N=1501, which is half the range
+Try N=1001, for the star-subtracted cubes
 #+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
-  python ../../scripts/median_continuum.py 1501 wr124-miri-mrs-ch1_s3d.fits --no-two-pass --percentile 20
+  for i in 1 2 3 4; do
+      time python ../../scripts/median_continuum.py 1001 \
+             wr124-miri-mrs-ch${i}-nostar.fits --no-two-pass --percentile 20
+  done
 #+end_src
+
+***** And then apply the narrow one
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  for i in 1 2 3; do
+      python ../../scripts/median_continuum.py 21 \
+             wr124-miri-mrs-ch${i}-nostar-median-csub-1001.fits --no-two-pass
+  done
+
+  for i in 4; do
+      python ../../scripts/median_continuum.py 11 \
+             wr124-miri-mrs-ch${i}-nostar-median-csub-1001.fits --no-two-pass
+  done
+
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Saving median filtered cube to wr124-miri-mrs-ch1-nostar-median-csub-1001-median-cont-0021.fits
+Saving residual cube to wr124-miri-mrs-ch1-nostar-median-csub-1001-median-csub-0021.fits
+Saving ratio cube to wr124-miri-mrs-ch1-nostar-median-csub-1001-median-cdiv-0021.fits
+Saving median filtered cube to wr124-miri-mrs-ch2-nostar-median-csub-1001-median-cont-0021.fits
+Saving residual cube to wr124-miri-mrs-ch2-nostar-median-csub-1001-median-csub-0021.fits
+Saving ratio cube to wr124-miri-mrs-ch2-nostar-median-csub-1001-median-cdiv-0021.fits
+Saving median filtered cube to wr124-miri-mrs-ch3-nostar-median-csub-1001-median-cont-0021.fits
+Saving residual cube to wr124-miri-mrs-ch3-nostar-median-csub-1001-median-csub-0021.fits
+Saving ratio cube to wr124-miri-mrs-ch3-nostar-median-csub-1001-median-cdiv-0021.fits
+Saving median filtered cube to wr124-miri-mrs-ch4-nostar-median-csub-1001-median-cont-0011.fits
+Saving residual cube to wr124-miri-mrs-ch4-nostar-median-csub-1001-median-csub-0011.fits
+Saving ratio cube to wr124-miri-mrs-ch4-nostar-median-csub-1001-median-cdiv-0011.fits
+#+end_example
 
 **** Nebular lines we have found
 :PROPERTIES:
@@ -3389,10 +3423,48 @@ CLOSED: [2023-11-15 Wed 19:11]
 
 #+RESULTS:
 
-Channel 4 is different since filters are narrower in pixels
+Channel 4 is different since filters are narrower in pixels.  Also, the long wavelength end is very noisy, so we do not want to use it
 #+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
   python ../../scripts/find-cube-psf.py wr124-miri-mrs-ch4 --mid-pass-suffix median-cont-0011-median-csub-0075 --max-wavelength-micron 25 --radius-arcsec 1.0 --max-radius-arcsec 4.0 --polynomial-degree 1 > /dev/null
 #+end_src
 
 #+RESULTS:
 **** TODO Use the PSF cubes to remove the stellar spectrum
+- We should get the stellar spectrum from the ~median-cont-0021~ since that should have the nebular lines (that overlap with the star) removed
+- But we should subtract it from the original cube, which should give us a residual that is just
+  1. Dust continuum, d\lambda/\lambda = 1
+  2. PAH features, d\lambda/\lambda = 0.02 - 0.1
+  3. Nebular lines, d\lambda/\lambda = 0.0003 - 0.001 (mainly instrumental profile)
+- Then we can try the top-down median filtering to extract each of these in turn
+
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  python ../../scripts/remove-star-spectrum.py wr124-miri-mrs-ch1 --noneb-cube-suffix median-cont-0021 --radius-arcsec 0.2
+#+end_src
+
+#+RESULTS:
+: Saving star contribution to cube to wr124-miri-mrs-ch1-star.fits
+: Saving star-subtracted nebula cube to wr124-miri-mrs-ch1-nostar.fits
+
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  python ../../scripts/remove-star-spectrum.py wr124-miri-mrs-ch2 --noneb-cube-suffix median-cont-0021 --radius-arcsec 0.3
+#+end_src
+
+#+RESULTS:
+: Saving star contribution to cube to wr124-miri-mrs-ch2-star.fits
+: Saving star-subtracted nebula cube to wr124-miri-mrs-ch2-nostar.fits
+
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  python ../../scripts/remove-star-spectrum.py wr124-miri-mrs-ch3 --noneb-cube-suffix median-cont-0021 --radius-arcsec 0.6
+#+end_src
+
+#+RESULTS:
+: Saving star contribution to cube to wr124-miri-mrs-ch3-star.fits
+: Saving star-subtracted nebula cube to wr124-miri-mrs-ch3-nostar.fits
+
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  python ../../scripts/remove-star-spectrum.py wr124-miri-mrs-ch4 --noneb-cube-suffix median-cont-0011 --radius-arcsec 1.0
+#+end_src
+
+#+RESULTS:
+: Saving star contribution to cube to wr124-miri-mrs-ch4-star.fits
+: Saving star-subtracted nebula cube to wr124-miri-mrs-ch4-nostar.fits
