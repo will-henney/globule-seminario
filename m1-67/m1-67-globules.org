@@ -3232,6 +3232,37 @@ Saving residual cube to wr124-miri-mrs-ch4-nostar-median-csub-1001-median-csub-0
 Saving ratio cube to wr124-miri-mrs-ch4-nostar-median-csub-1001-median-cdiv-0011.fits
 #+end_example
 
+These had some ringing around the strong lines, so I am going to see if two-pass will actually help like it is meant to
+
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  for i in 1 2 3; do
+      python ../../scripts/median_continuum.py 21 \
+             wr124-miri-mrs-ch${i}-nostar-median-csub-1001.fits --two-pass --first-window-size 21 --out-label med2pass
+  done
+
+  for i in 4; do
+      python ../../scripts/median_continuum.py 11 \
+             wr124-miri-mrs-ch${i}-nostar-median-csub-1001.fits --percentile 20 --two-pass --out-label med2pass
+  done
+
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Saving median filtered cube to wr124-miri-mrs-ch1-nostar-median-csub-1001-med2pass-cont-0021.fits
+Saving residual cube to wr124-miri-mrs-ch1-nostar-median-csub-1001-med2pass-csub-0021.fits
+Saving ratio cube to wr124-miri-mrs-ch1-nostar-median-csub-1001-med2pass-cdiv-0021.fits
+Saving median filtered cube to wr124-miri-mrs-ch2-nostar-median-csub-1001-med2pass-cont-0021.fits
+Saving residual cube to wr124-miri-mrs-ch2-nostar-median-csub-1001-med2pass-csub-0021.fits
+Saving ratio cube to wr124-miri-mrs-ch2-nostar-median-csub-1001-med2pass-cdiv-0021.fits
+Saving median filtered cube to wr124-miri-mrs-ch3-nostar-median-csub-1001-med2pass-cont-0021.fits
+Saving residual cube to wr124-miri-mrs-ch3-nostar-median-csub-1001-med2pass-csub-0021.fits
+Saving ratio cube to wr124-miri-mrs-ch3-nostar-median-csub-1001-med2pass-cdiv-0021.fits
+Saving median filtered cube to wr124-miri-mrs-ch4-nostar-median-csub-1001-med2pass-cont-0011.fits
+Saving residual cube to wr124-miri-mrs-ch4-nostar-median-csub-1001-med2pass-csub-0011.fits
+Saving ratio cube to wr124-miri-mrs-ch4-nostar-median-csub-1001-med2pass-cdiv-0011.fits
+#+end_example
+
 **** Nebular lines we have found
 :PROPERTIES:
 :TABLE_EXPORT_FILE: data/jwst-miri-mrs/jwst-miri-lines.tab
@@ -3287,6 +3318,7 @@ Saving ratio cube to wr124-miri-mrs-ch4-nostar-median-csub-1001-median-cdiv-0011
 |  3 | f1800w |  17.8963 | [P III]       |     17.8846 |   230 | Diffuse          | 196. |
 |  3 | f1800w |  17.9463 | [Fe II]       |   17.936026 |   350 | V. Compact       | 172. |
 |----+--------+----------+---------------+-------------+-------+------------------+------|
+|  4 | f1800w |  17.9463 | [Fe II]       |   17.936026 |   350 | V. Compact       | 172. |
 |  4 | f1800w |   18.627 | H I 10-14     |   18.615150 |    30 | V. marginal      | 191. |
 |  4 | f1800w |   18.723 | [S III]       |    18.71303 | 35000 |                  | 160. |
 |  4 | f1800w |   19.071 | H I 7-8       |   19.061898 |   500 | H-like           | 143. |
@@ -3327,8 +3359,8 @@ Saving ratio cube to wr124-miri-mrs-ch4-nostar-median-csub-1001-median-cdiv-0011
     1  f770w  7.4644       H I 5-6   7.459858  3000         H-like 183.0
     1  f770w  7.5068       H I 6-8   7.502493   700         H-like 172.0
   ...    ...     ...           ...        ...   ...            ...   ...
-    3 f1800w 17.8963       [P III]    17.8846   230        Diffuse 196.0
     3 f1800w 17.9463       [Fe II]  17.936026   350     V. Compact 172.0
+    4 f1800w 17.9463       [Fe II]  17.936026   350     V. Compact 172.0
     4 f1800w  18.627     H I 10-14   18.61515    30    V. marginal 191.0
     4 f1800w  18.723       [S III]   18.71303 35000             -- 160.0
     4 f1800w  19.071       H I 7-8  19.061898   500         H-like 143.0
@@ -3338,11 +3370,62 @@ Saving ratio cube to wr124-miri-mrs-ch4-nostar-median-csub-1001-median-cdiv-0011
     4     --  24.531           UIL     24.517    60         H-like 171.0
     4     --  26.007       [Fe II]   25.98839   650     V. compact 215.0
     4     --  27.273           UIL     27.258   160             -- 165.0
-  Length = 52 rows
+  Length = 53 rows
   #+end_example
 
 *** Make maps of the nebular lines
+- [2023-11-16 Thu] Return to this now that we have done the star subtraction
+- We will use cubes such as
+  : wr124-miri-mrs-ch1-nostar-median-csub-1001-median-csub-0021.fits
+- Strategy is to just find the moments in a narrow window
+  - Looks like 7 pixels would be fine
+  - Pixel width is about 50 km/s in blue, decreasing across each band
+    - Except 100 km/s in case of Ch4
+  - Maybe it would be better to use a fixed velocity range
+    - For instance +50 to +350 km/s
+    - H I 7-10 wav0=8.760064 so 8.760064 (1 + [50 .. 350]/3e5) = [8.76152 .. 8.77028]
+    - Which is 963 .. 970
+    - This is fine for that line, but we may want to increase range for ch4
 
+
+
+
+
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  python ../../scripts/make-line-maps.py wr124-miri-mrs-ch1-nostar-median-csub-1001-med2pass-csub-0021.fits
+#+end_src
+
+
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  python ../../scripts/make-line-maps.py --help
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Usage: make-line-maps.py [OPTIONS] CUBE_PATH
+
+  Construct a brightness map for each line in table
+
+  Each line is integrated over VELOCITY_RANGE_KMS
+
+Arguments:
+  CUBE_PATH  [required]
+
+Options:
+  --hdu-key TEXT                  [default: SCI]
+  --line-table-path PATH          [default: jwst-miri-lines.tab]
+  --velocity-range-kms <FLOAT FLOAT>...
+                                  [default: 0.0, 400.0]
+  --out-path PATH                 [default: /Users/will/Dropbox/globule-
+                                  seminario/m1-67/data/jwst-miri-mrs/LineMaps]
+
+  --verbose / --no-verbose        [default: True]
+  --install-completion            Install completion for the current shell.
+  --show-completion               Show completion for the current shell, to
+                                  copy it or customize the installation.
+
+  --help                          Show this message and exit.
+#+end_example
 
 *** Make maps of the medium width features
 - Options for how to proceed with this
