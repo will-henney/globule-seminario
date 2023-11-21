@@ -3222,6 +3222,34 @@ Try N=1001, for the star-subtracted cubes
   done
 #+end_src
 
+And N=501
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  for i in 1 2 3; do
+      time python ../../scripts/median_continuum.py 501 \
+             wr124-miri-mrs-ch${i}-nostar.fits --no-two-pass --percentile 20
+  done
+  for i in 4; do
+      time python ../../scripts/median_continuum.py 251 \
+             wr124-miri-mrs-ch${i}-nostar.fits --no-two-pass --percentile 20
+  done
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Saving median filtered cube to wr124-miri-mrs-ch1-nostar-median-cont-0501.fits
+Saving residual cube to wr124-miri-mrs-ch1-nostar-median-csub-0501.fits
+Saving ratio cube to wr124-miri-mrs-ch1-nostar-median-cdiv-0501.fits
+Saving median filtered cube to wr124-miri-mrs-ch2-nostar-median-cont-0501.fits
+Saving residual cube to wr124-miri-mrs-ch2-nostar-median-csub-0501.fits
+Saving ratio cube to wr124-miri-mrs-ch2-nostar-median-cdiv-0501.fits
+Saving median filtered cube to wr124-miri-mrs-ch3-nostar-median-cont-0501.fits
+Saving residual cube to wr124-miri-mrs-ch3-nostar-median-csub-0501.fits
+Saving ratio cube to wr124-miri-mrs-ch3-nostar-median-cdiv-0501.fits
+Saving median filtered cube to wr124-miri-mrs-ch4-nostar-median-cont-0251.fits
+Saving residual cube to wr124-miri-mrs-ch4-nostar-median-csub-0251.fits
+Saving ratio cube to wr124-miri-mrs-ch4-nostar-median-cdiv-0251.fits
+#+end_example
+
 ***** And then apply the narrow one
 #+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
   for i in 1 2 3; do
@@ -3281,6 +3309,35 @@ Saving ratio cube to wr124-miri-mrs-ch3-nostar-median-csub-1001-med2pass-cdiv-00
 Saving median filtered cube to wr124-miri-mrs-ch4-nostar-median-csub-1001-med2pass-cont-0011.fits
 Saving residual cube to wr124-miri-mrs-ch4-nostar-median-csub-1001-med2pass-csub-0011.fits
 Saving ratio cube to wr124-miri-mrs-ch4-nostar-median-csub-1001-med2pass-cdiv-0011.fits
+#+end_example
+
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  for i in 1 2 3; do
+      python ../../scripts/median_continuum.py 21 \
+             wr124-miri-mrs-ch${i}-nostar-median-csub-0501.fits --two-pass --first-window-size 21 --out-label med2pass
+  done
+
+  for i in 4; do
+      python ../../scripts/median_continuum.py 11 \
+             wr124-miri-mrs-ch${i}-nostar-median-csub-0251.fits --percentile 20 --two-pass --out-label med2pass
+  done
+
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Saving median filtered cube to wr124-miri-mrs-ch1-nostar-median-csub-0501-med2pass-cont-0021.fits
+Saving residual cube to wr124-miri-mrs-ch1-nostar-median-csub-0501-med2pass-csub-0021.fits
+Saving ratio cube to wr124-miri-mrs-ch1-nostar-median-csub-0501-med2pass-cdiv-0021.fits
+Saving median filtered cube to wr124-miri-mrs-ch2-nostar-median-csub-0501-med2pass-cont-0021.fits
+Saving residual cube to wr124-miri-mrs-ch2-nostar-median-csub-0501-med2pass-csub-0021.fits
+Saving ratio cube to wr124-miri-mrs-ch2-nostar-median-csub-0501-med2pass-cdiv-0021.fits
+Saving median filtered cube to wr124-miri-mrs-ch3-nostar-median-csub-0501-med2pass-cont-0021.fits
+Saving residual cube to wr124-miri-mrs-ch3-nostar-median-csub-0501-med2pass-csub-0021.fits
+Saving ratio cube to wr124-miri-mrs-ch3-nostar-median-csub-0501-med2pass-cdiv-0021.fits
+Saving median filtered cube to wr124-miri-mrs-ch4-nostar-median-csub-0251-med2pass-cont-0011.fits
+Saving residual cube to wr124-miri-mrs-ch4-nostar-median-csub-0251-med2pass-csub-0011.fits
+Saving ratio cube to wr124-miri-mrs-ch4-nostar-median-csub-0251-med2pass-cdiv-0011.fits
 #+end_example
 
 **** Nebular lines we have found
@@ -3466,25 +3523,59 @@ Options:
 #+end_example
 
 *** Initial impressions of the line maps
+:PROPERTIES:
+:ID:       37A312EC-577B-46EF-A08E-4BCDA595A848
+:END:
 - [S III] line shows line width increasing at lower intensity
   - This could be real, or it could be an artefact of the median filtering
 - The supposed He I line at 14.804 micron has some weird artefacts parallel to detector minor axis, but otherwise looks like the H I lines more or less - /but still no good/
 - The He I 9g-11f triplet line at 22.333 micron is better
   - [ ] Why is this the only He I line that is clearly separated from H I lines?
+    - I have searched and searched for additional He I lines, but to no avail
   - It has interesting differences from the H I 7-8 line at 19.06 micron
     - In Knot A we have 22.333 / 19.06 = (384+/-71)/(696+/-59) = 0.55 +/- 0.03
     - In Knot B we have 22.333 / 19.06 = (247+/-60)/(622+/-86) = 0.40 +/- 0.03
   - So the closer (projected) knot has a larger He I/H I ratio
   - [ ] /We can calibrate this using pyneb/
     - Although we need to take into account potential He I contributions to H I 19.061898
-  - I have searched and searched for additional He I lines, but to no avail
 - [Ne III]
   - The 10.863 line is not seen in nebula but is seen in stellar wind
   - The 15.555 line is seen in nebula and has a spectacularly different distribution to any other line
   - *It seems to come only from the bow shock shells and not from the knots at all*
 - [Fe II] and [Fe III]
   - This shows the opposite trend to He I / H I
-  - Knot A has a lower [Fe III]/[Fe II] ratio than Knot B 
+  - Knot A has a lower [Fe III]/[Fe II] ratio than Knot B
+- Comparison of ionization state between knots
+  - For the H I lines we have *bkg/A = 0.08* and bkg-subtracted *B/A = 1, C/A = 0.35*
+  - This repeats some material from above, but with additional lines
+  - We cannot use [Ne III]/[Ne II] since [Ne III] does not come from the knots
+  - But we could look at ratios with nearby H lines
+  - [Ar II] 6.985274 vs H I 5-6 7.459858
+    - In small FOV of ch1 so only covers knot A unfortunately
+  - [Ne II] 12.813548 vs H I 6-7 12.371898
+    - Ratio is very similar between Knots A and B
+    - Not surprising if Ne^+ is the dominant ion stage
+  - [S III] 18.71303 vs H I 7-8 19.061898
+    - B/A = 1.0, C/A = 0.39 so similar to H I
+    - Again, presumably because S^++ is dominant ion stage
+  - [P III] has the same behavior with B/A = 1
+    - But Knot C is much brighter in this line: C/A = 0.96
+  - [Fe III] 22.9250
+    - bkg, A, B, C = 600, 1985, 2303, 2918
+    - B/A = 1.23, C/A = 1.67
+    - Very different, and also displaced outward within knots, especially B
+  - [Fe II] 17.9360
+    - bkg, A, B, C = 10, 406, 229, 202
+    - B/A = 0.55, C/A = 0.48
+    - Also different, and displaced inward in Knot B
+    - Note: inward and outward are with respect to knot center
+  - He I 22.3332
+    - bkg, A, B, C = 10, 347, 271, 55
+    - B/A = 0.77, C/A = 0.133
+  - We can also use Ha from the HST images
+    - Need separate bkg for A, since PSF wings of star are significant
+    - bkgA, bkgBC, A, B, C = 0.8, 0.2, 2.5, 2.0, 0.98
+    -  B/A = 1.05, C/A = 0.46
 
 *** Make maps of the medium width features
 - Options for how to proceed with this
@@ -3503,6 +3594,36 @@ Options:
   4. Or we could fit some template spectra
      - Pro :: this should be efficient
      - Con :: where do we get the templates from?
+     -  :: 
+
+**** What is the filter combo to use for PAH features?
+- Should be
+  : wr124-miri-mrs-ch1-nostar-median-csub-0501-med2pass-cont-0021.fits
+  : wr124-miri-mrs-ch2-nostar-median-csub-0501-med2pass-cont-0021.fits
+  : wr124-miri-mrs-ch3-nostar-median-csub-0501-med2pass-cont-0021.fits
+  : wr124-miri-mrs-ch4-nostar-median-csub-0501-med2pass-cont-0011.fits
+
+This still has some pass through of H lines form wind, but it will do for now
+**** Table of AIBs
+| Ch | Band     | wavmin | wavmax |
+|----+----------+--------+--------|
+|  1 | AIB 6.2  |    6.0 |    6.7 |
+|  1 | AIB 7.7  |    7.5 |   7.65 |
+|  2 | AIB 7.7  |   7.75 |   8.15 |
+|  2 | AIB 8.6  |    8.5 |    8.8 |
+|  2 | AIB 11.2 |   11.1 |   11.5 |
+|  3 | AIB 12.7 |   12.6 |   13.0 |
+|  3 | AIB 13.5 |   13.3 |   13.8 |
+|  3 | AIB 16.5 |   16.3 |   16.8 |
+|  3 | AIB 17.4 |   17.1 |   17.7 |
+|  4 | AIB 18.9 |   18.7 |   19.0 |
+|  4 | AIB 24.6 |   24.4 |   24.8 |
+
+- With the exception of 24.6, all these are bands included in PAHfit
+- The majority peak in the knots, with the following exceptions
+  - 8.6 seems more diffuse
+  - 17.4 is also diffuse and better s/n
+  - 24.6 is a bit of a mess
 
 
 *** Make synthetic maps of the MIRI filters
@@ -3543,7 +3664,7 @@ Options:
   - There is no PAH emission that overlaps the star
   - There may be some dust emission at long wavelengths, but remember that this is going to be multiplied the PSF and subtracted, so that is not a worry
   - The PSF petals that overlap with the knots are 300 times fainter than the PSF peak
-  - 
+  
 **** DONE Construct the PSF cubes
 CLOSED: [2023-11-15 Wed 19:11]
 
