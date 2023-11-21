@@ -2728,6 +2728,26 @@ Then interband of MIRI
          --bg-a 0.2 --bg-b -0.06
 #+end_src
 
+*** Take the minimum of the two HST Ha images
+- The idea of this is to minimize the effects of the PSF in the region close to the star that we observe with the MIRI spectra
+
+
+#+begin_src python :dir data/reproject :results output verbatim
+  from astropy.io import fits
+  import numpy as np
+
+  hdu1 = fits.open("wr124-hst-1997-f656n-radec.fits")["SCI"]
+  hdu2 = fits.open("wr124-hst-2008-f656n-radec.fits")["SCI"]
+
+  newim = np.fmin(hdu1.data, hdu2.data)
+
+  hdu1.data = newim
+  hdu1.writeto("wr124-hst-MIN-f656n-radec.fits")
+
+#+end_src
+
+#+RESULTS:
+
 ** hst images
 - [[file:MAST_wr124.json]] has a list  of the files that I have downloaded
   - These are the Level 3 products from the HLA of the WFPC2 observations, plus the Level 2 products from the FOC in the UV
@@ -3270,70 +3290,73 @@ Saving ratio cube to wr124-miri-mrs-ch4-nostar-median-csub-1001-med2pass-cdiv-00
 :END:
 
 #+name: jwst-miri-lines
-| Ch | Filter |     Wave | ID            |       Wave_0 |  Peak | Spatial distro   | V_hel |
-|----+--------+----------+---------------+-------------+-------+------------------+------|
-|  1 |        |   5.1316 | H I 6-10      |    5.128657 |   200 | Diffuse          | 172. |
-|  1 |        |   5.3436 | [Fe II]       |   5.3401693 |   600 | Very compact     | 193. |
-|  1 |        |   5.9116 | H I 6-9       |    5.908213 |   350 | H-like           | 172. |
-|  1 |        |   5.9604 | H I 7-14      |   5.9568435 |   180 | H-like           | 179. |
-|  1 |        |   6.2956 | H I 7-13      |    6.291916 |   106 | V. Marginal      | 176. |
-|  1 | f770w  |   6.7756 | H I 7-12      |    6.771991 |   170 | Marginal         | 160. |
-|  1 | f770w  |    6.914 | H_2 S(5)       |      6.9091 |   150 | Marginal         | 213. |
-|  1 | f770w  |   6.9892 | [Ar II]       |    6.985274 | 30000 | More compact     | 168. |
-|  1 | f770w  |   7.4644 | H I 5-6       |    7.459858 |  3000 | H-like           | 183. |
-|  1 | f770w  |   7.5068 | H I 6-8       |    7.502493 |   700 | H-like           | 172. |
-|  1 | f770w  |   7.5124 | H I 7-11      |     7.50810 |   165 | H-like           | 172. |
-|----+--------+----------+---------------+-------------+-------+------------------+------|
-|  2 | f770w  |  7.51325 | H I 7-11      |     7.50810 |   190 | Same as prev     | 206. |
-|  2 | f770w  |  8.16065 | H I 8-15      |    8.154890 |    60 | Very marginal    | 212. |
-|  2 | f770w  |  8.67025 | H I 8-14      |    8.664503 |    60 | Marginal diffuse | 199. |
-|  2 |        |  8.76515 | H I 7-10      |    8.760064 |   250 | H-like           | 174. |
-|  2 |        |  9.39825 | H I 8-13      |    9.392018 |    80 | H-like           | 199. |
-|  2 |        |  9.67125 | H_2 S(3)       |      9.6649 |   175 | compact          | 197. |
-|  2 |        |  10.5098 | H I 8-12      |   10.503499 |   135 | H-like           | 180. |
-|  2 | f1130w |  11.3158 | H I 7-9       |   11.308695 |   450 | H-like           | 188. |
-|  2 | f1130w |  11.5472 | H I 9-15      |   11.539491 |    50 | v. marginal      | 200. |
-|----+--------+----------+---------------+-------------+-------+------------------+------|
-|  3 | f1280w |  12.1638 | H I 10-20     |   12.156833 |    20 | Diffuse          | 172. |
-|  3 | f1280w |  12.2863 | H_2 S(2)       |     12.2785 |    35 | V. compact       | 190. |
-|  3 | f1280w |  12.3788 | H I 6-7       |   12.371898 |  1200 | H-like           | 167. |
-|  3 | f1280w |  12.3938 | H I 8-11      |   12.387168 |   110 | In wing of 6-7   | 161. |
-|  3 | f1280w |  12.5938 | H I 9-14      |   12.587077 |    60 | Diffuse          | 160. |
-|  3 | f1280w | 12.61875 | H I 10-19     |   12.610967 |    25 | Marginal         | 185. |
-|  3 | f1280w |  12.8213 | [Ne II]       |   12.813548 | 75000 | Super strong     | 181. |
-|  3 | f1280w |  13.1963 | H I 10-18     |   13.187992 |    30 | H-like           | 189. |
-|  3 | f1280w |  13.9488 | H I 10-17     |   13.941764 |    35 | H-like           | 151. |
-|  3 |        |  14.1913 | H I 9-13      |   14.183084 |   105 | H-like           | 174. |
-|  3 |        |  14.3763 | [Cl II]       |     14.3678 |  1100 | Compact          | 177. |
-|  3 |        |  14.8163 | He I  ?       | 14.80408269 |    85 | V. diffuse       | 247. |
-|  3 |        |  14.9713 | H I 10-16     |   14.962256 |    40 | H-like           | 181. |
-|  3 |        |  15.5638 | [Ne III]      |    15.55505 |    80 | V. diffuse       | 169. |
-|  3 |        |  15.8263 | H I 11-20     |   15.816956 |    18 | H-like           | 177. |
-|  3 |        |  16.6038 | H I 11-19     |   16.594459 |    28 | H-like           | 169. |
-|  3 |        |  16.2188 | H I 8-10      |   16.209104 |   250 | H-like           | 179. |
-|  3 |        |  16.4213 | H I 10-15     |   16.411724 |    40 | H-like           | 175. |
-|  3 | f1800w |  16.6038 | UIL           |      16.595 |    30 | Diffuse          | 159. |
-|  3 | f1800w |  16.8913 | H I 9-12      |   16.880628 |   130 | H-like           | 190. |
-|  3 | f1800w |  17.0463 | H_2 S(1)       |     17.0346 |    40 | Compact          | 206. |
-|  3 | f1800w |  17.8963 | [P III]       |     17.8846 |   230 | Diffuse          | 196. |
-|  3 | f1800w |  17.9463 | [Fe II]       |   17.936026 |   350 | V. Compact       | 172. |
-|----+--------+----------+---------------+-------------+-------+------------------+------|
-|  4 | f1800w |  17.9463 | [Fe II]       |   17.936026 |   350 | V. Compact       | 172. |
-|  4 | f1800w |   18.627 | H I 10-14     |   18.615150 |    30 | V. marginal      | 191. |
-|  4 | f1800w |   18.723 | [S III]       |    18.71303 | 35000 |                  | 160. |
-|  4 | f1800w |   19.071 | H I 7-8       |   19.061898 |   500 | H-like           | 143. |
-|  4 |        |   21.873 | UIL           |      21.861 |    90 | V. diffuse       | 165. |
-|  4 |        |   22.347 | He I 9g-11f T |  22.3331956 |   140 | Diffuse          | 185. |
-|  4 |        |   22.941 | [Fe III]      |     22.9250 |  1000 | Compact          | 209. |
-|  4 |        |   24.531 | UIL           |      24.517 |    60 | H-like           | 171. |
-|  4 |        |   26.007 | [Fe II]       |   25.988390 |   650 | V. compact       | 215. |
-|  4 |        |   27.273 | UIL           |      27.258 |   160 |                  | 165. |
+| Ch | Filter |     Wave | ID            |      Wave_0 |  Peak | Spatial distro   | V_hel |
+|----+--------+----------+---------------+------------+-------+------------------+------|
+|  1 |        |   5.1316 | H I 6-10      |   5.128657 |   200 | Diffuse          | 172. |
+|  1 |        |   5.3436 | [Fe II]       |  5.3401693 |   600 | Very compact     | 193. |
+|  1 |        |   5.9116 | H I 6-9       |   5.908213 |   350 | H-like           | 172. |
+|  1 |        |   5.9604 | H I 7-14      |  5.9568435 |   180 | H-like           | 179. |
+|  1 |        |   6.2956 | H I 7-13      |   6.291916 |   106 | V. Marginal      | 176. |
+|  1 | f770w  |   6.7756 | H I 7-12      |   6.771991 |   170 | Marginal         | 160. |
+|  1 | f770w  |    6.914 | H_2 S(5)       |     6.9091 |   150 | Marginal         | 213. |
+|  1 | f770w  |   6.9892 | [Ar II]       |   6.985274 | 30000 | More compact     | 168. |
+|  1 | f770w  |   7.4644 | H I 5-6       |   7.459858 |  3000 | H-like           | 183. |
+|  1 | f770w  |   7.5068 | H I 6-8       |   7.502493 |   700 | H-like           | 172. |
+|  1 | f770w  |   7.5124 | H I 7-11      |    7.50810 |   165 | H-like           | 172. |
+|----+--------+----------+---------------+------------+-------+------------------+------|
+|  2 | f770w  |  7.51325 | H I 7-11      |    7.50810 |   190 | Same as prev     | 206. |
+|  2 | f770w  |  8.16065 | H I 8-15      |   8.154890 |    60 | Very marginal    | 212. |
+|  2 | f770w  |  8.67025 | H I 8-14      |   8.664503 |    60 | Marginal diffuse | 199. |
+|  2 |        |  8.76515 | H I 7-10      |   8.760064 |   250 | H-like           | 174. |
+|  2 |        |  9.39825 | H I 8-13      |   9.392018 |    80 | H-like           | 199. |
+|  2 |        |  9.67125 | H_2 S(3)       |     9.6649 |   175 | compact          | 197. |
+|  2 |        |  10.5098 | H I 8-12      |  10.503499 |   135 | H-like           | 180. |
+|  2 | f1130w |  11.3158 | H I 7-9       |  11.308695 |   450 | H-like           | 188. |
+|  2 | f1130w |  11.5472 | H I 9-15      |  11.539491 |    50 | v. marginal      | 200. |
+|----+--------+----------+---------------+------------+-------+------------------+------|
+|  3 | f1280w |  12.1638 | H I 10-20     |  12.156833 |    20 | Diffuse          | 172. |
+|  3 | f1280w |  12.2863 | H_2 S(2)       |    12.2785 |    35 | V. compact       | 190. |
+|  3 | f1280w |  12.3788 | H I 6-7       |  12.371898 |  1200 | H-like           | 167. |
+|  3 | f1280w |  12.3938 | H I 8-11      |  12.387168 |   110 | In wing of 6-7   | 161. |
+|  3 | f1280w |  12.5938 | H I 9-14      |  12.587077 |    60 | Diffuse          | 160. |
+|  3 | f1280w | 12.61875 | H I 10-19     |  12.610967 |    25 | Marginal         | 185. |
+|  3 | f1280w |  12.8213 | [Ne II]       |  12.813548 | 75000 | Super strong     | 181. |
+|  3 | f1280w |  13.1963 | H I 10-18     |  13.187992 |    30 | H-like           | 189. |
+|  3 | f1280w |  13.9488 | H I 10-17     |  13.941764 |    35 | H-like           | 151. |
+|  3 |        |  14.1913 | H I 9-13      |  14.183084 |   105 | H-like           | 174. |
+|  3 |        |  14.3763 | [Cl II]       |    14.3678 |  1100 | Compact          | 177. |
+|  3 |        |  14.9713 | H I 10-16     |  14.962256 |    40 | H-like           | 181. |
+|  3 |        |  15.5638 | [Ne III]      |   15.55505 |    80 | V. diffuse       | 169. |
+|  3 |        |  15.8263 | H I 11-20     |  15.816956 |    18 | H-like           | 177. |
+|  3 |        |  16.6038 | H I 11-19     |  16.594459 |    28 | H-like           | 169. |
+|  3 |        |  16.2188 | H I 8-10      |  16.209104 |   250 | H-like           | 179. |
+|  3 |        |  16.4213 | H I 10-15     |  16.411724 |    40 | H-like           | 175. |
+|  3 | f1800w |  16.6038 | H I 11-19     |  16.594459 |    30 | Diffuse          | 159. |
+|  3 | f1800w |  16.8913 | H I 9-12      |  16.880628 |   130 | H-like           | 190. |
+|  3 | f1800w |  17.0463 | H_2 S(1)       |    17.0346 |    40 | Compact          | 206. |
+|  3 | f1800w |  17.8963 | [P III]       |    17.8846 |   230 | Diffuse          | 196. |
+|  3 | f1800w |  17.9463 | [Fe II]       |  17.936026 |   350 | V. Compact       | 172. |
+|----+--------+----------+---------------+------------+-------+------------------+------|
+|  4 | f1800w |  17.9463 | [Fe II]       |  17.936026 |   350 | V. Compact       | 172. |
+|  4 | f1800w |   18.627 | H I 10-14     |  18.615150 |    30 | V. marginal      | 191. |
+|  4 | f1800w |   18.723 | [S III]       |   18.71303 | 35000 |                  | 160. |
+|  4 | f1800w |   19.071 | H I 7-8       |  19.061898 |   500 | H-like           | 143. |
+|  4 |        |   21.873 | UIL           |     21.861 |    90 | V. diffuse       | 165. |
+|  4 |        |   22.347 | He I 9g-11f T | 22.3331956 |   140 | Diffuse          | 185. |
+|  4 |        |   22.941 | [Fe III]      |    22.9250 |  1000 | Compact          | 209. |
+|  4 |        |   24.531 | UIL           |     24.517 |    60 | H-like           | 171. |
+|  4 |        |   26.007 | [Fe II]       |  25.988390 |   650 | V. compact       | 215. |
+|  4 |        |   27.273 | UIL           |     27.258 |   160 |                  | 165. |
 #+TBLFM: $8=$5 > 0 ? $c ($3 - $5) / $5 $km : $3 (1 - (180 $km / $c)) 10000 ;f0
 - Note that the [Ne III] 10.863, which we detected in the Spitzer IRS spectra turns out to be entirely stellar, with no nebular component at all
   - [-] But we do detect a nebular component for [Ne III] 15.5638 (as well as a stellar wind one)
   - This is probably due to the difference in A values, which is much lower for [Ne III] 10.863
 - Also note that [Fe II] 17.936 is seen in ch4 as well as ch3
   - And we see more knots in ch4 because the FOV is larger
+- Location of some artefact that could be mistaken for lines:
+  - 18.663
+  - 12.09, 12.10
+  - 14.8173 (previously He I but definitely artefact)
 - Save the table to a file with ~C-c t e~
 
 
@@ -3390,10 +3413,25 @@ Saving ratio cube to wr124-miri-mrs-ch4-nostar-median-csub-1001-med2pass-cdiv-00
 
 
 
-
-#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
-  python ../../scripts/make-line-maps.py wr124-miri-mrs-ch1-nostar-median-csub-1001-med2pass-csub-0021.fits
+Channel 1
+#+begin_src sh :dir data/jwst-miri-mrs :results silent
+  python ../../scripts/make-line-maps.py wr124-miri-mrs-ch1_s3d-median-csub-0021.fits --out-path LineMaps0021
 #+end_src
+Channel 2
+#+begin_src sh :dir data/jwst-miri-mrs :results silent
+  python ../../scripts/make-line-maps.py wr124-miri-mrs-ch2_s3d-median-csub-0021.fits --out-path LineMaps0021
+#+end_src
+Channel 3
+#+begin_src sh :dir data/jwst-miri-mrs :results silent
+  python ../../scripts/make-line-maps.py wr124-miri-mrs-ch3_s3d-median-csub-0021.fits --out-path LineMaps0021
+#+end_src
+Channel 4
+#+begin_src sh :dir data/jwst-miri-mrs :results silent
+  python ../../scripts/make-line-maps.py wr124-miri-mrs-ch4_s3d-median-csub-0011.fits --out-path LineMaps0021
+#+end_src
+
+
+#+RESULTS:
 
 
 #+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
@@ -3426,6 +3464,27 @@ Options:
 
   --help                          Show this message and exit.
 #+end_example
+
+*** Initial impressions of the line maps
+- [S III] line shows line width increasing at lower intensity
+  - This could be real, or it could be an artefact of the median filtering
+- The supposed He I line at 14.804 micron has some weird artefacts parallel to detector minor axis, but otherwise looks like the H I lines more or less - /but still no good/
+- The He I 9g-11f triplet line at 22.333 micron is better
+  - [ ] Why is this the only He I line that is clearly separated from H I lines?
+  - It has interesting differences from the H I 7-8 line at 19.06 micron
+    - In Knot A we have 22.333 / 19.06 = (384+/-71)/(696+/-59) = 0.55 +/- 0.03
+    - In Knot B we have 22.333 / 19.06 = (247+/-60)/(622+/-86) = 0.40 +/- 0.03
+  - So the closer (projected) knot has a larger He I/H I ratio
+  - [ ] /We can calibrate this using pyneb/
+    - Although we need to take into account potential He I contributions to H I 19.061898
+  - I have searched and searched for additional He I lines, but to no avail
+- [Ne III]
+  - The 10.863 line is not seen in nebula but is seen in stellar wind
+  - The 15.555 line is seen in nebula and has a spectacularly different distribution to any other line
+  - *It seems to come only from the bow shock shells and not from the knots at all*
+- [Fe II] and [Fe III]
+  - This shows the opposite trend to He I / H I
+  - Knot A has a lower [Fe III]/[Fe II] ratio than Knot B 
 
 *** Make maps of the medium width features
 - Options for how to proceed with this
