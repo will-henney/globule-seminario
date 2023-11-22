@@ -3079,13 +3079,13 @@ The two-pass version Does not make much difference, so we will not use it for no
 
 
 Channel 4 seems to have wider pixels:
-| Ch |   wav0 |  d wav |   d V |
-|----+--------+--------+-------|
-|  1 |    4.9 | 0.0008 |  49.0 |
-|  2 |  7.511 | 0.0013 |  51.9 |
-|  3 | 11.551 | 0.0025 |  64.9 |
-|  4 |   17.7 |  0.006 | 101.7 |
-#+TBLFM: $4=3e5 $3/$2;f1
+| Ch |   wav0 |  d wav |   d V |     R |
+|----+--------+--------+-------+-------|
+|  1 |    4.9 | 0.0008 |  49.0 | 6125. |
+|  2 |  7.511 | 0.0013 |  51.9 | 5778. |
+|  3 | 11.551 | 0.0025 |  64.9 | 4620. |
+|  4 |   17.7 |  0.006 | 101.7 | 2950. |
+#+TBLFM: $4=3e5 $3/$2;f1::$5=$2/$3;f0
 So ch4 has twice as wide in velocity space at blue end of range (ch3 also has slightly wider pixels but it does not seem to matter)
 
 So, we should use a narrower filter since with N=21 we are getting some stellar wind line in the ~csub~ profile
@@ -3248,6 +3248,62 @@ Saving ratio cube to wr124-miri-mrs-ch3-nostar-median-cdiv-0501.fits
 Saving median filtered cube to wr124-miri-mrs-ch4-nostar-median-cont-0251.fits
 Saving residual cube to wr124-miri-mrs-ch4-nostar-median-csub-0251.fits
 Saving ratio cube to wr124-miri-mrs-ch4-nostar-median-cdiv-0251.fits
+#+end_example
+
+Now do N=501 for the original cubes
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  for i in 1 2 3; do
+      time python ../../scripts/median_continuum.py 501 \
+             wr124-miri-mrs-ch${i}_s3d.fits --no-two-pass --percentile 20
+  done
+  for i in 4; do
+      time python ../../scripts/median_continuum.py 251 \
+             wr124-miri-mrs-ch${i}_s3d.fits --no-two-pass --percentile 20
+  done
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Saving median filtered cube to wr124-miri-mrs-ch1_s3d-median-cont-0501.fits
+Saving residual cube to wr124-miri-mrs-ch1_s3d-median-csub-0501.fits
+Saving ratio cube to wr124-miri-mrs-ch1_s3d-median-cdiv-0501.fits
+Saving median filtered cube to wr124-miri-mrs-ch2_s3d-median-cont-0501.fits
+Saving residual cube to wr124-miri-mrs-ch2_s3d-median-csub-0501.fits
+Saving ratio cube to wr124-miri-mrs-ch2_s3d-median-cdiv-0501.fits
+Saving median filtered cube to wr124-miri-mrs-ch3_s3d-median-cont-0501.fits
+Saving residual cube to wr124-miri-mrs-ch3_s3d-median-csub-0501.fits
+Saving ratio cube to wr124-miri-mrs-ch3_s3d-median-cdiv-0501.fits
+Saving median filtered cube to wr124-miri-mrs-ch4_s3d-median-cont-0251.fits
+Saving residual cube to wr124-miri-mrs-ch4_s3d-median-csub-0251.fits
+Saving ratio cube to wr124-miri-mrs-ch4_s3d-median-cdiv-0251.fits
+#+end_example
+
+And for the stellar spectrum cubes
+#+begin_src sh :dir data/jwst-miri-mrs :results output verbatim
+  for i in 1 2 3; do
+      time python ../../scripts/median_continuum.py 501 \
+             wr124-miri-mrs-ch${i}-star.fits --no-two-pass --percentile 20
+  done
+  for i in 4; do
+      time python ../../scripts/median_continuum.py 251 \
+             wr124-miri-mrs-ch${i}-star.fits --no-two-pass --percentile 20
+  done
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Saving median filtered cube to wr124-miri-mrs-ch1-star-median-cont-0501.fits
+Saving residual cube to wr124-miri-mrs-ch1-star-median-csub-0501.fits
+Saving ratio cube to wr124-miri-mrs-ch1-star-median-cdiv-0501.fits
+Saving median filtered cube to wr124-miri-mrs-ch2-star-median-cont-0501.fits
+Saving residual cube to wr124-miri-mrs-ch2-star-median-csub-0501.fits
+Saving ratio cube to wr124-miri-mrs-ch2-star-median-cdiv-0501.fits
+Saving median filtered cube to wr124-miri-mrs-ch3-star-median-cont-0501.fits
+Saving residual cube to wr124-miri-mrs-ch3-star-median-csub-0501.fits
+Saving ratio cube to wr124-miri-mrs-ch3-star-median-cdiv-0501.fits
+Saving median filtered cube to wr124-miri-mrs-ch4-star-median-cont-0251.fits
+Saving residual cube to wr124-miri-mrs-ch4-star-median-csub-0251.fits
+Saving ratio cube to wr124-miri-mrs-ch4-star-median-cdiv-0251.fits
 #+end_example
 
 ***** And then apply the narrow one
@@ -3588,6 +3644,12 @@ Options:
     -  B/A = 1.05, C/A = 0.46
 
 *** Make maps of the medium width features
+- [2023-11-22 Wed] *Conclusion*
+  - Decided to go with combination of options 2 and 3
+    - PSF fitting to remove stellar contribution
+    - High-pass Median filter R \approx 12 (N=501) to remove the continuum
+    - Low-pass Median filter R \approx 300, dV \approx 1000 km/s (N=21) to remove the emission lines
+    - Then just integrate across the band
 - Options for how to proceed with this
   1. We could use PAHfit
      - Pro :: industry standard
@@ -3604,7 +3666,7 @@ Options:
   4. Or we could fit some template spectra
      - Pro :: this should be efficient
      - Con :: where do we get the templates from?
-     -  :: 
+     - :: 
 
 **** What is the filter combo to use for PAH features?
 - Should be
@@ -3683,12 +3745,59 @@ Channel 4
   + but differs from 12.7, which has B brighter
 + AIB 24.6 micron is just a bunch of noise
 
-*** Repeat but for the continuum bands
+*** Make maps of the continuum bands
 - 7-9 micron seems to be the broad pedestal of the PAH band
 - Very flat 9-14
 - Then starts rising 15-30
   - In Knot A it is always rising
   - In Knot B and C it peaks at 26 (B) or 25 (C)
+**** Table of continuum bands
+:PROPERTIES:
+:TABLE_EXPORT_FILE: data/jwst-miri-mrs/jwst-miri-cont-bands.tab
+:TABLE_EXPORT_FORMAT: orgtbl-to-tsv
+:END:
+
+#+name: jwst-miri-cont-bands
+| Ch | Band      | wavmin | wavmax |
+|----+-----------+--------+--------|
+|  1 | CONT 6.2  |    6.0 |    6.5 |
+|  1 | CONT 7.5  |   7.55 |   7.65 |
+|  2 | CONT 8.5  |   7.52 |    9.5 |
+|  2 | CONT 11.0 |   10.3 |   11.7 |
+|  3 | CONT 12.8 |   11.6 |   14.0 |
+|  3 | CONT 15.0 |   14.0 |   16.0 |
+|  3 | CONT 17.0 |   16.0 |   17.9 |
+|  4 | CONT 19.0 |   18.0 |   20.0 |
+|  4 | CONT 22.0 |   20.0 |   24.0 |
+|  4 | CONT 25.5 |   24.0 |   27.0 |
+- Save table with ~C-c t e~
+- The bands are chosen to be close to PAH bands
+- Many bands are badly affected by the stellar subtraction
+- Also to approximately coincide with MIRI filters, where possible:
+  - f777w: CONT 7.0 (ch01) + CONT 8.5 (ch02)
+  - f1130w: CONT 11.0 (ch02)
+  - f1280w: CONT 12.8 (ch03)
+  - f1800w: CONT 17.0 (ch03) + CONT 19.0 (ch04)
+**** Run the script to extract the continuum maps
+- Similar to the AIB bands but with some differences
+  - We use the ~--use-mean~ option to get mean MJy/sr in each band
+  - We use the broad low-pass filtered cubes
+
+#+begin_src sh :dir data/jwst-miri-mrs :results silent
+  python ../../scripts/make-band-maps.py wr124-miri-mrs-ch1-nostar-median-cont-0501.fits --band-table-path jwst-miri-cont-bands.tab --out-path ContMaps --use-mean
+  python ../../scripts/make-band-maps.py wr124-miri-mrs-ch2-nostar-median-cont-0501.fits --band-table-path jwst-miri-cont-bands.tab --out-path ContMaps --use-mean
+  python ../../scripts/make-band-maps.py wr124-miri-mrs-ch3-nostar-median-cont-0501.fits --band-table-path jwst-miri-cont-bands.tab --out-path ContMaps --use-mean
+  python ../../scripts/make-band-maps.py wr124-miri-mrs-ch4-nostar-median-cont-0251.fits --band-table-path jwst-miri-cont-bands.tab --out-path ContMaps --use-mean
+#+end_src
+
+Repeat for the original cubes that have not had the star removed
+
+#+begin_src sh :dir data/jwst-miri-mrs :results silent
+  python ../../scripts/make-band-maps.py wr124-miri-mrs-ch1_s3d-median-cont-0501.fits --band-table-path jwst-miri-cont-bands.tab --out-path ContMaps-plus-star --use-mean
+  python ../../scripts/make-band-maps.py wr124-miri-mrs-ch2_s3d-median-cont-0501.fits --band-table-path jwst-miri-cont-bands.tab --out-path ContMaps-plus-star --use-mean
+  python ../../scripts/make-band-maps.py wr124-miri-mrs-ch3_s3d-median-cont-0501.fits --band-table-path jwst-miri-cont-bands.tab --out-path ContMaps-plus-star --use-mean
+  python ../../scripts/make-band-maps.py wr124-miri-mrs-ch4_s3d-median-cont-0251.fits --band-table-path jwst-miri-cont-bands.tab --out-path ContMaps-plus-star --use-mean
+#+end_src
 
 *** Make synthetic maps of the MIRI filters
 - Use the median filtered cubes to separate out different components
