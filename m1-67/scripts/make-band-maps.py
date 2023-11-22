@@ -12,33 +12,32 @@ from astropy.io import fits
 from astropy.table import Table
 
 
-def get_waveslice(wave0: u.Quantity, wcs: WCS, vrange: u.Quantity) -> slice:
+def get_waveslice(waverange: u.Quantity, wcs: WCS) -> slice:
     """
     Get the pixel slice along the spectral axis of `wcs` that
-    correponds to a given velocity range `vrange` and rest wavelength
-    `wave0`
+    correponds to a given wavelength range `waverange`
 
     Raises IndexError if slice is out of bounds
     """
-    assert len(vrange) == 2, "Velocity range must have 2 elements"
-    waves = wave0 * (1.0 + vrange / constants.c.to(u.km / u.s))
-    indices = wcs.spectral.world_to_array_index_values(waves.to_value(u.m))
+    # This is simpler than the spectral line version, since we do not
+    # need to deal with velocities
+    assert len(waverange) == 2, "Wavelength range must be a 2-tuple"
+    indices = wcs.spectral.world_to_array_index_values(waverange.to_value(u.m))
     if min(indices) < 0 or max(indices) > wcs.spectral.pixel_shape[0]:
-        raise IndexError("Velocity range gives indices that are out of bounds")
+        raise IndexError("Wavelength range gives indices that are out of bounds")
     return slice(*indices)
 
 
 def main(
     cube_path: Path,
     hdu_key: str = "SCI",
-    line_table_path: Path = Path("jwst-miri-lines.tab"),
-    velocity_range_kms: tuple[float, float] = (0.0, 400.0),
-    out_path: Path = Path.cwd() / "LineMaps",
+    band_table_path: Path = Path("jwst-miri-bands.tab"),
+    out_path: Path = Path.cwd() / "BandMaps",
     verbose: bool = True,
 ):
-    """Construct a brightness map for each line in table
+    """Construct a brightness map for each wave band in table
 
-    Each line is integrated over VELOCITY_RANGE_KMS
+    Each line is integrated over wave range read in from table
     """
 
     # Ensure that output path exists
@@ -51,57 +50,57 @@ def main(
     nv, ny, nx = cube.shape
     wcs = WCS(hdu.header)
 
-    # Read line db
-    tab = Table.read(line_table_path, format="ascii.tab")
-
-    # Extraction window is heliocentric velocity in km/s
-    vrange = velocity_range_kms * u.km / u.s
+    # Read band db
+    tab = Table.read(band_table_path, format="ascii.tab")
 
     # Get SpectralCoordinate axis
     scoords = wcs.spectral.pixel_to_world(range(nv)).replicate(
         doppler_convention="optical"
     )
 
-    # For each line in DB that is within the wavelength range, extract
+    # For each band in DB that is within the wavelength range, extract
     # map from cube
-    for linedata in tab:
+    for banddata in tab:
         # The only columns we use from the table are the label and the
         # rest wavelength
-        species = linedata["ID"]
-        wave0 = linedata["Wave_0"] * u.micron
-        channel = linedata["Ch"]
+        band = banddata["Band"]
+        channel = banddata["Ch"]
         label = slugify.slugify(
-            f"{species} lambda {wave0:07.4f} CH{channel:02d}",
+            f"{band} micron CH{channel:02d}",
             lowercase=False,
             separator="-",
         )
+        waverange = (banddata["wavmin"], banddata["wavmax"]) * u.micron
         try:
-            waveslice = get_waveslice(wave0, wcs, vrange)
+            waveslice = get_waveslice(waverange, wcs)
         except IndexError:
-            # Skip over any line that is not in this cube
+            # Skip over any band that is not in this cube
             continue
         except u.UnitsError as err:
-            print("Failed with", wave0, err)
+            print("Failed with", waverange, err)
             continue
-        # Find the velocity array
-        velocities = (
-            scoords[waveslice].to(u.km / u.s, doppler_rest=wave0).quantity.value
-        )
+
+        # Find the wavelength array
+        waves = scoords[waveslice].to(u.micron).quantity.value
+
         # Portion of cube corresponding to vrange
         subcube = cube[waveslice, ...]
 
-        # Find the moments ...
+        # To be honest, there is little need for any but the 0 moment,
+        # but we will find 1 and 2 too. Maybe there is interesting
+        # variation in the AIB shape ...
+
         # ... 0: sum
         mom0 = np.sum(subcube, axis=0)
         # ... 1: mean
-        mom1 = np.sum(subcube * velocities[:, None, None], axis=0) / mom0
+        mom1 = np.sum(subcube * waves[:, None, None], axis=0) / mom0
         # ... 2: sigma
         mom2 = np.sqrt(
-            np.sum(subcube * (velocities[:, None, None] - mom1) ** 2, axis=0) / mom0
+            np.sum(subcube * (waves[:, None, None] - mom1) ** 2, axis=0) / mom0
         )
 
         # Save to files
-        for moment, suffix in [mom0, "sum"], [mom1, "vmean"], [mom2, "sigma"]:
+        for moment, suffix in [mom0, "sum"], [mom1, "wavmean"], [mom2, "sigma"]:
             fits.PrimaryHDU(header=wcs.celestial.to_header(), data=moment).writeto(
                 out_path / f"{label}_{suffix}.fits", overwrite=True
             )

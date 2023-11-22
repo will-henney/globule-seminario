@@ -3601,15 +3601,21 @@ Options:
   : wr124-miri-mrs-ch1-nostar-median-csub-0501-med2pass-cont-0021.fits
   : wr124-miri-mrs-ch2-nostar-median-csub-0501-med2pass-cont-0021.fits
   : wr124-miri-mrs-ch3-nostar-median-csub-0501-med2pass-cont-0021.fits
-  : wr124-miri-mrs-ch4-nostar-median-csub-0501-med2pass-cont-0011.fits
+  : wr124-miri-mrs-ch4-nostar-median-csub-0251-med2pass-cont-0011.fits
 
 This still has some pass through of H lines form wind, but it will do for now
 **** Table of AIBs
+:PROPERTIES:
+:TABLE_EXPORT_FILE: data/jwst-miri-mrs/jwst-miri-bands.tab
+:TABLE_EXPORT_FORMAT: orgtbl-to-tsv
+:END:
+
+#+name: jwst-miri-bands
 | Ch | Band     | wavmin | wavmax |
 |----+----------+--------+--------|
-|  1 | AIB 6.2  |    6.0 |    6.7 |
+|  1 | AIB 6.2  |    6.1 |    6.3 |
 |  1 | AIB 7.7  |    7.5 |   7.65 |
-|  2 | AIB 7.7  |   7.75 |   8.15 |
+|  2 | AIB 7.7  |    7.8 |   8.15 |
 |  2 | AIB 8.6  |    8.5 |    8.8 |
 |  2 | AIB 11.2 |   11.1 |   11.5 |
 |  3 | AIB 12.7 |   12.6 |   13.0 |
@@ -3618,13 +3624,61 @@ This still has some pass through of H lines form wind, but it will do for now
 |  3 | AIB 17.4 |   17.1 |   17.7 |
 |  4 | AIB 18.9 |   18.7 |   19.0 |
 |  4 | AIB 24.6 |   24.4 |   24.8 |
-
+- Save table with ~C-c t e~
 - With the exception of 24.6, all these are bands included in PAHfit
 - The majority peak in the knots, with the following exceptions
   - 8.6 seems more diffuse
   - 17.4 is also diffuse and better s/n
   - 24.6 is a bit of a mess
+**** Run the script to extract the band maps
+- Simplified version of the spectral line extraction
 
+Channel 1
+#+begin_src sh :dir data/jwst-miri-mrs :results silent
+  python ../../scripts/make-band-maps.py wr124-miri-mrs-ch1-nostar-median-csub-0501-med2pass-cont-0021.fits
+#+end_src
+Channel 2
+#+begin_src sh :dir data/jwst-miri-mrs :results silent
+  python ../../scripts/make-band-maps.py wr124-miri-mrs-ch2-nostar-median-csub-0501-med2pass-cont-0021.fits
+#+end_src
+Channel 3
+#+begin_src sh :dir data/jwst-miri-mrs :results silent
+  python ../../scripts/make-band-maps.py wr124-miri-mrs-ch3-nostar-median-csub-0501-med2pass-cont-0021.fits
+#+end_src
+Channel 4
+#+begin_src sh :dir data/jwst-miri-mrs :results silent
+  python ../../scripts/make-band-maps.py wr124-miri-mrs-ch4-nostar-median-csub-0251-med2pass-cont-0011.fits
+#+end_src
+
+
+**** Initial comments on the band maps
+[2023-11-21 Tue]
++ The AIB 6.2 band in ch01 clearly shows that knot A divides into 3 components
+  + The closest-in component coincides exactly with the "Fe II tip" region that I had previously identified
+  + The sigma is about 0.04 micron, implying a FWHM of 0.1 micron, which is less than the 0.19 micron that PAHfit has
++ AIB 7.7 and 8.6 are much noisier but show essentially the same structure
+  + 7.7 is not helped by straddling ch01 and ch02
++ AIB 11.2 is much higher s/n and also shows the same structure, although the resolution is degraded with respect to 6.2
+  + We can also see part of knot B
++ AIB 12.7 is also good s/n and is brighter in B than A
++ AIB 13.5 is very diffuse
+  + Possibly, it is nothing but noise and artifacts
++ AIB 16.5 shows the knots nicely
++ AIB 17.4 is diffuse and a bit swamped by artifacts,
+  + although it is definitely a feature
+  + even though its spatial distribution is hard to discern
++ AIB 18.9 shows the three knots A, B, C
+  + A and B are similar brightness
+  + which agrees with 11.2 (from the filter imaging)
+  + but differs from 12.7, which has B brighter
++ AIB 24.6 micron is just a bunch of noise
+
+*** Repeat but for the continuum bands
+- 7-9 micron seems to be the broad pedestal of the PAH band
+- Very flat 9-14
+- Then starts rising 15-30
+  - In Knot A it is always rising
+  - In Knot B and C it peaks at 26 (B) or 25 (C)
 
 *** Make synthetic maps of the MIRI filters
 - Use the median filtered cubes to separate out different components
