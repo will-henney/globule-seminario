@@ -3522,6 +3522,16 @@ Options:
   --help                          Show this message and exit.
 #+end_example
 
+*** How to integrate the lines
+- Currently I am just summing the pixels, but that does not seem right
+- The brightness units are ~MJy/sr~, which is ~1e-17 erg /cm^2 /s /Hz /sr~
+- One strategy would be to convert to F_\lambda and then integrate in wavelength, but that gives something that is not readily comparable with the original brightness maps
+- Alternatively, we just integrate F_\nu with wavelength, so the units are ~micron MJy/sr~
+  - So we just need to multiply by the d\lambda in microns
+- This has the advantage that we can compare with the continuum brightness multiplied by the filter width
+- And that the EW is just the sum divided by the continuum
+- We can apply exactly the same thing to the AIB bands
+- But for the continuum bands, it would be better to do the mean brightness and keep it in MJy/sr
 *** Initial impressions of the line maps
 :PROPERTIES:
 :ID:       37A312EC-577B-46EF-A08E-4BCDA595A848

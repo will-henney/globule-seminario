@@ -33,11 +33,14 @@ def main(
     hdu_key: str = "SCI",
     band_table_path: Path = Path("jwst-miri-bands.tab"),
     out_path: Path = Path.cwd() / "BandMaps",
+    use_mean: bool = False,
     verbose: bool = True,
 ):
     """Construct a brightness map for each wave band in table
 
-    Each line is integrated over wave range read in from table
+    Each band is integrated over wave range read in from table, unless
+    USE-MEAN is set, in which case the mean brightness is calculated
+    (only meaningful for continuum bands, not discrete features)
     """
 
     # Ensure that output path exists
@@ -80,7 +83,7 @@ def main(
             print("Failed with", waverange, err)
             continue
 
-        # Find the wavelength array
+        # Find the wavelength array (as pure np array)
         waves = scoords[waveslice].to(u.micron).quantity.value
 
         # Portion of cube corresponding to vrange
@@ -99,9 +102,28 @@ def main(
             np.sum(subcube * (waves[:, None, None] - mom1) ** 2, axis=0) / mom0
         )
 
+        # Multiply by pixel delta wave to convert to integral over wavelength
+        dwave = (wcs.spectral.pixel_scale_matrix[0, 0] * u.m).to_value(u.micron)
+        mom0 *= dwave
+
+        hdr = wcs.celestial.to_header()
+        # Assume original cube is in MJy/sr unless otherwise specified
+        cube_bunit = hdu.header.get("BUNIT", "MJy/sr")
+
+        if use_mean:
+            # Case where we actually want the mean brightness over the band
+            mom0 /= banddata["wavmax"] - banddata["wavmin"]
+            mom0_label = "bmean"
+            hdr["BUNIT"] = cube_bunit
+        else:
+            # Case where we want the wavelength integral over the band
+            mom0_label = "bsum"
+            # Cube brightness units are multiplied by micron
+            hdr["BUNIT"] = f"micron.{cube_bunit}"
+
         # Save to files
-        for moment, suffix in [mom0, "sum"], [mom1, "wavmean"], [mom2, "sigma"]:
-            fits.PrimaryHDU(header=wcs.celestial.to_header(), data=moment).writeto(
+        for moment, suffix in [mom0, mom0_label], [mom1, "wavmean"], [mom2, "sigma"]:
+            fits.PrimaryHDU(header=hdr, data=moment).writeto(
                 out_path / f"{label}_{suffix}.fits", overwrite=True
             )
 
