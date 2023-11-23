@@ -100,9 +100,18 @@ def main(
             np.sum(subcube * (velocities[:, None, None] - mom1) ** 2, axis=0) / mom0
         )
 
+        # Multiply by pixel delta wave to convert to integral over wavelength
+        dwave = (wcs.spectral.pixel_scale_matrix[0, 0] * u.m).to_value(u.micron)
+        mom0 *= dwave
+
+        hdr = wcs.celestial.to_header()
+        # Assume original cube is in MJy/sr unless otherwise specified
+        cube_bunit = hdu.header.get("BUNIT", "MJy/sr")
+        hdr["BUNIT"] = f"micron.{cube_bunit}"
+
         # Save to files
-        for moment, suffix in [mom0, "sum"], [mom1, "vmean"], [mom2, "sigma"]:
-            fits.PrimaryHDU(header=wcs.celestial.to_header(), data=moment).writeto(
+        for moment, suffix in [mom0, "bsum"], [mom1, "vmean"], [mom2, "sigma"]:
+            fits.PrimaryHDU(header=hdr, data=moment).writeto(
                 out_path / f"{label}_{suffix}.fits", overwrite=True
             )
 

@@ -3525,24 +3525,12 @@ Saving ratio cube to wr124-miri-mrs-ch4-nostar-median-csub-0251-med2pass-cdiv-00
 
 
 
-
-Channel 1
 #+begin_src sh :dir data/jwst-miri-mrs :results silent
-  python ../../scripts/make-line-maps.py wr124-miri-mrs-ch1_s3d-median-csub-0021.fits --out-path LineMaps0021
+  python ../../scripts/make-line-maps.py wr124-miri-mrs-ch1-nostar-median-csub-0501-med2pass-csub-0021.fits
+  python ../../scripts/make-line-maps.py wr124-miri-mrs-ch2-nostar-median-csub-0501-med2pass-csub-0021.fits
+  python ../../scripts/make-line-maps.py wr124-miri-mrs-ch3-nostar-median-csub-0501-med2pass-csub-0021.fits
+  python ../../scripts/make-line-maps.py wr124-miri-mrs-ch4-nostar-median-csub-0251-med2pass-csub-0011.fits
 #+end_src
-Channel 2
-#+begin_src sh :dir data/jwst-miri-mrs :results silent
-  python ../../scripts/make-line-maps.py wr124-miri-mrs-ch2_s3d-median-csub-0021.fits --out-path LineMaps0021
-#+end_src
-Channel 3
-#+begin_src sh :dir data/jwst-miri-mrs :results silent
-  python ../../scripts/make-line-maps.py wr124-miri-mrs-ch3_s3d-median-csub-0021.fits --out-path LineMaps0021
-#+end_src
-Channel 4
-#+begin_src sh :dir data/jwst-miri-mrs :results silent
-  python ../../scripts/make-line-maps.py wr124-miri-mrs-ch4_s3d-median-csub-0011.fits --out-path LineMaps0021
-#+end_src
-
 
 #+RESULTS:
 
