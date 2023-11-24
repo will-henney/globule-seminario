@@ -3794,11 +3794,249 @@ Repeat for the original cubes that have not had the star removed
   - Featureless continuum
   - Stellar wind lines?
 - Make maps for each MRI filter of the contributions of each
+
+**** First make maps of the original cubes
+F770W straddles channels 1 and 2, so we need to take the average of them both
+#+begin_src sh :dir data/jwst-miri-mrs :results verbatim
+  python ../../scripts/make-filter-map.py f770w wr124-miri-mrs-ch1_s3d.fits 
+#+end_src
+
+#+RESULTS:
+: Maximum throughput: 0.374061 at 7.479 micron
+: Writing filter image to FilterMaps/wr124-miri-mrs-ch1_s3d-f770w.fits
+
+#+begin_src sh :dir data/jwst-miri-mrs :results verbatim
+  python ../../scripts/make-filter-map.py f770w wr124-miri-mrs-ch2_s3d.fits 
+#+end_src
+
+#+RESULTS:
+: Maximum throughput: 0.382959 at 8.081 micron
+: Writing filter image to FilterMaps/wr124-miri-mrs-ch2_s3d-f770w.fits
+
+F1130W is almost fully in channel 2
+#+begin_src sh :dir data/jwst-miri-mrs :results verbatim
+    python ../../scripts/make-filter-map.py f1130w wr124-miri-mrs-ch2_s3d.fits 
+#+end_src
+
+#+RESULTS:
+: Maximum throughput: 0.465154 at 11.481 micron
+: Writing filter image to FilterMaps/wr124-miri-mrs-ch2_s3d-f1130w.fits
+
+With a little tiny bit in channel 3, which we should probably discount
+#+begin_src sh :dir data/jwst-miri-mrs :results verbatim
+    python ../../scripts/make-filter-map.py f1130w wr124-miri-mrs-ch3_s3d.fits 
+#+end_src
+
+#+RESULTS:
+: Maximum throughput: 0.446836 at 11.551 micron
+: Writing filter image to FilterMaps/wr124-miri-mrs-ch3_s3d-f1130w.fits
+
+F1280W is almost fully in channel 3
+#+begin_src sh :dir data/jwst-miri-mrs :results verbatim
+    python ../../scripts/make-filter-map.py f1280w wr124-miri-mrs-ch3_s3d.fits 
+#+end_src
+
+#+RESULTS:
+: Maximum throughput: 0.406826 at 12.084 micron
+: Writing filter image to /Users/will/Dropbox/globule-seminario/m1-67/data/jwst-miri-mrs/FilterMaps/wr124-miri-mrs-ch3_s3d-f1280w.fits
+
+F1800W straddles channel 3 and 4
+#+begin_src sh :dir data/jwst-miri-mrs :results verbatim
+    python ../../scripts/make-filter-map.py f1800w wr124-miri-mrs-ch3_s3d.fits 
+#+end_src
+
+#+RESULTS:
+: Maximum throughput: 0.473396 at 17.399 micron
+: Writing filter image to FilterMaps/wr124-miri-mrs-ch3_s3d-f1800w.fits
+
+#+begin_src sh :dir data/jwst-miri-mrs :results verbatim
+    python ../../scripts/make-filter-map.py f1800w wr124-miri-mrs-ch4_s3d.fits 
+#+end_src
+
+#+RESULTS:
+: Maximum throughput: 0.468658 at 17.703 micron
+: Writing filter image to FilterMaps/wr124-miri-mrs-ch4_s3d-f1800w.fits
+
+
+**** Repeat the filter maps for the star-subtracted cubes
+- It is noticeable that the f1800w-ch4 map is brighter than the f1800w-ch3 map, which makes sense since the spectrum is rising with wavelength
+  - Unlike 
+
+#+begin_src sh :dir data/jwst-miri-mrs :results verbatim
+  prefix=wr124-miri-mrs
+  suffix=nostar
+  outprefix=nostar-all
+  cmd="python ../../scripts/make-filter-map.py"
+  for i in f770w,1 f770w,2 f1130w,2 f1280w,3 f1800w,3 f1800w,4; do
+      IFS=',' read fn chan <<< "${i}"
+      ${cmd} ${fn} ${prefix}-ch${chan}-${suffix}.fits --out-prefix ${outprefix}-${fn}-ch${chan}
+  done
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Maximum throughput: 0.374061 at 7.479 micron
+Writing filter image to FilterMaps/nostar-all-f770w-ch1.fits
+Maximum throughput: 0.382959 at 8.081 micron
+Writing filter image to FilterMaps/nostar-all-f770w-ch2.fits
+Maximum throughput: 0.465154 at 11.481 micron
+Writing filter image to FilterMaps/nostar-all-f1130w-ch2.fits
+Maximum throughput: 0.406826 at 12.084 micron
+Writing filter image to FilterMaps/nostar-all-f1280w-ch3.fits
+Maximum throughput: 0.473396 at 17.399 micron
+Writing filter image to FilterMaps/nostar-all-f1800w-ch3.fits
+Maximum throughput: 0.468658 at 17.703 micron
+Writing filter image to FilterMaps/nostar-all-f1800w-ch4.fits
+#+end_example
+
+**** And for the different components
+- It is annoying that channel 4 is different
+
+
+***** Continuum
+#+begin_src sh :dir data/jwst-miri-mrs :results verbatim
+  prefix=wr124-miri-mrs
+  suffix=nostar-median-cont-0501
+  outprefix=nostar-cont
+  cmd="python ../../scripts/make-filter-map.py"
+  for i in f770w,1 f770w,2 f1130w,2 f1280w,3 f1800w,3; do
+      IFS=',' read fn chan <<< "${i}"
+      ${cmd} ${fn} ${prefix}-ch${chan}-${suffix}.fits --out-prefix ${outprefix}-${fn}-ch${chan}
+  done
+  suffix=nostar-median-cont-0251
+  for i in f1800w,4; do
+      IFS=',' read fn chan <<< "${i}"
+      ${cmd} ${fn} ${prefix}-ch${chan}-${suffix}.fits --out-prefix ${outprefix}-${fn}-ch${chan}
+  done
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Maximum throughput: 0.374061 at 7.479 micron
+Writing filter image to FilterMaps/nostar-cont-f770w-ch1.fits
+Maximum throughput: 0.382959 at 8.081 micron
+Writing filter image to FilterMaps/nostar-cont-f770w-ch2.fits
+Maximum throughput: 0.465154 at 11.481 micron
+Writing filter image to FilterMaps/nostar-cont-f1130w-ch2.fits
+Maximum throughput: 0.406826 at 12.084 micron
+Writing filter image to FilterMaps/nostar-cont-f1280w-ch3.fits
+Maximum throughput: 0.473396 at 17.399 micron
+Writing filter image to FilterMaps/nostar-cont-f1800w-ch3.fits
+Maximum throughput: 0.468658 at 17.703 micron
+Writing filter image to FilterMaps/nostar-cont-f1800w-ch4.fits
+#+end_example
+
+***** Narrow lines
+#+begin_src sh :dir data/jwst-miri-mrs :results verbatim
+  prefix=wr124-miri-mrs
+  suffix=nostar-median-csub-0501-med2pass-csub-0021
+  outprefix=nostar-lines
+  cmd="python ../../scripts/make-filter-map.py"
+  for i in f770w,1 f770w,2 f1130w,2 f1280w,3 f1800w,3; do
+      IFS=',' read fn chan <<< "${i}"
+      ${cmd} ${fn} ${prefix}-ch${chan}-${suffix}.fits --out-prefix ${outprefix}-${fn}-ch${chan}
+  done
+  suffix=nostar-median-csub-0251-med2pass-csub-0011
+  for i in f1800w,4; do
+      IFS=',' read fn chan <<< "${i}"
+      ${cmd} ${fn} ${prefix}-ch${chan}-${suffix}.fits --out-prefix ${outprefix}-${fn}-ch${chan}
+  done
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Maximum throughput: 0.374061 at 7.479 micron
+Writing filter image to FilterMaps/nostar-lines-f770w-ch1.fits
+Maximum throughput: 0.382959 at 8.081 micron
+Writing filter image to FilterMaps/nostar-lines-f770w-ch2.fits
+Maximum throughput: 0.465154 at 11.481 micron
+Writing filter image to FilterMaps/nostar-lines-f1130w-ch2.fits
+Maximum throughput: 0.406826 at 12.084 micron
+Writing filter image to FilterMaps/nostar-lines-f1280w-ch3.fits
+Maximum throughput: 0.473396 at 17.399 micron
+Writing filter image to FilterMaps/nostar-lines-f1800w-ch3.fits
+Maximum throughput: 0.468658 at 17.703 micron
+Writing filter image to FilterMaps/nostar-lines-f1800w-ch4.fits
+#+end_example
+
+***** AIB bands
+#+begin_src sh :dir data/jwst-miri-mrs :results verbatim
+  prefix=wr124-miri-mrs
+  suffix=nostar-median-csub-0501-med2pass-cont-0021
+  outprefix=nostar-bands
+  cmd="python ../../scripts/make-filter-map.py"
+  for i in f770w,1 f770w,2 f1130w,2 f1280w,3 f1800w,3; do
+      IFS=',' read fn chan <<< "${i}"
+      ${cmd} ${fn} ${prefix}-ch${chan}-${suffix}.fits --out-prefix ${outprefix}-${fn}-ch${chan}
+  done
+  suffix=nostar-median-csub-0251-med2pass-cont-0011
+  for i in f1800w,4; do
+      IFS=',' read fn chan <<< "${i}"
+      ${cmd} ${fn} ${prefix}-ch${chan}-${suffix}.fits --out-prefix ${outprefix}-${fn}-ch${chan}
+  done
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Maximum throughput: 0.374061 at 7.479 micron
+Writing filter image to FilterMaps/nostar-bands-f770w-ch1.fits
+Maximum throughput: 0.382959 at 8.081 micron
+Writing filter image to FilterMaps/nostar-bands-f770w-ch2.fits
+Maximum throughput: 0.465154 at 11.481 micron
+Writing filter image to FilterMaps/nostar-bands-f1130w-ch2.fits
+Maximum throughput: 0.406826 at 12.084 micron
+Writing filter image to FilterMaps/nostar-bands-f1280w-ch3.fits
+Maximum throughput: 0.473396 at 17.399 micron
+Writing filter image to FilterMaps/nostar-bands-f1800w-ch3.fits
+Maximum throughput: 0.468658 at 17.703 micron
+Writing filter image to FilterMaps/nostar-bands-f1800w-ch4.fits
+#+end_example
+
+**** And for the star only
+#+begin_src sh :dir data/jwst-miri-mrs :results verbatim
+  prefix=wr124-miri-mrs
+  suffix=star
+  outprefix=star-all
+  cmd="python ../../scripts/make-filter-map.py"
+  for i in f770w,1 f770w,2 f1130w,2 f1280w,3 f1800w,3 f1800w,4; do
+      IFS=',' read fn chan <<< "${i}"
+      ${cmd} ${fn} ${prefix}-ch${chan}-${suffix}.fits --out-prefix ${outprefix}-${fn}-ch${chan}
+  done
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Maximum throughput: 0.374061 at 7.479 micron
+Writing filter image to FilterMaps/star-all-f770w-ch1.fits
+Maximum throughput: 0.382959 at 8.081 micron
+Writing filter image to FilterMaps/star-all-f770w-ch2.fits
+Maximum throughput: 0.465154 at 11.481 micron
+Writing filter image to FilterMaps/star-all-f1130w-ch2.fits
+Maximum throughput: 0.406826 at 12.084 micron
+Writing filter image to FilterMaps/star-all-f1280w-ch3.fits
+Maximum throughput: 0.473396 at 17.399 micron
+Writing filter image to FilterMaps/star-all-f1800w-ch3.fits
+Maximum throughput: 0.468658 at 17.703 micron
+Writing filter image to FilterMaps/star-all-f1800w-ch4.fits
+#+end_example
+
+*** TODO Contribution fractions of the synthetic filter maps
+- Write a script ~filter-fractions.py~
+- Display the results in a notebook
+
 *** Dealing with the stellar contribution
 - The median filtered (N=21) "cont" component should be a good representation of the stellar spectrum (continuum plus broad lines).
 - We could then just scale and subtract this component for all the other pixels and/or apertures
 - This is only necessary for the UIB and dust continuum, since the median filtering already solves the problem for the nebular lines
-- 
+
+**** TODO Update [2023-11-23 Thu]
+- Looking at the filter maps of the star cube, it is obvious that we need to restrict the radius of the PSF
+  - At larger radii, you see constant levels or structure that has nothing to do with the PSF
+- This explains why we seem to have oversubtracted the star in many cases
+- It is possible that some of the structure might be scattered stellar light in the nebula
+  - But I am not sure how plausible that is
+  - Not very
+
 **** Big plan for the PSF removal
 - Note that we cannot use WebbPSF since they do not support spectral cubes
   - From [[https://www.stsci.edu/jwst/science-planning/proposal-planning-toolbox/psf-simulation-tool][WebbPSF documentation]] (checked [2023-11-14 Tue 12:38])
