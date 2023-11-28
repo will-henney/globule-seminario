@@ -4020,9 +4020,70 @@ Maximum throughput: 0.468658 at 17.703 micron
 Writing filter image to FilterMaps/star-all-f1800w-ch4.fits
 #+end_example
 
-*** TODO Contribution fractions of the synthetic filter maps
+*** DONE Contribution fractions of the synthetic filter maps
+CLOSED: [2023-11-27 Mon 13:22]
 - Write a script ~filter-fractions.py~
 - Display the results in a notebook
+#+begin_src sh :dir data/jwst-miri-mrs :results verbatim
+  python ../../scripts/filter-fractions.py --help
+#+end_src
+
+#+RESULTS:
+#+begin_example
+                                                                                
+ Usage: filter-fractions.py [OPTIONS] FILTER_NAME CHANNEL                       
+                                                                                
+ Calculate fractional continuum/bands/lines contribution to a filter            
+                                                                                
+╭─ Arguments ──────────────────────────────────────────────────────────────────╮
+│ *    filter_name      TEXT     [default: None] [required]                    │
+│ *    channel          INTEGER  [default: None] [required]                    │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭─ Options ────────────────────────────────────────────────────────────────────╮
+│ --data-path          PATH  [default: FilterMaps]                             │
+│ --prefix             TEXT  [default: nostar]                                 │
+│ --all-label          TEXT  [default: all]                                    │
+│ --frac-labels        TEXT  [default: cont, bands, lines]                     │
+│ --help                     Show this message and exit.                       │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+#+end_example
+
+Apply the script to calculate the fractions
+
+#+begin_src sh :dir data/jwst-miri-mrs :results verbatim
+  for i in f770w,1 f770w,2 f1130w,2 f1280w,3 f1800w,3 f1800w,4; do
+      IFS=',' read fn chan <<< "${i}"
+      python ../../scripts/filter-fractions.py ${fn} ${chan}
+  done
+#+end_src
+
+#+RESULTS:
+
+*** Conclusions based on the contribution fractions
+- Taking into account the average of bands 1 and 2 for f777w
+  - Relative fractions:
+    - Continuum: 0.6
+    - Lines: 0.2
+    - Bands: 0.2
+- For F1130W we can distinguish between the core and halo of the knots
+  - Core:
+    - Continuum: 0.48
+    - Lines: 0.02
+    - Band: 0.5
+  - Halo:
+    - Continuum: 0.7
+    - Lines: 0.05
+    - Band: 0.25
+- For F1280W we can distinguish between the core and halo of the knots
+  - Core:
+    - Continuum: 0.5
+    - Lines: 0.45
+    - Band: 0.05
+  - Halo:
+    - Continuum: 0.33 
+    - Lines: 0.62
+    - Band: 0.05
 
 *** Dealing with the stellar contribution
 - The median filtered (N=21) "cont" component should be a good representation of the stellar spectrum (continuum plus broad lines).
