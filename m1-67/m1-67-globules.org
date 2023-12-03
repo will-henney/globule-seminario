@@ -4020,10 +4020,29 @@ Maximum throughput: 0.468658 at 17.703 micron
 Writing filter image to FilterMaps/star-all-f1800w-ch4.fits
 #+end_example
 
+*** TODO Reproject synthesised filters and combine channels
+- In order to do ratios, we need to put the filters on the same grid
+- Also, we need to combine the information from adjacent channels in the case of f1800w and f777w
+- 
+*** Ratios of synthesised filters
+- We can re-use the same script that we used for the real filter maps
+#+begin_src sh :dir data/jwst-miri-mrs/FilterMaps :results silent
+  python ../../../scripts/find-ratio.py \
+         wr124-jwst-nircam-2022-f150w-radec.fits \
+         wr124-hst-1997-f675w-radec.fits \
+         ratio-f150w-f675w.fits \
+         --bg-a 0.2 --bg-b -0.06
+#+end_src
+
+
+
 *** DONE Contribution fractions of the synthetic filter maps
 CLOSED: [2023-11-27 Mon 13:22]
 - Write a script ~filter-fractions.py~
 - Display the results in a notebook
+
+
+**** Calculate fractions
 #+begin_src sh :dir data/jwst-miri-mrs :results verbatim
   python ../../scripts/filter-fractions.py --help
 #+end_src
@@ -4084,6 +4103,108 @@ Apply the script to calculate the fractions
     - Continuum: 0.33 
     - Lines: 0.62
     - Band: 0.05
+
+*** Atomic continuum relative to H I lines
+- PyNeb can report this in units of 1/Angstrom
+#+begin_src python :results output verbatim
+  import pyneb as pn
+  import numpy as np
+  from astropy import units as u
+  from astropy.table import QTable
+
+  C = pn.core.continuum.Continuum()
+  # From 1 to 20 micron
+  waves = np.arange(1, 20) * u.micron
+  # Normalise to the H I 5-6 7.459858 line
+  cont = C.get_continuum(tem=20000, den=1e2, He1_H=0.05, He2_H=0.0, 
+                         wl = waves.to_value(u.Angstrom), HI_label="6_5")
+  # Convert to per micron
+  cont = (cont * u.Angstrom ** -1).to(u.micron ** -1)
+
+  print(QTable({"Wavelength": waves, "Cont / HI 5-6": cont}))
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Wavelength   Cont / HI 5-6   
+  micron       1 / micron    
+---------- ------------------
+       1.0 139.85542870159745
+       2.0  38.63481790801852
+       3.0  17.81361582865647
+       4.0 10.310569558716779
+       5.0  6.771301100488464
+       6.0  4.815740077158114
+       7.0 3.6677093965041037
+       8.0  2.854457047032616
+       9.0  2.314712335257088
+      10.0 1.8997589157038444
+      11.0  1.602262775068541
+      12.0 1.3616151209182779
+      13.0  1.179699263708989
+      14.0 1.0274353267912895
+      15.0 0.9077615640997914
+      16.0  0.805106916208342
+      17.0 0.7219823897883121
+      18.0 0.6493698448661216
+      19.0 0.5891658014234394
+#+end_example
+
+- This should be compared with the line and continuum in Channel 1
+- However, this is very noisy and is negative in places!
+  - So we can only really get an upper limit on the diffuse nebular continuum
+  - But we can measure the total continuum from the knots
+- H I 5-6 7.46 micron line has peak of about 6 micron MJy/sr at knot A
+  - So the predicted continuum is about 10 MJy/sr
+- CONT 7.5 has peak of about 200 MJy/sy at knot A
+  - So that atomic continuum is about 5%
+    
+
+
+**** Repeat for the 19 micron 7-8 line
+#+begin_src python :results output verbatim
+  import pyneb as pn
+  import numpy as np
+  from astropy import units as u
+  from astropy.table import QTable
+
+  C = pn.core.continuum.Continuum()
+  # From 1 to 20 micron
+  waves = np.arange(1, 20) * u.micron
+  # Normalise to the H I 7-8 line
+  cont = C.get_continuum(tem=20000, den=1e2, He1_H=0.05, He2_H=0.0, 
+                         wl = waves.to_value(u.Angstrom), HI_label="8_7")
+  # Convert to per micron
+  cont = (cont * u.Angstrom ** -1).to(u.micron ** -1)
+
+  print(QTable({"Wavelength": waves, "Cont / HI 7-8": cont}))
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Wavelength   Cont / HI 7-8   
+  micron       1 / micron    
+---------- ------------------
+       1.0  874.0964293849839
+       2.0 241.46761192511573
+       3.0 111.33509892910294
+       4.0  64.44105974197986
+       5.0   42.3206318780529
+       6.0 30.098375482238207
+       7.0 22.923183728150647
+       8.0 17.840356543953853
+       9.0 14.466952095356797
+      10.0 11.873493223149028
+      11.0  10.01414234417838
+      12.0  8.510094505739238
+      13.0  7.373120398181181
+      14.0  6.421470792445558
+      15.0  5.673509775623696
+      16.0  5.031918226302137
+      17.0   4.51238993617695
+      18.0   4.05856153041326
+      19.0  3.682286258896496
+#+end_example
 
 *** Dealing with the stellar contribution
 - The median filtered (N=21) "cont" component should be a good representation of the stellar spectrum (continuum plus broad lines).
