@@ -1,0 +1,9 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+box(287.8788687,16.8597714,18.125",4.591",210.40391) # text={SH}
+box(287.8780638,16.8601281,31.315",8.767",305) # text={LH}
+box(287.8811454,16.8520181,179.717",53.173",253.51793) # text={SL1}
+box(287.8777967,16.8632644,215.850",54.298",253.51793) # text={SL2}
+box(287.8816654,16.8605594,472.152",45.967",351.06627) # text={LL1}
+box(287.8823100,16.8618411,437.667",44.870",349.88349) # text={LL2}

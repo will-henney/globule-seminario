@@ -1,0 +1,58 @@
+Analysis of the reprojected maps and ratios thereof for m1-67
+* Using ratios to diagnose different spatial zones
+- The principal zones that we can divide the nebula into are
+  1. The stars
+  2. The neutral globules
+  3. The ionized gas
+     - particularly the interaction shells
+     - but also the photoevaporation flows from the knots
+     - and also the other shells in the outside of the nebula that have different morphologies
+  4. The diffuse component that emits at 18 microns
+** Qualitative analysis of the different ratios
+*** Short wave NIRCAM
+- Start with f090w brightness (not strictly a ratio, I know ...)
+  - This mainly shows the ionized gas, with the following components
+    - The ionization fronts on the knot heads (typical peak of 2 to 5 above background)
+    - The interaction shells (typical peak of 1 above the background)
+    - The "collars" in between the head and the tail of the knots, as seen in simulations (typical peak of 1 to 1.5)
+      - The combination of the collars and the interaction shells can give the illusion of a closed spherical shell
+    - [Very weakly] the tails of the knots (peaks of 0.5 or less)
+    - [Even weaker] shells and diffuse emission from the outer parts of the nebula (peaks of 0.2 to 1.5).
+  - Also shows the stars. Even faint stars have peaks above 10
+- f150w/f090w
+  - Value about 1.0 in the ionized gas
+  - Falls to about 0.7 to 0.8 in diffuse/faint, but noisy
+  - Goes up to 1.3 to 1.4 in the neutral globules
+    - Has a fan like structure that is not seen in the other ratios, as if it were a shadow cast by the knot heads' ionization front.
+    - Decreases to about 1.2 in the knot tails, but extends to larger distances down the tail than the other neutral tracers
+  - Goes up to higher than 2 in the stars, so stars are REDDER than nebula
+- f220w/f150w
+  - Shows very little structure, with typical value of 1.6 to 1.8 in most of the nebula with ionized emission
+  - Falls to about 1.0 to 1.1 in the faint zones dominated by diffuse dust
+  - Falls to values of 0.8 to 1.0 at the positions of stars, so stars are BLUER than nebula
+  - Almost no structure in the globules. Looking at the map you could not say where the ionization front might be
+*** Long wave NIRCAM
+- f335m brightness
+  - We see the ionized gas weakly, but the knots much more strongly
+- f335m/f220w
+  - Value about 1.0 in the ionized gas
+  - Falls to about 0.7 to 0.8 in the diffuse/faint zones
+  - Goes up to 2 to 4 in the neutral globule heads
+    - Falling by a factor of 2 as you go down the tail
+    - The peak in the ratio occurs just behind the peak in the f335m brightness (as in, more towards the tail)
+    - [ ] We get strange local minima in the ratio at the knot heads, but I wonder if this might just be due to the mismatch in the angular resolution. We see something similar when we divide the f090w by the HST f656n images.
+      - I need a version where I smooth to the lowest common denominator before taking the ratio
+  - Stars have a much lower value of 0.2 to 0.3
+- f444w/f335m
+  - Value about 2.0 in the ionized gas
+  - Falls to about 1.2 to 1.5 in the diffuse/faint zones
+  - Drops to about 1.0 in the knot heads, rising back up to about 1.5 as you go down the tail
+  - Value is about 0.8 in the stars
+*** Interband ratio
+- f777w/f444w
+  - Value of about 3.5 to 4.0 in the ionized gas, at least in the interaction shellsx
+    - More like 5 close to the ionization front on the knot's head
+  - Goes up to 10 in the neutral globules
+    - Still stays as high as 8, even after going a way down the tail
+  - This ratio is really interesting. It traces very well the outward-facing shocked shells in the outer parts of the nebula. And some in the inner part as well
+    - Strangely, they have a low value of this ratio: ;
