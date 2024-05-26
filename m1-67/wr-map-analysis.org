@@ -1,4 +1,25 @@
 Analysis of the reprojected maps and ratios thereof for m1-67
+
+* Summary of what we have done and what needs to be done
+
+** Focus for Roberto's thesis
+- We want to get a better estimate of the knot radii, which is difficult to obtain from the HST H alpha images
+- Also, if there is some way from the JWST images to isolate the interaction shells based on the line ratios, rather than simply morphology then that would be great
+
+** What we have done as of now [2024-05-26 Sun]
+- Summary of how all the ratios vary between different spatial zones in [[id:333074B1-5DDA-4B69-8160-AA04E6D2C78C][Qualitative analysis of the different ratios]]
+- Analysis of relative contributions (lines, UIB, continuum) to the different filters
+  - But only possible for the MIRI filters
+  - Spitzer IRS for the whole nebula
+    - See the various subsections of [[id:8ABE921C-EF8A-443A-8C7D-EEBF4AA6A923][MIRI Imaging]] in [[file:m1-67-globules.org]]
+    - [[id:BAFF43C0-68C4-47A1-9407-D85507D04941][Summary table from Spitzer spectra]]
+    - [[id:270E26FA-B168-4712-9A28-8C028C2AE4DF][Predictions for behavior of each filter]]
+    - [[id:7BA17133-6976-4A86-BF36-D8F8CAAD3587][Predictions for what factors influence the colors]]
+    - [[id:D33313A5-52A2-412F-B2AE-BE76DB57CB6E][Detailed inventory of each filter]] 
+  - JWST for the little globules near the star
+    - The only thing I found was [[id:9F49EDEC-433C-4193-904B-785AF4C0E86F][Conclusions based on the contribution fractions]]
+  - [ ] I need to try and reconcile the two sets of results. They need not give exactly the same since they are studying different regions. In fact the variation between them can be instructive
+
 * Using ratios to diagnose different spatial zones
 - The principal zones that we can divide the nebula into are
   1. The stars
@@ -9,6 +30,9 @@ Analysis of the reprojected maps and ratios thereof for m1-67
      - and also the other shells in the outside of the nebula that have different morphologies
   4. The diffuse component that emits at 18 microns
 ** Qualitative analysis of the different ratios
+:PROPERTIES:
+:ID:       333074B1-5DDA-4B69-8160-AA04E6D2C78C
+:END:
 *** Short band NIRCAM
 - Start with f090w brightness (not strictly a ratio, I know ...)
   - This mainly shows the ionized gas, with the following components
