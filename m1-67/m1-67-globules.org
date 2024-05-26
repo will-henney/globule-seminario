@@ -63,6 +63,9 @@ This is in a [[file:m1-67-bowshocks-poster.md][separate markdown file]] for grea
   - H_2 4.695 micron
   - Unknown 4.673 micron
 ***** Strange behavior of the f470n filter
+:PROPERTIES:
+:ID:       E6DB5862-941F-494F-883C-7A72C9894BDC
+:END:
 - Only the H_2 4.695 micron line is comfortably within the filter bandpass
 - The H I lines are all too far outside the filter to contribute significantly
 - This means that most of the emission must be continuum

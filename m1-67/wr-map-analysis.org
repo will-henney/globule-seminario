@@ -9,7 +9,7 @@ Analysis of the reprojected maps and ratios thereof for m1-67
      - and also the other shells in the outside of the nebula that have different morphologies
   4. The diffuse component that emits at 18 microns
 ** Qualitative analysis of the different ratios
-*** Short wave NIRCAM
+*** Short band NIRCAM
 - Start with f090w brightness (not strictly a ratio, I know ...)
   - This mainly shows the ionized gas, with the following components
     - The ionization fronts on the knot heads (typical peak of 2 to 5 above background)
@@ -31,7 +31,7 @@ Analysis of the reprojected maps and ratios thereof for m1-67
   - Falls to about 1.0 to 1.1 in the faint zones dominated by diffuse dust
   - Falls to values of 0.8 to 1.0 at the positions of stars, so stars are BLUER than nebula
   - Almost no structure in the globules. Looking at the map you could not say where the ionization front might be
-*** Long wave NIRCAM
+*** Long band NIRCAM
 - f335m brightness
   - We see the ionized gas weakly, but the knots much more strongly
 - f335m/f220w
@@ -48,11 +48,55 @@ Analysis of the reprojected maps and ratios thereof for m1-67
   - Falls to about 1.2 to 1.5 in the diffuse/faint zones
   - Drops to about 1.0 in the knot heads, rising back up to about 1.5 as you go down the tail
   - Value is about 0.8 in the stars
+- f470n/f444w
+  - Previously discussed in [[id:E6DB5862-941F-494F-883C-7A72C9894BDC][Strange behavior of the f470n filter]]
+  - Value of 0.6 to 0.65 in dense ionized gas
+  - Peaks of 0.8 to 0.9 in the globule heads
+  - Higher values in diffuse faint regions, but that might be zero point issues
+  - Also high values of around 1.0 in filamentary shock region around PA 70 and R = 10 to 12 arcsec. This is just outside a region that shows atypical ratios between other MIRI bands
 *** Interband ratio
 - f777w/f444w
-  - Value of about 3.5 to 4.0 in the ionized gas, at least in the interaction shellsx
+  - Value of about 3.5 to 4.0 in the ionized gas, at least in the interaction shells
     - More like 5 close to the ionization front on the knot's head
+    - Also 4.5 to 5 in the diffuse emission in the general nebula
   - Goes up to 10 in the neutral globules
     - Still stays as high as 8, even after going a way down the tail
+  - Low value of 0.2 to 1.0 in the stars
   - This ratio is really interesting. It traces very well the outward-facing shocked shells in the outer parts of the nebula. And some in the inner part as well
-    - Strangely, they have a low value of this ratio: ;
+    - Strangely, they have a low value of this ratio: 3.3 to 4.0, as opposed to the 4.5 to 5.0 in the diffuse ionized emission
+    - [ ] I ought to be able to work out what is causing this by looking at the mid-infrared spectra - Spitzer and JWST
+*** MIRI band
+- General notes on these ratios
+  - f1130w/f777w is to a large extent correlated with f1800w/f1280w, at least on the scale of the entire nebula, 
+  - f1280w/f1130w seems anti-correlated with these two. Also,  f1280w/f1130w does not have the same lop-sidedeness
+  - Note that it is f1130w and f1800w that show the least lopsidedness in their emission. This seems contradictory, need to check later
+**** f1130w/f777w
+- In the ionized gas shows the shell structure moderately well (in negative), but it is the hexagon-like structure formed by the interactions between the flanks of knots that show up better than the interaction shells in front of the head
+  - with values of 0.5 to 1.0 in all these shells
+  - As compared with 1.5 in the gaps
+- And sometimes as high as 3 to 3.5 in the diffuse/faint regions on the NE axis and northern tropics at larger radii
+- Also value of around 1.0 in the  outward-facing shock filaments in the outer parts of the nebula
+- Reaches even lower values of 0.5 in outer diffuse ionization front
+- Shows strange tadpole behaviour in the globules, which may be in part due to the mismatch in resolution, but on average the ratio is about 1 to 1.6 in the globules
+- Stars have a range of values from 0.4 (bright stars) to 1.0 (faint stars)
+- Clear gradient along the major axis off the nebula (NE to SW) with values of 0.5 to 1.0 in the NE and 1.0 to 1.5 in the SW
+  - Average value of 2 on the faint side (NE) versus 1 on the bright side (SW)
+**** f1280w/f1130w
+- In the ionized gas, shows the shell structure well, more focused towards the frontal interaction shells than is the case for f1130w/f777w
+  - with values of 3.0 to 4.0 in the interaction shells
+  - As compared with 2.5 to 3.5 in the gap between i-front and shell (there is always a consistent difference of 0.5 between the two ratios)
+  - And 2.5 to 3 in the diffuse ionized gas
+- In the diffuse/faint regions it falls to 1.5 to 2.0
+- Highest values of 5 to 6 are seen in ionized filaments that are not associated with knots
+  - Innermost one at (pa-sep) 058-067
+  - Another one at 120-300 approx, with a chain of filaments/knots, which look like a jet on the HST H alpha image
+  - Also, in the outskirts of the nebula, which I had thought of as ionization fronts but are maybe wind-blown shells
+- In the globules, the ratio is about 1.2 to 1.5 in the globule head, gradually climbing in the tails back up to 2.5 to 3.0
+**** f1800w/f1280w
+- In the ionized gas shows the shell structure very well (in negative), with values of 1.5 to 2.0 in the interaction shells
+  - As compared with 2.5 to 3.0 in the gap between i-front and shell
+  - And 3 to 3.5 in the diffuse ionized gas
+  - [ ] Note that the MIRI ratio shell is on the inner (star-side) edge of the emission shell - we should discuss this somewhere else
+- Reaches even lower values of 1.0 to 1.5 in the outwards facing shells in the outer parts of the nebula
+- Globules have a value of about 2 and are not very prominent at all.
+  - Only the heads are seen at all - the tails are completely invisible in this ratio, suggesting that it is the ionized emission that we are picking up
