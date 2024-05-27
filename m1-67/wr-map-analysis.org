@@ -18,7 +18,22 @@ Analysis of the reprojected maps and ratios thereof for m1-67
     - [[id:D33313A5-52A2-412F-B2AE-BE76DB57CB6E][Detailed inventory of each filter]] 
   - JWST for the little globules near the star
     - The only thing I found was [[id:9F49EDEC-433C-4193-904B-785AF4C0E86F][Conclusions based on the contribution fractions]]
+    - We could do more with this, such as getting a better handle on what the color variations are due to 
   - [ ] I need to try and reconcile the two sets of results. They need not give exactly the same since they are studying different regions. In fact the variation between them can be instructive
+
+** Things to do next
+- Smoothing of band maps to a common PSF before taking ratios
+  - This is something I had asked Roberto to do, but I do not think he ever did it
+  - We only need to do this in groups, so we would still maintain the resolution of the longest wavelength filter in each group: f220w, f444w, f1800w
+- Write python script to make images of the band maps and the ratios, including the rgb color combination maps that I have been using
+- Do correlation color-color plots for all the band ratios
+  - Maybe even separate out the shell and core regions for each knot, as determined from the H alpha HST analysis, and compare with the diffuse emission
+  - And also how it varies with distance from the star and between the two sides along the major axis
+- See if there are linear combinations of bands that we can use to remove the ionized emission to some extent and leave the pure knots
+- Use the different bands to get better positions for the center of each knot
+  - Presumably the f335w band would be best
+- Plot radial profiles of the bands and ratios for each knot
+- Finish the analysis of thr MIRI spectra, which seems to have been left 95% done
 
 * Using ratios to diagnose different spatial zones
 - The principal zones that we can divide the nebula into are

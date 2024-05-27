@@ -2979,7 +2979,10 @@ Options:
 #+end_src
 
 #+RESULTS:
-[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/jwst-miri-mrs/jwst-miri-mrs-spec.pdf]]
+[[file:/Users/will/Dropbox/globule-seminario/m1-67/data/jwst-miri-mrs]]
+
+- *UPDATE* [2024-05-26 Sun] This script is not working any more, and the figure file is not there
+  - Except that there is this [[file:data/jwst-miri-mrs/jwst-miri-mrs-spec-ORIG.pdf]]
 
 *** Median filter the cubes to better extract the narrow lines
 - We can use the ~median_continuum.py~ script from the MUSE projects
@@ -4098,9 +4101,6 @@ Apply the script to calculate the fractions
 #+RESULTS:
 
 *** Conclusions based on the contribution fractions
-:PROPERTIES:
-:ID:       9F49EDEC-433C-4193-904B-785AF4C0E86F
-:END:
 - Taking into account the average of bands 1 and 2 for f777w
   - Relative fractions:
     - Continuum: 0.6
