@@ -22,19 +22,29 @@ Analysis of the reprojected maps and ratios thereof for m1-67
   - [ ] I need to try and reconcile the two sets of results. They need not give exactly the same since they are studying different regions. In fact the variation between them can be instructive
 
 ** TODO Things to do next
-- Smoothing of band maps to a common PSF before taking ratios
+:LOGBOOK:
+- Note taken on [2024-06-04 Tue 13:24] \\
+  I am going to work on the star mask next, since that is a pre-requisite for doing good color-color plots
+- Note taken on [2024-06-04 Tue 11:10] \\
+  I have now done the smoothing. This did not make an enormous difference, but it did successfully eliminate some of the artefacts, such as the ghost tadpoles in some of the MIRI ratios
+:END:
+- [X] Smoothing of band maps to a common PSF before taking ratios
   - This is something I had asked Roberto to do, but I do not think he ever did it
   - We only need to do this in groups, so we would still maintain the resolution of the longest wavelength filter in each group: f220w, f444w, f1800w
   - This is what we should do first before any other analysis
-- Write python script to make images of the band maps and the ratios, including the rgb color combination maps that I have been using
-- Do correlation color-color plots for all the band ratios
+- [ ] Write python script to make images of the band maps and the ratios, including the rgb color combination maps that I have been using
+- [ ] Do correlation color-color plots for all the band ratios
   - Maybe even separate out the shell and core regions for each knot, as determined from the H alpha HST analysis, and compare with the diffuse emission
   - And also how it varies with distance from the star and between the two sides along the major axis
-- See if there are linear combinations of bands that we can use to remove the ionized emission to some extent and leave the pure knots
+- [ ] See if there are linear combinations of bands that we can use to remove the ionized emission to some extent and leave the pure knots
+  - And the same for the stars
+    - For instance, the f210m/f150w ratio is almost featureless at 1.6-1.8 in the nebula (ionized gas and neutral globules), but goes down to 0.8-1.0 in the stars (stars are bluer)
+    - This means that if we take ~f150w - f210m/1.7~ we should cancel out the nebula and see just the stars
+- [ ] Based on the previous, we could make the best possible star mask for each band. If we had a good pure star brightness map at 2.1 microns, then we can smooth it to the resolution of each band and make a bespoke mask, according to star/nebula at that wavelength and that resolution
 - Use the different bands to get better positions for the center of each knot
   - Presumably the f335w band would be best
 - Plot radial profiles of the bands and ratios for each knot
-- Finish the analysis of thr MIRI spectra, which seems to have been left 95% done
+- Finish the analysis of the MIRI spectra, which seems to have been left 95% done
 
 * Using ratios to diagnose different spatial zones
 - The principal zones that we can divide the nebula into are
@@ -66,7 +76,7 @@ Analysis of the reprojected maps and ratios thereof for m1-67
     - Has a fan like structure that is not seen in the other ratios, as if it were a shadow cast by the knot heads' ionization front.
     - Decreases to about 1.2 in the knot tails, but extends to larger distances down the tail than the other neutral tracers
   - Goes up to higher than 2 in the stars, so stars are REDDER than nebula
-- f220w/f150w
+- f210m/f150w
   - Shows very little structure, with typical value of 1.6 to 1.8 in most of the nebula with ionized emission
   - Falls to about 1.0 to 1.1 in the faint zones dominated by diffuse dust
   - Falls to values of 0.8 to 1.0 at the positions of stars, so stars are BLUER than nebula
@@ -229,7 +239,7 @@ Now, check with one that just does the bare minimum of smoothing for this ratio 
 : Wavelengths: Filter A = 4.70 Filter B = 4.44
 : PSF FWHM (pixels): Filter A = 5.0 Filter B = 4.7 Match to = 5.0
 ** JWST MIRI
-First do MIRI/NIRCAM matched to f1800w and to f770w. This loses a lot of the definition of the shocked shells, which means that some of that eas an artefact of the mismatched resolutions. But they are still apparent, especially in the f770w version. The f1800w version is much more diffuse, but that is only necessary for comparing with the longer wave ratios
+First do MIRI/NIRCAM matched to f1800w and to f770w. This loses a lot of the definition of the shocked shells, which means that some of that was an artefact of the mismatched resolutions. But they are still apparent, especially in the f770w version. The f1800w version is much more diffuse, but that is only necessary for comparing with the longer wave ratios
 #+begin_src sh :dir data/reproject :results verbatim
   python ../../scripts/find-ratio.py \
          wr124-jwst-miri-2022-f770w-radec.fits \
