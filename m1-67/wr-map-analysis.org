@@ -21,10 +21,11 @@ Analysis of the reprojected maps and ratios thereof for m1-67
     - We could do more with this, such as getting a better handle on what the color variations are due to 
   - [ ] I need to try and reconcile the two sets of results. They need not give exactly the same since they are studying different regions. In fact the variation between them can be instructive
 
-** Things to do next
+** TODO Things to do next
 - Smoothing of band maps to a common PSF before taking ratios
   - This is something I had asked Roberto to do, but I do not think he ever did it
   - We only need to do this in groups, so we would still maintain the resolution of the longest wavelength filter in each group: f220w, f444w, f1800w
+  - This is what we should do first before any other analysis
 - Write python script to make images of the band maps and the ratios, including the rgb color combination maps that I have been using
 - Do correlation color-color plots for all the band ratios
   - Maybe even separate out the shell and core regions for each knot, as determined from the H alpha HST analysis, and compare with the diffuse emission
@@ -139,3 +140,164 @@ Analysis of the reprojected maps and ratios thereof for m1-67
 - Reaches even lower values of 1.0 to 1.5 in the outwards facing shells in the outer parts of the nebula
 - Globules have a value of about 2 and are not very prominent at all.
   - Only the heads are seen at all - the tails are completely invisible in this ratio, suggesting that it is the ionized emission that we are picking up
+* Matching resolutions before taking ratios
+** JWST NIRCam short
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-ratio.py \
+         wr124-jwst-nircam-2022-f150w-radec.fits \
+         wr124-jwst-nircam-2022-f090w-radec.fits \
+         ratio-f150w-f090w-match-f210m.fits \
+         --bg-a 0.22 --bg-b 0.2 \
+         --match-psf --debug --match-psf-to jwst-f210m
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: Filter A = 1.50 Filter B = 0.90
+: PSF FWHM (pixels): Filter A = 1.6 Filter B = 1.0 Match to = 2.2
+
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-ratio.py \
+         wr124-jwst-nircam-2022-f210m-radec.fits \
+         wr124-jwst-nircam-2022-f150w-radec.fits \
+         ratio-f210m-f150w-match-f210m.fits \
+         --bg-a 0.1 --bg-b 0.22 \
+         --match-psf --debug 
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: Filter A = 2.10 Filter B = 1.50
+: PSF FWHM (pixels): Filter A = 2.2 Filter B = 1.6 Match to = 2.2
+** JWST NIRCam long
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-ratio.py \
+         wr124-jwst-nircam-2022-f335m-radec.fits \
+         wr124-jwst-nircam-2022-f210m-radec.fits \
+         ratio-f335m-f210m-match-f470n.fits \
+         --bg-a 0.15 --bg-b 0.1\
+         --match-psf --debug --match-psf-to jwst-f470n
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: Filter A = 3.35 Filter B = 2.10
+: PSF FWHM (pixels): Filter A = 3.6 Filter B = 2.2 Match to = 5.0
+
+This removes some of the artefacts that we were seeing at the globule heads before
+
+Now, check with one that just does the bare minimum of smoothing for this ratio alone
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-ratio.py \
+         wr124-jwst-nircam-2022-f335m-radec.fits \
+         wr124-jwst-nircam-2022-f210m-radec.fits \
+         ratio-f335m-f210m-match-f335m.fits \
+         --bg-a 0.15 --bg-b 0.1\
+         --match-psf --debug --match-psf-to jwst-f335m
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: Filter A = 3.35 Filter B = 2.10
+: PSF FWHM (pixels): Filter A = 3.6 Filter B = 2.2 Match to = 3.6
+
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-ratio.py \
+         wr124-jwst-nircam-2022-f444w-radec.fits \
+         wr124-jwst-nircam-2022-f335m-radec.fits \
+         ratio-f444w-f335m-match-f470n.fits \
+         --bg-a 0.2 --bg-b 0.18 \
+         --match-psf --debug --match-psf-to jwst-f470n
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: Filter A = 4.44 Filter B = 3.35
+: PSF FWHM (pixels): Filter A = 4.7 Filter B = 3.6 Match to = 5.0
+
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-ratio.py \
+         wr124-jwst-nircam-2022-f470n-radec.fits \
+         wr124-jwst-nircam-2022-f444w-radec.fits \
+         ratio-f470n-f444w-match-f470n.fits \
+         --bg-a 0.2 --bg-b 0.2 \
+         --match-psf --debug --match-psf-to jwst-f470n
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: Filter A = 4.70 Filter B = 4.44
+: PSF FWHM (pixels): Filter A = 5.0 Filter B = 4.7 Match to = 5.0
+** JWST MIRI
+First do MIRI/NIRCAM matched to f1800w and to f770w. This loses a lot of the definition of the shocked shells, which means that some of that eas an artefact of the mismatched resolutions. But they are still apparent, especially in the f770w version. The f1800w version is much more diffuse, but that is only necessary for comparing with the longer wave ratios
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-ratio.py \
+         wr124-jwst-miri-2022-f770w-radec.fits \
+         wr124-jwst-nircam-2022-f444w-radec.fits \
+         ratio-f770w-f444w-match-f1800w.fits \
+         --bg-a 7.0 --bg-b 0.2 \
+         --match-psf --debug --match-psf-to jwst-f1800w
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: Filter A = 7.70 Filter B = 4.44
+: PSF FWHM (pixels): Filter A = 8.2 Filter B = 4.7 Match to = 19.2
+
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-ratio.py \
+         wr124-jwst-miri-2022-f770w-radec.fits \
+         wr124-jwst-nircam-2022-f444w-radec.fits \
+         ratio-f770w-f444w-match-f770w.fits \
+         --bg-a 7.0 --bg-b 0.2 \
+         --match-psf --debug --match-psf-to jwst-f770w
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: Filter A = 7.70 Filter B = 4.44
+: PSF FWHM (pixels): Filter A = 8.2 Filter B = 4.7 Match to = 8.2
+
+Then interband of MIRI
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-ratio.py \
+         wr124-jwst-miri-2022-f1130w-radec.fits \
+         wr124-jwst-miri-2022-f770w-radec.fits \
+         ratio-f1130w-f770w-match-f1800w.fits \
+         --bg-a 23.0 --bg-b 7.0 \
+         --match-psf --debug --match-psf-to jwst-f1800w
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: Filter A = 11.30 Filter B = 7.70
+: PSF FWHM (pixels): Filter A = 12.0 Filter B = 8.2 Match to = 19.2
+
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-ratio.py \
+         wr124-jwst-miri-2022-f1280w-radec.fits \
+         wr124-jwst-miri-2022-f1130w-radec.fits \
+         ratio-f1280w-f1130w-match-f1800w.fits \
+         --bg-a 26.0 --bg-b 23.0 \
+         --match-psf --debug --match-psf-to jwst-f1800w
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: Filter A = 12.80 Filter B = 11.30
+: PSF FWHM (pixels): Filter A = 13.6 Filter B = 12.0 Match to = 19.2
+
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-ratio.py \
+         wr124-jwst-miri-2022-f1800w-radec.fits \
+         wr124-jwst-miri-2022-f1280w-radec.fits \
+         ratio-f1800w-f1280w-match-f1800w.fits \
+         --bg-a 95.0 --bg-b 26.0 \
+         --match-psf --debug --match-psf-to jwst-f1800w
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: Filter A = 18.00 Filter B = 12.80
+: PSF FWHM (pixels): Filter A = 19.2 Filter B = 13.6 Match to = 19.2
+
