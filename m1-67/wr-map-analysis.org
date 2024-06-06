@@ -84,14 +84,15 @@ Analysis of the reprojected maps and ratios thereof for m1-67
 *** Long band NIRCAM
 - f335m brightness
   - We see the ionized gas weakly, but the knots much more strongly
-- f335m/f220w
+- f335m/f210m
   - Value about 1.0 in the ionized gas
   - Falls to about 0.7 to 0.8 in the diffuse/faint zones
   - Goes up to 2 to 4 in the neutral globule heads
     - Falling by a factor of 2 as you go down the tail
     - The peak in the ratio occurs just behind the peak in the f335m brightness (as in, more towards the tail)
-    - [ ] We get strange local minima in the ratio at the knot heads, but I wonder if this might just be due to the mismatch in the angular resolution. We see something similar when we divide the f090w by the HST f656n images.
+    - [X] /ARTEFACT/ We get strange local minima in the ratio at the knot heads, but I wonder if this might just be due to the mismatch in the angular resolution. We see something similar when we divide the f090w by the HST f656n images.
       - I need a version where I smooth to the lowest common denominator before taking the ratio
+      - This mainly goes away with the matched psfs
   - Stars have a much lower value of 0.2 to 0.3
 - f444w/f335m
   - Value about 2.0 in the ionized gas
@@ -319,13 +320,25 @@ Then interband of MIRI
 - We could either try and do this with a combination of JWST bands
 - Or we could do it by spatial filtering
 - Or both
-*** Band combination to isolate stars
+*** Band combinations to isolate stars
 - We want this at the highest resolution since it is the short bands that are most affected by the stars
 - We can make a program similar to file:scripts/find-ratio.py, but that instead takes difference between one map and scaled version of another
   - [X] First we refactor to move all the common worto a library file [[file:scripts/wrutils.py]]
   - [X] Then test that the ratio program still works
-  - [ ] Then we make a new program that does the subtraction
-    
+  - [X] Then we make a new program that does the subtraction
+- Particular cases
+  - Short wavelengths - f150w - 0.6 * f210m
+    - This does a reasonable job of isolating even the faint stars, at a contour of 0.25, which would be a good threshold for the mask to use at the short wavelengths
+  - /FAIL/ Mid wavelengths - f335m - XXX * f444w
+    - Ratio f444w / f335m bottoms out at about 0.5 in the stars, but is about 2 in the nebula and > 0.6 in the globules
+    - So this suggests f335m - 0.5 * f444w would work
+    - Except that would show the globules as well, so no good
+    - We need a ratio where globules >= nebula > stars
+  - /TRY AGAIN/ Mid wavelengths - f210m - 1.0 * f335m
+    - Ratio f335m/f210m in globules > 2, nebula = 1, stars < 0.3
+    - This is just what we need with a factor of unity. Should give globules as negative and stars as positive
+    - Although possibly better to do it the other way round: f335m - f210m, so that the globules are positive and the stars are negative
+**** Short wavelengths - f150w - 0.6 * f210m
 #+begin_src sh :dir data/reproject :results verbatim
   python ../../scripts/find-scaled-difference.py \
          wr124-jwst-nircam-2022-f150w-radec.fits \
@@ -341,4 +354,35 @@ Then interband of MIRI
 : Wavelengths: Filter A = 1.50 Filter B = 2.10
 : PSF FWHM (pixels): Filter A = 1.6 Filter B = 2.2 Match to = 2.2
 
-That seems to have worked. 
+That seems to have worked, up to a point
+**** Mid wavelengths - f210m - 1.0 * f335m
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-scaled-difference.py \
+         wr124-jwst-nircam-2022-f210m-radec.fits \
+         wr124-jwst-nircam-2022-f335m-radec.fits \
+         stars-only-f210m-diff-f335m.fits \
+         --scale-b 1.0 \
+         --bg-a 0.1 --bg-b 0.15 \
+         --match-psf --debug 
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: Filter A = 2.10 Filter B = 3.35
+: PSF FWHM (pixels): Filter A = 2.2 Filter B = 3.6 Match to = 3.6
+
+And do the same but the other way around, so that the globules are positive and the stars are negative
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-scaled-difference.py \
+         wr124-jwst-nircam-2022-f335m-radec.fits \
+         wr124-jwst-nircam-2022-f210m-radec.fits \
+         globules-only-f335m-diff-f210m.fits \
+         --scale-b 1.0 \
+         --bg-a 0.15 --bg-b 0.1 \
+         --match-psf --debug 
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: Filter A = 3.35 Filter B = 2.10
+: PSF FWHM (pixels): Filter A = 3.6 Filter B = 2.2 Match to = 3.6
