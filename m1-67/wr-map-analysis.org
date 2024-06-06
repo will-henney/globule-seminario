@@ -310,4 +310,35 @@ Then interband of MIRI
 : Pixel scale: 0.0310 arcseconds
 : Wavelengths: Filter A = 18.00 Filter B = 12.80
 : PSF FWHM (pixels): Filter A = 19.2 Filter B = 13.6 Match to = 19.2
+* Making star masks
+:LOGBOOK:
+- Note taken on [2024-06-05 Wed 21:39] \\
+  Doing this as a pre-requisite for making the ratio maps and color-color diagrams.
+:END:
+** An image that isolates the stars
+- We could either try and do this with a combination of JWST bands
+- Or we could do it by spatial filtering
+- Or both
+*** Band combination to isolate stars
+- We want this at the highest resolution since it is the short bands that are most affected by the stars
+- We can make a program similar to file:scripts/find-ratio.py, but that instead takes difference between one map and scaled version of another
+  - [X] First we refactor to move all the common worto a library file [[file:scripts/wrutils.py]]
+  - [X] Then test that the ratio program still works
+  - [ ] Then we make a new program that does the subtraction
+    
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-scaled-difference.py \
+         wr124-jwst-nircam-2022-f150w-radec.fits \
+         wr124-jwst-nircam-2022-f210m-radec.fits \
+         stars-only-f150w-diff-0_6-f210m.fits \
+         --scale-b 0.6 \
+         --bg-a 0.22 --bg-b 0.1 \
+         --match-psf --debug 
+#+end_src
 
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: Filter A = 1.50 Filter B = 2.10
+: PSF FWHM (pixels): Filter A = 1.6 Filter B = 2.2 Match to = 2.2
+
+That seems to have worked. 

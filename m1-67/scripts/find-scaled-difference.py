@@ -15,14 +15,15 @@ def main(
     file_a: str,
     file_b: str,
     outfile: str,
-    bg_a: float = 0,
-    bg_b: float = 0,
+    scale_b: float = 1.0,
+    bg_a: float = 0.0,
+    bg_b: float = 0.0,
     match_psf: bool = False,
     match_psf_to: str = None,
     debug: bool = False,
 ):
-    """Find the ratio A/B of two fits images after subtracting
-    respective backgrounds
+    """Find the scaled difference A - (scale * B) of two fits images
+    after subtracting respective backgrounds
 
     Optionally (`--match-psf`) match the PSF of the two images by
     smoothing the images.  By default, smooth to the largest PSF FWHM
@@ -48,7 +49,7 @@ def main(
         if extra_b > 0:
             hdu_b.data = smooth_by_fwhm(hdu_b.data, extra_b)
 
-    ratio = sub_bg(hdu_a.data, bg_a) / sub_bg(hdu_b.data, bg_b)
+    ratio = sub_bg(hdu_a.data, bg_a) - scale_b * sub_bg(hdu_b.data, bg_b)
 
     hdu_a.data = ratio
     hdu_a.writeto(outfile, overwrite=True)
