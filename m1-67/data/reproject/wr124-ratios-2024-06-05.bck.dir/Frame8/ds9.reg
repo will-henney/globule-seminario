@@ -1,0 +1,174 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+line(287.8809438,16.8604483,287.8749450,16.8608647) # line=0 0 color=red
+line(287.8785221,16.8590903,287.8788354,16.8629736) # line=0 0 color=red
+point(287.8786446,16.8606078) # point=box color=red
+point(287.8779225,16.8588742) # point=circle color=red width=3
+point(287.8768242,16.8603867) # point=circle color=red width=3
+point(287.8782567,16.8588278) # point=circle color=red width=3
+point(287.8784654,16.8586603) # point=circle color=red width=3
+point(287.8787717,16.8585442) # point=circle color=red width=3
+point(287.8786842,16.8582511) # point=circle color=red
+point(287.8772942,16.8580953) # point=circle color=red width=3
+point(287.8775029,16.8579928) # point=circle color=red width=3
+point(287.8769687,16.8586333) # point=circle color=red width=3
+point(287.8763304,16.8585367) # point=circle color=red
+point(287.8769354,16.8576686) # point=circle color=red
+point(287.8773971,16.8578053) # point=circle color=red
+point(287.8767842,16.8599881) # point=circle color=red width=3
+point(287.8759387,16.8598047) # point=circle color=red width=3
+point(287.8777212,16.8576475) # point=circle color=red width=3
+point(287.8779754,16.8577633) # point=circle color=red width=3
+point(287.8781929,16.8574739) # point=circle color=red
+point(287.8792450,16.8575317) # point=circle color=red width=3
+point(287.8794267,16.8573233) # point=circle color=red
+point(287.8795354,16.8570803) # point=circle color=red
+point(287.8790879,16.8569414) # point=circle color=red
+point(287.8766950,16.8571764) # point=circle color=red
+point(287.8774650,16.8567142) # point=circle color=red width=3
+point(287.8772129,16.8576050) # point=circle color=red
+point(287.8784925,16.8573192) # point=circle color=red width=3
+point(287.8786746,16.8569931) # point=circle color=red
+point(287.8791629,16.8561422) # point=circle color=red width=3
+point(287.8786504,16.8557806) # point=circle color=red width=3
+point(287.8795154,16.8558689) # point=circle color=red width=3
+point(287.8778825,16.8557744) # point=circle color=red width=3
+point(287.8772175,16.8551261) # point=circle color=red width=3
+point(287.8786204,16.8553808) # point=circle color=red
+point(287.8801562,16.8560986) # point=circle color=red
+point(287.8804225,16.8568508) # point=circle color=red
+point(287.8789562,16.8544583) # point=circle color=red width=3
+point(287.8790400,16.8541839) # point=circle color=red width=3
+point(287.8803838,16.8536614) # point=circle color=red width=3
+point(287.8781092,16.8543981) # point=circle color=red
+point(287.8811125,16.8533567) # point=circle color=red width=3
+point(287.8826538,16.8521036) # point=circle color=red
+point(287.8814246,16.8516503) # point=circle color=red
+point(287.8824613,16.8522522) # point=circle color=red
+point(287.8823983,16.8521517) # point=circle color=red
+point(287.8824613,16.8515758) # point=circle color=red
+point(287.8763400,16.8561225) # point=circle color=red
+point(287.8763067,16.8562189) # point=circle color=red width=3
+point(287.8760800,16.8562350) # point=circle color=red
+point(287.8757437,16.8558733) # point=circle color=red width=3
+point(287.8761383,16.8556161) # point=circle color=red
+point(287.8764075,16.8557769) # point=circle color=red
+point(287.8763904,16.8555036) # point=circle color=red
+point(287.8763987,16.8553267) # point=circle color=red
+point(287.8760042,16.8552142) # point=circle color=red
+point(287.8759454,16.8549250) # point=circle color=red
+point(287.8758446,16.8546917) # point=circle color=red
+point(287.8753408,16.8555439) # point=circle color=red
+point(287.8754667,16.8560822) # point=circle color=red
+point(287.8751308,16.8565931) # point=circle color=red width=3
+point(287.8743563,16.8555453) # point=circle color=red
+point(287.8740517,16.8552814) # point=circle color=red
+point(287.8736017,16.8550314) # point=circle color=red
+point(287.8733983,16.8545314) # point=circle color=red
+point(287.8734275,16.8564617) # point=circle color=red
+point(287.8745013,16.8565336) # point=circle color=red width=3
+point(287.8728617,16.8571978) # point=circle color=red
+point(287.8733404,16.8573925) # point=circle color=red
+point(287.8718475,16.8569708) # point=circle color=red width=3
+point(287.8715117,16.8572236) # point=circle color=red
+point(287.8712246,16.8570025) # point=circle color=red
+point(287.8719804,16.8579403) # point=circle color=red
+point(287.8718475,16.8580625) # point=circle color=red width=3
+point(287.8713925,16.8580139) # point=circle color=red
+point(287.8722808,16.8607117) # point=circle color=red width=3
+point(287.8721650,16.8607533) # point=circle color=red
+point(287.8731663,16.8606700) # point=circle color=red
+point(287.8730354,16.8617533) # point=circle color=red width=3
+point(287.8718454,16.8616006) # point=circle color=red
+point(287.8758221,16.8616008) # point=circle color=red width=3
+point(287.8775346,16.8624617) # point=circle color=red width=3
+point(287.8773025,16.8628647) # point=circle color=red
+point(287.8789713,16.8616286) # point=circle color=red
+point(287.8791454,16.8614064) # point=circle color=red
+point(287.8793921,16.8619478) # point=circle color=red
+point(287.8797258,16.8612675) # point=circle color=red
+point(287.8794938,16.8609617) # point=circle color=red
+point(287.8796242,16.8609203) # point=circle color=red
+point(287.8781583,16.8617814) # point=circle color=red width=3
+point(287.8797513,16.8615011) # point=circle color=red
+point(287.8801292,16.8622086) # point=circle color=red width=3
+point(287.8801713,16.8624094) # point=circle color=red
+point(287.8814308,16.8620075) # point=circle color=red
+point(287.8818758,16.8609628) # point=circle color=red width=3
+point(287.8820104,16.8610028) # point=circle color=red
+point(287.8821617,16.8605928) # point=circle color=red
+point(287.8822204,16.8605044) # point=circle color=red
+point(287.8815904,16.8603278) # point=circle color=red width=3
+point(287.8813471,16.8603919) # point=circle color=red
+point(287.8817333,16.8593472) # point=circle color=red
+point(287.8826150,16.8605928) # point=circle color=red
+point(287.8826321,16.8609225) # point=circle color=red
+point(287.8826233,16.8592747) # point=circle color=red
+point(287.8830012,16.8600786) # point=circle color=red
+point(287.8830937,16.8604081) # point=circle color=red
+point(287.8832450,16.8606250) # point=circle color=red
+point(287.8826908,16.8617422) # point=circle color=red width=3
+point(287.8830937,16.8617986) # point=circle color=red
+point(287.8833375,16.8617422) # point=circle color=red
+point(287.8826233,16.8621764) # point=circle color=red
+point(287.8833121,16.8623289) # point=circle color=red
+point(287.8836567,16.8622889) # point=circle color=red
+point(287.8819937,16.8624978) # point=circle color=red
+point(287.8824138,16.8625219) # point=circle color=red
+point(287.8814979,16.8625461) # point=circle color=red
+point(287.8819267,16.8628836) # point=circle color=red
+point(287.8814308,16.8628836) # point=circle color=red
+point(287.8807592,16.8628033) # point=circle color=red width=3
+point(287.8808850,16.8628194) # point=circle color=red
+point(287.8806667,16.8630283) # point=circle color=red
+point(287.8838412,16.8617183) # point=circle color=red
+point(287.8846392,16.8619192) # point=circle color=red
+point(287.8848492,16.8620075) # point=circle color=red
+point(287.8848154,16.8621361) # point=circle color=red
+point(287.8844879,16.8611233) # point=circle color=red width=3
+point(287.8840679,16.8606331) # point=circle color=red
+point(287.8843788,16.8605608) # point=circle color=red
+point(287.8845550,16.8604161) # point=circle color=red
+point(287.8848913,16.8605125) # point=circle color=red
+point(287.8851517,16.8613725) # point=circle color=red
+point(287.8862179,16.8601428) # point=circle color=red
+point(287.8860837,16.8602472) # point=circle color=red
+point(287.8865708,16.8609142) # point=circle color=red
+point(287.8861675,16.8610750) # point=circle color=red
+point(287.8865875,16.8612358) # point=circle color=red
+point(287.8863946,16.8613322) # point=circle color=red
+point(287.8875888,16.8608344) # point=circle color=red
+point(287.8806804,16.8635169) # point=circle color=red width=3
+point(287.8810104,16.8637467) # point=circle color=red
+point(287.8808587,16.8638194) # point=circle color=red
+point(287.8808762,16.8640983) # point=circle color=red
+point(287.8819321,16.8640539) # point=circle color=red
+point(287.8789079,16.8634167) # point=circle color=red width=3
+point(287.8786142,16.8634969) # point=circle color=red
+point(287.8785217,16.8634247) # point=circle color=red
+point(287.8784546,16.8633283) # point=circle color=red width=3
+point(287.8781354,16.8646061) # point=circle color=red width=3
+point(287.8784375,16.8647106) # point=circle color=red width=3
+point(287.8786225,16.8648714) # point=circle color=red
+point(287.8788154,16.8648553) # point=circle color=red
+point(287.8783954,16.8649919) # point=circle color=red
+point(287.8782612,16.8651286) # point=circle color=red
+point(287.8787233,16.8651367) # point=circle color=red
+point(287.8790171,16.8651528) # point=circle color=red
+point(287.8791262,16.8655386) # point=circle color=red
+point(287.8791683,16.8657314) # point=circle color=red
+point(287.8782612,16.8654581) # point=circle color=red
+point(287.8776329,16.8649197) # point=circle color=red width=3
+point(287.8776533,16.8651222) # point=circle color=red
+point(287.8781671,16.8657586) # point=circle color=red
+point(287.8780463,16.8661928) # point=circle color=red
+point(287.8770583,16.8678036) # point=circle color=red
+point(287.8778750,16.8609844) # point=circle color=red
+point(287.8771500,16.8676514) # point=circle color=red width=3
+point(287.8763396,16.8677208) # point=circle color=red width=3
+point(287.8771029,16.8526178) # point=circle color=red
+point(287.8767721,16.8532178) # point=circle color=red
+point(287.8729062,16.8548844) # point=circle color=red
+point(287.8769700,16.8557275) # point=circle color=red
+point(287.8770371,16.8559286) # point=circle color=red

@@ -246,14 +246,14 @@ Now, check with one that just does the bare minimum of smoothing for this ratio 
          wr124-jwst-nircam-2022-f470n-radec.fits \
          wr124-jwst-nircam-2022-f444w-radec.fits \
          ratio-f470n-f444w-match-f470n.fits \
-         --bg-a 0.2 --bg-b 0.2 \
+         --bg-a 0.3 --bg-b 0.2 \
          --match-psf --debug --match-psf-to jwst-f470n
 #+end_src
 
 #+RESULTS:
 : Pixel scale: 0.0310 arcseconds
-: Wavelengths: Filter A = 4.70 Filter B = 4.44
-: PSF FWHM (pixels): Filter A = 5.0 Filter B = 4.7 Match to = 5.0
+: Wavelengths: [4.7, 4.44]
+: PSF FWHM (pixels): 5.0 4.7 Match to = 5.0
 ** JWST MIRI
 First do MIRI/NIRCAM matched to f1800w and to f770w. This loses a lot of the definition of the shocked shells, which means that some of that was an artefact of the mismatched resolutions. But they are still apparent, especially in the f770w version. The f1800w version is much more diffuse, but that is only necessary for comparing with the longer wave ratios
 #+begin_src sh :dir data/reproject :results verbatim
@@ -401,3 +401,116 @@ And do the same but the other way around, so that the globules are positive and 
 : Pixel scale: 0.0310 arcseconds
 : Wavelengths: Filter A = 3.35 Filter B = 2.10
 : PSF FWHM (pixels): Filter A = 3.6 Filter B = 2.2 Match to = 3.6
+**** Long wavelengths for globule
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-scaled-difference.py \
+         wr124-jwst-miri-2022-f770w-radec.fits \
+         wr124-jwst-nircam-2022-f444w-radec.fits \
+         globules-only-f770w-diff-4_0-f444w.fits \
+         --scale-b 4.0 \
+         --bg-a 7.0 --bg-b 0.2 \
+         --match-psf --debug 
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: Filter A = 7.70 Filter B = 4.44
+: PSF FWHM (pixels): Filter A = 8.2 Filter B = 4.7 Match to = 8.2
+
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-scaled-difference.py \
+         wr124-jwst-miri-2022-f770w-radec.fits \
+         wr124-jwst-nircam-2022-f444w-radec.fits \
+         globules-only-f770w-diff-3_5-f444w.fits \
+         --scale-b 3.5 \
+         --bg-a 7.0 --bg-b 0.2 \
+         --match-psf --debug 
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: Filter A = 7.70 Filter B = 4.44
+: PSF FWHM (pixels): Filter A = 8.2 Filter B = 4.7 Match to = 8.2
+**** Shortest wavelengths for globule
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-scaled-difference.py \
+         wr124-jwst-nircam-2022-f150w-radec.fits \
+         wr124-jwst-nircam-2022-f090w-radec.fits \
+         globules-only-f150w-diff-1_05-f090w.fits \
+         --scale-b 1.05 \
+         --bg-a 0.22 --bg-b 0.2 \
+         --match-psf --debug 
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: Filter A = 1.50 Filter B = 0.90
+: PSF FWHM (pixels): Filter A = 1.6 Filter B = 1.0 Match to = 1.6
+**** Mid wavelength for shells
+Subtract f335m from f444w to get the ionized gas in positive and the globules in negative
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-scaled-difference.py \
+         wr124-jwst-nircam-2022-f444w-radec.fits \
+         wr124-jwst-nircam-2022-f335m-radec.fits \
+         shells-only-f444w-diff-f335m.fits \
+         --scale-b 1.0 \
+         --bg-a 0.2 --bg-b 0.18 \
+         --match-psf --debug 
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: [4.44, 3.35]
+: PSF FWHM (pixels): 4.7 3.6 Match to = 4.7
+
+**** Long wavelength for shells
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-scaled-difference.py \
+         wr124-jwst-miri-2022-f1280w-radec./fits \
+         wr124-jwst-miri-2022-f1130w-radec.fits \
+         shells-only-f1280w-diff-2_0-f1130w.fits \
+         --scale-b 2.0 \
+         --bg-a 26 --bg-b 23 \
+         --match-psf --debug 
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: [12.8, 11.3]
+: PSF FWHM (pixels): 13.6 12.0 Match to = 13.6
+
+**** Long wavelength for diffuse
+f1800w - 2 * f1280w should eliminate ionized emission
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-scaled-difference.py \
+         wr124-jwst-miri-2022-f1800w-radec.fits \
+         wr124-jwst-miri-2022-f1280w-radec.fits \
+         diffuse-only-f1800w-diff-2_0-f1280w.fits \
+         --scale-b 2.0 \
+         --bg-a 95 --bg-b 26 \
+         --match-psf \
+         --debug 
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: [18.0, 12.8]
+: PSF FWHM (pixels): 19.2 13.6 Match to = 19.2
+
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-scaled-difference.py \
+         wr124-jwst-miri-2022-f1800w-radec.fits \
+         wr124-jwst-miri-2022-f1280w-radec.fits \
+         diffuse-only-f1800w-diff-1_0-f1280w.fits \
+         --scale-b 1.0 \
+         --bg-a 95 --bg-b 26 \
+         --match-psf \
+         --debug 
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: [18.0, 12.8]
+: PSF FWHM (pixels): 19.2 13.6 Match to = 19.2
+
+
