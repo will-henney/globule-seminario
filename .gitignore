@@ -2,5 +2,4 @@
 __pycache__
 *.fits
 .DS_Store
-
-/m1-67/data/reproject/wr124-ratios-2024-06-05.bck.dir/Frame14/aux.ctr
+aux.ctr

@@ -33,14 +33,14 @@ def main(
     hdu_a = fits.open(file_a)[0]
     hdu_b = fits.open(file_b)[0]
 
-    pixel_scale = find_common_pixel_scale(hdu_a, hdu_b)
+    pixel_scale = find_common_pixel_scale([hdu_a, hdu_b])
 
     if debug:
         print(f"Pixel scale: {pixel_scale:.4f} arcseconds")
 
     if match_psf:
         extra_a, extra_b = find_extra_pixel_sigma(
-            file_a, file_b, pixel_scale, match_psf_to, debug
+            [file_a, file_b], pixel_scale, match_psf_to, debug
         )
         # Smooth the images
         if extra_a > 0:

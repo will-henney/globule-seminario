@@ -326,6 +326,65 @@ Then interband of MIRI
 : Pixel scale: 0.0310 arcseconds
 : Wavelengths: Filter A = 18.00 Filter B = 12.80
 : PSF FWHM (pixels): Filter A = 19.2 Filter B = 13.6 Match to = 19.2
+* Is it possible to isolate the three principal emission components
+- That is: stars, ionized gas, PAH
+- The idea is to try and find a linear combination of filters that isolates each of these components
+- We already found that the ionized gas can be eliminated by taking ~f335m - f210m~, which also puts the stars as negative and the globules as positive
+- And we also eliminated the ionized gas and PAH by taking f150w - 0.6 f210m 
+** Script for general linear combination of filters
+
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-linear-combo.py \
+         --file foo --coeff 0.5 --bg 0.1 \
+         --file bar --coeff -0.5 --bg 0.2 \
+         --file baz --coeff 1.0 --bg 0.3
+#+end_src
+
+#+RESULTS:
+
+#+RESULTS:
+
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-linear-combo.py --help
+#+end_src
+
+#+RESULTS:
+#+begin_example
+                                                                                
+ Usage: find-linear-combo.py [OPTIONS]                                          
+                                                                                
+ Find the linear combination of a sequence of fits images after subtracting     
+ respective backgrounds                                                         
+ Optionally (`--match-psf`) match the PSF of the two images by smoothing the    
+ images.  By default, smooth to the largest PSF FWHM of the two images.         
+ Optionally, match to a specific filter given on the command line with, for     
+ instance, `--match-psf-to jwst-f335m`.                                         
+                                                                                
+╭─ Options ────────────────────────────────────────────────────────────────────╮
+│ --file                              TEXT   Fits file of image to include in  │
+│                                            linear combination. Must be used  │
+│                                            at least once.                    │
+│                                            [default: None]                   │
+│ --coeff                             FLOAT  Coefficient of this image in the  │
+│                                            linear combination. There must be │
+│                                            one --coeff for each --file       │
+│                                            argument.                         │
+│                                            [default: None]                   │
+│ --bg                                FLOAT  Background value for this image.  │
+│                                            There must be one --bg for each   │
+│                                            --file argument.                  │
+│                                            [default: None]                   │
+│ --outfile                           TEXT   [default: linear-combo.fits]      │
+│ --match-psf       --no-match-psf           [default: no-match-psf]           │
+│ --match-psf-to                      TEXT   [default: None]                   │
+│ --debug           --no-debug               [default: no-debug]               │
+│ --help                                     Show this message and exit.       │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+#+end_example
+
+#+RESULTS:
+
 * Making star masks
 :LOGBOOK:
 - Note taken on [2024-06-05 Wed 21:39] \\
