@@ -59,6 +59,20 @@ Analysis of the reprojected maps and ratios thereof for m1-67
 :PROPERTIES:
 :ID:       333074B1-5DDA-4B69-8160-AA04E6D2C78C
 :END:
+Summary table
+
+| Ratio           |   Stars | Globules |  Ionized | Diffuse |   |
+|-----------------+---------+----------+----------+---------+---|
+| f150w / f090w   | 2.0-4.0 |  1.3-1.4 |      1.0 | 0.7-0.8 |   |
+| f210m / f150w   | 0.8-1.0 |  1.6-1.8 |  1.6-1.8 | 1.0-1.1 |   |
+| f335m / f210m   | 0.2-0.3 |  2.0-4.0 |      1.0 | 0.7-0.8 | * |
+| f444w / f335m   |     0.8 |  1.0-1.5 |      2.0 | 1.2-1.5 | s |
+| f470n / f444w   | 0.8-0.9 |  0.8-0.9 | 0.6-0.65 | 0.8-1.2 |   |
+| f777w / f444w   | 0.3-2.0 | 6.0-10.0 |  3.5-4.5 | 4.5-5.0 | * |
+| f1130w / f777w  | 0.5-1.0 |  1.0-1.8 |  0.5-1.6 | 1.5-3.5 |   |
+| f1280w / f1130w | 0.5-1.0 |  1.5-2.0 |  2.5-6.0 | 1.5-2.0 |   |
+| f1800w / f1280w | 0.5-1.0 |  1.8-3.0 |  1.0-2.0 | 4.5-6.0 | * |
+|                 |         |          |          |         |   |
 *** Short band NIRCAM
 - Start with f090w brightness (not strictly a ratio, I know ...)
   - This mainly shows the ionized gas, with the following components
@@ -128,7 +142,8 @@ Analysis of the reprojected maps and ratios thereof for m1-67
 - And sometimes as high as 3 to 3.5 in the diffuse/faint regions on the NE axis and northern tropics at larger radii
 - Also value of around 1.0 in the  outward-facing shock filaments in the outer parts of the nebula
 - Reaches even lower values of 0.5 in outer diffuse ionization front
-- Shows strange tadpole behaviour in the globules, which may be in part due to the mismatch in resolution, but on average the ratio is about 1 to 1.6 in the globules
+- /ARTEFACT/ Shows strange tadpole behaviour in the globules, which may be in part due to the mismatch in resolution, but on average the ratio is about 1 to 1.6 in the globules
+  - This totally goes away with the matched psfs
 - Stars have a range of values from 0.4 (bright stars) to 1.0 (faint stars)
 - Clear gradient along the major axis off the nebula (NE to SW) with values of 0.5 to 1.0 in the NE and 1.0 to 1.5 in the SW
   - Average value of 2 on the faint side (NE) versus 1 on the bright side (SW)
