@@ -135,4 +135,6 @@ def find_extra_pixel_sigma(
         )
     # Quadrature subtraction to find how much to smooth each image (in pixels)
     extras = [np.sqrt(fwhm_match**2 - fwhm**2) / pixel_scale for fwhm in fwhms]
+    if debug:
+        print("Extra smoothing (pixels):", extras)
     return extras

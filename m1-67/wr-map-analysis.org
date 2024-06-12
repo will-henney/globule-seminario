@@ -23,6 +23,8 @@ Analysis of the reprojected maps and ratios thereof for m1-67
 
 ** TODO Things to do next
 :LOGBOOK:
+- Note taken on [2024-06-11 Tue 13:15] \\
+  While working on the star mask, I got the idea of trying to cancel out the stars using combinations of filters. This led to the idea of separately isolateing the 3 components: stars, nebula, globules. And for this, we needed the facility to do general lineqar combinations of multiple filters. This machinery is now in place, but needs testing and then appying seriously. 
 - Note taken on [2024-06-04 Tue 13:24] \\
   I am going to work on the star mask next, since that is a pre-requisite for doing good color-color plots
 - Note taken on [2024-06-04 Tue 11:10] \\
@@ -36,7 +38,7 @@ Analysis of the reprojected maps and ratios thereof for m1-67
 - [ ] Do correlation color-color plots for all the band ratios
   - Maybe even separate out the shell and core regions for each knot, as determined from the H alpha HST analysis, and compare with the diffuse emission
   - And also how it varies with distance from the star and between the two sides along the major axis
-- [ ] See if there are linear combinations of bands that we can use to remove the ionized emission to some extent and leave the pure knots
+- [-] See if there are linear combinations of bands that we can use to remove the ionized emission to some extent and leave the pure knots
   - And the same for the stars
     - For instance, the f210m/f150w ratio is almost featureless at 1.6-1.8 in the nebula (ionized gas and neutral globules), but goes down to 0.8-1.0 in the stars (stars are bluer)
     - This means that if we take ~f150w - f210m/1.7~ we should cancel out the nebula and see just the stars
@@ -111,8 +113,8 @@ Summary table
 - f444w/f335m
   - Value about 2.0 in the ionized gas
   - Falls to about 1.2 to 1.5 in the diffuse/faint zones
-  - Drops to about 1.0 in the knot heads, rising back up to about 1.5 as you go down the tail
-  - Value is about 0.8 in the stars
+  - Drops to about 0.7 in the knot heads, rising back up to about 1.5 as you go down the tail
+  - Value is about 0.7-0.8 in the stars
 - f470n/f444w
   - Previously discussed in [[id:E6DB5862-941F-494F-883C-7A72C9894BDC][Strange behavior of the f470n filter]]
   - Value of 0.6 to 0.65 in dense ionized gas
@@ -326,23 +328,41 @@ Then interband of MIRI
 : Pixel scale: 0.0310 arcseconds
 : Wavelengths: Filter A = 18.00 Filter B = 12.80
 : PSF FWHM (pixels): Filter A = 19.2 Filter B = 13.6 Match to = 19.2
-* Is it possible to isolate the three principal emission components
+* Is it possible to isolate the three principal emission components?
 - That is: stars, ionized gas, PAH
+  - With a potential fourth component of diffuse warm dust, seen at longer wavelengths
 - The idea is to try and find a linear combination of filters that isolates each of these components
 - We already found that the ionized gas can be eliminated by taking ~f335m - f210m~, which also puts the stars as negative and the globules as positive
-- And we also eliminated the ionized gas and PAH by taking f150w - 0.6 f210m 
-** Script for general linear combination of filters
+- And we also eliminated the ionized gas and PAH by taking f150w - 0.6 f210m
+  - Stars have f335m/f210m = 0.2-0.3
+- Make a nice table, normalizing all filters to f210m = 1.0
+  | Filter                   | Stars           | Ionized Gas | PAH           | Diffuse        |
+  |--------------------------+-----------------+-------------+---------------+----------------|
+  | f090w                    | 0.4 +/- 0.15    |        0.57 | 0.45 +/- 0.02 | 1.3 +/- 0.1    |
+  | f150w                    | 1.1 +/- 0.1     |         0.6 | 0.6           | 1.0            |
+  | f210m                    | 1.0             |         1.0 | 1.0           | 1.0            |
+  | f335m                    | 0.25 +/- 0.05   |         1.0 | 3.0 +/- 1.0   | 1.3 +/- 0.1    |
+  | f444w                    | 0.19 +/- 0.07   |         2.0 | 2.1 +/- 0.7   | 1.8 +/- 0.2    |
+  |--------------------------+-----------------+-------------+---------------+----------------|
+  | AA: f150w - 1.05 f090w   | 0.68 +/- 0.19   |      1.5e-3 | 0.13 +/- 0.02 | -0.37 +/- 0.11 |
+  | A: f150w - 0.6 f210m     | 0.50 +/- 0.10   |        0.00 | 0.00          | 0.40           |
+  | B: f335m - f210m         | -0.75 +/- 0.05  |        0.00 | 2.00 +/- 1.00 | 0.30 +/- 0.10  |
+  | C: f444w - 0.7 f335m     | 0.02 +/- 0.08   |        1.30 | 0.00 +/- 0.99 | 0.89 +/- 0.21  |
+  | D: 1.5 A + B             | 0.00 +/- 0.16   |        0.00 | 2.00 +/- 1.00 | 0.90 +/- 0.10  |
+  | E: C - 0.04 A            | -4e-3 +/- 0.08  |        1.30 | 1e-3 +/- 0.99 | 0.88 +/- 0.21  |
+  | F: 1.46 A - AA + 0.065 B | 1.3e-3 +/- 0.24 |     -1.5e-3 | 0.00 +/- 0.07 | 0.97 +/- 0.11  |
+  #+TBLFM: @7$2..@7$5=@3-1.05 @2;f2::@8$2..@8$5=@3-0.6 @4;f2::@9$2..@9$5=@5 - @4;f2::@10$2..@10$5=@6 - 0.7 @5;f2::@11$2..@11$5=1.5 @8 + @9;f2::@12$2..@12$5=@6 - 0.7 @5 - 0.04 @3 + 0.025 @4;f2::@13$2..@13$5=1.46 @8 - @7 + 0.065 @9  ;f2
+- This gives the following "pure" combinations
+  - A: stars
+  - D: neutral
+  - E: ionized
+  - F: diffuse
+- In reality, A/D/E are also contaminated with diffuse emission, but this will not be very noticeable because the diffuse emission is much weaker than the other components
+  - But to get purer combinations, we could combine F with A/D/E to get A'/D'/E'
+- It may be that C is good enough to eliminate the stars from the ionized gas as well as the globules, but if not we can try the additional correction to E
+  - Although it remains to be seen whether this is too confounded by the different star colors
 
-#+begin_src sh :dir data/reproject :results verbatim
-  python ../../scripts/find-linear-combo.py \
-         --file foo --coeff 0.5 --bg 0.1 \
-         --file bar --coeff -0.5 --bg 0.2 \
-         --file baz --coeff 1.0 --bg 0.3
-#+end_src
-
-#+RESULTS:
-
-#+RESULTS:
+** Usage instructions for ~find-linear-combo.py~
 
 #+begin_src sh :dir data/reproject :results verbatim
   python ../../scripts/find-linear-combo.py --help
@@ -384,6 +404,60 @@ Then interband of MIRI
 #+end_example
 
 #+RESULTS:
+
+** Try out the linear combinations
+
+*** Combo D - neutral
+- 1.5 A + Bppppppppppp
+- 1.5 (f150w - 0.6 f210m) + (f335m - f210m) = 1.5 f150w - 1.9 f210m + f335m
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-linear-combo.py \
+         --file wr124-jwst-nircam-2022-f150w-radec.fits --coeff 1.5 --bg 0.22 \
+         --file wr124-jwst-nircam-2022-f210m-radec.fits --coeff -1.9 --bg 0.1 \
+         --file wr124-jwst-nircam-2022-f335m-radec.fits --coeff 1.0 --bg 0.15 \
+         --outfile combo-D-neutral.fits \
+         --match-psf --match-psf-to jwst-f444w --debug
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: [1.5, 2.1, 3.35]
+: PSF FWHM (pixels): 1.6 2.2 3.6 Match to = 4.7
+: Extra smoothing (pixels): [4.4485567349347654, 4.164367504406718, 3.101945933507174]
+
+
+
+*** Combo A - stars
+- f150w - 0.6 f210m
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-linear-combo.py \
+         --file wr124-jwst-nircam-2022-f150w-radec.fits --coeff 1.0 --bg 0.22 \
+         --file wr124-jwst-nircam-2022-f210m-radec.fits --coeff -0.6 --bg 0.1 \
+         --outfile combo-A-stars.fits \
+         --match-psf --match-psf-to jwst-f444w --debug
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: [1.5, 2.1]
+: PSF FWHM (pixels): 1.6 2.2 Match to = 4.7
+: Extra smoothing (pixels): [4.4485567349347654, 4.164367504406718]
+
+*** Combo C - ionized DIFFERENT
+- f444w - 0.7 f335m 
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-linear-combo.py \
+         --file wr124-jwst-nircam-2022-f444w-radec.fits --coeff 1.0 --bg 0.2 \
+         --file wr124-jwst-nircam-2022-f335m-radec.fits --coeff -0.4 --bg 0.18 \
+         --outfile combo-C-ionized.fits \
+         --match-psf --match-psf-to jwst-f444w --debug
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: [4.44, 3.35]
+: PSF FWHM (pixels): 4.7 3.6 Match to = 4.7
+: Extra smoothing (pixels): [0.0, 3.101945933507174]
 
 * Making star masks
 :LOGBOOK:

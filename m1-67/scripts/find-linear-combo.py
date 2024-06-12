@@ -59,7 +59,7 @@ def main(
     assert (
         len(file) == len(coeff) == len(bg)
     ), "Need one --coeff and one --bg for every --file argument"
-    sys.exit()
+    
     hdu_list = [fits.open(f)[0] for f in file]
 
     pixel_scale = find_common_pixel_scale(hdu_list)
