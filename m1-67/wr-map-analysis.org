@@ -352,6 +352,24 @@ Then interband of MIRI
   | E: C - 0.04 A            | -4e-3 +/- 0.08  |        1.30 | 1e-3 +/- 0.99 | 0.88 +/- 0.21  |
   | F: 1.46 A - AA + 0.065 B | 1.3e-3 +/- 0.24 |     -1.5e-3 | 0.00 +/- 0.07 | 0.97 +/- 0.11  |
   #+TBLFM: @7$2..@7$5=@3-1.05 @2;f2::@8$2..@8$5=@3-0.6 @4;f2::@9$2..@9$5=@5 - @4;f2::@10$2..@10$5=@6 - 0.7 @5;f2::@11$2..@11$5=1.5 @8 + @9;f2::@12$2..@12$5=@6 - 0.7 @5 - 0.04 @3 + 0.025 @4;f2::@13$2..@13$5=1.46 @8 - @7 + 0.065 @9  ;f2
+- Try again but with the new estimates from [[id:A54D6D07-9E55-4FE2-BB54-01B20480A8E2][Redo the ratio estimates, taking into account superposition of components]]
+  | Filter                  | Stars          | Ionized Gas        | PAH             | Diffuse        |
+  |-------------------------+----------------+--------------------+-----------------+----------------|
+  | f090w                   | 0.4 +/- 0.15   | 0.57               | 0.4 +/- 0.3     | 1.3 +/- 0.1    |
+  | f150w                   | 1.1 +/- 0.1    | 0.6                | 0.6 +/- 0.3     | 1.0            |
+  | f210m                   | 1.0            | 1.0                | 1.0             | 1.0            |
+  | f335m                   | 0.25 +/- 0.05  | 0.95 +/- 0.15      | 7.0 +/- 0.4     | 1.3 +/- 0.1    |
+  | f444w                   | 0.19 +/- 0.07  | 1.9 +/- 0.5        | 3.0 +/- 1.0     | 1.8 +/- 0.2    |
+  |-------------------------+----------------+--------------------+-----------------+----------------|
+  | AA: f150w - 1.05 f090w  | 0.68 +/- 0.19  | 3.6e-4             | 0.18 +/- 0.44   | -0.37 +/- 0.11 |
+  | A: f150w - 0.6 f210m    | 0.50 +/- 0.10  | 0.00               | 0.00 +/- 0.30   | 0.40           |
+  | B: f335m - 0.95 f210m   | -0.70 +/- 0.05 | 0.00 +/- 0.15      | 6.05 +/- 0.40   | 0.35 +/- 0.10  |
+  | C: f444w - 0.43 f335m   | 0.08 +/- 0.07  | 1.49 +/- 0.50      | -0.01 +/- 1.01  | 1.24 +/- 0.20  |
+  | D: 1.4 A + B            | 0.00 +/- 0.15  | 0.00 +/- 0.15      | 6.05 +/- 0.58   | 0.91 +/- 0.10  |
+  | E: C - 0.16 A           | 0.00 +/- 0.07  | 1.49 +/- 0.50      | -0.01 +/- 1.01  | 1.18 +/- 0.20  |
+  | F: 1.36 A - AA + 0.03 D | -0.02 +/- 0.23 | -3.6e-4 +/- 4.5e-3 | 1.5e-3 +/- 0.60 | 0.92 +/- 0.11  |
+  #+TBLFM: @7$2..@7$5=@3-1.052 @2;f2::@8$2..@8$5=@3-0.6 @4;f2::@9$2..@9$5=@5 - 0.95 @4;f2::@10$2..@10$5=@6 - 0.43 @5;f2::@11$2..@11$5=1.4 @8 + @9;f2::@12$2..@12$5=@10  - 0.16 @8 ;f2::@13$2..@13$5=1.36 @8 - @7 + 0.03 @9  ;f2
+- 
 - This gives the following "pure" combinations
   - A: stars
   - D: neutral
@@ -361,7 +379,45 @@ Then interband of MIRI
   - But to get purer combinations, we could combine F with A/D/E to get A'/D'/E'
 - It may be that C is good enough to eliminate the stars from the ionized gas as well as the globules, but if not we can try the additional correction to E
   - Although it remains to be seen whether this is too confounded by the different star colors
-
+** Redo the ratio estimates, taking into account superposition of components
+:PROPERTIES:
+:ID:       A54D6D07-9E55-4FE2-BB54-01B20480A8E2
+:END:
+- Using the initial estimates, we were over-subtracting the neutral component from the ionized component
+- So now try it more carefully, taking full account of local backgrounds
+- Use a set of globules in N, where neutral and ionized emission seem well separated on the surface of the globule (at least better than in other cases)
+- We use the BG-subtracted and PSF-matched images
+- Lateral slice across bright neutral tail
+  | Filter |  BG | Tail | Tail - BG | Neutral | Ionized |
+  |--------+-----+------+-----------+---------+---------|
+  | f090w  | 2.3 |  2.7 |       0.4 |     0.2 |     0.6 |
+  | f150w  | 2.2 |  3.5 |       1.3 |     0.7 |     0.6 |
+  | f210m  |   4 |    6 |         2 |       1 |       1 |
+  | f335m  |   5 |   15 |        10 |       5 |     1.3 |
+  | f444w  |  10 |   16 |         6 |       3 |     2.5 |
+  #+TBLFM: $4=$3 - $2::$5=$4/@4$4;f1::$6=$2/@4$2;f1
+- Try again with one to the south
+  | Filter | BG           | Glob | Glob - BG  | Neutral      | Ionized BG   |
+  |--------+--------------+------+------------+--------------+--------------|
+  | f090w  | [3.2, 3.8]   |  3.9 | [0.7, 0.1] | [0.64, 0.09] | [0.45, 0.54] |
+  | f150w  | [4.7, 4.0]   |  5.0 | [0.3, 1.]  | [0.27, 0.91] | [0.66, 0.56] |
+  | f210m  | 7.1          |  8.2 | 1.1        | 1.00         | 1.00         |
+  | f335m  | [13.4, 12.5] | 20.6 | [7.2, 8.1] | [6.55, 7.36] | [1.89, 1.76] |
+  | f444w  | [16.8, 14.5] | 19.1 | [2.3, 4.6] | [2.09, 4.18] | [2.37, 2.04] |
+  #+TBLFM: $4=$3 - $2::$5=$4/@4$4;f2::$6=$2/@4$2;f2  
+  - We cannot take the "ionized" column seriously, since it is contaminated with globule emission
+  - But the "neutral" column is probably a good estimate of the neutral emission. This is very similar to what we had before, but with the exception of the f335m filter, which is higher
+- Similar approach with an ionized shell
+  | Filter | BG            | Shell          | Shell - BG           | Ionized  norm   | BG norm         |
+  |--------+---------------+----------------+----------------------+-----------------+-----------------|
+  | f090w  | 1.03 +/- 0.02 | 1.50 +/- 0.02  | 0.47 +/- 0.028284271 | 0.331 +/- 0.021 | 0.701 +/- 0.017 |
+  | f150w  | 1.09 +/- 0.02 | 1.63 +/- 0.02  | 0.54 +/- 0.028284271 | 0.380 +/- 0.021 | 0.741 +/- 0.017 |
+  | f210m  | 1.47 +/- 0.02 | 2.89  +/- 0.02 | 1.42 +/- 0.028284271 | 1.000 +/- 0.028 | 1.000 +/- 0.019 |
+  | f335m  | 1.69 +/- 0.02 | 2.60 +/- 0.02  | 0.91 +/- 0.028284271 | 0.641 +/- 0.024 | 1.150 +/- 0.021 |
+  | f444w  | 3.53 +/- 0.05 | 5.49 +/- 0.05  | 1.96 +/- 0.070710678 | 1.380 +/- 0.057 | 2.401 +/- 0.047 |
+  #+TBLFM: $4=$3 - $2::$5=$4/@4$4;f3::$6=$2/@4$2;f3
+  This seems to show that the shell drops from f210m to f335m, but then increases again in f444w. This is not what I found before, where it was flat or rising. This implies some diversity in the ionized gas spectrum,  which is perhaps due to line emission from different ionization stages (but probably not). Could be explained by an extra line in the f210m filter that is preferentially emitted in the shell
+- This is apparent in the ratio map also, which tends to be lower in the interaction shells: 0.95 or so
 ** Usage instructions for ~find-linear-combo.py~
 
 #+begin_src sh :dir data/reproject :results verbatim
@@ -408,7 +464,7 @@ Then interband of MIRI
 ** Try out the linear combinations
 
 *** Combo D - neutral
-- 1.5 A + Bppppppppppp
+- 1.5 A + B
 - 1.5 (f150w - 0.6 f210m) + (f335m - f210m) = 1.5 f150w - 1.9 f210m + f335m
 #+begin_src sh :dir data/reproject :results verbatim
   python ../../scripts/find-linear-combo.py \
@@ -444,7 +500,11 @@ Then interband of MIRI
 : Extra smoothing (pixels): [4.4485567349347654, 4.164367504406718]
 
 *** Combo C - ionized DIFFERENT
-- f444w - 0.7 f335m 
+- f444w - 0.4 f335m 
+- Originally I had f444w - 0.7 f335m but that causes clear over-subtraction of the globules
+  - So the problem is that the ionized emission is more extended, so the globule peaks have ionized emission too
+  - This means that for the ratios, we need to consider subtracting the background
+  - And even that is not necessarily enough, since there is ionized emission from the skin of the globules, which is hard to spatially separate
 #+begin_src sh :dir data/reproject :results verbatim
   python ../../scripts/find-linear-combo.py \
          --file wr124-jwst-nircam-2022-f444w-radec.fits --coeff 1.0 --bg 0.2 \
@@ -458,6 +518,75 @@ Then interband of MIRI
 : Wavelengths: [4.44, 3.35]
 : PSF FWHM (pixels): 4.7 3.6 Match to = 4.7
 : Extra smoothing (pixels): [0.0, 3.101945933507174]
+
+*** Individual filters with bg subtraction and matched psf
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-linear-combo.py \
+         --file wr124-jwst-nircam-2022-f090w-radec.fits --coeff 1.0 --bg 0.2 \
+         --outfile pure-f090w-psf-f444w.fits \
+         --match-psf --match-psf-to jwst-f444w --debug
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: [0.9]
+: PSF FWHM (pixels): 1.0 Match to = 4.7
+: Extra smoothing (pixels): [4.6283320140251405]
+
+
+
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-linear-combo.py \
+         --file wr124-jwst-nircam-2022-f150w-radec.fits --coeff 1.0 --bg 0.22 \
+         --outfile pure-f150w-psf-f444w.fits \
+         --match-psf --match-psf-to jwst-f444w --debug
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: [1.5]
+: PSF FWHM (pixels): 1.6 Match to = 4.7
+: Extra smoothing (pixels): [4.4485567349347654]
+
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-linear-combo.py \ --file
+  wr124-jwst-nircam-2022-f210m-radec.fits --coeff 1.0 --bg 0.1 \
+  --outfile pure-f210m-psf-f444w.fits \ --match-psf --match-psf-to
+  jwst-f444w --debug
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: [2.1]
+: PSF FWHM (pixels): 2.2 Match to = 4.7
+: Extra smoothing (pixels): [4.164367504406718]
+
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-linear-combo.py \
+         --file wr124-jwst-nircam-2022-f335m-radec.fits --coeff 1.0 --bg 0.18 \
+         --outfile pure-f335m-psf-f444w.fits \
+         --match-psf --match-psf-to jwst-f444w --debug
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: [3.35]
+: PSF FWHM (pixels): 3.6 Match to = 4.7
+: Extra smoothing (pixels): [3.101945933507174]
+
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-linear-combo.py \
+         --file wr124-jwst-nircam-2022-f444w-radec.fits --coeff 1.0 --bg 0.2 \
+         --outfile pure-f444w-psf-f444w.fits \
+         --match-psf --match-psf-to jwst-f444w --debug
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: [4.44]
+: PSF FWHM (pixels): 4.7 Match to = 4.7
+: Extra smoothing (pixels): [0.0]
+
 
 * Making star masks
 :LOGBOOK:
