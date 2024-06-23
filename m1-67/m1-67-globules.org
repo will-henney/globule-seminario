@@ -940,7 +940,7 @@ Source list saved to wr124-jwst-nircam-2022-f210m_BGSUB-sources-fwhm5.0-thresh30
 Region file saved to wr124-jwst-nircam-2022-f210m_BGSUB-sources-fwhm5.0-thresh30.reg
 Source list saved to wr124-jwst-nircam-2022-f335m_BGSUB-sources-fwhm5.0-thresh30.ecsv
 Region file saved to wr124-jwst-nircam-2022-f335m_BGSUB-sources-fwhm5.0-thresh30.reg
-Source list saved to wr124-jwst-nircam-2022-f444w_BGSUB-sources-fwhm5.0-thresh30.ecsv
+Source list saved to ;wr124-jwst-nircam-2022-f444w_BGSUB-sources-fwhm5.0-thresh30.ecsv
 Region file saved to wr124-jwst-nircam-2022-f444w_BGSUB-sources-fwhm5.0-thresh30.reg
 Source list saved to wr124-jwst-nircam-2022-f470n_BGSUB-sources-fwhm5.0-thresh30.ecsv
 Region file saved to wr124-jwst-nircam-2022-f470n_BGSUB-sources-fwhm5.0-thresh30.reg
@@ -2192,7 +2192,7 @@ Scale: 1.000000, Rotation: 0.000000
 ***** Test the results of applying the alignment
 - We have corrected the WCS of different images to give alignment to the GAIA frame
 - But when we look at these in DS9, they do no seem to be that well aligned with one another
-- So I want a quantitative measure of the alignment
+- So I want a quantitative measure of the alignmenteeeeeeeeee
 - We can re-run the ~plot-offsets.py~ and the ~plot-offsets-corr.py~ scripts for the relative displacements to see how well the images are aligned
   - But we need to have a list of point sources for the gaia-aligned image
   - However, the source lists are in pixel coordinates, so we can just reuse the original ones that we already did for each observation

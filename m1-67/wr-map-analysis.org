@@ -36,6 +36,8 @@ Analysis of the reprojected maps and ratios thereof for m1-67
   - This is something I had asked Roberto to do, but I do not think he ever did it
   - We only need to do this in groups, so we would still maintain the resolution of the longest wavelength filter in each group: f220w, f444w, f1800w
   - This is what we should do first before any other analysis
+- [ ] Can we subtract off a synthetic psf?
+  - This might be the best way to help Roberto to be honest
 - [ ] Write python script to make images of the band maps and the ratios, including the rgb color combination maps that I have been using
 - [ ] Do correlation color-color plots for all the band ratios
   - Maybe even separate out the shell and core regions for each knot, as determined from the H alpha HST analysis, and compare with the diffuse emission
@@ -333,6 +335,10 @@ Then interband of MIRI
 * DONE Is it possible to isolate the three principal emission components?
 CLOSED: [2024-06-13 Thu 21:09]
 :LOGBOOK:
+- Note taken on [2024-06-14 Fri 13:22] \\
+  But the alternative neutral map, formed from the three shortest bands does work quite well
+- Note taken on [2024-06-14 Fri 13:20] \\
+  The diffuse emission cannot be isolated in the NIRCAM bands. It is too faint compared with the systematic variations in the other components
 - State "DONE"       from "TODO"       [2024-06-13 Thu 21:09] \\
   This is now done for the NIRCAM filters
 :END:
@@ -360,28 +366,34 @@ CLOSED: [2024-06-13 Thu 21:09]
   | F: 1.46 A - AA + 0.065 B | 1.3e-3 +/- 0.24 |     -1.5e-3 | 0.00 +/- 0.07 | 0.97 +/- 0.11  |
   #+TBLFM: @7$2..@7$5=@3-1.05 @2;f2::@8$2..@8$5=@3-0.6 @4;f2::@9$2..@9$5=@5 - @4;f2::@10$2..@10$5=@6 - 0.7 @5;f2::@11$2..@11$5=1.5 @8 + @9;f2::@12$2..@12$5=@6 - 0.7 @5 - 0.04 @3 + 0.025 @4;f2::@13$2..@13$5=1.46 @8 - @7 + 0.065 @9  ;f2
 - Try again but with the new estimates from [[id:A54D6D07-9E55-4FE2-BB54-01B20480A8E2][Redo the ratio estimates, taking into account superposition of components]]
-  | Filter                  | Stars          | Ionized Gas        | PAH             | Diffuse        |
-  |-------------------------+----------------+--------------------+-----------------+----------------|
-  | f090w                   | 0.4 +/- 0.15   | 0.57               | 0.4 +/- 0.3     | 1.3 +/- 0.1    |
-  | f150w                   | 1.1 +/- 0.1    | 0.6                | 0.6 +/- 0.3     | 1.0            |
-  | f210m                   | 1.0            | 1.0                | 1.0             | 1.0            |
-  | f335m                   | 0.25 +/- 0.05  | 0.95 +/- 0.15      | 7.0 +/- 0.4     | 1.3 +/- 0.1    |
-  | f444w                   | 0.19 +/- 0.07  | 1.9 +/- 0.5        | 3.0 +/- 1.0     | 1.8 +/- 0.2    |
-  |-------------------------+----------------+--------------------+-----------------+----------------|
-  | AA: f150w - 1.05 f090w  | 0.68 +/- 0.19  | 3.6e-4             | 0.18 +/- 0.44   | -0.37 +/- 0.11 |
-  | A: f150w - 0.6 f210m    | 0.50 +/- 0.10  | 0.00               | 0.00 +/- 0.30   | 0.40           |
-  | B: f335m - 0.95 f210m   | -0.70 +/- 0.05 | 0.00 +/- 0.15      | 6.05 +/- 0.40   | 0.35 +/- 0.10  |
-  | C: f444w - 0.43 f335m   | 0.08 +/- 0.07  | 1.49 +/- 0.50      | -0.01 +/- 1.01  | 1.24 +/- 0.20  |
-  | D: 1.4 A + B            | 0.00 +/- 0.15  | 0.00 +/- 0.15      | 6.05 +/- 0.58   | 0.91 +/- 0.10  |
-  | E: C - 0.16 A           | 0.00 +/- 0.07  | 1.49 +/- 0.50      | -0.01 +/- 1.01  | 1.18 +/- 0.20  |
-  | F: 1.36 A - AA + 0.03 D | -0.02 +/- 0.23 | -3.6e-4 +/- 4.5e-3 | 1.5e-3 +/- 0.60 | 0.92 +/- 0.11  |
-  #+TBLFM: @7$2..@7$5=@3-1.052 @2;f2::@8$2..@8$5=@3-0.6 @4;f2::@9$2..@9$5=@5 - 0.95 @4;f2::@10$2..@10$5=@6 - 0.43 @5;f2::@11$2..@11$5=1.4 @8 + @9;f2::@12$2..@12$5=@10  - 0.16 @8 ;f2::@13$2..@13$5=1.36 @8 - @7 + 0.03 @9  ;f2
+  | Filter                  | Stars          | Ionized Gas      | PAH             | Diffuse        |
+  |-------------------------+----------------+------------------+-----------------+----------------|
+  | f090w                   | 0.4 +/- 0.15   | 0.57 +/- 0.05    | 0.4 +/- 0.3     | 1.3 +/- 0.1    |
+  | f150w                   | 1.1 +/- 0.1    | 0.6 +/- 0.05     | 0.6 +/- 0.3     | 1.0            |
+  | f210m                   | 1.0            | 1.0              | 1.0             | 1.0            |
+  | f335m                   | 0.25 +/- 0.05  | 0.95 +/- 0.15    | 7.0 +/- 0.4     | 1.3 +/- 0.1    |
+  | f444w                   | 0.19 +/- 0.07  | 1.9 +/- 0.5      | 3.0 +/- 1.0     | 1.8 +/- 0.2    |
+  |-------------------------+----------------+------------------+-----------------+----------------|
+  | AA: f150w - 1.05 f090w  | 0.68 +/- 0.19  | 3.6e-4 +/- 0.07  | 0.18 +/- 0.44   | -0.37 +/- 0.11 |
+  | A: f150w - 0.6 f210m    | 0.50 +/- 0.10  | 0.00 +/- 0.05    | 0.00 +/- 0.30   | 0.40           |
+  | B: f335m - 0.95 f210m   | -0.70 +/- 0.05 | 0.00 +/- 0.15    | 6.05 +/- 0.40   | 0.35 +/- 0.10  |
+  | C: f444w - 0.43 f335m   | 0.08 +/- 0.07  | 1.49 +/- 0.50    | -0.01 +/- 1.01  | 1.24 +/- 0.20  |
+  | D: 1.4 A + B            | 0.00 +/- 0.15  | 0.00 +/- 0.17    | 6.05 +/- 0.58   | 0.91 +/- 0.10  |
+  | E: C - 0.16 A           | 0.00 +/- 0.07  | 1.49 +/- 0.50    | -0.01 +/- 1.01  | 1.18 +/- 0.20  |
+  | F: 1.36 A - AA + 0.03 D | -0.02 +/- 0.23 | -3.6e-4 +/- 0.10 | 1.5e-3 +/- 0.60 | 0.92 +/- 0.11  |
+  | DD: AA - 1.36 A         | 0.00 +/- 0.23  | 3.6e-4 +/- 0.10  | 0.18 +/- 0.60   | -0.91 +/- 0.11 |
+  #+TBLFM: @7$2..@7$5=@3-1.052 @2;f2::@8$2..@8$5=@3-0.6 @4;f2::@9$2..@9$5=@5 - 0.95 @4;f2::@10$2..@10$5=@6 - 0.43 @5;f2::@11$2..@11$5=1.4 @8 + @9;f2::@12$2..@12$5=@10  - 0.16 @8 ;f2::@13$2..@13$5=1.36 @8 - @7 + 0.03 @9  ;f2::@14$2..@14$5=@7 - 1.36 @8 ;f2
 - 
 - This gives the following "pure" combinations
   - A: stars
-  - D: neutral
+  - D: neutral (from f335m excess)
   - E: ionized
-  - F: diffuse
+  - F: diffuse (/useless/)
+  - DD: alternative neutral from f150w excess
+- And these ones that include two components
+  - AA: stars + neutral
+  - B: neutral - stars
+  - C: ionized + stars (small amount)
 - In reality, A/D/E are also contaminated with diffuse emission, but this will not be very noticeable because the diffuse emission is much weaker than the other components
   - But to get purer combinations, we could combine F with A/D/E to get A'/D'/E'
 - It may be that C is good enough to eliminate the stars from the ionized gas as well as the globules, but if not we can try the additional correction to E
@@ -470,7 +482,7 @@ CLOSED: [2024-06-13 Thu 21:09]
 
 ** Try out the linear combinations
 
-*** Combo D - neutral
+*** Combo D - neutral (PAH)
 - 1.4 A + B
 - 1.4 (f150w - 0.6 f210m) + (f335m - 0.95 f210m) = 1.4 f150w + f335m - 1.79 f210m
 #+begin_src sh :dir data/reproject :results verbatim
@@ -489,6 +501,27 @@ CLOSED: [2024-06-13 Thu 21:09]
 : Extra smoothing (pixels): [4.4485567349347654, 4.164367504406718, 3.101945933507174]
 
 
+*** Combo DD - neutral (continuum)
+- AA - 1.36 A 
+- (f150w - 1.05 f090w) - 1.36 (f150w - 0.6 f210m) = -0.36 f150w - 1.05 f090w + 0.816 f210m
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-linear-combo.py \
+         --file wr124-jwst-nircam-2022-f090w-radec.fits --coeff -1.05 --bg 0.2 \
+         --file wr124-jwst-nircam-2022-f150w-radec.fits --coeff -0.36 --bg 0.22 \
+         --file wr124-jwst-nircam-2022-f210m-radec.fits --coeff  0.816 --bg 0.1 \
+         --outfile combo-DD-neutral.fits \
+         --match-psf --match-psf-to jwst-f444w --debug
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: [0.9, 1.5, 2.1]
+: PSF FWHM (pixels): 1.0 1.6 2.2 Match to = 4.7
+: Extra smoothing (pixels): [4.6283320140251405, 4.4485567349347654, 4.164367504406718]
+
+- This works fine, although there are still residuals from the stars
+- It works better in the N and S groupings, whereas in the E grouping we see residual ionized emission at the 10% level
+- In general, it correlates well with the D neutral emission from the 3.3 micron PAH band
 
 *** Combo A - stars
 - f150w - 0.6 f210m
@@ -505,6 +538,22 @@ CLOSED: [2024-06-13 Thu 21:09]
 : Wavelengths: [1.5, 2.1]
 : PSF FWHM (pixels): 1.6 2.2 Match to = 4.7
 : Extra smoothing (pixels): [4.4485567349347654, 4.164367504406718]
+
+*** Combo AA - stars + neutral (continuum)
+- f150w - 1.05 f090w
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-linear-combo.py \
+         --file wr124-jwst-nircam-2022-f090w-radec.fits --coeff -1.05 --bg 0.2 \
+         --file wr124-jwst-nircam-2022-f150w-radec.fits --coeff 1.0 --bg 0.22 \
+         --outfile combo-AA-neutral.fits \
+         --match-psf --match-psf-to jwst-f444w --debug
+#+end_src
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: [0.9, 1.5]
+: PSF FWHM (pixels): 1.0 1.6 Match to = 4.7
+: Extra smoothing (pixels): [4.6283320140251405, 4.4485567349347654]
 
 *** Combo C - ionized (with star residuals)
 - f444w - 0.43 f335m 
@@ -636,6 +685,198 @@ CLOSED: [2024-06-13 Thu 21:09]
 : PSF FWHM (pixels): 4.7 Match to = 4.7
 : Extra smoothing (pixels): [0.0]
 
+* Subtracting the PSF of the bright stars
+- We will use webbpsf for this
+- It might be easier to go back to the original data arrays, before the astrometric alignment and regridding
+- Proposed strategy
+  - The bright stars can be found by a simple threshold criterion
+    - f090w > 7 will get only stars
+    - The brightest bits of nebula are about 5 or 6, so we cannot go much fainter than this;oi
+  - So we can find all these stars easily enough, we can sort them in order of brightness, and then go fitting the psf to each of them
+  - Fainter stars could be found using blob detection methods, such as ~skimage.feature.blob_log()~, which uses Laplacian of Gaussian method
+  - There is also the ~skimage.feature.peak_local_max()~ method, which is much simpler. However, I am not sure if it would work for our case
+  - Also of interest is ~skimage.restoration.rolling_ball()~ method, which is used for background subtraction
+- On the other hand, the priority is using webbpsf to subtract the psf of the brightest stars
+  - For this, we could maybe use a very high threshold and high sigma with my existing [[file:scripts/find-sources.py]] script, which uses ~photutils.detection.DAOStarFinder~
+  - Except I am wondering if we need to first fill in the holes in the saturated cores of the bright stars
+  - In the original fits file, these have NaN values for the ~VAR_POISSON~ extension and similar.
+  - They also have zero in the weight map, so if we directly use that weight when fitting the psf, then we should be ok
+- I need to fire up a notebook to investigate some of these ideas
+
+#+begin_src python
+      import webbpsf
+#+end_src
+
+#+RESULTS:
+: None
+
+Try and find bigger brighter stars 
+#+begin_src sh :dir data :results verbatim
+  f=wr124-jwst-nircam-2022-f090w_BGSUB.fits
+  python ../scripts/find-sources.py $f 5.0 1000
+#+end_src
+
+#+RESULTS:
+: Source list saved to wr124-jwst-nircam-2022-f090w_BGSUB-sources-fwhm5.0-thresh1000.ecsv
+: Region file saved to wr124-jwst-nircam-2022-f090w_BGSUB-sources-fwhm5.0-thresh1000.reg
+
+This did not work very well. It filed to find any of the saturated stars
+
+** Technical details of the PSF and dithering
+- Is it worth fitting the psf in the dithered images, or is this just going to cause headaches?
+- Note that there is an example of psf subtraction
+  - https://webbpsf.readthedocs.io/en/latest/jwst_psf_subtraction.html
+  - This uses the earlier stage 2 files it seems
+- I have checked the data that we are using, and I do not have those files, although I do have a list of what they are in [[file:../../../Work/WR124-JWST/MAST_2023-09-13T2208/JWST/jw02730-o001_t013_nircam_clear-f090w/jw02730-o001_20230818t225920_image3_00004_asn.json][this json file]]
+- For example ~jw02730001001_02103_00007_nrcb2_cal.fits~, which is the stage 2 file for the B2 detector from pointing 7
+*** Stage 2 versus stage 3 files
+- I have been using the stage 3 files, which have been dithered to the tangent sky plane and regridded
+- But we also have the individual detector coordinates (2048 x 2048 pixels for each of 5 detectors in each of 2 modules, A and B)
+  - There is a slight rotation of about 1 degree, and also other distortions such as shear. 
+- These are dithered by offsets in the "aperture ideal coordinate system", which is
+  : All pointing offsets are relative to the selected aperture's reference position in that aperture's ideal coordinate frame (X, Y). All NIRCam apertures are nearly aligned (to ~1° of rotation) with both the JWST coordinate system (V2, V3) and all detector rows and columns.
+  #+begin_example
+           Instrument configuration information                                    
+                                                                                    
+    INSTRUME= 'NIRCAM  '           / Instrument used to acquire the data            
+    DETECTOR= 'MULTIPLE'           / Name of detector used to acquire the data      
+    MODULE  = 'B       '           / NIRCam module: A, B, or MULTIPLE               
+    CHANNEL = 'SHORT   '           / Instrument channel                             
+    FILTER  = 'F090W   '           / Name of the filter element used                
+    PUPIL   = 'CLEAR   '           / Name of the pupil element used                 
+    PILIN   =                    F / Pupil imaging lens in the optical path?        
+    OPMODE  = 'NONE    '           / Lamp operating mode                            
+                                                        
+            Dither information                                                      
+                                                                                    
+    PATTTYPE= 'INTRAMODULEBOX'     / Primary dither pattern type                    
+    PRIDTYPE= '8       '           / Primary dither points and packing              
+    PRIDTPTS=                    8 / Number of points in primary dither pattern     
+    PATT_NUM=                    7 / Position number within dither pattern          
+    NUMDTHPT=                    8 / Total number of points in pattern              
+    SUBPXPTS=                    1 / Number of points in subpixel dither pattern    
+    SUBPXPAT= 'STANDARD'           / Subpixel dither pattern type                   
+    XOFFSET =   -8.700026083716704 / x offset from pattern starting position        
+    YOFFSET =    -9.29999953296428 / y offset from pattern starting position        
+                                                                                    
+            Aperture information                                                    
+                                                                                    
+    APERNAME= 'NRCB2_FULL'         / PRD science aperture used                      
+    PPS_APER= 'NRCBS_FULL'         / original AperName supplied by PPS    
+  #+end_example
+- These are the offsets for this pattern, where we only use the first 8 I think
+|  1 | -2.9 | -3.1 |
+|  2 | -3.1 |  2.9 |
+|  3 |  2.9 |  3.1 |
+|  4 |  3.1 | -2.9 |
+|  5 |  3.3 | -8.9 |
+|  6 | -2.7 | -9.1 |
+|  7 | -8.7 | -9.3 |
+|  8 | -8.9 | -3.3 |
+|  9 | -9.1 |  2.7 |
+| 10 | -9.3 |  8.7 |
+| 11 | -3.3 |  8.9 |
+| 12 |  2.7 |  9.1 |
+| 13 |  8.7 |  9.3 |
+| 14 |  8.9 |  3.3 |
+| 15 |  9.1 | -2.7 |
+| 16 |  9.3 | -8.7 |
+  They are in arcsec, so it is about 200 pixels for most of the relative offsets
+- The relative positions of the apertures are given in tables on [[https://jwst-docs.stsci.edu/jwst-near-infrared-camera/nircam-operations/nircam-apertures#gsc.tab=0][this page]]
+  - We are using the Bs compound aperture, which combines all 5 detectors in module B
+*** Detector effects: Charge diffusion and inter-pixel capacitance (IPC)
+- This is included by default, but only in the ~OVERDIST~ and ~DET_DIST~ extensions
+- Whereas the ~OVERSAMP~ and ~DET_SAMP~ extensions "ideal" diffractive psfs
+- For the charge diffusion, they use a gaussian convolution with a width that varies with detector
+  - NIRCAM short has 0.0062 arcsec or 0.2 pixels
+
+* TODO Test npyaml.py
+
+#+begin_src sh :dir scripts :results verbatim
+        python npyaml.py
+#+end_src
+
+#+RESULTS:
+#+begin_example
+ndarray:
+- 1
+- 2
+- 3
+
+2-d ndarray:
+- - 0
+  - 1
+  - 2
+- - 3
+  - 4
+  - 5
+- - 6
+  - 7
+  - 8
+
+{inline 2-d ndarray: [[0, 1, 2], [3, 4, 5], [6, 7, 8]]}
+
+scalar int ndarray: 1
+
+scalar float ndarray: 1.0
+
+np.int64: 1
+
+np.float64: 1.0
+
+masked array:
+- 1
+- null
+- 3
+
+#+end_example
+
+But what happens if we use ~safe_dump~ instead of ~dump~? And with normal numpy arrays, without any special representers.
+
+It turns out that we get an error, because the numpy arrays are not serializable by default. So my custom representers are needed.
+
+#+begin_src python :results output verbatim
+  import numpy as np
+  import yaml
+
+  a = np.arange(3)
+  print(yaml.dump({"yaml.dump() np.ndarray": a}))
+  print(yaml.safe_dump({"yaml.safe_dump() np.ndarray": a}))
+
+#+end_src
+
+#+RESULTS:
+#+begin_example
+yaml.dump() np.ndarray: !!python/object/apply:numpy.core.multiarray._reconstruct
+  args:
+  - !!python/name:numpy.ndarray ''
+  - !!python/tuple
+    - 0
+  - !!binary |
+    Yg==
+  state: !!python/tuple
+  - 1
+  - !!python/tuple
+    - 3
+  - !!python/object/apply:numpy.dtype
+    args:
+    - i8
+    - false
+    - true
+    state: !!python/tuple
+    - 3
+    - <
+    - null
+    - null
+    - null
+    - -1
+    - -1
+    - 0
+  - false
+  - !!binary |
+    AAAAAAAAAAABAAAAAAAAAAIAAAAAAAAA
+
+#+end_example
 
 * Making star masks
 :LOGBOOK:
