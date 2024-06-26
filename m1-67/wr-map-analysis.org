@@ -722,6 +722,144 @@ Try and find bigger brighter stars
 
 This did not work very well. It filed to find any of the saturated stars
 
+** Using an empirical psf
+- This is working much better, although it is hard to get more than about 3% accuracy, which means you get residuals that are 33 times fainter than the stars, but that is still bright compared to the nebula
+- So far I have been putting everything in the notebook [[file:psf-notebooks/psf-experiments.ipynb]]
+- Set up parallel python and ipynb versions
+  #+begin_src sh :dir psf-notebooks :results output verbatim
+    jupytext --set-formats 'ipynb,py:light' *.ipynb *.py
+  #+end_src
+
+  #+RESULTS:
+  : [jupytext] Reading psf-experiments.ipynb in format ipynb
+  : [jupytext] Updating notebook metadata with '{"jupytext": {"formats": "ipynb,py:light"}}'
+  : [jupytext] Updating psf-experiments.ipynb
+  : [jupytext] Updating psf-experiments.py
+
+- Keep them in sync
+  #+begin_src sh :dir psf-notebooks :results output verbatim
+    jupytext --show-changes --update --sync *.py
+    printf "\nLast run: $(date)\n"
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  [jupytext] Reading psf-experiments.py in format py
+  [jupytext] Loading psf-experiments.ipynb
+  [jupytext] Updating psf-experiments.ipynb with this change:
+  @@ -378,7 +378,9 @@
+      "cell_type": "code",
+      "execution_count": 57,
+      "id": "e0595ac9-4ab8-41b1-bd09-ef9ca870f8e3",
+  -   "metadata": {},
+  +   "metadata": {
+  +    "lines_to_next_cell": 0
+  +   },
+      "outputs": [
+       {
+        "data": {
+  @@ -406,7 +408,9 @@
+      "cell_type": "code",
+      "execution_count": null,
+      "id": "6d9f6a74-d407-4e26-aea9-3c009dcfa858",
+  -   "metadata": {},
+  +   "metadata": {
+  +    "lines_to_next_cell": 2
+  +   },
+      "outputs": [],
+      "source": []
+     },
+  @@ -2127,9 +2131,16 @@
+       "    imcutout.ydata = ycutout.data\n",
+       "    # Save image of the fitted model (note we do not use g.render())\n",
+       "    imcutout.fit_data = g(imcutout.xdata, imcutout.ydata)\n",
+  -    "    return {\"cutout\": imcutout, \"model\": g}\n",
+  -    "    "
+  -   ]
+  +    "    return {\"cutout\": imcutout, \"model\": g}"
+  +   ]
+  +  },
+  +  {
+  +   "cell_type": "code",
+  +   "execution_count": null,
+  +   "id": "b2e883a3-ef42-4267-a33a-a4b742067483",
+  +   "metadata": {},
+  +   "outputs": [],
+  +   "source": []
+     },
+     {
+      "cell_type": "markdown",
+  @@ -2198,7 +2209,9 @@
+      "cell_type": "code",
+      "execution_count": 681,
+      "id": "3260b5e9-f4e4-497a-abd2-1d9e562d8069",
+  -   "metadata": {},
+  +   "metadata": {
+  +    "lines_to_next_cell": 2
+  +   },
+      "outputs": [
+       {
+        "data": {
+  @@ -2226,7 +2239,7 @@
+       "    ax.axhline(yc, linewidth=0.3, color=\"r\")\n",
+       "    ax.axvline(xc, linewidth=0.3, color=\"r\")\n",
+       "    ax.axhline((ny-1)/2, linewidth=0.3, color=\"w\")\n",
+  -    "    ax.axvline((nx-1)/2, linewidth=0.3, color=\"w\")\n"
+  +    "    ax.axvline((nx-1)/2, linewidth=0.3, color=\"w\")"
+      ]
+     },
+     {
+  @@ -3298,8 +3311,16 @@
+       "    )\n",
+       "\n",
+       "    # retutn the oversampled image and the original cutout data\n",
+  -    "    return imo, cutout.data\n"
+  -   ]
+  +    "    return imo, cutout.data"
+  +   ]
+  +  },
+  +  {
+  +   "cell_type": "code",
+  +   "execution_count": null,
+  +   "id": "98306cbd-46c5-45f4-965a-a7d70ff4604d",
+  +   "metadata": {},
+  +   "outputs": [],
+  +   "source": []
+     },
+     {
+      "cell_type": "code",
+  @@ -3453,7 +3474,7 @@
+     {
+      "cell_type": "code",
+      "execution_count": null,
+  -   "id": "b2e883a3-ef42-4267-a33a-a4b742067483",
+  +   "id": "512af94f",
+      "metadata": {},
+      "outputs": [],
+      "source": []
+  @@ -4432,7 +4453,7 @@
+     {
+      "cell_type": "code",
+      "execution_count": null,
+  -   "id": "98306cbd-46c5-45f4-965a-a7d70ff4604d",
+  +   "id": "d4d2c1aa",
+      "metadata": {},
+      "outputs": [],
+      "source": []
+  [jupytext] Updating psf-experiments.py with this change:
+  @@ -707,7 +707,7 @@
+       # Save image of the fitted model (note we do not use g.render())
+       imcutout.fit_data = g(imcutout.xdata, imcutout.ydata)
+       return {"cutout": imcutout, "model": g}
+  -    
+  +
+
+
+   # #### Test with the bright central star
+
+  Last run: Tue Jun 25 21:28:00 CST 2024
+  #+end_example
+
 ** Technical details of the PSF and dithering
 - Is it worth fitting the psf in the dithered images, or is this just going to cause headaches?
 - Note that there is an example of psf subtraction
