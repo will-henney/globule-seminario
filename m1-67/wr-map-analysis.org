@@ -722,6 +722,47 @@ Try and find bigger brighter stars
 
 This did not work very well. It filed to find any of the saturated stars
 
+** Plan for removing stars
+- [2024-06-28 Fri]
+*** Bright central stars
+- For the outer parts of the nebula I planned to use the webbpsf theoretical psf, but to allow for arbitrary geometric distortion with the PC matrix
+- And also to allow extra smoothing with a Gaussian kernel
+- So we have 8 parameters to fit for the star
+  - x, y, flux, PC_11, PC_12, PC_21, PC_22, sigma
+- This looks like it could work, but we my have to fit the diffraction spikes individually, or at least a separate version for the hexagonal spikes and the left-right spikes
+- The rotation in the ~OVERDIST~ and ~DET_DIST~ extensions does match up pretty well with the observed psf, so I am not sure whether further distortions would help or not
+- There are slight differences in the relative brightnesses of the primary and secondary peaks in the transverse profile of the diffraction spikes. Some of this might be accounted for by variations in the position of the star on the detector
+  - But I also need to look into the sensitivity to the spectrum of the star.
+  - It turns out to make very little difference. There re some tiy chnges, but it is much less than the variation with position on the detector
+*** Medium stars
+*** Faint stars
+
+
+** Taking stock [2024-06-27 Thu] and possible paths
+- Looking at ~photutils.psf~ it seems that it has a large fraction of the functionality I want already built
+  - But I am not sure whether it would be that easy for me to adapt to its way of working
+  - So I am still tending towards implementing my own version using lmfit, although I am no longer so convinced that this is the right approach
+- I also read a very good STScI report on fitting the WFC3 psf, which showed me lots of issues  that I hadn't considered
+  - Anderson:2016a
+    - Instrument Science Report WFC3 2016-12
+    - Empirical Models for the WFC3/IR PSF
+    - Jay Anderson, Mar 17, 2016
+    - https://ui.adsabs.harvard.edu/abs/2016wfc..rept...12A
+  - Terminology (see also intro to [[https://photutils.readthedocs.io/en/stable/psf.html][~photutils.psf~ docs]])
+    - PSF point spread function (just the optical part)
+      - Anderson calls it the "instrumental" PSF
+    - PRF point response function (includes the detector)
+      - also known as ePSF (effective PSF) - not to be confused with empirical PSF!
+      - ePSF includes the integration over the pixel area, but is still a continuos 2d function of displacement from the center.
+  - Variation over the field of view is pretty significant, so you never get better than a few percent accuracy
+  - There is the likelihood of "pixel-phase bias" in determining the centroids, and hence the psf itself
+  - This can be mitigated by dithering, but then you need to have well-determined forward and reverse transformations from the detector to the sky frame (geometrical distortion)
+  - He uses a 4x4 oversampling of the detector pixels, but then with a cubic interpolation on that oversampled grid
+    - That is sufficient oversampling to represent the sharp features in the psf, but then the cubic interpolation imposes smoothness at smaller scales and gives more accuracy
+    - I suppose that I can get this automatically by using cubic interpolation when I do the ~reproject~ step
+  - Also, he only tries to reconstruct the core of the PSF (25 x 25 detector pixels)
+    - He only uses unsaturated stars and argues that the diffraction spikes that dominate the outer PSF wings are affected by geometrical distortions, which vary too much over the field of view
+
 ** Using an empirical psf
 - This is working much better, although it is hard to get more than about 3% accuracy, which means you get residuals that are 33 times fainter than the stars, but that is still bright compared to the nebula
 - So far I have been putting everything in the notebook [[file:psf-notebooks/psf-experiments.ipynb]]

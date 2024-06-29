@@ -38,6 +38,7 @@ import matplotlib
 from matplotlib import pyplot as plt
 import seaborn as sns
 import astropy.visualization as av
+import lmfit
 
 matplotlib.rcParams['image.origin'] = 'lower'
 matplotlib.rcParams['image.interpolation'] = "nearest"
@@ -262,6 +263,8 @@ inst = webbpsf.setup_sim_to_match_file(filename)
 # More notes in the org file
 
 psf2 = inst.calc_psf(fov_pixels=512)
+
+psf2.writeto(str(datapath / "psf-512-nircam-f090w.fits"), overwrite=True)
 
 # So I made a new psf, which took about 15 sec. Now compare it with the previous one
 
@@ -510,6 +513,8 @@ inst.detector_position
 inst.detector_position = 0, 0
 psf3 = inst.calc_psf(fov_pixels=512)
 
+psf3.writeto(str(datapath / "psf-512-0000-0000-nircam-f090w.fits"), overwrite=True)
+
 impsf3d = psf3["DET_DIST"].data
 
 # +
@@ -598,6 +603,33 @@ ax[0].set_xscale("symlog", linthresh=16, linscale=1)
 # So the differences are quite small when you average over 10 pixel strips, but are larger for individual columns and rows. 
 #
 # For the outer spikes, it mainly seems to be a difference in the rotation distorsion term.
+
+# #### What about the variation with the star spectrum?
+
+# %env PYSYN_CDBS
+
+# I had to download the phoenix spectral grids from [here](https://archive.stsci.edu/hlsp/reference-atlases) and install them 
+#
+# ```
+#  will @ gris in ~/Work/synphot-data/grid [19:44:11] 
+# $ tar xf /Users/will/Downloads/hlsp_reference-atlases_hst_multi_pheonix-models_multi_v3_synphot5.tar --strip-components=4
+# ```
+
+import synphot
+
+# Use an O3V star as a proxy for the WR star, sice I do not have any WR models. Any hot star should have $F_\lambda \propto \lambda^{-4}$ in the infrared, so the details do not matter much.
+
+src = webbpsf.specFromSpectralType('O3V', catalog='phoenix')
+
+src.plot(ylog=True, xlog=True, bottom=1e16, left=300, right=1e5)
+
+inst.detector_position
+
+psf4 = inst.calc_psf(fov_pixels=512, source=src)
+
+psf4.writeto(str(datapath / "psf-o3v-512-0000-0000-nircam-f090w.fits"), overwrite=True)
+
+# This makes basically no difference at all. 
 
 # # Empirical psf from medium brightness stars
 #
@@ -1121,6 +1153,8 @@ def coarse_cutout_from_oversampled_psf(psfim, im, wcsi, xcenter, ycenter, oversa
     return cutout
 
 
+# ### Test of residuals from subtracting mean empirical psf
+#
 # Test it. Find a star that is close to the center
 
 xx, yy = (np.array(xy_unsaturated) - np.array([2316.35, 2323.38])).T
@@ -1140,13 +1174,23 @@ cutout = coarse_cutout_from_oversampled_psf(omean2, im_sub, wcs_pix, x0 + dx, y0
 
 cutout.wcs
 
+norm = matplotlib.colors.SymLogNorm(linthresh=3, linscale=0.5, vmin=-5000, vmax=5000)
+ticks=[-1000, -100, -10, 0, 10, 100, 1000]
+cmap = matplotlib.cm.twilight
+cmap
+
 fig, ax = plt.subplots(1, 3, sharex=True, sharey=True, figsize=(12, 4))
-norm = av.simple_norm(cutout.sdata, min_cut=-20, max_cut=1000, stretch='sqrt')
 fac = 0.85 * np.nanmax(cutout.data) / np.nanmax(cutout.psfdata)
-ax[0].imshow(cutout.data, norm=norm)
-ax[1].imshow(fac * cutout.psfdata, norm=norm)
-ax[2].imshow(cutout.data - fac * cutout.psfdata, norm=norm)
+ax[0].imshow(cutout.data, norm=norm, cmap=cmap)
+ax[1].imshow(fac * cutout.psfdata, norm=norm, cmap=cmap)
+res = ax[2].imshow(cutout.data - fac * cutout.psfdata, norm=norm, cmap=cmap)
 ax[0].set(xlim=[48, 80], ylim=[48, 80])
+ax[0].set_title("observed")
+ax[1].set_title("psf")
+ax[2].set_title("residual")
+fig.colorbar(
+    res, ax=ax, orientation="horizontal", ticks=ticks, aspect=50,
+)
 ...;
 
 # So this has a systematic problem that the empirical psf is slightly too broad, so it undersubtracts in the center and over-subtracts in a ring. 
@@ -1183,12 +1227,18 @@ kernel.array
 cutout.sdata = convolve(cutout.data, kernel)
 
 fig, ax = plt.subplots(1, 3, sharex=True, sharey=True, figsize=(12, 4))
-norm = av.simple_norm(cutout.sdata, min_cut=-20, max_cut=1000, stretch='sqrt')
 fac = 0.9 * np.nanmax(cutout.data) / np.nanmax(cutout.psfdata)
-ax[0].imshow(cutout.sdata, norm=norm)
-ax[1].imshow(fac * cutout.psfdata, norm=norm)
-ax[2].imshow(cutout.sdata - fac * cutout.psfdata, norm=norm)
+fac = np.nansum(cutout.data) / np.nansum(cutout.psfdata)
+ax[0].imshow(cutout.sdata, norm=norm, cmap=cmap)
+ax[1].imshow(fac * cutout.psfdata, norm=norm, cmap=cmap)
+ax[2].imshow(cutout.sdata - fac * cutout.psfdata, norm=norm, cmap=cmap)
 ax[0].set(xlim=[48, 80], ylim=[48, 80])
+ax[0].set_title("smoothed observed")
+ax[1].set_title("psf")
+ax[2].set_title("residual")
+fig.colorbar(
+    res, ax=ax, orientation="horizontal", ticks=ticks, aspect=50,
+)
 ...;
 
 # +
@@ -1211,6 +1261,45 @@ axx.plot(cutout.sdata[63, :] - fac * cutout.psfdata[63, :], drawstyle="steps-mid
 
 # So maybe we can get te residuals down to 1% with a combination of sub-pixel shifts and convolution
 
+fig, ax = plt.subplots(1, 2, figsize=(12, 6))
+fac = 0.9 * np.nanmax(cutout.data) / np.nanmax(cutout.psfdata)
+fac = np.nansum(cutout.data) / np.nansum(cutout.psfdata)
+residual = cutout.sdata - fac * cutout.psfdata
+fnorm = matplotlib.colors.SymLogNorm(linthresh=0.01, linscale=0.5, vmin=-1, vmax=1)
+im = ax[0].imshow(residual / cutout.sdata, vmin=-2, vmax=2, cmap=cmap)
+ax[1].imshow(residual / cutout.sdata, vmin=-2, vmax=2, cmap=cmap)
+ax[0].contour(residual / cutout.sdata, levels=[-0.3, 0.3], colors="g")
+ax[1].contour(residual / cutout.sdata, levels=[-0.3, 0.3], colors="g")
+ax[1].set(xlim=[48, 80], ylim=[48, 80])
+ax[0].set_title("fractional residual")
+ax[1].set_title("zoomed fractional residual")
+fig.colorbar(
+    im, ax=ax, orientation="horizontal",  aspect=50,
+)
+...;
+
+# The above figure shows the fractional residual
+#
+# So it turns out that it works ok within a radius of about 15 in this case, but outside of that it is completely useless. This may be because we are looking at a star that is superimposed on the nebula, so there will be residual emission around it. 
+#
+#
+
+np.indices(cutout.wcs.pixel_shape)
+
+x, y = cutout.wcs.array_index_to_world(*np.indices(cutout.wcs.pixel_shape))
+xx, yy = x.value - x0, y.value - y0
+r = np.hypot(xx, yy)
+r
+
+fig, ax = plt.subplots()
+ax.scatter(r.flat, cutout.psfdata.flat, s=1, marker='.', alpha=0.1)
+ax.scatter(r.flat, (cutout.data.flat / fac) - cutout.psfdata.flat, s=1, marker='.', alpha=0.1)
+ax.set(xscale="log")
+ax.set_yscale("symlog", linthresh=1e-3, linscale=2)
+ax.axhline(color="k", linewidth=0.5)
+...;
+
+
 # ## Set up a fitting framework
 #
 # So there are a few different ways I see to do this
@@ -1220,5 +1309,7 @@ axx.plot(cutout.sdata[63, :] - fac * cutout.psfdata[63, :], drawstyle="steps-mid
 # 3. We could look into using photutils to make a fittable model out of an image. 
 #
 # To be honest, I think #1 looks like the best bet - better the devil you know!
+#
+# Although photutils.psf does do similiar things already
 
-
+def fit_oversampled_psf()
