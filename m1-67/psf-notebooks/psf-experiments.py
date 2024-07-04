@@ -1219,8 +1219,14 @@ axx.plot(cutout.data[64, :]- fac * cutout.psfdata[64, :], drawstyle="steps-mid",
 
 # Give just a tad more smoothing to the data, to match the psf better
 
+# %%timeit
 esigx, esigy = 0.29, 0.29
 kernel = Gaussian2DKernel(x_stddev=esigx, y_stddev=esigy, x_size=3, y_size=3, mode='integrate')
+
+kernel.array
+
+# %%timeit
+kernel = Gaussian2DKernel(x_stddev=esigx, y_stddev=esigy, x_size=3, y_size=3, mode='center')
 
 kernel.array
 
