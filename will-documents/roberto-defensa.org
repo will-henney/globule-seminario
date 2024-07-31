@@ -1,0 +1,51 @@
+* Título y resumen
+
+** Will proposal [2024-07-30 Tue 18:13]
+Based on Roberto's and original poster, trying to make it more logical
+- Title:
+  : The impact of stellar wind and radiation on neutral globules around a Wolf-Rayet star
+- Abstract:
+  #+begin_example
+  The circumstellar nebula M1-67 around the Wolf-Rayet star WR~124 contains hundreds of small neutral globules, as revealed by recent JWST images. Ionized emission from the nebula shows an intricate pattern of shells and filaments, many of which appear associated with the globules but offset towards the central star. We propose a simple model for the nebula in which the photoevaporation flows from the irradiated surface of the globules interact with the Wolf-Rayet's stellar wind to form shocked hemispherical emission shells. We test this model against JWST and archival HST H alpha images of the nebula, finding a good agreement for the best observed and most isolated globules. The model provides a physical explanation for the observed morphology of the nebula and the globules, and suggests that the globules are hydrodynamically shielded from the stellar wind by the photoevaporation flows. We derive an independent estimate of the strength of the stellar wind, which is consistent with values previously derived from stellar atmosphere modeling. We are also able to constrain the three-dimensional distribution of the globules.
+  #+end_example
+- Título en español:
+  : El impacto del viento estelar y la radiación en glóbulos neutros alrededor de una estrella Wolf-Rayet
+- Resumen en español:
+  #+begin_example
+  La nebulosa circunestelar M1-67 alrededor de la estrella Wolf-Rayet WR~124 contiene cientos de pequeños glóbulos neutros, como revelan imágenes recientes del JWST. La emisión ionizada de la nebulosa muestra un patrón intrincado de cáscaras y filamentos, muchos de los cuales parecen asociados con los glóbulos pero desplazados hacia la estrella central. Proponemos un modelo simple para la nebulosa en el que los flujos de fotoevaporación desde la superficie irradiada de los glóbulos interactúan con el viento estelar de la Wolf-Rayet para formar cáscaras de emisión hemisféricas. Probamos este modelo contra imágenes del JWST y H alpha del HST de la nebulosa, encontrando una buena concordancia para los glóbulos mejor observados y más aislados. El modelo proporciona una explicación física para la morfología observada de la nebulosa y los glóbulos, y sugiere que los glóbulos están protegidos hidrodinámicamente del viento estelar por los flujos de fotoevaporación. Derivamos una estimación independiente de la fuerza del viento estelar, que es consistente con valores previamente derivados de la modelación de la atmósfera estelar. También somos capaces de restringir la distribución tridimensional de los glóbulos.
+  #+end_example
+
+** Version from 2023 poster [2023-06-28 Wed]
+- Title
+  : Shielded from the wind: evaporating neutral globules around a Wolf-Rayet star
+- Abstract
+  #+begin_example
+  The circumstellar nebula M1-67 around the Wolf-Rayet star WR~124 contains hundreds of small neutral globules, as revealed by recent JWST images. However, despite the powerful stellar wind from the star, the globules do not interact directly with the wind. Instead, they ear hydrodynamically shielded by a transonic warm ionized flow away from their surfaces that is induced by the Lyman continuum radiation of the star. This inwardly directed photoevaporation flow shocks against the outflowing stellar wind to form dense hemispherical ionized shells that ear a few times larger than the globules and which contribute a significant fraction of the recombination line luminosity of the nebula. We analyze archival HST H$\alpha$ images of the nebula in order to study the balance between the ram pressure of the stellar wind and the internal pressure due to the photoevaporative flows. By considering a steady state hydrodynamic model for these interactions, we obtain physical parameters of the collision shells and de-project the spatial distribution of globules, finding that the majority ear concentrated in a narrow range of radii: 0.5 +/- 0.1 pc from the star.
+  #+end_example
+
+** Propuesta de Roberto [2024-07-30 Tue]
+#+begin_example
+Qué le pearce enviar este corto resumen a los investigadores?
+
+En este trabajo se propone un modelo hidrodinámico estacionario con el
+cual se pretende explicar la interacción entre dos flujos supersónicos.
+Con las observaciones del telescopio JWST, se pudo notar la presencia de
+“nudos” en la nebulosa M1-67. Estos nudos son grandes concentraciones de
+gas neutro y polvo en la nebulosa. Se aplicó este modelo a la
+interacción entre el viento estelar de la estrella WR-124 y el flujo
+fotoevaporativo transónico de los nudos, causado por la radiación
+ultravioleta proveniente de la misma estrella.
+
+y una propuesta del título sería:
+
+Interacción entre flujos supersónicos en la nebulosa M1-67: un modelo
+hidrodinamico para defender a los glóbulos de una presión externa
+(recordando el poster)
+
+Modelo hidrodinamico para glóbulos moleculears ante una presión externa
+en la nebulosa M1-67
+
+Aplicación de un modelo hidrodinamico a los nudos de la nebulosa M1-67
+
+qué tal les pearce?
+#+end_example
