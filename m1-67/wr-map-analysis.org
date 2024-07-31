@@ -1146,4 +1146,14 @@ f1800w - 2 * f1280w should eliminate ionized emission
 : Wavelengths: [18.0, 12.8]
 : PSF FWHM (pixels): 19.2 13.6 Match to = 19.2
 
+* TODO Finding the knot positions and sizes on the different images
+:LOGBOOK:
+- State "TODO"       from              [2024-07-29 Mon 21:46] \\
+  This is the last thing that I need to do to help Roberto find the i-front radii of the knots
+:END:
+
+- We will adapt code from the notebook [[file:m1_67_globules_hst.py]] to extract an image around each knot and find the centroid position
+- Then we can try various approaches to determining the radios of the ionization front:
+  - We can look at the offset between the peak of the ionied emission nd the neutral emission.
+  - Or we can look at the width of the neutral peak (but Roberto is going to do that)
 
