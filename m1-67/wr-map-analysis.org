@@ -1157,3 +1157,39 @@ f1800w - 2 * f1280w should eliminate ionized emission
   - We can look at the offset between the peak of the ionied emission nd the neutral emission.
   - Or we can look at the width of the neutral peak (but Roberto is going to do that)
 
+** Run the find-knot-cores.py script for different images
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-knot-cores.py \
+         combo-D-neutral.fits 
+#+end_src
+
+#+RESULTS:
+: Saved barycenters to combo-D-neutral-knot-coords.reg
+
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-knot-cores.py \
+         combo-E-ionized.fits 
+#+end_src
+
+#+RESULTS:
+: Saved barycenters to combo-E-ionized-knot-coords.reg
+
+These show a clear pattern of radial offst between ionized and neutral
+
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-knot-cores.py \
+         wr124-hst-1997-f656n-radec.fits 
+#+end_src
+
+#+RESULTS:
+: Saved barycenters to wr124-hst-1997-f656n-radec-knot-coords.reg
+
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-knot-cores.py \
+         wr124-hst-2008-f656n-radec.fits 
+#+end_src
+
+#+RESULTS:
+: Saved barycenters to wr124-hst-2008-f656n-radec-knot-coords.reg
+
+These show some evidence for radial expansion in the proper motions, but the signal is weak

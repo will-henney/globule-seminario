@@ -52,7 +52,7 @@ def find_psf_fwhm(fits_file_name: str) -> float:
     Approximation to the PSF FWHM in arcseconds
 
     This only takes into account the core of the PSF, not the wings,
-    but it should be good enough for matching the resolutions of  list ifofro
+    but it should be good enough for matching the resolutions of  
     different filters
     """
     wave = guess_filter_wave(fits_file_name)
@@ -82,7 +82,7 @@ def smooth_by_fwhm(image, fwhm):
 def find_common_pixel_scale(hdus: list[fits.ImageHDU]) -> float:
     """Check that WCS are identical and return pixel scale in arc seconds"""
 
-    # Check that the WCS is identical in the  list ifofro images (necessary so
+    # Check that the WCS is identical in the  list of images (necessary so
     # that we can take a ratio without interpolation)
     wlist = [WCS(hdu.header) for hdu in hdus]
 
