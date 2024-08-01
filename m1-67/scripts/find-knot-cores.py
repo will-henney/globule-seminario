@@ -153,6 +153,26 @@ def main(
     regs.write(outfile, format="ds9", overwrite=True)
     print(f"Saved barycenters to {outfile}")
 
+    # Save the coordinates and fluxes as a table
+    flux_table = QTable(
+        [
+            {
+                "label": cutout.label,
+                "ICRS": cutout.barycenter,
+                "PA": cutout.pa_source,
+                "Sep": cutout.sep,
+                "Core Flux": cutout.flux_core,
+                "Halo Flux": cutout.flux_halo,
+                "Bright Peak": cutout.bright_peak,
+                "Bright BG": cutout.bright_bg,
+                "Isolated": cutout.is_isolated,
+            }
+            for cutout in cutouts
+        ]
+    )
+    outfile2 = imagefile.replace(".fits", "-knot-fluxes.ecsv")
+    flux_table.write(outfile2, format="ascii.ecsv", overwrite=True)
+    print(f"Saved coordinates and fluxes to {outfile2}")
 
 if __name__ == "__main__":
     typer.run(main)

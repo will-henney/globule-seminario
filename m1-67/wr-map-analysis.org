@@ -1156,6 +1156,12 @@ f1800w - 2 * f1280w should eliminate ionized emission
 - Then we can try various approaches to determining the radios of the ionization front:
   - We can look at the offset between the peak of the ionied emission nd the neutral emission.
   - Or we can look at the width of the neutral peak (but Roberto is going to do that)
+- Plan of action
+  1. [X] Save the coordinates of the knots in a region file
+  2. [X] Save coordinates and photometry in an ECSV file
+  3. [-] Compare pairs of images: dx, dy versus x, y to look for radial offsets
+     - for the ionized/neutral offset and also for the proper motions
+  4. [ ] Measure the knot sizes by fitting 2d elliptical gaussians
 
 ** Run the find-knot-cores.py script for different images
 #+begin_src sh :dir data/reproject :results verbatim
@@ -1165,6 +1171,7 @@ f1800w - 2 * f1280w should eliminate ionized emission
 
 #+RESULTS:
 : Saved barycenters to combo-D-neutral-knot-coords.reg
+: Saved coordinates and fluxes to combo-D-neutral-knot-fluxes.ecsv
 
 #+begin_src sh :dir data/reproject :results verbatim
   python ../../scripts/find-knot-cores.py \
@@ -1173,8 +1180,9 @@ f1800w - 2 * f1280w should eliminate ionized emission
 
 #+RESULTS:
 : Saved barycenters to combo-E-ionized-knot-coords.reg
+: Saved coordinates and fluxes to combo-E-ionized-knot-fluxes.ecsv
 
-These show a clear pattern of radial offst between ionized and neutral
+These show a clear pattern of radial offset between ionized and neutral
 
 #+begin_src sh :dir data/reproject :results verbatim
   python ../../scripts/find-knot-cores.py \
@@ -1183,6 +1191,7 @@ These show a clear pattern of radial offst between ionized and neutral
 
 #+RESULTS:
 : Saved barycenters to wr124-hst-1997-f656n-radec-knot-coords.reg
+: Saved coordinates and fluxes to wr124-hst-1997-f656n-radec-knot-fluxes.ecsv
 
 #+begin_src sh :dir data/reproject :results verbatim
   python ../../scripts/find-knot-cores.py \
@@ -1191,5 +1200,30 @@ These show a clear pattern of radial offst between ionized and neutral
 
 #+RESULTS:
 : Saved barycenters to wr124-hst-2008-f656n-radec-knot-coords.reg
+: Saved coordinates and fluxes to wr124-hst-2008-f656n-radec-knot-fluxes.ecsv
 
 These show some evidence for radial expansion in the proper motions, but the signal is weak
+
+** Compare the positions of the knots in the different images
+
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/compare-knot-positions.py combo-E-ionized combo-D-neutral
+#+end_src
+
+#+RESULTS:
+: Saved plot to combo-E-ionized-combo-D-neutral-knot-offsets.pdf
+
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/compare-knot-positions.py wr124-hst-1997-f656n-radec wr124-hst-2008-f656n-radec 
+#+end_src
+
+#+RESULTS:
+: Saved plot to wr124-hst-1997-f656n-radec-wr124-hst-2008-f656n-radec-knot-offsets.pdf
+
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/compare-knot-positions.py wr124-hst-2008-f656n-radec combo-E-ionized
+#+end_src
+
+#+RESULTS:
+: Saved plot to wr124-hst-2008-f656n-radec-combo-E-ionized-knot-offsets.pdf
+
