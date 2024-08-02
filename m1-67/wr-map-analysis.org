@@ -1163,7 +1163,13 @@ f1800w - 2 * f1280w should eliminate ionized emission
      - for the ionized/neutral offset and also for the proper motions
   4. [ ] Measure the knot sizes by fitting 2d elliptical gaussians
 
-** Run the find-knot-cores.py script for different images
+** Run the [[file:scripts/find-knot-cores.py][find-knot-cores.py]] script for different images
+- We have to find a good way of identifying the coordinates of the peak
+  - We can take the peak pixel, but this suffers from discretization
+  - We can take the flux-weighted average, but this is biased towards the position of the original masked core region (which is particularly bad for the neutral image, since we are hoping those peaks are displaced)
+  - So we will do a two step process - first find the peak pixel, then move the masked region to be centered on the peak before taking the flux-weighted average position (barycenter)
+  - And we will also use the star image to mask out star-dominated pixels
+  - Another possibility would be to fit a Gaussian, which we might try later
 #+begin_src sh :dir data/reproject :results verbatim
   python ../../scripts/find-knot-cores.py \
          combo-D-neutral.fits 
@@ -1205,7 +1211,7 @@ These show a clear pattern of radial offset between ionized and neutral
 These show some evidence for radial expansion in the proper motions, but the signal is weak
 
 ** Compare the positions of the knots in the different images
-
+This uses the [[file:scripts/compare-knot-positions.py][compare-knot-positions.py]] script
 #+begin_src sh :dir data/reproject :results verbatim
   python ../../scripts/compare-knot-positions.py combo-E-ionized combo-D-neutral
 #+end_src
@@ -1220,10 +1226,22 @@ These show some evidence for radial expansion in the proper motions, but the sig
 #+RESULTS:
 : Saved plot to wr124-hst-1997-f656n-radec-wr124-hst-2008-f656n-radec-knot-offsets.pdf
 
-#+begin_src sh :dir data/reproject :results verbatim
+#+begin_src sh :dir data/reproject :results verbatim 
   python ../../scripts/compare-knot-positions.py wr124-hst-2008-f656n-radec combo-E-ionized
 #+end_src
 
 #+RESULTS:
 : Saved plot to wr124-hst-2008-f656n-radec-combo-E-ionized-knot-offsets.pdf
+
+** Compare the separations of the knots
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/compare-knot-seps.py combo-E-ionized combo-D-neutral
+#+end_src
+
+#+RESULTS:
+: Saved plot to combo-E-ionized-combo-D-neutral-knot-seps.pdf
+
+This shows that the separation is typically 0.1 arcsec, with no clear trend with radius
+
+Next thing to do is compare with the knot sizes
 

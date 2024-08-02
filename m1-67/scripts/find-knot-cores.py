@@ -71,12 +71,16 @@ class SourceCutout:
         # can guarantee that we will enclose the neutral emission peak
         self.set_mask(r_out=self.size / 2, r_core=initial_core)
 
-        self.find_bary_center()
-        # Recalculate r, pa, and masks wrt the barycenter
-        self.r = self.barycenter.separation(self.image_coords)
-        self.pa = self.barycenter.position_angle(self.image_coords)
+        # First pass is to find pixel of peak
+        self.find_peak_center()
+        # Recalculate r, pa, and masks wrt the peakcenter
+        self.r = self.peakcenter.separation(self.image_coords)
+        self.pa = self.peakcenter.position_angle(self.image_coords)
+        # Recalculate mask around peak center
         self.set_mask(r_out=self.size / 2)
-
+        # Refine center by flux-weighted mean
+        self.find_bary_center()
+        
         # And do photometry
         self.bright_peak = np.max(self.image[self.coremask])
         # Take the 10% centile as estimate of BG value
@@ -104,32 +108,48 @@ class SourceCutout:
         cth = np.cos((self.pa - self.pa_star))
         self.mask = (self.r <= r_out) & ((cth >= mu_min) | (self.r <= r_in))
         self.coremask = self.r <= r_in
+        # Also mask out nans
+        self.mask &= np.isfinite(self.image)
+        self.coremask &= np.isfinite(self.image)
 
     def find_bary_center(self):
         """Refine estimate of center by using flux-weighted mean
         position within the core mask
         """
-        m = self.coremask
-
+        m = self.coremask 
         # Original version was flux-weighted mean
-        # xbary = np.average(self.x[m], weights=self.image[m])
-        # ybary = np.average(self.y[m], weights=self.image[m])
+        xbary = np.average(self.x[m], weights=self.image[m])
+        ybary = np.average(self.y[m], weights=self.image[m])
+        self.barycenter = self.wcs.pixel_to_world(xbary, ybary)
 
+    def find_peak_center(self):
+        """Find position of peak pixel within the core mask
+        """
+        m = self.coremask
         # New version is just the peak pixel
         index = np.argmax(self.image[m], axis=None)
-        xbary = self.x[m][index]
-        ybary = self.y[m][index]
-
-        self.barycenter = self.wcs.pixel_to_world(xbary, ybary)
+        xpeak = self.x[m][index]
+        ypeak = self.y[m][index]
+        self.peakcenter = self.wcs.pixel_to_world(xpeak, ypeak)
 
 
 def main(
     imagefile: str,
     regionfile: str = "../../m1-67-globules.reg",
+    starfile: str = "combo-A-stars.fits",
+    star_absolute_threshold: float = 2.0,
+    star_relative_threshold: float = 0.2,
 ):
     # Read the image
     hdu = fits.open(imagefile)[0]
 
+    # Mask out pixels dominated by stars
+    shdu = fits.open(starfile)[0]
+    star_mask = (shdu.data > star_absolute_threshold) & (
+        shdu.data > star_relative_threshold * hdu.data
+    )
+    hdu.data[star_mask] = np.nan
+    
     # Read the region file
     knot_table = get_knot_table(regionfile)
 
@@ -158,7 +178,8 @@ def main(
         [
             {
                 "label": cutout.label,
-                "ICRS": cutout.barycenter,
+                "Center": cutout.barycenter,
+                "Peak": cutout.peakcenter,
                 "PA": cutout.pa_source,
                 "Sep": cutout.sep,
                 "Core Flux": cutout.flux_core,
@@ -173,6 +194,7 @@ def main(
     outfile2 = imagefile.replace(".fits", "-knot-fluxes.ecsv")
     flux_table.write(outfile2, format="ascii.ecsv", overwrite=True)
     print(f"Saved coordinates and fluxes to {outfile2}")
+
 
 if __name__ == "__main__":
     typer.run(main)
