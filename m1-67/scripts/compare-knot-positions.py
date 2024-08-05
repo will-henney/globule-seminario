@@ -20,13 +20,32 @@ def main(
     prefix2: str,
     coordname: str = "Center",
     maxdelta: float = 0.45,
+    xyshift1: tuple[float, float] = (0.0, 0.0),
 ):
     # Load the data
     table1 = QTable.read(f"{prefix1}-knot-fluxes.ecsv")
     table2 = QTable.read(f"{prefix2}-knot-fluxes.ecsv")
-
     # Check that have the same knots in both tables
     assert np.all(table1["label"] == table2["label"])
+
+ 
+    # Apply optional shift to the first table
+    #
+    # Use a klugey way to get round astropy bugs in spherical_offsets_by
+    ra, dec = table1[coordname].ra, table1[coordname].dec
+    table1[coordname] = SkyCoord(
+        ra + np.cos(dec) * xyshift1[0] * u.arcsec,
+        dec + xyshift1[1] * u.arcsec,
+        frame="icrs",
+    )
+
+    # This is the way it should be done, but there is a bug in astropy
+    # < 6.1 (which requires python 3.10 or later)
+    #
+    # table1[coordname] = table1[coordname].spherical_offsets_by(
+    #     xyshift1[0] * u.arcsec, xyshift1[1] * u.arcsec
+    # )
+
     # Find ra, dec offsets of first set of knots from star
     x, y = ORIGIN.spherical_offsets_to(table1[coordname])
     # Find ra, dec offsets of second set of knots from first set

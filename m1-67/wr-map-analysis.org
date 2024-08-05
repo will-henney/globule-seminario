@@ -1219,21 +1219,29 @@ This uses the [[file:scripts/compare-knot-positions.py][compare-knot-positions.p
 #+RESULTS:
 : Saved plot to combo-E-ionized-combo-D-neutral-knot-offsets.pdf
 
+This shows a clear positive correlation in x-dx and y-dy, which is consistent with a radial displacement. The cross-correlations x-dy and y-dx are flat.
+
 #+begin_src sh :dir data/reproject :results verbatim
-  python ../../scripts/compare-knot-positions.py wr124-hst-1997-f656n-radec wr124-hst-2008-f656n-radec 
+  python ../../scripts/compare-knot-positions.py wr124-hst-1997-f656n-radec wr124-hst-2008-f656n-radec --xyshift1 -0.03 0.0
 #+end_src
 
 #+RESULTS:
 : Saved plot to wr124-hst-1997-f656n-radec-wr124-hst-2008-f656n-radec-knot-offsets.pdf
 
+ There is very slight evidence of an x-dx positive correlation, but also an offset in x that I had to correct
+
+ 
 #+begin_src sh :dir data/reproject :results verbatim 
-  python ../../scripts/compare-knot-positions.py wr124-hst-2008-f656n-radec combo-E-ionized
+  python ../../scripts/compare-knot-positions.py wr124-hst-2008-f656n-radec combo-E-ionized --xyshift1 -0.06 0.0
 #+end_src
 
 #+RESULTS:
 : Saved plot to wr124-hst-2008-f656n-radec-combo-E-ionized-knot-offsets.pdf
 
+This shows a clear net displacement in dx of about -0.06 arcsec, which must be an alignment problem between hst and jwst. Apart from that, everything looks approximately flat. Not much evidence of proper motion, but we will see with the radii
 ** Compare the separations of the knots
+This uses the [[file:scripts/compare-knot-seps.py][compare-knot-seps.py]] script
+*** Ionized versus neutral
 #+begin_src sh :dir data/reproject :results verbatim
   python ../../scripts/compare-knot-seps.py combo-E-ionized combo-D-neutral
 #+end_src
@@ -1244,4 +1252,41 @@ This uses the [[file:scripts/compare-knot-positions.py][compare-knot-positions.p
 This shows that the separation is typically 0.1 arcsec, with no clear trend with radius
 
 Next thing to do is compare with the knot sizes
+*** HST 1997 versus 2008 and HST 2008 versus JWST
+Here we are looking for evidence of proper motion
 
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/compare-knot-seps.py wr124-hst-1997-f656n-radec wr124-hst-2008-f656n-radec --xyshift1 -0.03 0.0
+#+end_src
+
+#+RESULTS:
+: Saved plot to wr124-hst-1997-f656n-radec-wr124-hst-2008-f656n-radec-knot-seps.pdf
+
+- This shows weak evidence for a radial expansion of about 0.03 arcsec over 11 years.
+  - Using a distance of 5.429 kpc, this is a linear velocity of
+    : 4.74 mu / P = 4.74 (0.03 / 11) 5.429 1e3 = 70 km/s
+    Checking ...
+    : (0.03 / 11) 5.429 1e3 1.49597870691e13 / 3.15576e7 1.0e5 = 70. km/s 
+- There is even a slight hint that it may grow linearly with radius
+  - In this case, the 0.03 displacement is over 25 arcsec, so we can calculate a timescale
+    : (25 / 0.03) 11 = 9167 years
+#+begin_src sh :dir data/reproject :results verbatim 
+  python ../../scripts/compare-knot-seps.py wr124-hst-2008-f656n-radec combo-E-ionized --xyshift1 -0.06 0.0
+#+end_src
+
+#+RESULTS:
+: Saved plot to wr124-hst-2008-f656n-radec-combo-E-ionized-knot-seps.pdf
+**** TODO Previous work on the proper motions and kinematics
+:LOGBOOK:
+- State "TODO"       from              [2024-08-04 Sun 13:32] \\
+  I am writing this here just to have somewhere to put it, but maybe move it somewhere else at a later date
+:END:
+- Useful discussion on this in [[https://github.com/will-henney/globule-seminario/issues/19][issue #19 on github]]
+- Proper motion measurements from Marchenko:2010a are based on the outer parts of the nebula and correspond to Δr = 0.0326 ± 0.0059 arcsec over Δt = 11.26 yr
+  - This is exactly the same as what we found from the knot expansion
+  - They combine this with the radial velocity of 45 km/s to derive a geometric distance of 3.35 ± 0.67 kpc, which is smaller than the parallax distance of 5.429 kpc that we are using
+    : 45 5.429 / 3.35 = 73 km/s - consistent with what we got earlier
+  - However, this does not take into account the correction for gas speed versus pattern speed, which would be about 15 km/s in the case of the knots (it would be less in the case of the shells though)
+  - See the Schoenberner papers, also discussed in [[https://github.com/will-henney/globule-seminario/issues/19#issuecomment-1517063395][a comment on issue #19]]
+  - We would need F = 70/45 = 1.56 to get the same distance as the parallax, which is a bit higher than predicted, but not entirely unreasonable, especially given the uncertainties in the proper motions
+- Line-of-sight velocities from Zavala:2022a

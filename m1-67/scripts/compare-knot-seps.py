@@ -18,7 +18,8 @@ def main(
     prefix1: str,
     prefix2: str,
     coordname: str = "Center",
-        maxdelta: float = 0.45,
+    maxdelta: float = 0.45,
+    xyshift1: tuple[float, float] = (0.0, 0.0),
 ):
     # Load the data
     table1 = QTable.read(f"{prefix1}-knot-fluxes.ecsv")
@@ -26,6 +27,16 @@ def main(
 
     # Check that have the same knots in both tables
     assert np.all(table1["label"] == table2["label"])
+
+    # Apply optional shift to the first table
+    #
+    # Use a klugey way to get round astropy bugs in spherical_offsets_by
+    ra, dec = table1[coordname].ra, table1[coordname].dec
+    table1[coordname] = SkyCoord(
+        ra + np.cos(dec) * xyshift1[0] * u.arcsec,
+        dec + xyshift1[1] * u.arcsec,
+        frame="icrs",
+    )
 
     r1 = table1[coordname].separation(ORIGIN)
     r2 = table2[coordname].separation(ORIGIN)
@@ -37,7 +48,7 @@ def main(
     dx, dy = table1[coordname].spherical_offsets_to(table2[coordname])
 
     xlabel = "Radial displacement from star, $R$, arcsec"
-    ylabel = "Neutral-Ionized peak radial offset, $dR$, arcsec"
+    ylabel = r"Radial offset between peaks, $\delta R$, arcsec"
     plot_tab = pd.DataFrame(
         {
             xlabel: r1.arcsec,
