@@ -1238,7 +1238,10 @@ This shows a clear positive correlation in x-dx and y-dy, which is consistent wi
 #+RESULTS:
 : Saved plot to wr124-hst-2008-f656n-radec-combo-E-ionized-knot-offsets.pdf
 
-This shows a clear net displacement in dx of about -0.06 arcsec, which must be an alignment problem between hst and jwst. Apart from that, everything looks approximately flat. Not much evidence of proper motion, but we will see with the radii
+- Originally this shows a clear net displacement in dx of about -0.06 arcsec, which must be an alignment problem between hst and jwst. Apart from that, everything looks approximately flat. Not much evidence of proper motion, but we will see with the radii
+- [2024-08-14 Wed] Now we have an option to introduce a global shift between the two images. The idea is to experiment with adjusting this shift using with this program until all the correlations are flat. And then use the same shift for the radia separations program (see next section)
+
+
 ** Compare the separations of the knots
 This uses the [[file:scripts/compare-knot-seps.py][compare-knot-seps.py]] script
 *** Ionized versus neutral
@@ -1248,6 +1251,7 @@ This uses the [[file:scripts/compare-knot-seps.py][compare-knot-seps.py]] script
 
 #+RESULTS:
 : Saved plot to combo-E-ionized-combo-D-neutral-knot-seps.pdf
+: Saved data to combo-E-ionized-combo-D-neutral-knot-seps.ecsv
 
 This shows that the separation is typically 0.1 arcsec, with no clear trend with radius
 
@@ -1276,17 +1280,3 @@ Here we are looking for evidence of proper motion
 
 #+RESULTS:
 : Saved plot to wr124-hst-2008-f656n-radec-combo-E-ionized-knot-seps.pdf
-**** TODO Previous work on the proper motions and kinematics
-:LOGBOOK:
-- State "TODO"       from              [2024-08-04 Sun 13:32] \\
-  I am writing this here just to have somewhere to put it, but maybe move it somewhere else at a later date
-:END:
-- Useful discussion on this in [[https://github.com/will-henney/globule-seminario/issues/19][issue #19 on github]]
-- Proper motion measurements from Marchenko:2010a are based on the outer parts of the nebula and correspond to Δr = 0.0326 ± 0.0059 arcsec over Δt = 11.26 yr
-  - This is exactly the same as what we found from the knot expansion
-  - They combine this with the radial velocity of 45 km/s to derive a geometric distance of 3.35 ± 0.67 kpc, which is smaller than the parallax distance of 5.429 kpc that we are using
-    : 45 5.429 / 3.35 = 73 km/s - consistent with what we got earlier
-  - However, this does not take into account the correction for gas speed versus pattern speed, which would be about 15 km/s in the case of the knots (it would be less in the case of the shells though)
-  - See the Schoenberner papers, also discussed in [[https://github.com/will-henney/globule-seminario/issues/19#issuecomment-1517063395][a comment on issue #19]]
-  - We would need F = 70/45 = 1.56 to get the same distance as the parallax, which is a bit higher than predicted, but not entirely unreasonable, especially given the uncertainties in the proper motions
-- Line-of-sight velocities from Zavala:2022a

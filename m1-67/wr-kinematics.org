@@ -1,0 +1,48 @@
+* TODO Previous work on the proper motions and kinematics
+:LOGBOOK:
+- Note taken on [2024-08-05 Mon 18:34] \\
+  Now I have moved it to its own file
+- State "TODO"       from              [2024-08-04 Sun 13:32] \\
+  I am writing this here just to have somewhere to put it, but maybe move it somewhere else at a later date
+:END:
+ - Useful discussion on this in [[https://github.com/will-henney/globule-seminario/issues/19][issue #19 on github]]
+   
+** Summary of our own proper motion measurements
+- We find a radial displacement of the knots of about 0.03 arcsec over 11 years (1997-2008)
+- And a similar one for the hst-jwst comparison over 14 years (2008-2022)
+- [ ] but these are not very precise and I need to do a better job of the quality control
+** Proper motion measurements from Marchenko:2010a
+- These are based on the outer parts of the nebula and correspond to Δr = 0.0326 ± 0.0059 arcsec over Δt = 11.26 yr
+  - This is exactly the same as what we found from the knot expansion
+  - They combine this with the radial velocity of 45 km/s to derive a geometric distance of 3.35 ± 0.67 kpc, which is smaller than the parallax distance of 5.429 kpc that we are using
+    : 45 5.429 / 3.35 = 73 km/s - consistent with what we got earlier
+  - However, this does not take into account the correction for gas speed versus pattern speed, which would be about 15 km/s in the case of the knots (it would be less in the case of the shells though)
+  - See the Schoenberner papers, also discussed in [[https://github.com/will-henney/globule-seminario/issues/19#issuecomment-1517063395][a comment on issue #19]]
+  - We would need F = 70/45 = 1.56 to get the same distance as the parallax, which is a bit higher than predicted, but not entirely unreasonable, especially given the uncertainties in the proper motions
+** Line-of-sight velocities from Zavala:2022a
++ Longslit spectroscopy in Ha and [NII] lines with vertical slits
++ They find a systemic velocity of 170 +/- 10 km/s
+  + This seems to be  from the average tangent point velocities around the outer boundary of the main shell
+  + All following velocities are relative to this
+  + [ ] check the stellar velocity - I think it is a bit different
++ The velocity splitting in the center (close to the star projected position)
+  + *their measurement* +/- (46.3 +/- 3.0) km/s
+  + *my measurement* +40 km/s to red; -48 km/s to blue
+  + 
++ The knot emission seems to be on coherent shells, but mostly smaller radii than the main emission shell
+  + Although the velocity splitting is similar, which means that the dynamic age is lower than that of the main shell
+  + 
++ The paper includes a model with 3 different nested ellipsoids plus 3 different nested toroids, each with its own Hubble-law velocity profile
+  + The velocity gets up to 90 km/s on the long axis of all 3 ellipsoids at their max radii (35, 55, 55 arcsec), but we never see this in the PV diagrams because the long axes are all in the plane of the sky
+  + Then they add some extra jet like features, distorsions and localised blow-outs
+  + Then they make it clumpy, arbitrarily vary the density of points in different regions (to match imaging observations) and make the redshifted side denser than the blueshifted side (to match the PV diagrams)
+  + And it still does not reproduce the observed spectra all that well in detail
+    + For instance, it does not show the moderate figure-8 pinching seen in slits D, E, F
+    + Predicts some high velocity emission that is not seen
++ The outer halo seems to be very different on the two sides
+  - narrow and redshifted +15 km/s in NE (top of slits B, C)
+    - but this might be a velocity calibration issue for these slits since the tangent point is also redshifted by the same amount
+    - [ ] may also be a similar problem in slit D - we need to bear this in mind if calculating knot velocities (strangely, the theoretical PV image for slit D also seems shifted, but in the opposite direction)
+  - narrow and unshifted (+0 km/s) in SW (bottom of slit M)
+  - broad and blueshifted (-25 km/s) in S (bottom of slit G) but this might be a jet
+

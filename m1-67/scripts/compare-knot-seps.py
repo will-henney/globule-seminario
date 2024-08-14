@@ -1,5 +1,5 @@
 """
-Compare the positions of the knots from two different images
+Compare the radial separations of the knots from two different images
 """
 
 import numpy as np
@@ -69,6 +69,18 @@ def main(
     grid.savefig(plotfile, bbox_inches="tight")
     print(f"Saved plot to {plotfile}")
 
+    savetab = QTable(
+        {
+            "label": table1["label"],
+            "PA": table1["PA"],
+            "R": r1.to(u.arcsec),
+            "dR": dr.to(u.arcsec),
+        }
+    )
+    tabfile = plotfile.replace(".pdf", ".ecsv")
+    savetab.write(tabfile, overwrite=True)
+    # plot_tab.to_csv(tabfile, index=False)
+    print(f"Saved data to {tabfile}")
 
 if __name__ == "__main__":
     typer.run(main)
