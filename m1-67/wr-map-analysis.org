@@ -1280,3 +1280,30 @@ Here we are looking for evidence of proper motion
 
 #+RESULTS:
 : Saved plot to wr124-hst-2008-f656n-radec-combo-E-ionized-knot-seps.pdf
+** Fit elliptical gaussians to the knots
+This uses the [[file:scripts/fit-knot-ellipses.py][fit-knot-ellipses.py]] script
+
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/fit-knot-ellipses.py \
+         combo-D-neutral.fits --mask-radius-arcsec 0.4
+#+end_src
+
+#+RESULTS:
+: Saved ellipse regions to combo-D-neutral-knot-ellipses.reg
+: Saved ellipse coordinates, sizes, angles, brightnesses to combo-D-neutral-knot-ellipses.ecsv
+
+
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/fit-knot-ellipses.py \
+         combo-E-ionized.fits --mask-radius-arcsec 0.4
+#+end_src
+
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/fit-knot-ellipses.py \
+         wr124-hst-1997-f656n-radec.fits --mask-radius-arcsec 0.4
+#+end_src
+
+#+RESULTS:
+: Saved ellipse regions to wr124-hst-1997-f656n-radec-knot-ellipses.reg
+: Saved ellipse coordinates, sizes, angles, brightnesses to wr124-hst-1997-f656n-radec-knot-ellipses.ecsv
+
