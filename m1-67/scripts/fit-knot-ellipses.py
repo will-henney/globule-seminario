@@ -1,5 +1,5 @@
 """
-Fit an elliptical Gaussian to the brigthess profile of the cores of the knots from a given image
+Fit an elliptical Gaussian to the brigthness profile of the cores of the knots from a given image
 
 Approximate knot positions are taken from a region file. 
 """
