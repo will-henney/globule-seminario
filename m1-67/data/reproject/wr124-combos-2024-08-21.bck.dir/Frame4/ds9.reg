@@ -1,0 +1,9 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+circle(287.8780012,16.8644100,0.000")
+circle(287.8725062,16.8569125,0.000")
+# projection(287.8834208,16.8613866,287.8834208,16.8613866,0.000")
+# projection(287.8821170,16.8625393,287.8821170,16.8625393,0.000")
+# projection(287.8820177,16.8606306,287.8820177,16.8606306,0.000")
+# projection(287.8824065,16.8624905,287.8824065,16.8624905,0.000")

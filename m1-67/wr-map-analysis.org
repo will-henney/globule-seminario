@@ -1488,15 +1488,18 @@ This uses the [[file:scripts/fit-knot-ellipses.py][fit-knot-ellipses.py]] script
 : Saved ellipse coordinates, sizes, angles, brightnesses to combo-AA-neutral-knot-ellipses.ecsv
 ** Find knot peak sizes and photometry
 
+I suspect that 0.2 might be too small for D
 #+begin_src sh :dir data/reproject :results verbatim
   python ../../scripts/find-knot-sizes.py \
-         combo-D-neutral.fits --mask-radius-arcsec 0.2
+         combo-D-neutral.fits --mask-radius-arcsec 0.25
 #+end_src
 
 #+RESULTS:
 : Saved masked image (no stars) to combo-D-neutral-nostars.fits
 : Saved peak coordinates, sizes, photometry to combo-D-neutral-knot-peak-stats.ecsv
-: Saved peak regions to combo-D-neutral-knot-peak-sizes.reg
+: Saved effective radii of peaks to combo-D-neutral-knot-peak-reff.reg
+: Saved rms radii of peaks to combo-D-neutral-knot-peak-rrms.reg
+: Saved gauss fit regions to combo-D-neutral-knot-gauss-fits.reg
 
 #+begin_src sh :dir data/reproject :results verbatim
   python ../../scripts/find-knot-sizes.py \
@@ -1506,7 +1509,9 @@ This uses the [[file:scripts/fit-knot-ellipses.py][fit-knot-ellipses.py]] script
 #+RESULTS:
 : Saved masked image (no stars) to combo-AA-neutral-nostars.fits
 : Saved peak coordinates, sizes, photometry to combo-AA-neutral-knot-peak-stats.ecsv
-: Saved peak regions to combo-AA-neutral-knot-peak-sizes.reg
+: Saved effective radii of peaks to combo-AA-neutral-knot-peak-reff.reg
+: Saved rms radii of peaks to combo-AA-neutral-knot-peak-rrms.reg
+: Saved gauss fit regions to combo-AA-neutral-knot-gauss-fits.reg
 
 #+begin_src sh :dir data/reproject :results verbatim
   python ../../scripts/find-knot-sizes.py \
@@ -1516,7 +1521,9 @@ This uses the [[file:scripts/fit-knot-ellipses.py][fit-knot-ellipses.py]] script
 #+RESULTS:
 : Saved masked image (no stars) to combo-DD-neutral-nostars.fits
 : Saved peak coordinates, sizes, photometry to combo-DD-neutral-knot-peak-stats.ecsv
-: Saved peak regions to combo-DD-neutral-knot-peak-sizes.reg
+: Saved effective radii of peaks to combo-DD-neutral-knot-peak-reff.reg
+: Saved rms radii of peaks to combo-DD-neutral-knot-peak-rrms.reg
+: Saved gauss fit regions to combo-DD-neutral-knot-gauss-fits.reg
 
 #+begin_src sh :dir data/reproject :results verbatim
   python ../../scripts/find-knot-sizes.py \
@@ -1526,5 +1533,18 @@ This uses the [[file:scripts/fit-knot-ellipses.py][fit-knot-ellipses.py]] script
 #+RESULTS:
 : Saved masked image (no stars) to combo-E-ionized-nostars.fits
 : Saved peak coordinates, sizes, photometry to combo-E-ionized-knot-peak-stats.ecsv
-: Saved peak regions to combo-E-ionized-knot-peak-sizes.reg
+: Saved effective radii of peaks to combo-E-ionized-knot-peak-reff.reg
+: Saved rms radii of peaks to combo-E-ionized-knot-peak-rrms.reg
+: Saved gauss fit regions to combo-E-ionized-knot-gauss-fits.reg
 
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-knot-sizes.py \
+         wr124-hst-2008-f656n-radec.fits --mask-radius-arcsec 0.25 --starfile wr124-hst-1997-f675w-radec.fits --star-absolute-threshold 10.0 
+#+end_src
+
+#+RESULTS:
+: Saved masked image (no stars) to wr124-hst-2008-f656n-radec-nostars.fits
+: Saved peak coordinates, sizes, photometry to wr124-hst-2008-f656n-radec-knot-peak-stats.ecsv
+: Saved effective radii of peaks to wr124-hst-2008-f656n-radec-knot-peak-reff.reg
+: Saved rms radii of peaks to wr124-hst-2008-f656n-radec-knot-peak-rrms.reg
+: Saved gauss fit regions to wr124-hst-2008-f656n-radec-knot-gauss-fits.reg

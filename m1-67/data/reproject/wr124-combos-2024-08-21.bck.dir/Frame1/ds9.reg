@@ -1,0 +1,341 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+ellipse(287.8777831,16.8608909,0.201",0.311",296.28154) # color=red width=3 text={PA296-R030}
+ellipse(287.8794824,16.8609237,0.107",0.139",66.869478) # color=red width=3 text={PA067-R032}
+ellipse(287.8791796,16.8614293,0.232",0.139",30.919264) # color=red width=3 text={PA031-R033}
+ellipse(287.8796508,16.8608663,0.099",0.107",71.974383) # color=red width=3 text={PA072-R035}
+ellipse(287.8789732,16.8616189,0.129",0.097",16.829911) # color=red width=3 text={PA017-R038}
+ellipse(287.8797974,16.8612779,0.086",0.160",57.691776) # color=red width=3 text={PA058-R044}
+ellipse(287.8780532,16.8617500,0.681",0.518",337.92335) # color=red width=3 text={PA338-R045}
+ellipse(287.8797425,16.8615107,0.113",0.163",49.978135) # color=red width=3 text={PA050-R049}
+ellipse(287.8793862,16.8619495,0.107",0.121",28.041799) # color=red width=3 text={PA028-R054}
+ellipse(287.8767997,16.8603749,0.098",0.108",262.48438) # color=red width=3 text={PA262-R064}
+ellipse(287.8782524,16.8587777,0.111",0.132",191.92628) # color=red width=3 text={PA192-R066}
+ellipse(287.8779050,16.8588346,0.112",0.137",201.81558) # color=red width=3 text={PA202-R068}
+ellipse(287.8767439,16.8599686,0.135",0.136",250.60076) # color=red width=3 text={PA251-R068}
+ellipse(287.8784522,16.8586241,0.108",0.136",185.20292) # color=red width=3 text={PA185-R071}
+ellipse(287.8788042,16.8585358,0.130",0.188",176.82858) # color=red width=3 text={PA177-R075}
+ellipse(287.8801818,16.8621976,0.151",0.251",41.625506) # color=red width=3 text={PA042-R077}
+ellipse(287.8775109,16.8624869,0.137",0.158",329.9014) # color=red width=3 text={PA330-R077}
+ellipse(287.8801990,16.8624617,0.121",0.110",39.06007) # color=red width=3 text={PA039-R083}
+ellipse(287.8786960,16.8581929,0.125",0.136",179.24615) # color=red width=3 text={PA179-R085}
+ellipse(287.8769377,16.8585785,0.237",0.107",219.0678) # color=red width=3 text={PA219-R092}
+ellipse(287.8813864,16.8603788,0.111",0.121",94.994761) # color=red width=3 text={PA095-R093}
+ellipse(287.8772475,16.8629026,0.144",0.124",330.1219) # color=red width=3 text={PA330-R093}
+ellipse(287.8784886,16.8633980,0.152",0.335",356.02083) # color=red width=3 text={PA356-R098}
+ellipse(287.8759372,16.8597904,0.123",0.097",252.6192) # color=red width=3 text={PA253-R098}
+ellipse(287.8789185,16.8634888,0.284",0.098",5.0073156) # color=red width=3 text={PA005-R101}
+ellipse(287.8785580,16.8634475,0.341",0.139",357.46318) # color=red width=3 text={PA357-R101}
+ellipse(287.8816507,16.8603131,0.104",0.164",95.879253) # color=red width=3 text={PA096-R102}
+ellipse(287.8772719,16.8580722,0.129",0.117",207.2527) # color=red width=3 text={PA207-R102}
+ellipse(287.8774826,16.8579422,0.133",0.121",202.72687) # color=red width=3 text={PA203-R102}
+ellipse(287.8785623,16.8634626,0.181",0.208",359.28661) # color=red width=3 text={PA359-R104}
+ellipse(287.8757913,16.8616046,0.103",0.105",289.95979) # color=red width=3 text={PA290-R104}
+ellipse(287.8779653,16.8576958,0.140",0.107",192.77572) # color=red width=3 text={PA193-R105}
+ellipse(287.8808208,16.8628485,0.252",0.200",42.697046) # color=red width=3 text={PA043-R107}
+ellipse(287.8814685,16.8619903,0.205",0.118",62.405988) # color=red width=3 text={PA062-R108}
+ellipse(287.8762839,16.8585045,0.119",0.161",226.87355) # color=red width=3 text={PA227-R110}
+ellipse(287.8773893,16.8577710,0.195",0.102",203.12008) # color=red width=3 text={PA203-R110}
+ellipse(287.8808447,16.8628958,0.286",0.321",44.145644) # color=red width=3 text={PA044-R110}
+ellipse(287.8806970,16.8630534,0.117",0.138",38.654619) # color=red width=3 text={PA039-R111}
+ellipse(287.8776976,16.8576102,0.142",0.114",196.68917) # color=red width=3 text={PA197-R112}
+ellipse(287.8819170,16.8609308,0.122",0.146",83.613039) # color=red width=3 text={PA084-R112}
+ellipse(287.8792466,16.8574936,0.100",0.133",169.57252) # color=red width=3 text={PA170-R113}
+ellipse(287.8781247,16.8575056,0.095",0.267",187.95017) # color=red width=3 text={PA188-R114}
+ellipse(287.8817705,16.8593047,0.185",0.144",113.30028) # color=red width=3 text={PA113-R116}
+ellipse(287.8820760,16.8609832,0.123",0.313",83.163043) # color=red width=3 text={PA083-R117}
+ellipse(287.8785197,16.8572096,0.187",0.142",182.64374) # color=red width=3 text={PA183-R119}
+ellipse(287.8772156,16.8575681,0.069",0.063",204.56393) # color=red width=3 text={PA205-R119}
+ellipse(287.8815037,16.8625575,0.270",0.199",54.698728) # color=red width=3 text={PA055-R120}
+ellipse(287.8822185,16.8605440,0.122",0.311",90.419607) # color=red width=3 text={PA090-R121}
+ellipse(287.8769098,16.8576214,0.132",0.118",209.11768) # color=red width=3 text={PA209-R122}
+ellipse(287.8794171,16.8572634,0.226",0.177",167.31029) # color=red width=3 text={PA167-R122}
+ellipse(287.8822512,16.8605112,0.244",0.142",91.893865) # color=red width=3 text={PA092-R123}
+ellipse(287.8807064,16.8635251,0.190",0.125",33.806366) # color=red width=3 text={PA034-R126}
+ellipse(287.8814414,16.8628912,0.166",0.141",49.567045) # color=red width=3 text={PA050-R126}
+ellipse(287.8786267,16.8569614,0.310",0.196",179.65278) # color=red width=3 text={PA180-R130}
+ellipse(287.8795068,16.8570235,0.157",0.159",166.5518) # color=red width=3 text={PA167-R131}
+ellipse(287.8790728,16.8568827,0.124",0.137",173.51989) # color=red width=3 text={PA174-R133}
+ellipse(287.8820288,16.8625144,0.140",0.133",59.54812) # color=red width=3 text={PA060-R134}
+ellipse(287.8826382,16.8605688,0.118",0.095",90.37149) # color=red width=3 text={PA090-R137}
+ellipse(287.8826647,16.8609021,0.154",0.104",85.420362) # color=red width=3 text={PA085-R138}
+ellipse(287.8809388,16.8637876,0.393",0.127",33.410516) # color=red width=3 text={PA033-R138}
+ellipse(287.8806150,16.8636978,0.296",1.361",35.805399) # color=red width=3 text={PA036-R139}
+ellipse(287.8819611,16.8629127,0.108",0.147",54.130763) # color=red width=3 text={PA054-R139}
+ellipse(287.8766874,16.8571250,0.139",0.159",208.55452) # color=red width=3 text={PA209-R141}
+ellipse(287.8781239,16.8646456,0.232",0.128",352.93967) # color=red width=3 text={PA353-R145}
+ellipse(287.8827174,16.8617284,0.100",0.160",73.775288) # color=red width=3 text={PA074-R145}
+ellipse(287.8826814,16.8592684,0.231",0.126",109.45505) # color=red width=3 text={PA109-R145}
+ellipse(287.8774486,16.8566710,0.110",0.099",196.22235) # color=red width=3 text={PA196-R146}
+ellipse(287.8824837,16.8625390,0.210",0.104",62.121412) # color=red width=3 text={PA062-R147}
+ellipse(287.8809128,16.8641589,0.091",0.195",31.450053) # color=red width=3 text={PA031-R147}
+ellipse(287.8784206,16.8647383,0.136",0.137",357.13388) # color=red width=3 text={PA357-R148}
+ellipse(287.8826324,16.8621725,0.168",0.147",67.698197) # color=red width=3 text={PA068-R148}
+ellipse(287.8804198,16.8568118,0.111",0.106",155.77452) # color=red width=3 text={PA156-R149}
+ellipse(287.8830173,16.8600632,0.136",0.098",97.374521) # color=red width=3 text={PA097-R151}
+ellipse(287.8788205,16.8648528,0.082",0.076",2.1181517) # color=red width=3 text={PA002-R153}
+ellipse(287.8786783,16.8648595,0.187",0.136",359.6245) # color=red width=3 text={PA360-R153}
+ellipse(287.8831165,16.8604136,0.082",0.100",92.818672) # color=red width=3 text={PA093-R153}
+ellipse(287.8783938,16.8650167,0.187",0.123",356.79188) # color=red width=3 text={PA357-R158}
+ellipse(287.8832685,16.8606217,0.099",0.126",89.900393) # color=red width=3 text={PA090-R158}
+ellipse(287.8776165,16.8649623,0.213",0.124",347.23242) # color=red width=3 text={PA347-R159}
+ellipse(287.8831392,16.8618068,0.173",0.106",74.471156) # color=red width=3 text={PA074-R159}
+ellipse(287.8791490,16.8560897,0.159",0.113",173.76007) # color=red width=3 text={PA174-R162}
+ellipse(287.8787467,16.8651760,0.118",0.231",0.86986834) # color=red width=3 text={PA001-R163}
+ellipse(287.8782564,16.8651489,0.099",0.132",355.26589) # color=red width=3 text={PA355-R163}
+ellipse(287.8790359,16.8652120,0.186",0.175",4.4094837) # color=red width=3 text={PA004-R164}
+ellipse(287.8776327,16.8651605,0.186",0.253",348.02635) # color=red width=3 text={PA348-R166}
+ellipse(287.8833681,16.8617244,0.105",0.137",75.918503) # color=red width=3 text={PA076-R166}
+ellipse(287.8819667,16.8640533,0.143",0.161",42.412873) # color=red width=3 text={PA042-R168}
+ellipse(287.8801555,16.8560648,0.061",0.055",162.32484) # color=red width=3 text={PA162-R171}
+ellipse(287.8833374,16.8623132,0.123",0.092",69.00592) # color=red width=3 text={PA069-R172}
+ellipse(287.8795276,16.8558356,0.120",0.131",170.12431) # color=red width=3 text={PA170-R174}
+ellipse(287.8786288,16.8557133,0.116",0.172",180.01379) # color=red width=3 text={PA180-R174}
+ellipse(287.8782273,16.8655175,0.151",0.119",355.58677) # color=red width=3 text={PA356-R175}
+ellipse(287.8778713,16.8557257,0.107",0.113",188.64233) # color=red width=3 text={PA189-R176}
+ellipse(287.8770237,16.8558709,0.099",0.099",198.23956) # color=red width=3 text={PA198-R178}
+ellipse(287.8762718,16.8561352,0.144",0.170",207.03169) # color=red width=3 text={PA207-R178}
+ellipse(287.8791234,16.8655199,0.078",0.081",5.2731855) # color=red width=3 text={PA005-R178}
+ellipse(287.8762704,16.8560969,0.190",0.256",206.20568) # color=red width=3 text={PA206-R180}
+ellipse(287.8760272,16.8561694,0.155",0.122",209.31849) # color=red width=3 text={PA209-R181}
+ellipse(287.8836862,16.8622860,0.108",0.121",70.762227) # color=red width=3 text={PA071-R183}
+ellipse(287.8839011,16.8617503,0.200",0.130",77.500634) # color=red width=3 text={PA078-R183}
+ellipse(287.8791333,16.8657882,0.118",0.221",5.5228198) # color=red width=3 text={PA006-R185}
+ellipse(287.8769783,16.8556668,0.128",0.128",198.21765) # color=red width=3 text={PA198-R185}
+ellipse(287.8781521,16.8657392,0.146",0.277",354.84619) # color=red width=3 text={PA355-R186}
+ellipse(287.8840747,16.8606219,0.098",0.105",89.826264) # color=red width=3 text={PA090-R187}
+ellipse(287.8785900,16.8553141,0.118",0.105",180.32688) # color=red width=3 text={PA180-R189}
+ellipse(287.8750953,16.8565563,0.139",0.139",219.93909) # color=red width=3 text={PA220-R189}
+ellipse(287.8731369,16.8606559,0.100",0.113",270.57478) # color=red width=3 text={PA271-R189}
+ellipse(287.8763551,16.8556756,0.145",0.116",203.92698) # color=red width=3 text={PA204-R191}
+ellipse(287.8754334,16.8560178,0.127",0.146",213.90545) # color=red width=3 text={PA214-R197}
+ellipse(287.8844102,16.8605446,0.116",0.143",90.590572) # color=red width=3 text={PA091-R197}
+ellipse(287.8730002,16.8617421,0.104",0.120",281.93431) # color=red width=3 text={PA282-R198}
+ellipse(287.8757170,16.8558088,0.160",0.145",210.39669) # color=red width=3 text={PA210-R198}
+ellipse(287.8761275,16.8555822,0.145",0.222",205.68484) # color=red width=3 text={PA206-R200}
+ellipse(287.8763835,16.8554686,0.090",0.081",202.93731) # color=red width=3 text={PA203-R200}
+ellipse(287.8780754,16.8661654,0.142",0.224",354.06763) # color=red width=3 text={PA354-R202}
+ellipse(287.8844874,16.8611099,0.119",0.172",84.823432) # color=red width=3 text={PA085-R202}
+ellipse(287.8845294,16.8603772,0.091",0.110",92.039755) # color=red width=3 text={PA092-R204}
+ellipse(287.8772113,16.8550987,0.104",0.100",194.03331) # color=red width=3 text={PA194-R204}
+ellipse(287.8744917,16.8565194,0.091",0.085",224.20561) # color=red width=3 text={PA224-R205}
+ellipse(287.8763960,16.8552390,0.229",0.192",202.17208) # color=red width=3 text={PA202-R206}
+ellipse(287.8846604,16.8619103,0.100",0.121",77.200042) # color=red width=3 text={PA077-R212}
+ellipse(287.8764502,16.8555071,0.326",1.115",205.12328) # color=red width=3 text={PA205-R215}
+ellipse(287.8849348,16.8605021,0.129",0.103",91.005598) # color=red width=3 text={PA091-R215}
+ellipse(287.8754021,16.8554834,0.274",0.369",211.98614) # color=red width=3 text={PA212-R215}
+ellipse(287.8732431,16.8573279,0.114",0.136",237.60743) # color=red width=3 text={PA238-R217}
+ellipse(287.8848969,16.8620668,0.389",0.253",75.561314) # color=red width=3 text={PA076-R219}
+ellipse(287.8848378,16.8619892,0.093",0.166",76.808587) # color=red width=3 text={PA077-R219}
+ellipse(287.8721569,16.8607659,0.269",0.123",270.88664) # color=red width=3 text={PA271-R220}
+ellipse(287.8789658,16.8543789,0.227",0.112",177.29) # color=red width=3 text={PA177-R222}
+ellipse(287.8721623,16.8607508,0.125",0.127",271.25528) # color=red width=3 text={PA271-R224}
+ellipse(287.8781862,16.8543773,0.080",0.174",184.77174) # color=red width=3 text={PA185-R225}
+ellipse(287.8758911,16.8548718,0.122",0.203",204.46491) # color=red width=3 text={PA204-R225}
+ellipse(287.8851795,16.8613596,0.123",0.164",83.078044) # color=red width=3 text={PA083-R226}
+ellipse(287.8790333,16.8541504,0.102",0.104",176.69352) # color=red width=3 text={PA177-R232}
+ellipse(287.8734062,16.8564415,0.108",0.126",230.26701) # color=red width=3 text={PA230-R234}
+ellipse(287.8758184,16.8546093,0.145",0.191",204.3875) # color=red width=3 text={PA204-R234}
+ellipse(287.8728354,16.8571701,0.141",0.112",238.32059) # color=red width=3 text={PA238-R234}
+ellipse(287.8743123,16.8555184,0.164",0.169",219.02424) # color=red width=3 text={PA219-R235}
+ellipse(287.8718511,16.8616257,0.295",0.149",278.58426) # color=red width=3 text={PA279-R237}
+ellipse(287.8740064,16.8552348,0.167",0.141",219.52378) # color=red width=3 text={PA220-R249}
+ellipse(287.8719084,16.8579409,0.508",0.586",247.25179) # color=red width=3 text={PA247-R249}
+ellipse(287.8718097,16.8580089,0.124",0.206",248.57807) # color=red width=3 text={PA249-R252}
+ellipse(287.8860886,16.8602352,0.094",0.119",92.978269) # color=red width=3 text={PA093-R256}
+ellipse(287.8804049,16.8535991,0.140",0.138",166.59561) # color=red width=3 text={PA167-R257}
+ellipse(287.8771543,16.8676479,0.112",0.151",348.45348) # color=red width=3 text={PA348-R258}
+ellipse(287.8861970,16.8610205,0.108",0.163",86.358766) # color=red width=3 text={PA086-R259}
+ellipse(287.8862284,16.8601145,0.112",0.098",93.749126) # color=red width=3 text={PA094-R261}
+ellipse(287.8769842,16.8678273,0.206",0.139",348.02079) # color=red width=3 text={PA348-R264}
+ellipse(287.8735652,16.8549838,0.099",0.156",220.86669) # color=red width=3 text={PA221-R266}
+ellipse(287.8713016,16.8579758,0.127",0.242",249.45698) # color=red width=3 text={PA249-R267}
+ellipse(287.8762747,16.8677334,0.209",0.246",342.69924) # color=red width=3 text={PA343-R268}
+ellipse(287.8864486,16.8613265,0.211",0.093",84.488899) # color=red width=3 text={PA084-R268}
+ellipse(287.8718830,16.8569925,0.031",0.031",240.75204) # color=red width=3 text={PA241-R269}
+ellipse(287.8867038,16.8608891,0.378",0.114",87.7565) # color=red width=3 text={PA088-R273}
+ellipse(287.8767621,16.8531768,0.226",0.154",193.66339) # color=red width=3 text={PA194-R274}
+ellipse(287.8867775,16.8615894,0.256",0.648",85.343627) # color=red width=3 text={PA085-R274}
+ellipse(287.8714826,16.8571880,0.134",0.100",243.58883) # color=red width=3 text={PA244-R275}
+ellipse(287.8811525,16.8533081,0.141",0.171",162.02842) # color=red width=3 text={PA162-R275}
+ellipse(287.8732488,16.8544473,0.267",0.129",219.5603) # color=red width=3 text={PA220-R284}
+ellipse(287.8728254,16.8547837,0.147",0.175",223.80487) # color=red width=3 text={PA224-R286}
+ellipse(287.8711433,16.8569600,0.129",0.182",243.04412) # color=red width=3 text={PA243-R287}
+ellipse(287.8770861,16.8525705,0.149",0.107",190.49697) # color=red width=3 text={PA190-R293}
+ellipse(287.8876064,16.8608099,0.095",0.090",88.545105) # color=red width=3 text={PA089-R308}
+ellipse(287.8824985,16.8521924,0.103",0.225",156.44966) # color=red width=3 text={PA156-R329}
+ellipse(287.8828459,16.8521220,0.751",0.239",157.04405) # color=red width=3 text={PA157-R331}
+ellipse(287.8824727,16.8520897,1.145",3.101",155.77752) # color=red width=3 text={PA156-R336}
+ellipse(287.8814356,16.8516119,0.113",0.120",163.51354) # color=red width=3 text={PA164-R337}
+ellipse(287.8824777,16.8514977,0.156",0.106",158.0381) # color=red width=3 text={PA158-R351}
+circle(287.8778521,16.8609525,0.200") # color=yellow text={PA296-R030}
+circle(287.8794924,16.8609280,0.200") # color=yellow text={PA067-R032}
+circle(287.8791787,16.8614277,0.200") # color=yellow text={PA031-R033}
+circle(287.8796538,16.8608725,0.200") # color=yellow text={PA072-R035}
+circle(287.8789726,16.8616179,0.200") # color=yellow text={PA017-R038}
+circle(287.8797853,16.8612741,0.200") # color=yellow text={PA058-R044}
+circle(287.8781001,16.8617713,0.200") # color=yellow text={PA338-R045}
+circle(287.8797524,16.8614921,0.200") # color=yellow text={PA050-R049}
+circle(287.8793866,16.8619518,0.200") # color=yellow text={PA028-R054}
+circle(287.8768018,16.8603758,0.200") # color=yellow text={PA262-R064}
+circle(287.8782524,16.8587758,0.200") # color=yellow text={PA192-R066}
+circle(287.8779082,16.8588359,0.200") # color=yellow text={PA202-R068}
+circle(287.8767550,16.8599656,0.200") # color=yellow text={PA251-R068}
+circle(287.8784516,16.8586276,0.200") # color=yellow text={PA185-R071}
+circle(287.8787930,16.8585256,0.200") # color=yellow text={PA177-R075}
+circle(287.8801728,16.8621798,0.200") # color=yellow text={PA042-R077}
+circle(287.8775139,16.8624787,0.200") # color=yellow text={PA330-R077}
+circle(287.8801952,16.8624565,0.200") # color=yellow text={PA039-R083}
+circle(287.8786942,16.8581963,0.200") # color=yellow text={PA179-R085}
+circle(287.8769440,16.8585827,0.200") # color=yellow text={PA219-R092}
+circle(287.8813845,16.8603776,0.200") # color=yellow text={PA095-R093}
+circle(287.8772550,16.8628867,0.200") # color=yellow text={PA330-R093}
+circle(287.8784268,16.8633671,0.200") # color=yellow text={PA356-R098}
+circle(287.8759385,16.8597912,0.200") # color=yellow text={PA253-R098}
+circle(287.8789095,16.8634609,0.200") # color=yellow text={PA005-R101}
+circle(287.8785673,16.8634522,0.200") # color=yellow text={PA357-R101}
+circle(287.8816452,16.8603097,0.200") # color=yellow text={PA096-R102}
+circle(287.8772785,16.8580771,0.200") # color=yellow text={PA207-R102}
+circle(287.8774855,16.8579460,0.200") # color=yellow text={PA203-R102}
+circle(287.8785823,16.8634760,0.200") # color=yellow text={PA359-R104}
+circle(287.8757942,16.8616025,0.200") # color=yellow text={PA290-R104}
+circle(287.8779650,16.8577088,0.200") # color=yellow text={PA193-R105}
+circle(287.8807775,16.8628149,0.200") # color=yellow text={PA043-R107}
+circle(287.8814476,16.8619866,0.200") # color=yellow text={PA062-R108}
+circle(287.8762893,16.8585071,0.200") # color=yellow text={PA227-R110}
+circle(287.8773868,16.8577670,0.200") # color=yellow text={PA203-R110}
+circle(287.8808771,16.8628211,0.200") # color=yellow text={PA044-R110}
+circle(287.8806928,16.8630482,0.200") # color=yellow text={PA039-R111}
+circle(287.8777014,16.8576176,0.200") # color=yellow text={PA197-R112}
+circle(287.8819095,16.8609349,0.200") # color=yellow text={PA084-R112}
+circle(287.8792493,16.8574988,0.200") # color=yellow text={PA170-R113}
+circle(287.8781386,16.8574931,0.200") # color=yellow text={PA188-R114}
+circle(287.8817550,16.8593160,0.200") # color=yellow text={PA113-R116}
+circle(287.8820607,16.8609878,0.200") # color=yellow text={PA083-R117}
+circle(287.8784895,16.8572615,0.200") # color=yellow text={PA183-R119}
+circle(287.8772158,16.8575683,0.200") # color=yellow text={PA205-R119}
+circle(287.8815024,16.8625306,0.200") # color=yellow text={PA055-R120}
+circle(287.8821776,16.8605897,0.200") # color=yellow text={PA090-R121}
+circle(287.8769106,16.8576267,0.200") # color=yellow text={PA209-R122}
+circle(287.8794129,16.8572990,0.200") # color=yellow text={PA167-R122}
+circle(287.8822506,16.8604984,0.200") # color=yellow text={PA092-R123}
+circle(287.8806867,16.8635141,0.200") # color=yellow text={PA034-R126}
+circle(287.8814378,16.8628680,0.200") # color=yellow text={PA050-R126}
+circle(287.8786625,16.8569481,0.200") # color=yellow text={PA180-R130}
+circle(287.8795113,16.8570322,0.200") # color=yellow text={PA167-R131}
+circle(287.8790777,16.8568941,0.200") # color=yellow text={PA174-R133}
+circle(287.8820229,16.8625061,0.200") # color=yellow text={PA060-R134}
+circle(287.8826275,16.8605671,0.200") # color=yellow text={PA090-R137}
+circle(287.8826554,16.8609031,0.200") # color=yellow text={PA085-R138}
+circle(287.8809230,16.8637940,0.200") # color=yellow text={PA033-R138}
+circle(287.8810128,16.8637568,0.200") # color=yellow text={PA036-R139}
+circle(287.8819605,16.8629164,0.200") # color=yellow text={PA054-R139}
+circle(287.8766934,16.8571306,0.200") # color=yellow text={PA209-R141}
+circle(287.8781333,16.8646092,0.200") # color=yellow text={PA353-R145}
+circle(287.8827174,16.8617376,0.200") # color=yellow text={PA074-R145}
+circle(287.8826462,16.8592587,0.200") # color=yellow text={PA109-R145}
+circle(287.8774498,16.8566725,0.200") # color=yellow text={PA196-R146}
+circle(287.8824479,16.8625148,0.200") # color=yellow text={PA062-R147}
+circle(287.8809090,16.8641499,0.200") # color=yellow text={PA031-R147}
+circle(287.8784226,16.8647277,0.200") # color=yellow text={PA357-R148}
+circle(287.8826187,16.8621539,0.200") # color=yellow text={PA068-R148}
+circle(287.8804204,16.8568177,0.200") # color=yellow text={PA156-R149}
+circle(287.8830128,16.8600605,0.200") # color=yellow text={PA097-R151}
+circle(287.8788256,16.8648589,0.200") # color=yellow text={PA002-R153}
+circle(287.8786790,16.8648833,0.200") # color=yellow text={PA360-R153}
+circle(287.8831131,16.8604124,0.200") # color=yellow text={PA093-R153}
+circle(287.8783966,16.8649872,0.200") # color=yellow text={PA357-R158}
+circle(287.8832653,16.8606201,0.200") # color=yellow text={PA090-R158}
+circle(287.8776145,16.8649291,0.200") # color=yellow text={PA347-R159}
+circle(287.8831302,16.8617994,0.200") # color=yellow text={PA074-R159}
+circle(287.8791442,16.8561024,0.200") # color=yellow text={PA174-R162}
+circle(287.8787296,16.8651494,0.200") # color=yellow text={PA001-R163}
+circle(287.8782594,16.8651405,0.200") # color=yellow text={PA355-R163}
+circle(287.8790270,16.8651845,0.200") # color=yellow text={PA004-R164}
+circle(287.8776613,16.8651471,0.200") # color=yellow text={PA348-R166}
+circle(287.8833588,16.8617208,0.200") # color=yellow text={PA076-R166}
+circle(287.8819741,16.8640480,0.200") # color=yellow text={PA042-R168}
+circle(287.8801555,16.8560700,0.200") # color=yellow text={PA162-R171}
+circle(287.8833299,16.8623086,0.200") # color=yellow text={PA069-R172}
+circle(287.8795298,16.8558387,0.200") # color=yellow text={PA170-R174}
+circle(287.8786431,16.8557241,0.200") # color=yellow text={PA180-R174}
+circle(287.8782331,16.8655043,0.200") # color=yellow text={PA356-R175}
+circle(287.8778684,16.8557261,0.200") # color=yellow text={PA189-R176}
+circle(287.8770261,16.8558747,0.200") # color=yellow text={PA198-R178}
+circle(287.8762779,16.8561643,0.200") # color=yellow text={PA207-R178}
+circle(287.8791240,16.8655201,0.200") # color=yellow text={PA005-R178}
+circle(287.8763194,16.8560723,0.200") # color=yellow text={PA206-R180}
+circle(287.8760461,16.8561856,0.200") # color=yellow text={PA209-R181}
+circle(287.8836938,16.8622817,0.200") # color=yellow text={PA071-R183}
+circle(287.8838954,16.8617465,0.200") # color=yellow text={PA078-R183}
+circle(287.8791358,16.8657715,0.200") # color=yellow text={PA006-R185}
+circle(287.8769745,16.8556782,0.200") # color=yellow text={PA198-R185}
+circle(287.8781458,16.8657416,0.200") # color=yellow text={PA355-R186}
+circle(287.8840741,16.8606190,0.200") # color=yellow text={PA090-R187}
+circle(287.8785979,16.8553251,0.200") # color=yellow text={PA180-R189}
+circle(287.8751082,16.8565673,0.200") # color=yellow text={PA220-R189}
+circle(287.8731391,16.8606539,0.200") # color=yellow text={PA271-R189}
+circle(287.8763927,16.8557292,0.200") # color=yellow text={PA204-R191}
+circle(287.8754413,16.8560316,0.200") # color=yellow text={PA214-R197}
+circle(287.8844074,16.8605480,0.200") # color=yellow text={PA091-R197}
+circle(287.8730050,16.8617396,0.200") # color=yellow text={PA282-R198}
+circle(287.8757284,16.8558171,0.200") # color=yellow text={PA210-R198}
+circle(287.8761368,16.8555880,0.200") # color=yellow text={PA206-R200}
+circle(287.8763866,16.8554685,0.200") # color=yellow text={PA203-R200}
+circle(287.8780541,16.8662057,0.200") # color=yellow text={PA354-R202}
+circle(287.8844872,16.8611023,0.200") # color=yellow text={PA085-R202}
+circle(287.8845255,16.8603771,0.200") # color=yellow text={PA092-R204}
+circle(287.8772102,16.8551031,0.200") # color=yellow text={PA194-R204}
+circle(287.8744915,16.8565195,0.200") # color=yellow text={PA224-R205}
+circle(287.8764208,16.8552722,0.200") # color=yellow text={PA202-R206}
+circle(287.8846543,16.8619099,0.200") # color=yellow text={PA077-R212}
+circle(287.8760679,16.8552045,0.200") # color=yellow text={PA205-R215}
+circle(287.8849313,16.8605046,0.200") # color=yellow text={PA091-R215}
+circle(287.8753297,16.8554912,0.200") # color=yellow text={PA212-R215}
+circle(287.8733010,16.8573695,0.200") # color=yellow text={PA238-R217}
+circle(287.8848398,16.8620883,0.200") # color=yellow text={PA076-R219}
+circle(287.8848307,16.8619872,0.200") # color=yellow text={PA077-R219}
+circle(287.8722409,16.8607153,0.200") # color=yellow text={PA271-R220}
+circle(287.8789544,16.8544205,0.200") # color=yellow text={PA177-R222}
+circle(287.8721616,16.8607546,0.200") # color=yellow text={PA271-R224}
+circle(287.8781653,16.8543773,0.200") # color=yellow text={PA185-R225}
+circle(287.8759093,16.8548888,0.200") # color=yellow text={PA204-R225}
+circle(287.8851656,16.8613643,0.200") # color=yellow text={PA083-R226}
+circle(287.8790341,16.8541503,0.200") # color=yellow text={PA177-R232}
+circle(287.8734099,16.8564469,0.200") # color=yellow text={PA230-R234}
+circle(287.8758289,16.8546349,0.200") # color=yellow text={PA204-R234}
+circle(287.8728290,16.8571660,0.200") # color=yellow text={PA238-R234}
+circle(287.8743335,16.8555053,0.200") # color=yellow text={PA219-R235}
+circle(287.8718441,16.8615915,0.200") # color=yellow text={PA279-R237}
+circle(287.8740207,16.8552507,0.200") # color=yellow text={PA220-R249}
+circle(287.8719619,16.8579225,0.200") # color=yellow text={PA247-R249}
+circle(287.8718169,16.8580394,0.200") # color=yellow text={PA249-R252}
+circle(287.8860893,16.8602380,0.200") # color=yellow text={PA093-R256}
+circle(287.8804025,16.8536048,0.200") # color=yellow text={PA167-R257}
+circle(287.8771550,16.8676376,0.200") # color=yellow text={PA348-R258}
+circle(287.8861903,16.8610217,0.200") # color=yellow text={PA086-R259}
+circle(287.8862252,16.8601167,0.200") # color=yellow text={PA094-R261}
+circle(287.8770227,16.8678301,0.200") # color=yellow text={PA348-R264}
+circle(287.8735780,16.8549930,0.200") # color=yellow text={PA221-R266}
+circle(287.8713640,16.8580065,0.200") # color=yellow text={PA249-R267}
+circle(287.8762964,16.8677315,0.200") # color=yellow text={PA343-R268}
+circle(287.8864501,16.8613253,0.200") # color=yellow text={PA084-R268}
+circle(287.8718409,16.8569462,0.200") # color=yellow text={PA241-R269}
+circle(287.8866055,16.8608690,0.200") # color=yellow text={PA088-R273}
+circle(287.8767738,16.8531930,0.200") # color=yellow text={PA194-R274}
+circle(287.8866046,16.8612383,0.200") # color=yellow text={PA085-R274}
+circle(287.8714846,16.8571828,0.200") # color=yellow text={PA244-R275}
+circle(287.8811425,16.8533207,0.200") # color=yellow text={PA162-R275}
+circle(287.8733512,16.8544994,0.200") # color=yellow text={PA220-R284}
+circle(287.8728732,16.8548307,0.200") # color=yellow text={PA224-R286}
+circle(287.8711744,16.8569739,0.200") # color=yellow text={PA243-R287}
+circle(287.8770893,16.8525803,0.200") # color=yellow text={PA190-R293}
+circle(287.8876096,16.8608077,0.200") # color=yellow text={PA089-R308}
+circle(287.8824768,16.8522191,0.200") # color=yellow text={PA156-R329}
+circle(287.8824073,16.8520931,0.200") # color=yellow text={PA157-R331}
+circle(287.8826656,16.8520643,0.200") # color=yellow text={PA156-R336}
+circle(287.8814306,16.8516177,0.200") # color=yellow text={PA164-R337}
+circle(287.8824718,16.8515161,0.200") # color=yellow text={PA158-R351}
+circle(287.8717853,16.8616534,0.000")
+# projection(287.8844085,16.8619451,287.8844085,16.8619451,0.000")
