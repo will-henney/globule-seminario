@@ -225,6 +225,8 @@ class SourceCutout:
         )
         self.gauss_sigma = self.fitted.x_stddev.value * self.pixel_scale
         self.gauss_bright = self.fitted.amplitude.value
+        self.gauss_flux = self.fitted.amplitude.value * 2 * np.pi * self.fitted.x_stddev.value ** 2
+        self.gauss_aperture_flux = np.sum(self.fitted(self.x[self.coremask], self.y[self.coremask]))
 
 
 def main(
@@ -279,6 +281,8 @@ def main(
                 "Bright Peak": cutout.bright_peak,
                 "Bright Gauss": cutout.gauss_bright,
                 "Core flux": cutout.flux_core,
+                "Core flux Gauss": cutout.gauss_aperture_flux,
+                "Total flux Gauss": cutout.gauss_flux,
                 "Bright BG": cutout.bright_bg,
                 "MAD BG": cutout.mad_bg,
                 "Fill fraction": cutout.fillfrac,
