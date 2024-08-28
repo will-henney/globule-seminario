@@ -1,7 +1,6 @@
 ---
 jupyter:
   jupytext:
-    formats: md,ipynb,py:light
     text_representation:
       extension: .md
       format_name: markdown
@@ -1509,16 +1508,27 @@ And the 95th/5th
 df_spans(peakdfs, 0.9)
 ```
 
+<!-- #region -->
 So now things are not looking so bad, so long as we take the Gaussian values!
 
-We get a ratio of about 10 for flux and about 2 for radius (for H, for instance). This means that the radius variation can explain a knot Ha flux variation of 2**3 = 8 at constant separation (and hence constant ionizing flux). So the majority of the flux variation 
+We get a ratio of about 10 for flux and about 2 for radius (for H, for instance).
+
+This means that the radius variation can explain a knot Ha flux variation of 2**2 = 4 at constant separation (and hence constant ionizing flux). So the other factors need to explain a factor of 2.5 in flux, which is just about feasible. 
+
+The other factors might be:
+* Range of true radii. Would have to be a factor of sqrt(2.5) = 1.6 if this were the only factor. Remember this is the roughly (mean + 2 sigma) / (mean - 2 sigma), so that implies (sigma/mean) = 0.14
+* Shadowing by another knot in front
+* Viewing angle-dependent extinction (only important for side-on or tail-on angles, which should be rare). 
+
+
+1 + 2 x = A - 2 A x => x = (A - 1) / (2 A + 1)
+<!-- #endregion -->
 
 ```python
 df_spans(peakdfs, 0.9, 75)
 ```
 
-So we get very comparable results when we restrict ourselves to the 25% of knots with the best s/n
+So we get very comparable results when we restrict ourselves to the 25% of knots with the best s/n, which suggests that most of the variation is real. 
 
-```python
 
-```
+However, the implication of this is that the radius variations are a at least half of the variations in flux. Actually, maybe I should be comparing variances, in which case the situation is much worse!

@@ -354,6 +354,27 @@ def main(
     )
     regs.write(outfile, format="ds9", overwrite=True)
     print(f"Saved gauss fit regions to {outfile}")
+    
+    # Repeat for the gaussian fluxes
+    outfile = imagefile.replace(".fits", "-knot-gauss-fluxes.reg")
+    regs = rg.Regions(
+        [
+            rg.CircleSkyRegion(
+                center=cutout.gauss_center,
+                radius=(
+                    cutout.gauss_sigma
+                    if np.isfinite(cutout.gauss_sigma)
+                    else 0.2 * u.arcsec
+                ),
+                meta={
+                    "text": cutout.label,
+                },
+            )
+            for cutout in cutouts
+        ]
+    )
+    regs.write(outfile, format="ds9", overwrite=True)
+    print(f"Saved gauss fit regions to {outfile}")
 
 
 if __name__ == "__main__":
