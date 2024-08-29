@@ -1,0 +1,20 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+icrs
+ellipse(287.8825182,16.8517881,4.000",4.000",1.3771877e-06) # color=cyan width=4 text={S-33} tag={Groups}
+ellipse(287.8765162,16.8679028,4.000",4.000",1.3771877e-06) # color=cyan width=4 text={N-27} tag={Groups}
+ellipse(287.8782141,16.8655817,8.000",4.000",350) # color=cyan width=4 text={N-16} tag={Groups}
+ellipse(287.8777096,16.8631730,6.000",4.000",340) # color=cyan width=4 text={N-10} tag={Groups}
+ellipse(287.8725137,16.8611420,6.000",4.000",280) # color=cyan width=4 text={W-21} tag={Groups}
+ellipse(287.8762799,16.8605929,5.000",3.000",270) # color=cyan width=4 text={W-08} tag={Groups}
+ellipse(287.8792337,16.8614386,4.000",3.000",14.999997) # color=cyan width=4 text={NE-04} tag={Groups}
+ellipse(287.8741160,16.8548383,17.302",4.471",225) # color=cyan width=4 text={SW-27} tag={Groups}
+ellipse(287.8782957,16.8585703,6.000",2.000",200) # color=cyan width=4 text={S-07} tag={Groups}
+ellipse(287.8778399,16.8573914,9.000",3.000",195) # color=cyan width=4 text={S-12} tag={Groups}
+ellipse(287.8776566,16.8549328,16.406",4.685",200) # color=cyan width=4 text={S-20} tag={Groups}
+ellipse(287.8866232,16.8610208,6.000",4.000",89.999997) # color=cyan width=4 text={E-27} tag={Groups}
+ellipse(287.8845986,16.8611070,6.000",3.000",89.999997) # color=cyan width=4 text={E-20} tag={Groups}
+ellipse(287.8818258,16.8615391,10.000",5.500",69.999997) # color=cyan width=4 text={E-13} tag={Groups}
+ellipse(287.8846903,16.8549836,7.899",4.183",140) # color=cyan width=4 text={SE-30} dash=1 tag={Groups}
+ellipse(287.8833714,16.8660733,4.918",3.467",44.999997) # color=cyan width=4 text={NE-20} dash=1 tag={Groups}
+ellipse(287.8816007,16.8578891,4.033",3.366",140) # color=cyan width=4 text={SE-13} dash=1 tag={Groups}

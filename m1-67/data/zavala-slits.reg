@@ -1,0 +1,15 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+image
+line(1853.9181,3801.9534,1853.8395,761.27591) # line=0 0 width=4 text={E} tag={Slits}
+line(2065.6396,3801.9493,2065.541,761.27177) # line=0 0 width=4 text={F} tag={Slits}
+line(2264.8435,3801.9468,2264.7272,761.26924) # line=0 0 width=4 text={G} tag={Slits}
+line(2420.2447,3801.9461,2420.1531,761.26858) # line=0 0 width=4 text={H} tag={Slits}
+line(2723.3862,3801.9483,2723.2909,761.27081) # line=0 0 width=4 text={I} tag={Slits}
+line(2990.5565,3805.5342,2990.45,764.85664) # line=0 0 width=4 text={J} tag={Slits}
+line(3180.8663,3805.54,3180.7862,764.86241) # line=0 0 width=4 text={K} tag={Slits}
+line(3457.4877,3805.5513,3457.4459,764.87373) # line=0 0 width=4 text={L} tag={Slits}
+line(3752.7539,3805.5513,3752.7121,764.87373) # line=0 0 width=4 text={M} tag={Slits}
+line(1560.3598,3801.9629,1560.2867,761.28539) # line=0 0 width=4 text={D} tag={Slits}
+line(1316.5878,3801.9735,1316.5277,761.29598) # line=0 0 width=4 text={C} tag={Slits}
+line(1095.0263,3801.9859,1094.9828,761.30834) # line=0 0 width=4 text={B} tag={Slits}

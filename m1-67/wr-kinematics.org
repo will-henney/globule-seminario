@@ -45,4 +45,78 @@
     - [ ] may also be a similar problem in slit D - we need to bear this in mind if calculating knot velocities (strangely, the theoretical PV image for slit D also seems shifted, but in the opposite direction)
   - narrow and unshifted (+0 km/s) in SW (bottom of slit M)
   - broad and blueshifted (-25 km/s) in S (bottom of slit G) but this might be a jet
+* Measurements of clumps in Zavala slits
 
+| Slit |     x |   y |   V |   PA |    r | Group       | Shell |
+|------+-------+-----+-----+------+------+-------------+-------|
+| D    | -26.8 |  13 |  30 |  64. | 29.8 | E-27        |       |
+| D    | -26.8 |   0 |  32 |  90. | 26.8 | E-27        |       |
+| D    | -26.8 |  -4 | -18 |  98. | 27.1 | E-27        |       |
+| D    | -26.8 | -20 |  34 | 127. | 33.4 | E of S-33 ? |       |
+|------+-------+-----+-----+------+------+-------------+-------|
+| E    | -18.0 |   8 |  26 |  66. | 19.7 | N of E-20   |       |
+| E    | -18.0 |   1 |  33 |  87. | 18.0 | E-20        |       |
+| E    | -18.0 |  -4 | -20 | 103. | 18.4 |             |       |
+|------+-------+-----+-----+------+------+-------------+-------|
+| F    | -11.3 |  15 |  32 |  37. | 18.8 | N of E-20   |       |
+| F    | -11.3 |   9 |  35 |  51. | 14.4 | E-13        |       |
+| F    | -11.3 |   2 |  36 |  80. | 11.5 | E-13        |       |
+| F    | -11.3 |  -4 | -20 | 109. | 12.0 | E-13        |       |
+| F    | -11.3 |  -8 |  45 | 125. | 13.8 | E-13        |       |
+|------+-------+-----+-----+------+------+-------------+-------|
+| G    |  -5.1 |     |     |  90. |  5.1 |             |       |
+|------+-------+-----+-----+------+------+-------------+-------|
+| H    |   0.0 |  17 |     |  0e0 | 17.0 | N-16        | ?     |
+| H    |   0.0 |  10 |     |  0e0 | 10.0 | N-10        | inner |
+| H    |   0.0 |   3 |     |  0e0 |  3.0 | NE-04       | inner |
+| H    |   0.0 |  -9 |     | 180. |  9.0 | S-07        | inner |
+| H    |   0.0 | -13 |     | 180. | 13.0 | S-12        | inner |
+| H    |   0.0 | -23 |     | 180. | 23.0 | S-20        | outer |
+|------+-------+-----+-----+------+------+-------------+-------|
+| I    |   9.4 |  25 |     | 339. | 26.7 | N-27        |       |
+| I    |   9.4 |  21 |     | 336. | 23.0 | N-16        |       |
+| I    |   9.4 |   4 |     | 293. | 10.2 | NE-04       |       |
+| I    |   9.4 |  -3 |     | 252. |  9.9 | W-08        |       |
+| I    |   9.4 |  -9 |     | 226. | 13.0 | S-10        |       |
+| I    |   9.4 | -18 |     | 208. | 20.3 | S-20        |       |
+|------+-------+-----+-----+------+------+-------------+-------|
+| J    |  16.5 |  -1 |     | 267. | 16.5 | W-21        |       |
+| J    |  16.5 | -15 |     | 228. | 22.3 | S-20 SW-27  |       |
+| J    |  16.5 | -23 |     | 216. | 28.3 | SW-27       |       |
+|------+-------+-----+-----+------+------+-------------+-------|
+| K    |  23.8 |   0 |     | 270. | 23.8 | W-21        |       |
+| K    |  23.8 | -12 |     | 243. | 26.7 | SW-27       |       |
+#+TBLFM: $5=arctan2(-$2, $3) % 360;f0::$6=sqrt($2**2 + $3**2);f1
+** Velocity ellipses in the slits
+- From the distribution of "true" radii derived from the ram pressure analysis, it seems that there are at least two shells of knots
+  - Inner shell from 15 to 20 arcsec
+  - Outer shell from 28 to 34 arcse
+- So we are going to put 3 ellipses at 15, 20, 30 arcsec
+- We will assume they all have the same expansion velocity: 40 km/s (subject to revision)
+- We can easily calculate the ellipse semi-major axes (V_e, y_e) for a shell of radius R_s and expansion velocity V_s in a slit with displacement x_0
+  - V_e = V_s * sqrt(1 - (x_0 / R_s)^2)
+  - y_e = R_s * sqrt(1 - (x_0 / R_s)^2)
+- Note that (V_e, y_e) involve the same factor. which we will call scale = sqrt(1 - (x_0 / R_s)^2)
+| Slit |    x_0 | scale 15 | scale 20 | scale 30 |
+|------+-------+----------+----------+----------|
+| B    | -41.4 |        0 |        0 |        0 |
+| C    | -34.4 |        0 |        0 |        0 |
+| D    | -26.8 |        0 |        0 |    0.449 |
+| E    | -18.0 |        0 |    0.436 |    0.800 |
+| F    | -11.3 |    0.658 |    0.825 |    0.926 |
+| G    |  -5.1 |    0.940 |    0.967 |    0.985 |
+| H    |   0.0 |    1.000 |    1.000 |    1.000 |
+| I    |   9.4 |    0.779 |    0.883 |    0.950 |
+| J    |  16.5 |        0 |    0.565 |    0.835 |
+| K    |  23.8 |        0 |        0 |    0.609 |
+| L    |  32.1 |        0 |        0 |        0 |
+| M    |  41.1 |        0 |        0 |        0 |
+#+TBLFM: $3=abs($2) < 15 ? sqrt(1 - ($2/15)**2):0;f3::$4=abs($2) < 20 ? sqrt(1 - ($2/20)**2):0;f3::$5=abs($2) < 30 ? sqrt(1 - ($2/30)**2):0;f3
+** Comments on the groups and slits
+- Some of the slits might need moving slightly in velocity, although I would rather not do this if I can help it
+- Some of the original groups are too large, and would be better split up
+  - E-13 needs to have NE-13 removed from it
+  - S-20 spans too large a range in PA, should be split into S-20 and SSW-20, which have different kinematics
+  - SW-27 to -> SW-27 and SSW-27
+- We also have some new groups that I have identified, although they have no knots yet
+  - SE-30, SE-16, NE-20
