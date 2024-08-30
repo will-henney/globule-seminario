@@ -90,29 +90,33 @@
 ** Velocity ellipses in the slits
 - From the distribution of "true" radii derived from the ram pressure analysis, it seems that there are at least two shells of knots
   - Inner shell from 15 to 20 arcsec
-  - Outer shell from 28 to 34 arcse
+  - Outer shell from 28 to 34 arcsec
 - So we are going to put 3 ellipses at 15, 20, 30 arcsec
 - We will assume they all have the same expansion velocity: 40 km/s (subject to revision)
+  - Actually, we will try to use the Zavala value of 46.3
+  - (275.3 - 254.0) = 21.3 pix is equivalent to 160 km/s
+  - So a width of 2 46.3 = 92.6 km/s is equivalent to 21.3 92.6 / 160 = 12.3 pix
+  - That turned out to be a bit too large for slit H
 - We can easily calculate the ellipse semi-major axes (V_e, y_e) for a shell of radius R_s and expansion velocity V_s in a slit with displacement x_0
   - V_e = V_s * sqrt(1 - (x_0 / R_s)^2)
   - y_e = R_s * sqrt(1 - (x_0 / R_s)^2)
 - Note that (V_e, y_e) involve the same factor. which we will call scale = sqrt(1 - (x_0 / R_s)^2)
-| Slit |    x_0 | scale 15 | scale 20 | scale 30 |
-|------+-------+----------+----------+----------|
-| B    | -41.4 |        0 |        0 |        0 |
-| C    | -34.4 |        0 |        0 |        0 |
-| D    | -26.8 |        0 |        0 |    0.449 |
-| E    | -18.0 |        0 |    0.436 |    0.800 |
-| F    | -11.3 |    0.658 |    0.825 |    0.926 |
-| G    |  -5.1 |    0.940 |    0.967 |    0.985 |
-| H    |   0.0 |    1.000 |    1.000 |    1.000 |
-| I    |   9.4 |    0.779 |    0.883 |    0.950 |
-| J    |  16.5 |        0 |    0.565 |    0.835 |
-| K    |  23.8 |        0 |        0 |    0.609 |
-| L    |  32.1 |        0 |        0 |        0 |
-| M    |  41.1 |        0 |        0 |        0 |
-#+TBLFM: $3=abs($2) < 15 ? sqrt(1 - ($2/15)**2):0;f3::$4=abs($2) < 20 ? sqrt(1 - ($2/20)**2):0;f3::$5=abs($2) < 30 ? sqrt(1 - ($2/30)**2):0;f3
-** Comments on the groups and slits
+| Slit |    x_0 | scale 15 | scale 20 | scale 25 | scale 30 |
+|------+-------+----------+----------+----------+----------|
+| B    | -41.4 |        0 |        0 |        0 |        0 |
+| C    | -34.4 |        0 |        0 |        0 |        0 |
+| D    | -26.8 |        0 |        0 |        0 |    0.449 |
+| E    | -18.0 |        0 |    0.436 |    0.694 |    0.800 |
+| F    | -11.3 |    0.658 |    0.825 |    0.892 |    0.926 |
+| G    |  -5.1 |    0.940 |    0.967 |    0.979 |    0.985 |
+| H    |   0.0 |    1.000 |    1.000 |    1.000 |    1.000 |
+| I    |   9.4 |    0.779 |    0.883 |    0.927 |    0.950 |
+| J    |  16.5 |        0 |    0.565 |    0.751 |    0.835 |
+| K    |  23.8 |        0 |        0 |    0.306 |    0.609 |
+| L    |  32.1 |        0 |        0 |        0 |        0 |
+| M    |  41.1 |        0 |        0 |        0 |        0 |
+#+TBLFM: $3=abs($2) < 15 ? sqrt(1 - ($2/15)**2):0;f3::$4=abs($2) < 20 ? sqrt(1 - ($2/20)**2):0;f3::$5=abs($2) < 25 ? sqrt(1 - ($2/25)**2):0;f3::$6=abs($2) < 30 ? sqrt(1 - ($2/30)**2):0;f3
+** Comments on the groups and slits 
 - Some of the slits might need moving slightly in velocity, although I would rather not do this if I can help it
 - Some of the original groups are too large, and would be better split up
   - E-13 needs to have NE-13 removed from it
