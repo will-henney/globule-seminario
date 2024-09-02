@@ -1,0 +1,10 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+icrs
+line(287.8929337,16.8522156,287.8618462,16.8522156) # line=0 0 color=yellow dash=1 tag={Declinations}
+line(287.8929337,16.8688822,287.8618462,16.8688822) # line=0 0 color=yellow dash=1 tag={Declinations}
+line(287.8929337,16.8577711,287.8618462,16.8577711) # line=0 0 color=yellow dash=1 tag={Declinations}
+line(287.8929337,16.8549933,287.8618462,16.8549933) # line=0 0 color=yellow dash=1 tag={Declinations}
+line(287.8929337,16.8605489,287.8618462,16.8605489) # line=0 0 color=yellow width=2 dash=1 tag={Declinations}
+line(287.8929337,16.8633267,287.8618462,16.8633267) # line=0 0 color=yellow dash=1 tag={Declinations}
+line(287.8929337,16.8661044,287.8618462,16.8661044) # line=0 0 color=yellow dash=1 tag={Declinations}

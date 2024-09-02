@@ -742,6 +742,45 @@ Try an alternative coefficient to avoid oversubtracting the neutral core
 : PSF FWHM (pixels): 4.7 Match to = 4.7
 : Extra smoothing (pixels): [0.0]
 
+** TODO Long wavelength combos
+:LOGBOOK:
+- State "TODO"       from              [2024-09-01 Sun 18:08] \\
+  We already did some of these, but I want one that better isolates the globules
+:END:
+
+*** Combo G - neutral
+- From the ratio images, it looks like f1280w is about 6 times brighter than f1130w in the ionized gas, so we will use that to try and isolate the globule emission in the f1130w image
+
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-linear-combo.py \
+         --file wr124-jwst-miri-2022-f1130w-radec.fits --coeff 1.0 --bg 23 \
+         --file wr124-jwst-miri-2022-f1280w-radec.fits --coeff -0.2 --bg 26 \
+         --outfile combo-G-neutral.fits \
+         --match-psf  --debug
+#+end_src  
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: [11.3, 12.8]
+: PSF FWHM (pixels): 12.0 13.6 Match to = 13.6
+: Extra smoothing (pixels): [6.4003893937212295, 0.0]
+
+*** Combo GG - neutral
+- And one at shorter wavelengths, based on the f770w and f444w filters
+#+begin_src sh :dir data/reproject :results verbatim
+  python ../../scripts/find-linear-combo.py \
+         --file wr124-jwst-miri-2022-f770w-radec.fits --coeff 1.0 --bg 7.0 \
+         --file wr124-jwst-nircam-2022-f444w-radec.fits --coeff -3.5 --bg 0.2 \
+         --outfile combo-GG-neutral.fits \
+         --match-psf  --debug 
+#+end_src  
+
+#+RESULTS:
+: Pixel scale: 0.0310 arcseconds
+: Wavelengths: [7.7, 4.44]
+: PSF FWHM (pixels): 8.2 4.7 Match to = 8.2
+: Extra smoothing (pixels): [0.0, 6.696847193336982]
+
 ** Comments on the linear combos
 
 *** The short-wave combos: A, AA, DD, EF
@@ -1104,7 +1143,7 @@ And do the same but the other way around, so that the globules are positive and 
 **** Long wavelengths for globule
 #+begin_src sh :dir data/reproject :results verbatim
   python ../../scripts/find-scaled-difference.py \
-         wr124-jwst-miri-2022-f770w-radec.fits \
+         wr124-jwst-ircam-2022-f770w-radec.fits \
          wr124-jwst-nircam-2022-f444w-radec.fits \
          globules-only-f770w-diff-4_0-f444w.fits \
          --scale-b 4.0 \
@@ -1147,7 +1186,7 @@ And do the same but the other way around, so that the globules are positive and 
 : Wavelengths: Filter A = 1.50 Filter B = 0.90
 : PSF FWHM (pixels): Filter A = 1.6 Filter B = 1.0 Match to = 1.6
 **** Mid wavelength for shells
-Subtract f335m from f444w to get the ionized gas in positive and the globules in negative
+Subtract f335m from f444w to get the eutral gas in positive and the globules in negative
 #+begin_src sh :dir data/reproject :results verbatim
   python ../../scripts/find-scaled-difference.py \
          wr124-jwst-nircam-2022-f444w-radec.fits \

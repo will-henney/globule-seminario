@@ -1,0 +1,25 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+icrs
+ellipse(287.8823383,16.8517092,4.000",4.000",1.3771877e-06) # color=magenta width=4 text={S-33} tag={Groups}
+ellipse(287.8765162,16.8679028,4.000",4.000",1.3771877e-06) # color=magenta width=4 text={N-27} tag={Groups}
+ellipse(287.8782141,16.8655817,8.000",4.000",350) # color=magenta width=4 text={N-16} tag={Groups}
+ellipse(287.8777096,16.8631730,6.000",4.000",340) # color=magenta width=4 text={N-10} tag={Groups}
+ellipse(287.8725137,16.8611420,6.000",4.000",280) # color=magenta width=4 text={W-21} tag={Groups}
+ellipse(287.8762799,16.8605929,5.000",3.000",270) # color=magenta width=4 text={W-08} tag={Groups}
+ellipse(287.8792337,16.8614386,4.000",3.000",14.999997) # color=magenta width=4 text={NE-04} tag={Groups}
+ellipse(287.8734728,16.8552517,7.577",4.608",230) # color=blue width=4 text={SW-27} tag={Groups}
+ellipse(287.8782957,16.8585703,6.000",2.000",200) # color=magenta width=4 text={S-07} tag={Groups}
+ellipse(287.8777755,16.8572680,9.000",3.000",195) # color=magenta width=4 text={S-12} tag={Groups}
+ellipse(287.8866232,16.8610208,6.000",4.000",89.999997) # color=magenta width=4 text={E-27} tag={Groups}
+ellipse(287.8845986,16.8611070,6.000",3.000",89.999997) # color=magenta width=4 text={E-20} tag={Groups}
+ellipse(287.8812887,16.8635533,2.420",6.508",39.999997) # color=blue width=4 text={NE-13} tag={Groups}
+ellipse(287.8833714,16.8660732,4.918",3.467",44.999997) # color=magenta width=4 text={NE-20} dash=1 tag={Groups}
+ellipse(287.8846903,16.8549836,7.899",4.183",140) # color=magenta width=4 text={SE-30} dash=1 tag={Groups}
+ellipse(287.8802195,16.8537715,6.163",4.804",170) # color=blue width=4 text={S-25} tag={Groups}
+ellipse(287.8823466,16.8593417,2.859",4.340",110) # color=blue width=4 text={ESE-13} tag={Groups}
+ellipse(287.8822692,16.8614497,5.615",5.593",69.999997) # color=blue width=4 text={E-13} tag={Groups}
+ellipse(287.8760120,16.8554111,6.907",3.978",215) # color=blue width=4 text={SSW-20} tag={Groups}
+ellipse(287.8714891,16.8576294,4.205",3.005",225) # color=blue width=4 text={WSW-27} tag={Groups}
+ellipse(287.8769615,16.8520981,4.652",5.146",190) # color=blue width=4 text={S-27} tag={Groups}
+ellipse(287.8815560,16.8578463,2.335",2.669",140) # color=cyan width=4 text={SE-13} dash=1 tag={Groups}

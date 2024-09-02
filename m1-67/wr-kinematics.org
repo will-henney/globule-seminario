@@ -97,6 +97,7 @@
   - (275.3 - 254.0) = 21.3 pix is equivalent to 160 km/s
   - So a width of 2 46.3 = 92.6 km/s is equivalent to 21.3 92.6 / 160 = 12.3 pix
   - That turned out to be a bit too large for slit H
+- We will use an alternative hypothesis, shown on the [N II] p-v diagrams, that the knot velocity is proportional to R, normalized to 46.3 at R=20
 - We can easily calculate the ellipse semi-major axes (V_e, y_e) for a shell of radius R_s and expansion velocity V_s in a slit with displacement x_0
   - V_e = V_s * sqrt(1 - (x_0 / R_s)^2)
   - y_e = R_s * sqrt(1 - (x_0 / R_s)^2)
@@ -119,8 +120,11 @@
 ** Comments on the groups and slits 
 - Some of the slits might need moving slightly in velocity, although I would rather not do this if I can help it
 - Some of the original groups are too large, and would be better split up
-  - E-13 needs to have NE-13 removed from it
-  - S-20 spans too large a range in PA, should be split into S-20 and SSW-20, which have different kinematics
-  - SW-27 to -> SW-27 and SSW-27
+  - [X] E-13 needs to have NE-13 removed from it
+  - [X] ... and we also need to spit off ESE-13 from  the other side since it has different kinematics - blue shifted instead of red shifted 
+  - [X] S-20 spans too large a range in PA, should be split into S-25 and SSW-20, which have different kinematics
+  - [X] SW-27 to -> SW-27 and SSW-27g
 - We also have some new groups that I have identified, although they have no knots yet
   - SE-30, SE-16, NE-20
+  - But I have decided to get rid of SE-16, since there is only one knot in it and it is very faint
+  - No, now reinstated because I remembered why I put it in the first place - it is a redshited knot below the blueshifted ones
