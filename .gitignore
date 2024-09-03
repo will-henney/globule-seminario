@@ -3,3 +3,4 @@ __pycache__
 *.fits
 .DS_Store
 aux.ctr
+*.afdesign~lock~
