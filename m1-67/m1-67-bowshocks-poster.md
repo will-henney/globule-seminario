@@ -1,3 +1,17 @@
+# New abstract 2024-10 for ngVLA conference
+
+## Title ##
+El impacto del viento estelar y la radiación en glóbulos neutros alrededor de una estrella Wolf-Rayet
+
+English: The impact of stellar wind and radiation on neutral knots around a Wolf-Rayet star
+
+## Abstract ##
+
+### Will's suggestion 
+English version:
+
+The circumstellar nebula M1-67 around the runaway Wolf-Rayet star WR 124 contains hundreds of small neutral knots, as revealed by recent JWST images. The ionized emission from the nebula shows an intricate pattern of shells and filaments, many of which appear associated with the knots but displaced toward the central star. We propose a simple model for the nebula in which photoevaporation flows from the irradiated surfaces of the knots interact with the stellar wind from the Wolf-Rayet star to form hemispherical emission shells. We test this model against JWST images and H alpha HST images of the nebula, confirming that the shells are in pressure balance with both the external stellar wind and the internal photoevaporation flow. We derive the three-dimensional distribution of the knots within the nebula and compare with observations of the knot kinematics, finding a close agreement. The model provides a physical explanation for the observed morphology of the nebula and knots, and suggests that the knots are hydrodynamically shielded from the stellar wind by the photoevaporation flows.
+
 # Plan for poster to present at Wolf Rayet conference June 2023 Morelia
 
 ## Title of poster ##
