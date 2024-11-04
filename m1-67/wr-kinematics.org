@@ -145,3 +145,40 @@
   - SE-30, SE-16, NE-20
   - But I have decided to get rid of SE-16, since there is only one knot in it and it is very faint
   - No, now reinstated because I remembered why I put it in the first place - it is a redshited knot below the blueshifted ones
+** Graphs of the inclination angles
+This is done in the notebook [[file:knot-notebooks-will/knot-groups-kinematics.ipynb]]
+
+#+begin_src sh :dir knot-notebooks-will :results output verbatim
+  jupytext --set-formats 'ipynb,py:light' *.ipynb *.py
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[jupytext] Reading knot-brightness-exploration.ipynb in format ipynb
+[jupytext] Updating notebook metadata with '{"jupytext": {"formats": "ipynb,py:light"}}'
+[jupytext] Updating knot-brightness-exploration.ipynb
+[jupytext] Updating knot-brightness-exploration.py
+[jupytext] Reading knot-groups-kinematics.ipynb in format ipynb
+[jupytext] Updating notebook metadata with '{"jupytext": {"formats": "ipynb,py:light"}}'
+[jupytext] Updating knot-groups-kinematics.ipynb
+[jupytext] Updating knot-groups-kinematics.py
+[jupytext] Reading knot-sizes-exploration.ipynb in format ipynb
+[jupytext] Updating notebook metadata with '{"jupytext": {"formats": "ipynb,py:light"}}'
+[jupytext] Loading knot-sizes-exploration.py
+[jupytext] Updating knot-sizes-exploration.ipynb
+[jupytext] Updating knot-sizes-exploration.py
+[jupytext] Reading uncertainties-and-units-test.ipynb in format ipynb
+[jupytext] Updating notebook metadata with '{"jupytext": {"formats": "ipynb,py:light"}}'
+[jupytext] Updating uncertainties-and-units-test.ipynb
+[jupytext] Updating uncertainties-and-units-test.py
+[jupytext] Reading knot-brightness-exploration.py in format py
+[jupytext] Updating notebook metadata with '{"jupytext": {"formats": "ipynb,py:light"}}'
+[jupytext] Loading knot-brightness-exploration.ipynb
+[jupytext] Updating the timestamp of knot-brightness-exploration.py
+[jupytext] Reading knot-sizes-exploration.py in format py
+[jupytext] Updating notebook metadata with '{"jupytext": {"formats": "ipynb,py:light"}}'
+[jupytext] Loading knot-sizes-exploration.ipynb
+[jupytext] Updating knot-sizes-exploration.ipynb
+[jupytext] Updating knot-sizes-exploration.py
+#+end_example
+
