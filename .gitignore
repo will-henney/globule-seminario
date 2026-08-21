@@ -4,3 +4,4 @@ __pycache__
 .DS_Store
 aux.ctr
 *.afdesign~lock~
+/m1-67/.virtual_documents/

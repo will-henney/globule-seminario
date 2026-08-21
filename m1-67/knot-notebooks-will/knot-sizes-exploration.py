@@ -1,6 +1,7 @@
 # ---
 # jupyter:
 #   jupytext:
+#     formats: ipynb,py:light
 #     text_representation:
 #       extension: .py
 #       format_name: light
@@ -242,7 +243,7 @@ fcols = ["Core flux", "Core flux Gauss", "Total flux Gauss"]
 for combo in peakdfs:
     clip_dataframe(peakdfs[combo], rcols, sig=4)
     purge_high_nanfracs(peakdfs[combo], rcols + bcols, max_allowed=0.1)
-   
+
 
 # Check that it worked.
 
@@ -995,7 +996,7 @@ def distro_span(data, frac=0.9):
     percentiles = [50 * (1 - frac), 50 * (1 + frac)]
     a, b = np.nanpercentile(data, percentiles)
     return b / a
-    
+
 
 
 distro_span(fluxdf['H']), distro_span(rrdf['H']), distro_span(rdf['H'])
@@ -1109,7 +1110,7 @@ def df_spans(dfdict, frac=0.9, min_snr_percentile=0):
             }
         }
     return pd.DataFrame(d)
-    
+
 
 
 df_spans(peakdfs, 0.5)
