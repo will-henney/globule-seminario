@@ -12,6 +12,27 @@ English version:
 
 The circumstellar nebula M1-67 around the runaway Wolf-Rayet star WR 124 contains hundreds of small neutral knots, as revealed by recent JWST images. The ionized emission from the nebula shows an intricate pattern of shells and filaments, many of which appear associated with the knots but displaced toward the central star. We propose a simple model for the nebula in which photoevaporation flows from the irradiated surfaces of the knots interact with the stellar wind from the Wolf-Rayet star to form hemispherical emission shells. We test this model against JWST images and H alpha HST images of the nebula, confirming that the shells are in pressure balance with both the external stellar wind and the internal photoevaporation flow. We derive the three-dimensional distribution of the knots within the nebula and compare with observations of the knot kinematics, finding a close agreement. The model provides a physical explanation for the observed morphology of the nebula and knots, and suggests that the knots are hydrodynamically shielded from the stellar wind by the photoevaporation flows.
 
+### What Roberto used 
+
+The circumstellar nebula M1-67 around the Wolf-Rayet star WR-124
+contains hundreds of small neutral globules, as revealed by recent JWST
+images. However, despite the powerful stellar wind from the star, the
+globules do not interact directly with the wind. Instead, they are
+hydrodynamically shielded by a transonic warm ionized flow away from
+their surfaces that is induced by the Lyman continuum radiation of the
+star. This inwardly directed photoevaporation flow shocks against the
+outflowing stellar wind to form dense hemispherical ionized shells that
+are a few times larger than the globules, and which contribute a
+significant fraction of the recombination line luminosity of the nebula.
+We analyze archival HST H alpha images of the nebula in order to study
+the balance between the ram pressure of the stellar wind and the
+internal pressure due to the photoevaporative flows. By considering a
+steady state hydrodynamic model for these interactions, we obtain
+physical parameters of the collision shells and de-project the spatial
+distribution of globules, finding that the majority are concentrated in
+a narrow range of radii: 0.5 ± 0.1 pc from the star.
+
+
 # Plan for poster to present at Wolf Rayet conference June 2023 Morelia
 
 ## Title of poster ##
